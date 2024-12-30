@@ -12,26 +12,33 @@ Documentation:
     https://sportspagefeeds.com/documentation
 """
 
-
-# to do:
-# more details for final games of sports other than football
-
 class SportsPage(GithubHelper):
     def __init__(self, block_over_limit_calls=True, provide_schedule_json=None, config_file_preference='local', 
-                 github_project=None, github_config_dir=None):
-        """_summary_
+                 github_project=None, github_config_dir=None, timezone="US/Eastern", block_invalid_requests=True):
+        """
+        This class is a custom wrapper for the sportspagefeeds API (https://sportspagefeeds.com/documentation). 
 
-        Args:
-            block_over_limit_calls (bool, optional): _description_. Defaults to True. Note, api limits are only 
+        It provides: 
+        - Methods to utilize each endpoint
+        - Methods to get valid inputs for each endpoint, as documentation is sparse
+        - Methods to parse data returned by common endpoints (e.g. games)
+        - Management of api key and limits, since free plan is strictly 20 calls per day -> You can store your 
+          data locally (by deault) or with a private github repo so you can use the api efficiently across 
+          different hardware.
+
+        Support is currently limited to 'Basic' (free) plan endpoints
+
+        Parameters:
+            block_over_limit_calls (bool, optional): Defaults to True. Note, api limits are only 
                 tracked if this is set to True. If you pay for a subscription and know you will not go over limits, 
                 you should set this to False for best performance.
-                performance.
             provide_schedule_json (_type_, optional): _description_. Defaults to None.
             config_file_preference (str, optional): _description_. Defaults to 'local'.
             github_project (_type_, optional): _description_. Defaults to None.
             github_config_dir (_type_, optional): _description_. Defaults to None.
+            block_invalid_requests (bool): 
         """
-        
+        self.timezone = timezone
         self._config_dict = {}
         self._config_type = config_file_preference
         if config_file_preference == 'github':
@@ -44,17 +51,25 @@ class SportsPage(GithubHelper):
             if not self._check_load_config_from_local():
                 self._guided_setup()
 
+        # Authorizatoin
+        self.base_url = "https://sportspage-feeds.p.rapidapi.com/"
         self._key = self._config_dict['token']
         self.headers = self._create_headers()
-        self.limit_restrict = block_over_limit_calls
-        self.tracker_dict = {}
-        self.tracker_file_name = "sportsPageTracker.json"
-        self.stop_calls = False
 
-        self.today = tC.create_timestamp("%Y-%m-%d")
-        self.base_url = "https://sportspage-feeds.p.rapidapi.com/games"
+        # API limit tracking
+        self.limit_restrict = block_over_limit_calls
+        self.stop_calls = False
+        self.tracker_file_name = "sportsPageTracker.json"
+        self.tracker_dict = {}
+        if self.limit_restrict:
+            self._load_tracker_json_from_file()
         
+        # Various configs
+        self.valid_leagues = ['nfl', 'nba', 'mlb', 'nhl', 'ncaaf', 'ncaab']
+        self.valid_game_statuses = ['scheduled', 'in progress', 'final', 'canceled', 'delayed']
+        self.today = tC.create_timestamp("%Y-%m-%d")
         self.working_schedule = provide_schedule_json
+        self.working_rankings = None
 
     def _check_load_config_from_github(self):
         if self.file_exists("sportsPageConfig.json"):
@@ -104,7 +119,7 @@ class SportsPage(GithubHelper):
         
     def _parse_date_input(self, date_start, date_end, date_format="%Y-%m-%d"):
         if date_start is None and date_end is None:
-            return self.today
+            return None
         elif date_start is not None and date_end is None:
             return tC.convert_date_format(date_start, from_format=date_format, to_format="%Y-%m-%d")
         elif date_start is not None and date_end is not None:
@@ -154,12 +169,66 @@ class SportsPage(GithubHelper):
             else:
                 self.tracker_dict = {}
     
+    def _parse_provide_schedule_input(self, provide_schedule_input):
+        if provide_schedule_input is None:
+            return self.working_schedule
+        else:
+            return provide_schedule_input
+
+    #####################
+    # Endpoints
+    #####################
+    def _valid_request_check(self, league=None, odds_type_filter=None, status_filter=None, conference=None, 
+                             division=None):
+        error_dict = {"validInputs": True}
+
+        # League input check
+        error_dict.update(self._valid_league_input(league))
+        if error_dict['leagueError']:
+            error_dict['validInputs'] = False
+
+        # Status filter check
+        error_dict.update(self._valid_status_filter(status_filter))
+        if error_dict['statusFilterError']:
+            error_dict['validInputs'] = False
+
+        return error_dict
+    
+    def _valid_league_input(self, league_input):
+        if league_input is None:
+            return {"leagueError": False}
+        else:
+            if league_input.lower() in self.valid_leagues:
+                return {"leagueError": False}
+            else:
+                print(f"ERROR: '{league_input}' is not a valid league. Not calling the API. Valid league codes are:\n"
+                      f"{self.valid_leagues}\n"
+                      "Instantiate class with 'block_invalid_requests' = False to ignore this error and call API.")
+                return {"leagueError": True}
+    
+    def _valid_status_filter(self, status_filter):
+        if status_filter is None:
+            return {"statusFilterError": False}
+        else:
+            if status_filter.lower() in self.valid_game_statuses:
+                return {"statusFilterError": False}
+            else:
+                print(f"ERROR: '{status_filter}' is not a valid game status. Not calling the API. Valid statuses are:\n"
+                      f"{self.valid_game_statuses}\n"
+                      "Instantiate class with 'block_invalid_requests' = False to ignore this error and call API.")
+                return {"statusFilterError": True}
+    
     def _check_stop_calls_based_on_limit(self):
+        if not self.limit_restrict:
+            self.stop_calls = False
+            return False
+        
         if self.tracker_dict == {}:
             self._load_tracker_json_from_file()
 
         if self.tracker_dict == {}:
             self.stop_calls = False
+            return False
         else:
             time_now = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
             remaining = self.tracker_dict["remaining"]
@@ -169,52 +238,164 @@ class SportsPage(GithubHelper):
 
             if reset_dict["seconds"] <= 0:
                 self.stop_calls = False
+                return False
             else:
                 if remaining == 0:
                     self.stop_calls = True
+                    print("ERROR: Cannot call API as you have reached your limit. "
+                          "Instantiate class with 'block_over_limit_calls' = False to pay for the call")
+                    return True
                 else:
                     self.stop_calls = False
-
-    def _parse_provide_schedule_input(self, provide_schedule_input):
-        if provide_schedule_input is None:
-            return self.working_schedule
-        else:
-            return provide_schedule_input
-
-    def get_schedule(self, sport, date_start=None, date_end=None, date_format="%Y-%m-%d"):
+                    return False
+    
+    def get_games(self, league=None, date_start=None, date_end=None, date_format="%Y-%m-%d", odds_type_filter=None, 
+                  status_filter=None, skip=None, conference=None, division=None, team=None):
         """
-        Returns schedule data for given date. Also sets the class working schedule to the data retrieved.
+        Wrapper for 'Games' endpoint. https://sportspagefeeds.com/documentation#games. Returns schedule data for 
+        given date and sets the class working schedule to the data retrieved for further parsing.
 
-        :param sport:
-        :param date_start:
-        :param date_end:
-        :param date_format:
-        :return:
-        """
-        sport = sport.lower()
+        Parameters
+        ----------
+        league : _type_, optional
+            _description_, by default None
+        date_start : _type_, optional
+            _description_, by default None
+        date_end : _type_, optional
+            _description_, by default None
+        date_format : str, optional
+            _description_, by default "%Y-%m-%d"
+        odds_type_filter : _type_, optional
+            _description_, by default None
+        status_filter : _type_, optional
+            _description_, by default None
+        skip : _type_, optional
+            _description_, by default None
+        conference : _type_, optional
+            _description_, by default None
+        division : _type_, optional
+            _description_, by default None
+        team : _type_, optional
+            _description_, by default None
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
+       
+        endpoint_url = self.base_url + "games"
+        error_check = self._valid_request_check(league=league, odds_type_filter=odds_type_filter, 
+                                                status_filter=status_filter, conference=conference, division=division)
+        if not error_check['validInputs']:
+            return error_check
+        
         date_input = self._parse_date_input(date_start, date_end, date_format)
-        querystring = {"league": sport, "date": date_input}
+        querystring = {"league": league, "date": date_input, "skip": skip, "conference": conference, "team": team, 
+                       "division": division}
 
-        if self.limit_restrict:
-            self._check_stop_calls_based_on_limit()
-
-        if self.stop_calls:
-            print("ERROR: Cannot call API as you have reached your limit. "
-                  "Instantiate class with 'block_over_limit_calls' = False to pay for the call")
+        if self._check_stop_calls_based_on_limit():
             return None
         else:
             call_time = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
-            rapid_response = rC.make_request(self.base_url, headers=self.headers, params=querystring)
+            rapid_response = rC.make_request(endpoint_url, headers=self.headers, params=querystring)
             if self.limit_restrict:
                 self._update_limit_tracker(rapid_response, call_time)
             schedule = json.loads(rapid_response.text)
             self.working_schedule = schedule
             return schedule
 
-    def check_if_all_games_complete(self):
-        use_schedule = self.working_schedule
-        return False
+    def get_rankings(self, league):
+        """
+        _summary_
 
+        Parameters
+        ----------
+        league : _type_
+            _description_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
+        endpoint_url = self.base_url + "rankings"
+        league = league.lower()
+        league_error = self._valid_league_input()
+        if league_error['leagueError']:
+            return league_error
+        querystring = {"league": league}
+
+        if self._check_stop_calls_based_on_limit():
+            return None
+        else:
+            call_time = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
+            rapid_response = rC.make_request(endpoint_url, headers=self.headers, params=querystring)
+            if self.limit_restrict:
+                self._update_limit_tracker(rapid_response, call_time)
+            result = json.loads(rapid_response.text)
+            self.working_rankings = result
+            return result
+
+    def get_teams(self, league, division=None, conference=None):
+        endpoint_url = self.base_url + "teams"
+        league = league.lower()
+        league_error = self._valid_league_input()
+        if league_error['leagueError']:
+            return league_error
+        querystring = {"league": league}
+
+        if self._check_stop_calls_based_on_limit():
+            return None
+        else:
+            call_time = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
+            rapid_response = rC.make_request(endpoint_url, headers=self.headers, params=querystring)
+            if self.limit_restrict:
+                self._update_limit_tracker(rapid_response, call_time)
+            result = json.loads(rapid_response.text)
+            self.working_rankings = result
+            return result
+    
+    #####################
+    # API Info
+    #####################
+    def info_get_valid_league_codes(self):
+        print(f"Valid league codes are:\n{self.valid_leagues}")
+        return self.valid_leagues
+    
+    def info_get_valid_status_filters(self):
+        print(f"Valid status filters are:\n{self.valid_game_statuses}")
+        return self.valid_game_statuses
+    
+    
+    
+    #####################
+    # Schedule Parsing
+    #####################
+    def is_schedule_valid(self, provide_schedule_json=None):
+        """
+        _summary_
+
+        Parameters
+        ----------
+        provide_schedule_json : _type_, optional
+            _description_, by default None
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
+        use_schedule = self._parse_provide_schedule_input(provide_schedule_json)
+        if use_schedule is None:
+            print("ERROR: No schedule to check if valid")
+            return None
+
+        if use_schedule['status'] == 200:
+            return True
+        else:
+            return False
+    
     def get_games_within_specified_minutes(self, minutes, provide_schedule_json=None):
         """
         If a game is to start within the specified minutes, it will be returned in a list. For example, if a game
@@ -231,11 +412,11 @@ class SportsPage(GithubHelper):
             return None
 
         time_now = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
+        game_times = [tC.convert_non_python_format(x['schedule']['date'], time_zone="US/Eastern", 
+                                                   single_output_format="%Y%m%d%H%M%S") for x 
+                                                   in use_schedule['results']]
 
-        game_times = [tC.convert_time_format_by_name(x['schedule']['date'], 'rapid')["%Y%m%d%H%M%S"]
-                      for x in use_schedule['results']]
-
-        differences = [tC.subtract_time_stamps_precise(time_now, x) for x in game_times]
+        differences = [tC.subtract_time_stamps(time_now, x, detailed=True) for x in game_times]
 
 
         games_meeting_criteria = []
@@ -247,18 +428,19 @@ class SportsPage(GithubHelper):
 
         return games_meeting_criteria
 
-    def is_schedule_valid(self, provide_schedule_json=None):
-        use_schedule = self._parse_provide_schedule_input(provide_schedule_json)
-        if use_schedule is None:
-            print("ERROR: No schedule to check if valid")
-            return None
-
-        if use_schedule['status'] == 200:
-            return True
-        else:
-            return False
-
     def get_total_games_in_schedule(self, provide_schedule_json=None):
+        """_summary_
+
+        Parameters
+        ----------
+        provide_schedule_json : _type_, optional
+            _description_, by default None
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
         use_schedule = self._parse_provide_schedule_input(provide_schedule_json)
         if use_schedule is None:
             print("ERROR: No schedule to check if valid")
@@ -267,6 +449,18 @@ class SportsPage(GithubHelper):
         return use_schedule['games']
 
     def get_games_list_from_schedule(self, provide_schedule_json=None):
+        """_summary_
+
+        Parameters
+        ----------
+        provide_schedule_json : _type_, optional
+            _description_, by default None
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
         use_schedule = self._parse_provide_schedule_input(provide_schedule_json)
         if use_schedule is None:
             print("ERROR: No schedule to check if valid")
@@ -274,6 +468,22 @@ class SportsPage(GithubHelper):
 
         return use_schedule['results']
 
+    def check_api_limit(self):
+        if self.limit_restrict:
+            if self.tracker_dict == {}:
+                print("INFO: No api limit data available. Have you made a call to the api yet with this class?")
+            else:
+                print((f"You have {self.tracker_dict['remaining']} api calls remaining\n"
+                       f"Your reset time is set for {self.tracker_dict['resetTime']} {self.timezone}\n"
+                       f"Your limit is {self.tracker_dict['limit']}"))
+        
+            self.tracker_dict
+        else:
+            print("Feature only available if 'block_over_limit_calls' is set to True when instantiating the class")
+
+    ######################
+    # Game Dict Parsing
+    ######################
     @staticmethod
     def get_team_name_given_game_dict(game_dict, playing, string_type="cityShort"):
         """
@@ -307,148 +517,7 @@ class NFLSportsPage(SportsPage):
         return self.working_schedule
 
 
-def get_schedule_json(sport, date=None):
-    # date in format 2020-12-22, if date == '', then use today
-    # you can use a date range by comma-separating two dates, such as /games?league=nba&date=2021-07-14,2021-07-17.
-    # sport: nfl, nba, cbb
 
-    sport = check_sport_option(sport)
-
-    if date is None:
-        dList = timeCommon.get_date_component_list()
-        date = str(dList[0]) + '-' + str(dList[1]) + '-' + str(dList[2])
-
-    url = get_base_url()
-    key = get_key()
-    headers = get_headers(key)
-
-    querystring = {"league": sport, "date": date}
-
-    response = rC.use_requests_return_json(url, headers=headers, params=querystring)
-
-    return response
-
-
-def get_game_time_given_game_dict(game_dict, sport='nfl'):
-    try:
-        game_time = game_dict['schedule']['date']
-    except KeyError:
-        game_time = "n/a"
-
-    return game_time
-
-
-def create_basic_schedule_dict(schedule_json, sport):
-    # supported sports: nfl, nba, ncaab
-    # this function parses the standard json for the sportspageFeedsAPI and returns a list of dictionaries
-    # if games are not final, basic info comes in
-    # if games are final, more details come in
-
-    # output
-    op_list = list()  # for nfl, only final games are returned, detailed dict. Other sports, all, basic
-
-    games = get_number_of_games_in_schedule(schedule_json)
-
-    if games > 0:
-        op_dict = dict()
-        gamesJson = schedule_json['results']
-
-        for gameNum in range(0, games):
-            if sport == 'nfl':
-                gameDict = parse_game_basics(gamesJson[gameNum])
-                if gameDict['status'] == "final":  # game is final, get all details
-                    conferenceBool = gamesJson[gameNum]['details']['conferenceGame']
-                    divisionBool = gamesJson[gameNum]['details']['divisionGame']
-                    awayScore = gamesJson[gameNum]['scoreboard']['score']['away']
-                    homeScore = gamesJson[gameNum]['scoreboard']['score']['home']
-                    awayQ1 = gamesJson[gameNum]['scoreboard']['score']['awayPeriods'][0]
-                    awayQ2 = gamesJson[gameNum]['scoreboard']['score']['awayPeriods'][1]
-                    awayQ3 = gamesJson[gameNum]['scoreboard']['score']['awayPeriods'][2]
-                    awayQ4 = gamesJson[gameNum]['scoreboard']['score']['awayPeriods'][3]
-                    homeQ1 = gamesJson[gameNum]['scoreboard']['score']['homePeriods'][0]
-                    homeQ2 = gamesJson[gameNum]['scoreboard']['score']['homePeriods'][1]
-                    homeQ3 = gamesJson[gameNum]['scoreboard']['score']['homePeriods'][2]
-                    homeQ4 = gamesJson[gameNum]['scoreboard']['score']['homePeriods'][3]
-                    awaySpreadOpen = gamesJson[gameNum]['odds'][0]['spread']['open']['away']
-                    awaySpreadOpenOdds = gamesJson[gameNum]['odds'][0]['spread']['open']['awayOdds']
-                    homeSpreadOpen = gamesJson[gameNum]['odds'][0]['spread']['open']['home']
-                    homeSpreadOpenOdds = gamesJson[gameNum]['odds'][0]['spread']['open']['homeOdds']
-                    awaySpreadCurrent = gamesJson[gameNum]['odds'][0]['spread']['current']['away']
-                    awaySpreadCurrentOdds = gamesJson[gameNum]['odds'][0]['spread']['current']['awayOdds']
-                    homeSpreadCurrent = gamesJson[gameNum]['odds'][0]['spread']['current']['home']
-                    homeSpreadCurrentOdds = gamesJson[gameNum]['odds'][0]['spread']['current']['homeOdds']
-                    awayMoneyLineOpen = gamesJson[gameNum]['odds'][0]['moneyline']['open']['awayOdds']
-                    homeMoneyLineOpen = gamesJson[gameNum]['odds'][0]['moneyline']['open']['homeOdds']
-                    awayMoneyLineCurrent = gamesJson[gameNum]['odds'][0]['moneyline']['current']['awayOdds']
-                    homeMoneyLineCurrent = gamesJson[gameNum]['odds'][0]['moneyline']['current']['homeOdds']
-                    totalOpen = gamesJson[gameNum]['odds'][0]['total']['open']['total']
-                    totalOpenOverOdds = gamesJson[gameNum]['odds'][0]['total']['open']['overOdds']
-                    totalOpenUnderOdds = gamesJson[gameNum]['odds'][0]['total']['open']['underOdds']
-                    totalCurrent = gamesJson[gameNum]['odds'][0]['total']['current']['total']
-                    totalCurrentOverOdds = gamesJson[gameNum]['odds'][0]['total']['current']['overOdds']
-                    totalCurrentUnderOdds = gamesJson[gameNum]['odds'][0]['total']['current']['underOdds']
-
-                    op_dict['awayTeam'] = gameDict['awayteam']
-                    op_dict['awayScore'] = awayScore
-                    op_dict['homeTeam'] = gameDict['hometeam']
-                    op_dict['homeScore'] = homeScore
-                    op_dict['hourPlayed'] = gameDict['time']['hour']
-                    op_dict['timeStamp'] = gameDict['time']['string']
-                    op_dict['conferenceBool'] = conferenceBool
-                    op_dict['divisionBool'] = divisionBool
-                    op_dict['awayQ1'] = awayQ1
-                    op_dict['awayQ2'] = awayQ2
-                    op_dict['awayQ3'] = awayQ3
-                    op_dict['awayQ4'] = awayQ4
-                    op_dict['homeQ1'] = homeQ1
-                    op_dict['homeQ2'] = homeQ2
-                    op_dict['homeQ3'] = homeQ3
-                    op_dict['homeQ4'] = homeQ4
-                    op_dict['awaySpreadOpen'] = awaySpreadOpen
-                    op_dict['awaySpreadOpenOdds'] = awaySpreadOpenOdds
-                    op_dict['homeSpreadOpen'] = homeSpreadOpen
-                    op_dict['homeSpreadOpenOdds'] = homeSpreadOpenOdds
-                    op_dict['awaySpreadCurrent'] = awaySpreadCurrent
-                    op_dict['awaySpreadCurrentOdds'] = awaySpreadCurrentOdds
-                    op_dict['homeSpreadCurrent'] = homeSpreadCurrent
-                    op_dict['homeSpreadCurrentOdds'] = homeSpreadCurrentOdds
-                    op_dict['awayMoneyLineOpen'] = awayMoneyLineOpen
-                    op_dict['homeMoneyLineOpen'] = homeMoneyLineOpen
-                    op_dict['awayMoneyLineCurrent'] = awayMoneyLineCurrent
-                    op_dict['homeMoneyLineCurrent'] = homeMoneyLineCurrent
-                    op_dict['totalOpen'] = totalOpen
-                    op_dict['totalOpenOverOdds'] = totalOpenOverOdds
-                    op_dict['totalOpenUnderOdds'] = totalOpenUnderOdds
-                    op_dict['totalCurrent'] = totalCurrent
-                    op_dict['totalCurrentOverOdds'] = totalCurrentOverOdds
-                    op_dict['totalCurrentUnderOdds'] = totalCurrentUnderOdds
-
-                    dictionary_copy = op_dict.copy()
-
-                    op_list.append(dictionary_copy)
-            else:
-                gameDict = parse_game_basics(gamesJson[gameNum])
-                if gameDict['status'] == "final":
-                    test = 1
-                    # add more details
-                dictionary_copy = gameDict.copy()
-                op_list.append(dictionary_copy)
-
-        return op_list
-    else:
-        return 'error'
-
-
-def get_number_of_games_in_schedule(schedule_json):
-    # returns the # of games in a json file
-    games = 0  # default to 0
-
-    try:
-        games = int(schedule_json['games'])  # get games from the json
-    except:
-        return 0
-
-    return games
 
 
 def parse_game_basics(game_json, sport="nfl", team_name_abbreviation="no"):
