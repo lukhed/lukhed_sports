@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="lukhed_sports_common",
+    name="lukhed_sports",
     version="0.1.0",
-    description="A collection of sports analysis utility functions",
+    description="A collection of sports analysis utility functions and API wrappers",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     author="lukhed",
@@ -17,6 +17,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        "lukhed-basic-utils>=1.0.0"
+        "lukhed-basic-utils>=1.2.3"
     ],
 )

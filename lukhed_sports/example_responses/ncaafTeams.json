@@ -1,0 +1,1213 @@
+{
+    "status": 200,
+    "time": "2024-12-30T19:01:12.195Z",
+    "teams": 134,
+    "results": [
+        {
+            "team": "Army",
+            "mascot": "Black Knights",
+            "location": "Army",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ARMY"
+        },
+        {
+            "team": "Charlotte",
+            "mascot": "49ers",
+            "location": "Charlotte",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "CHAR"
+        },
+        {
+            "team": "East Carolina",
+            "mascot": "Pirates",
+            "location": "East Carolina",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ECU"
+        },
+        {
+            "team": "Florida Atlantic",
+            "mascot": "Owls",
+            "location": "Florida Atlantic",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "FAU"
+        },
+        {
+            "team": "Memphis",
+            "mascot": "Tigers",
+            "location": "Memphis",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MEM"
+        },
+        {
+            "team": "Navy",
+            "mascot": "Midshipmen",
+            "location": "Navy",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "NAVY"
+        },
+        {
+            "team": "North Texas",
+            "mascot": "Mean Green",
+            "location": "North Texas",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UNT"
+        },
+        {
+            "team": "Rice",
+            "mascot": "Owls",
+            "location": "Rice",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "RICE"
+        },
+        {
+            "team": "South Florida",
+            "mascot": "Bulls",
+            "location": "South Florida",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "USF"
+        },
+        {
+            "team": "Temple",
+            "mascot": "Owls",
+            "location": "Temple",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "TEM"
+        },
+        {
+            "team": "Tulane",
+            "mascot": "Green Wave",
+            "location": "Tulane",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "TULN"
+        },
+        {
+            "team": "Tulsa",
+            "mascot": "Golden Hurricane",
+            "location": "Tulsa",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "TLSA"
+        },
+        {
+            "team": "UAB",
+            "mascot": "Blazers",
+            "location": "UAB",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UAB"
+        },
+        {
+            "team": "UTSA",
+            "mascot": "Roadrunners",
+            "location": "UTSA",
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UTSA"
+        },
+        {
+            "team": "Boston College",
+            "mascot": "Eagles",
+            "location": "Boston College",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "BC"
+        },
+        {
+            "team": "California",
+            "mascot": "Golden Bears",
+            "location": "California",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "CAL"
+        },
+        {
+            "team": "Clemson",
+            "mascot": "Tigers",
+            "location": "Clemson",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "CLEM"
+        },
+        {
+            "team": "Duke",
+            "mascot": "Blue Devils",
+            "location": "Duke",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "DUKE"
+        },
+        {
+            "team": "Florida State",
+            "mascot": "Seminoles",
+            "location": "Florida State",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "FSU"
+        },
+        {
+            "team": "Georgia Tech",
+            "mascot": "Yellow Jackets",
+            "location": "Georgia Tech",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "GT"
+        },
+        {
+            "team": "Louisville",
+            "mascot": "Cardinals",
+            "location": "Louisville",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "LOU"
+        },
+        {
+            "team": "Miami (FL)",
+            "mascot": "Hurricanes",
+            "location": "Miami (FL)",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MIA"
+        },
+        {
+            "team": "NC State",
+            "mascot": "Wolfpack",
+            "location": "NC State",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "NCST"
+        },
+        {
+            "team": "North Carolina",
+            "mascot": "Tar Heels",
+            "location": "North Carolina",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UNC"
+        },
+        {
+            "team": "Pittsburgh",
+            "mascot": "Panthers",
+            "location": "Pittsburgh",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "PITT"
+        },
+        {
+            "team": "SMU",
+            "mascot": "Mustangs",
+            "location": "SMU",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "SMU"
+        },
+        {
+            "team": "Stanford",
+            "mascot": "Cardinal",
+            "location": "Stanford",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "STAN"
+        },
+        {
+            "team": "Syracuse",
+            "mascot": "Orange",
+            "location": "Syracuse",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "SYR"
+        },
+        {
+            "team": "Virginia",
+            "mascot": "Cavaliers",
+            "location": "Virginia",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UVA"
+        },
+        {
+            "team": "Virginia Tech",
+            "mascot": "Hokies",
+            "location": "Virginia Tech",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "VT"
+        },
+        {
+            "team": "Wake Forest",
+            "mascot": "Demon Deacons",
+            "location": "Wake Forest",
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "WAKE"
+        },
+        {
+            "team": "Arizona",
+            "mascot": "Wildcats",
+            "location": "Arizona",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ARIZ"
+        },
+        {
+            "team": "Arizona State",
+            "mascot": "Sun Devils",
+            "location": "Arizona State",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ASU"
+        },
+        {
+            "team": "BYU",
+            "mascot": "Cougars",
+            "location": "BYU",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "BYU"
+        },
+        {
+            "team": "Baylor",
+            "mascot": "Bears",
+            "location": "Baylor",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "BAY"
+        },
+        {
+            "team": "Cincinnati",
+            "mascot": "Bearcats",
+            "location": "Cincinnati",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "CIN"
+        },
+        {
+            "team": "Colorado",
+            "mascot": "Buffaloes",
+            "location": "Colorado",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "COLO"
+        },
+        {
+            "team": "Houston",
+            "mascot": "Cougars",
+            "location": "Houston",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "HOU"
+        },
+        {
+            "team": "Iowa State",
+            "mascot": "Cyclones",
+            "location": "Iowa State",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ISU"
+        },
+        {
+            "team": "Kansas",
+            "mascot": "Jayhawks",
+            "location": "Kansas",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "KU"
+        },
+        {
+            "team": "Kansas State",
+            "mascot": "Wildcats",
+            "location": "Kansas State",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "KSU"
+        },
+        {
+            "team": "Oklahoma State",
+            "mascot": "Cowboys",
+            "location": "Oklahoma State",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "OKST"
+        },
+        {
+            "team": "TCU",
+            "mascot": "Horned Frogs",
+            "location": "TCU",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "TCU"
+        },
+        {
+            "team": "Texas Tech",
+            "mascot": "Red Raiders",
+            "location": "Texas Tech",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "TTU"
+        },
+        {
+            "team": "UCF",
+            "mascot": "Knights",
+            "location": "UCF",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UCF"
+        },
+        {
+            "team": "Utah",
+            "mascot": "Utes",
+            "location": "Utah",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UTAH"
+        },
+        {
+            "team": "West Virginia",
+            "mascot": "Mountaineers",
+            "location": "West Virginia",
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "WVU"
+        },
+        {
+            "team": "Illinois",
+            "mascot": "Fighting Illini",
+            "location": "Illinois",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ILL"
+        },
+        {
+            "team": "Indiana",
+            "mascot": "Hoosiers",
+            "location": "Indiana",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "IND"
+        },
+        {
+            "team": "Iowa",
+            "mascot": "Hawkeyes",
+            "location": "Iowa",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "IOWA"
+        },
+        {
+            "team": "Maryland",
+            "mascot": "Terrapins",
+            "location": "Maryland",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MD"
+        },
+        {
+            "team": "Michigan",
+            "mascot": "Wolverines",
+            "location": "Michigan",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MICH"
+        },
+        {
+            "team": "Michigan State",
+            "mascot": "Spartans",
+            "location": "Michigan State",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MSU"
+        },
+        {
+            "team": "Minnesota",
+            "mascot": "Golden Gophers",
+            "location": "Minnesota",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MINN"
+        },
+        {
+            "team": "Nebraska",
+            "mascot": "Cornhuskers",
+            "location": "Nebraska",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "NEB"
+        },
+        {
+            "team": "Northwestern",
+            "mascot": "Wildcats",
+            "location": "Northwestern",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "NW"
+        },
+        {
+            "team": "Ohio State",
+            "mascot": "Buckeyes",
+            "location": "Ohio State",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "OSU"
+        },
+        {
+            "team": "Oregon",
+            "mascot": "Ducks",
+            "location": "Oregon",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ORE"
+        },
+        {
+            "team": "Penn State",
+            "mascot": "Nittany Lions",
+            "location": "Penn State",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "PSU"
+        },
+        {
+            "team": "Purdue",
+            "mascot": "Boilermakers",
+            "location": "Purdue",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "PUR"
+        },
+        {
+            "team": "Rutgers",
+            "mascot": "Scarlet Knights",
+            "location": "Rutgers",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "RUTG"
+        },
+        {
+            "team": "UCLA",
+            "mascot": "Bruins",
+            "location": "UCLA",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UCLA"
+        },
+        {
+            "team": "USC",
+            "mascot": "Trojans",
+            "location": "USC",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "USC"
+        },
+        {
+            "team": "Washington",
+            "mascot": "Huskies",
+            "location": "Washington",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "WASH"
+        },
+        {
+            "team": "Wisconsin",
+            "mascot": "Badgers",
+            "location": "Wisconsin",
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "WIS"
+        },
+        {
+            "team": "Florida International",
+            "mascot": "Panthers",
+            "location": "Florida International",
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "FIU"
+        },
+        {
+            "team": "Jacksonville State",
+            "mascot": "Gamecocks",
+            "location": "Jacksonville State",
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "JVST"
+        },
+        {
+            "team": "Kennesaw State",
+            "mascot": "Owls",
+            "location": "Kennesaw State",
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "KENN"
+        },
+        {
+            "team": "Liberty",
+            "mascot": "Flames",
+            "location": "Liberty",
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "LIB"
+        },
+        {
+            "team": "Louisiana Tech",
+            "mascot": "Bulldogs",
+            "location": "Louisiana Tech",
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "LT"
+        },
+        {
+            "team": "Middle Tennessee",
+            "mascot": "Blue Raiders",
+            "location": "Middle Tennessee",
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MTSU"
+        },
+        {
+            "team": "New Mexico State",
+            "mascot": "Aggies",
+            "location": "New Mexico State",
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "NMSU"
+        },
+        {
+            "team": "Sam Houston State",
+            "mascot": "Bearkats",
+            "location": "Sam Houston State",
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "SHSU"
+        },
+        {
+            "team": "UTEP",
+            "mascot": "Miners",
+            "location": "UTEP",
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UTEP"
+        },
+        {
+            "team": "Western Kentucky",
+            "mascot": "Hilltoppers",
+            "location": "Western Kentucky",
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "WKU"
+        },
+        {
+            "team": "Connecticut",
+            "mascot": "Huskies",
+            "location": "Connecticut",
+            "conference": "Independent",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "CONN"
+        },
+        {
+            "team": "Massachusetts",
+            "mascot": "Minutemen",
+            "location": "Massachusetts",
+            "conference": "Independent",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MASS"
+        },
+        {
+            "team": "Notre Dame",
+            "mascot": "Fighting Irish",
+            "location": "Notre Dame",
+            "conference": "Independent",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ND"
+        },
+        {
+            "team": "Akron",
+            "mascot": "Zips",
+            "location": "Akron",
+            "conference": "MAC",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "AKR"
+        },
+        {
+            "team": "Bowling Green",
+            "mascot": "Falcons",
+            "location": "Bowling Green",
+            "conference": "MAC",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "BGSU"
+        },
+        {
+            "team": "Buffalo",
+            "mascot": "Bulls",
+            "location": "Buffalo",
+            "conference": "MAC",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "BUFF"
+        },
+        {
+            "team": "Kent State",
+            "mascot": "Golden Flashes",
+            "location": "Kent State",
+            "conference": "MAC",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "KENT"
+        },
+        {
+            "team": "Miami (OH)",
+            "mascot": "RedHawks",
+            "location": "Miami (OH)",
+            "conference": "MAC",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "MIAO"
+        },
+        {
+            "team": "Ohio",
+            "mascot": "Bobcats",
+            "location": "Ohio",
+            "conference": "MAC",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "OHIO"
+        },
+        {
+            "team": "Ball State",
+            "mascot": "Cardinals",
+            "location": "Ball State",
+            "conference": "MAC",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "BALL"
+        },
+        {
+            "team": "Central Michigan",
+            "mascot": "Chippewas",
+            "location": "Central Michigan",
+            "conference": "MAC",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "CMU"
+        },
+        {
+            "team": "Eastern Michigan",
+            "mascot": "Eagles",
+            "location": "Eastern Michigan",
+            "conference": "MAC",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "EMU"
+        },
+        {
+            "team": "Northern Illinois",
+            "mascot": "Huskies",
+            "location": "Northern Illinois",
+            "conference": "MAC",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "NIU"
+        },
+        {
+            "team": "Toledo",
+            "mascot": "Rockets",
+            "location": "Toledo",
+            "conference": "MAC",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "TOL"
+        },
+        {
+            "team": "Western Michigan",
+            "mascot": "Broncos",
+            "location": "Western Michigan",
+            "conference": "MAC",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "WMU"
+        },
+        {
+            "team": "Air Force",
+            "mascot": "Falcons",
+            "location": "Air Force",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "AFA"
+        },
+        {
+            "team": "Boise State",
+            "mascot": "Broncos",
+            "location": "Boise State",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "BSU"
+        },
+        {
+            "team": "Colorado State",
+            "mascot": "Rams",
+            "location": "Colorado State",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "CSU"
+        },
+        {
+            "team": "Fresno State",
+            "mascot": "Bulldogs",
+            "location": "Fresno State",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "FRES"
+        },
+        {
+            "team": "Hawaii",
+            "mascot": "Rainbow Warriors",
+            "location": "Hawaii",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "HAW"
+        },
+        {
+            "team": "Nevada",
+            "mascot": "Wolf Pack",
+            "location": "Nevada",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "NEV"
+        },
+        {
+            "team": "New Mexico",
+            "mascot": "Lobos",
+            "location": "New Mexico",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UNM"
+        },
+        {
+            "team": "San Diego State",
+            "mascot": "Aztecs",
+            "location": "San Diego State",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "SDSU"
+        },
+        {
+            "team": "San Jose State",
+            "mascot": "Spartans",
+            "location": "San Jose State",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "SJSU"
+        },
+        {
+            "team": "UNLV",
+            "mascot": "Rebels",
+            "location": "UNLV",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UNLV"
+        },
+        {
+            "team": "Utah State",
+            "mascot": "Aggies",
+            "location": "Utah State",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "USU"
+        },
+        {
+            "team": "Wyoming",
+            "mascot": "Cowboys",
+            "location": "Wyoming",
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "WYO"
+        },
+        {
+            "team": "Oregon State",
+            "mascot": "Beavers",
+            "location": "Oregon State",
+            "conference": "Pac 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ORST"
+        },
+        {
+            "team": "Washington State",
+            "mascot": "Cougars",
+            "location": "Washington State",
+            "conference": "Pac 12",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "WSU"
+        },
+        {
+            "team": "Alabama",
+            "mascot": "Crimson Tide",
+            "location": "Alabama",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ALA"
+        },
+        {
+            "team": "Arkansas",
+            "mascot": "Razorbacks",
+            "location": "Arkansas",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "ARK"
+        },
+        {
+            "team": "Auburn",
+            "mascot": "Tigers",
+            "location": "Auburn",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "AUB"
+        },
+        {
+            "team": "Florida",
+            "mascot": "Gators",
+            "location": "Florida",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "FLA"
+        },
+        {
+            "team": "Georgia",
+            "mascot": "Bulldogs",
+            "location": "Georgia",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UGA"
+        },
+        {
+            "team": "Kentucky",
+            "mascot": "Wildcats",
+            "location": "Kentucky",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "UK"
+        },
+        {
+            "team": "LSU",
+            "mascot": "Tigers",
+            "location": "LSU",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "LSU"
+        },
+        {
+            "team": "Mississippi",
+            "mascot": "Rebels",
+            "location": "Mississippi",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MISS"
+        },
+        {
+            "team": "Mississippi State",
+            "mascot": "Bulldogs",
+            "location": "Mississippi State",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MSST"
+        },
+        {
+            "team": "Missouri",
+            "mascot": "Tigers",
+            "location": "Missouri",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "MIZZ"
+        },
+        {
+            "team": "Oklahoma",
+            "mascot": "Sooners",
+            "location": "Oklahoma",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "OKLA"
+        },
+        {
+            "team": "South Carolina",
+            "mascot": "Gamecocks",
+            "location": "South Carolina",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "SC"
+        },
+        {
+            "team": "Tennessee",
+            "mascot": "Volunteers",
+            "location": "Tennessee",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "TENN"
+        },
+        {
+            "team": "Texas",
+            "mascot": "Longhorns",
+            "location": "Texas",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "TEX"
+        },
+        {
+            "team": "Texas A&M",
+            "mascot": "Aggies",
+            "location": "Texas A&M",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "TAMU"
+        },
+        {
+            "team": "Vanderbilt",
+            "mascot": "Commodores",
+            "location": "Vanderbilt",
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF",
+            "abbreviation": "VAN"
+        },
+        {
+            "team": "Appalachian State",
+            "mascot": "Mountaineers",
+            "location": "Appalachian State",
+            "conference": "Sun Belt",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "APP"
+        },
+        {
+            "team": "Coastal Carolina",
+            "mascot": "Chanticleers",
+            "location": "Coastal Carolina",
+            "conference": "Sun Belt",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "CCAR"
+        },
+        {
+            "team": "Georgia Southern",
+            "mascot": "Eagles",
+            "location": "Georgia Southern",
+            "conference": "Sun Belt",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "GASO"
+        },
+        {
+            "team": "Georgia State",
+            "mascot": "Panthers",
+            "location": "Georgia State",
+            "conference": "Sun Belt",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "GAST"
+        },
+        {
+            "team": "James Madison",
+            "mascot": "Dukes",
+            "location": "James Madison",
+            "conference": "Sun Belt",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "JMU"
+        },
+        {
+            "team": "Marshall",
+            "mascot": "Thundering Herd",
+            "location": "Marshall",
+            "conference": "Sun Belt",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "MRSH"
+        },
+        {
+            "team": "Old Dominion",
+            "mascot": "Monarchs",
+            "location": "Old Dominion",
+            "conference": "Sun Belt",
+            "division": "East",
+            "league": "NCAAF",
+            "abbreviation": "ODU"
+        },
+        {
+            "team": "Arkansas State",
+            "mascot": "Red Wolves",
+            "location": "Arkansas State",
+            "conference": "Sun Belt",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "ARST"
+        },
+        {
+            "team": "Louisiana-Lafayette",
+            "mascot": "Ragin' Cajuns",
+            "location": "Louisiana-Lafayette",
+            "conference": "Sun Belt",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "ULL"
+        },
+        {
+            "team": "Louisiana-Monroe",
+            "mascot": "Warhawks",
+            "location": "Louisiana-Monroe",
+            "conference": "Sun Belt",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "ULM"
+        },
+        {
+            "team": "South Alabama",
+            "mascot": "Jaguars",
+            "location": "South Alabama",
+            "conference": "Sun Belt",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "SALA"
+        },
+        {
+            "team": "Southern Mississippi",
+            "mascot": "Golden Eagles",
+            "location": "Southern Mississippi",
+            "conference": "Sun Belt",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "USM"
+        },
+        {
+            "team": "Texas State",
+            "mascot": "Bobcats",
+            "location": "Texas State",
+            "conference": "Sun Belt",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "TXST"
+        },
+        {
+            "team": "Troy",
+            "mascot": "Trojans",
+            "location": "Troy",
+            "conference": "Sun Belt",
+            "division": "West",
+            "league": "NCAAF",
+            "abbreviation": "TROY"
+        }
+    ]
+}

@@ -1,60 +1,3 @@
-# lukhed_sports
-A collection of sports analysis utility functions and API wrappers
-
-```bash
-pip install lukhed-sports
-```
-
-
-## Sportspage Feeds Wrapper
-This class is a custom wrapper for the sportspagefeeds API (https://sportspagefeeds.com/documentation). 
-
-It provides:
-- Management of api key -> You can store api key locally (by default) or with a private github repo 
-    so you can use the api efficiently across different hardware.
-- Optionally manage api limits (on by default) 
-- Methods to utilize each endpoint
-- Optionally validate input (on by default), to ensure you do not waste API calls
-- Methods to get valid inputs for each endpoint, as documentation is sparse
-- Methods to parse data returned by basic (non-paid) endpoints 
-
-### Basic Usage
-```python
-from lukhed-sports import SportsPage
-```
-
-#### API Key Management Locally
-```python
-# Upon first use, class will take you thru setup (copy and paste your Sportspage key)
-api = SportsPage()
-games = api.get_games('nfl')
-```
-
-#### API Key Managment with Private Github Repo
-```python
-# Upon first use, class will take you thru setup (github token and Sportspage key)
-api = SportsPage(
-    config_file_preference='github', 
-    github_project='any_project_name'
-    )
-games = api.get_games('nba')
-```
-
-#### Check API Usage
-```python
-sP.check_api_limit()
-
->>>
-You have 4 api calls remaining
-Your reset time is set for 20241230194114 US/Eastern
-Your limit is 20
-```
-
-
-
-
-#### Games
-```json
 {
     "status": 200,
     "time": "2024-12-30T19:11:10.045Z",
@@ -146,4 +89,3 @@ Your limit is 20
         }
     ]
 }
-```

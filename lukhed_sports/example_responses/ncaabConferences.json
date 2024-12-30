@@ -1,0 +1,167 @@
+{
+    "status": 200,
+    "time": "2024-12-30T18:22:56.369Z",
+    "divisions": 32,
+    "results": [
+        {
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "America East",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Atlantic 10",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Atlantic Sun",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Big East",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Big Sky",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Big South",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Big West",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "CAA",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Horizon League",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Ivy League",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "MAC",
+            "division": "East",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "MAC",
+            "division": "West",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "MEAC",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Metro Atlantic",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Missouri Valley",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Northeast",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Ohio Valley",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Patriot League",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "SWAC",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Southern",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Southland",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Summit League",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Sun Belt",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "West Coast",
+            "division": "N/A",
+            "league": "NCAAB"
+        },
+        {
+            "conference": "Western",
+            "division": "N/A",
+            "league": "NCAAB"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "status": 200,
+    "time": "2024-12-30T18:21:11.853Z",
+    "divisions": 4,
+    "results": [
+        {
+            "conference": "Eastern",
+            "division": "Atlantic",
+            "league": "NHL"
+        },
+        {
+            "conference": "Eastern",
+            "division": "Metropolitan",
+            "league": "NHL"
+        },
+        {
+            "conference": "Western",
+            "division": "Central",
+            "league": "NHL"
+        },
+        {
+            "conference": "Western",
+            "division": "Pacific",
+            "league": "NHL"
+        }
+    ]
+}

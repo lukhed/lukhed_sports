@@ -1,0 +1,47 @@
+{
+    "status": 200,
+    "time": "2024-12-30T17:59:29.713Z",
+    "divisions": 8,
+    "results": [
+        {
+            "conference": "AFC",
+            "division": "East",
+            "league": "NFL"
+        },
+        {
+            "conference": "AFC",
+            "division": "North",
+            "league": "NFL"
+        },
+        {
+            "conference": "AFC",
+            "division": "South",
+            "league": "NFL"
+        },
+        {
+            "conference": "AFC",
+            "division": "West",
+            "league": "NFL"
+        },
+        {
+            "conference": "NFC",
+            "division": "East",
+            "league": "NFL"
+        },
+        {
+            "conference": "NFC",
+            "division": "North",
+            "league": "NFL"
+        },
+        {
+            "conference": "NFC",
+            "division": "South",
+            "league": "NFL"
+        },
+        {
+            "conference": "NFC",
+            "division": "West",
+            "league": "NFL"
+        }
+    ]
+}
