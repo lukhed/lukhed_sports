@@ -1,10 +1,9 @@
-import math
 from lukhed_basic_utils import osCommon as osC
 from lukhed_basic_utils import fileCommon as fC
 from lukhed_basic_utils import timeCommon as tC
 from lukhed_basic_utils import requestsCommon as rC
+from sports_utilities.calibrations import endpoint_valid_inputs
 from lukhed_basic_utils.githubCommon import GithubHelper
-from . import gameAnalysis
 import json
 
 """
@@ -18,25 +17,34 @@ class SportsPage(GithubHelper):
         """
         This class is a custom wrapper for the sportspagefeeds API (https://sportspagefeeds.com/documentation). 
 
-        It provides: 
+        It provides:
+        - Management of api key -> You can store api key locally (by default) or with a private github repo 
+          so you can use the api efficiently across different hardware.
+        - Optionally manage api limits (on by default) 
         - Methods to utilize each endpoint
+        - Optionally validate input (on by default), to ensure you do not waste API calls
         - Methods to get valid inputs for each endpoint, as documentation is sparse
-        - Methods to parse data returned by common endpoints (e.g. games)
-        - Management of api key and limits, since free plan is strictly 20 calls per day -> You can store your 
-          data locally (by deault) or with a private github repo so you can use the api efficiently across 
-          different hardware.
-
-        Support is currently limited to 'Basic' (free) plan endpoints
+        - Methods to parse data returned by basic (non-paid) endpoints 
+        
 
         Parameters:
             block_over_limit_calls (bool, optional): Defaults to True. Note, api limits are only 
                 tracked if this is set to True. If you pay for a subscription and know you will not go over limits, 
                 you should set this to False for best performance.
-            provide_schedule_json (_type_, optional): _description_. Defaults to None.
-            config_file_preference (str, optional): _description_. Defaults to 'local'.
-            github_project (_type_, optional): _description_. Defaults to None.
-            github_config_dir (_type_, optional): _description_. Defaults to None.
-            block_invalid_requests (bool): 
+            provide_schedule_json (dict, optional): Provide the class the result of the get_games method to utilize 
+                the classes parsing functions without needing to call the API. For example: result = get_games() -> 
+                store result for later use, then instantiate the class with the result dict to use parsing. 
+                Defaults to None.
+            config_file_preference (str): 'local' to store your api key in your working directory. 'github' to store 
+                your api key in a private github repository. Defaults to 'local'.
+            github_project (_type_, optional): The Github project you setup as a means to store your Github token. 
+                Defaults to None, in which case you will be prompted to setup a project.
+            github_config_dir (_type_, optional): Full path to a local directory that contains your local GithubHelper 
+                config file (token file). Default is None and the GithubHelper class looks in your working directory 
+                for 'lukhedConfig' to get/store the GithubHelper config file.
+            block_invalid_requests (bool): If True, input validation features of the class are turned on and the class 
+                will only attempt to call the API if you provide valid inputs. If you provide invalid inputs, you 
+                will get an error message. Defaults to True.
         """
         self.timezone = timezone
         self._config_dict = {}
@@ -65,11 +73,10 @@ class SportsPage(GithubHelper):
             self._load_tracker_json_from_file()
         
         # Various configs
-        self.valid_leagues = ['nfl', 'nba', 'mlb', 'nhl', 'ncaaf', 'ncaab']
-        self.valid_game_statuses = ['scheduled', 'in progress', 'final', 'canceled', 'delayed']
-        self.today = tC.create_timestamp("%Y-%m-%d")
+        self.block_invalid_requests = block_invalid_requests
+        self.valid_leagues = endpoint_valid_inputs.leagues
+        self.valid_game_statuses = endpoint_valid_inputs.game_status
         self.working_schedule = provide_schedule_json
-        self.working_rankings = None
 
     def _check_load_config_from_github(self):
         if self.file_exists("sportsPageConfig.json"):
@@ -175,6 +182,7 @@ class SportsPage(GithubHelper):
         else:
             return provide_schedule_input
 
+    
     #####################
     # Endpoints
     #####################
@@ -192,6 +200,11 @@ class SportsPage(GithubHelper):
         if error_dict['statusFilterError']:
             error_dict['validInputs'] = False
 
+        # Conference check
+        error_dict.update(self._valid_conference(league, conference))
+        if error_dict['conferenceError']:
+            error_dict['validInputs'] = False
+
         return error_dict
     
     def _valid_league_input(self, league_input):
@@ -201,9 +214,11 @@ class SportsPage(GithubHelper):
             if league_input.lower() in self.valid_leagues:
                 return {"leagueError": False}
             else:
+                self._add_print_bar()
                 print(f"ERROR: '{league_input}' is not a valid league. Not calling the API. Valid league codes are:\n"
-                      f"{self.valid_leagues}\n"
-                      "Instantiate class with 'block_invalid_requests' = False to ignore this error and call API.")
+                      f"{self.valid_leagues}\n")
+                self._add_valid_input_error_message()
+                self._add_print_bar()
                 return {"leagueError": True}
     
     def _valid_status_filter(self, status_filter):
@@ -213,11 +228,49 @@ class SportsPage(GithubHelper):
             if status_filter.lower() in self.valid_game_statuses:
                 return {"statusFilterError": False}
             else:
+                self._add_print_bar()
                 print(f"ERROR: '{status_filter}' is not a valid game status. Not calling the API. Valid statuses are:\n"
-                      f"{self.valid_game_statuses}\n"
-                      "Instantiate class with 'block_invalid_requests' = False to ignore this error and call API.")
+                      f"{self.valid_game_statuses}\n")
+                self._add_valid_input_error_message()
+                self._add_print_bar()
                 return {"statusFilterError": True}
+            
+    def _valid_conference(self, league, conference):
+        if conference is None:
+            return {"conferenceError": False}
+        elif league is None and conference is not None:
+            self._add_print_bar()
+            print(f"ERROR: '{conference}' is not a valid conference for league 'None'. Not calling the API. "
+                  "You need to specify a league to utilize the conference filter "
+                  "Instantiate class with 'block_invalid_requests' = False to ignore this error and call API.")
+            self._add_print_bar()
+            return {"conferenceError": True}
+        elif league is None and conference is None:
+            return {"conferenceError": False}
+        else:
+            valid_conferences = endpoint_valid_inputs.conferences[league.lower()]
+            if conference.lower() in valid_conferences:
+                return {"conferenceError": False}
+            else:
+                self._add_print_bar()
+                print(f"ERROR: '{conference}' is not a valid conference in league '{league}'. Not calling the API. "
+                      f"Valid conferences in '{league}' are:\n"
+                      f"{valid_conferences}\n")
+                self._add_valid_input_error_message()
+                self._add_print_bar()
+                      
+                return {"conferenceError": True}
     
+    @staticmethod
+    def _add_print_bar():
+        print("*****************************")
+    
+    def _add_valid_input_error_message(self):
+        print(f"Valid inputs were last updated on {endpoint_valid_inputs.valid_input_last_update}. If you " 
+              f"are getting this message in error, instantiate class with block_invalid_requests=False to "
+              "ignore this error and call API. Open an issue here:\n"
+              "https://github.com/lukhed/lukhed_sports/issues.")
+        
     def _check_stop_calls_based_on_limit(self):
         if not self.limit_restrict:
             self.stop_calls = False
@@ -284,16 +337,19 @@ class SportsPage(GithubHelper):
             _description_
         """        
        
-        endpoint_url = self.base_url + "games"
+        # Input Check
         error_check = self._valid_request_check(league=league, odds_type_filter=odds_type_filter, 
                                                 status_filter=status_filter, conference=conference, division=division)
-        if not error_check['validInputs']:
+        if self.block_invalid_requests and not error_check['validInputs']:
             return error_check
         
+        # Build Request
+        endpoint_url = self.base_url + "games"
         date_input = self._parse_date_input(date_start, date_end, date_format)
         querystring = {"league": league, "date": date_input, "skip": skip, "conference": conference, "team": team, 
-                       "division": division}
+                       "division": division, "type": odds_type_filter}
 
+        # Call API
         if self._check_stop_calls_based_on_limit():
             return None
         else:
@@ -319,11 +375,14 @@ class SportsPage(GithubHelper):
         _type_
             _description_
         """
+        
+        # Input check
+        error_check = self._valid_request_check(league=league)
+        if self.block_invalid_requests and not error_check['validInputs']:
+            return error_check
+        
+        # Build request
         endpoint_url = self.base_url + "rankings"
-        league = league.lower()
-        league_error = self._valid_league_input()
-        if league_error['leagueError']:
-            return league_error
         querystring = {"league": league}
 
         if self._check_stop_calls_based_on_limit():
@@ -334,15 +393,34 @@ class SportsPage(GithubHelper):
             if self.limit_restrict:
                 self._update_limit_tracker(rapid_response, call_time)
             result = json.loads(rapid_response.text)
-            self.working_rankings = result
             return result
 
     def get_teams(self, league, division=None, conference=None):
+        error_check = self._valid_request_check(league=league, conference=conference, division=division)
+        if self.block_invalid_requests and not error_check['validInputs']:
+            return error_check
+        
         endpoint_url = self.base_url + "teams"
-        league = league.lower()
-        league_error = self._valid_league_input()
-        if league_error['leagueError']:
-            return league_error
+        querystring = {"league": league, "division": division, "conference": conference}
+
+        if self._check_stop_calls_based_on_limit():
+            return None
+        else:
+            call_time = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
+            rapid_response = rC.make_request(endpoint_url, headers=self.headers, params=querystring)
+            if self.limit_restrict:
+                self._update_limit_tracker(rapid_response, call_time)
+            result = json.loads(rapid_response.text)
+            return result
+    
+    def get_conferences(self, league):
+        endpoint_url = self.base_url + "conferences"
+
+        # Input check
+        error_check = self._valid_request_check(league=league)
+        if self.block_invalid_requests and not error_check['validInputs']:
+            return error_check
+        
         querystring = {"league": league}
 
         if self._check_stop_calls_based_on_limit():
@@ -353,8 +431,35 @@ class SportsPage(GithubHelper):
             if self.limit_restrict:
                 self._update_limit_tracker(rapid_response, call_time)
             result = json.loads(rapid_response.text)
-            self.working_rankings = result
             return result
+        
+    def get_game_by_id(self, game_id):
+        endpoint_url = self.base_url + "gameById"
+        querystring = {"gameId": game_id}
+        if self._check_stop_calls_based_on_limit():
+            return None
+        else:
+            call_time = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
+            rapid_response = rC.make_request(endpoint_url, headers=self.headers, params=querystring)
+            if self.limit_restrict:
+                self._update_limit_tracker(rapid_response, call_time)
+            result = json.loads(rapid_response.text)
+            return result
+    
+    def get_odds(self, game_id, odds_type_filter=None):
+        endpoint_url = self.base_url + "odds"
+        querystring = {"gameId": game_id, "type": odds_type_filter}
+
+        if self._check_stop_calls_based_on_limit():
+            return None
+        else:
+            call_time = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
+            rapid_response = rC.make_request(endpoint_url, headers=self.headers, params=querystring)
+            if self.limit_restrict:
+                self._update_limit_tracker(rapid_response, call_time)
+            result = json.loads(rapid_response.text)
+            return result
+        
     
     #####################
     # API Info
@@ -366,9 +471,8 @@ class SportsPage(GithubHelper):
     def info_get_valid_status_filters(self):
         print(f"Valid status filters are:\n{self.valid_game_statuses}")
         return self.valid_game_statuses
-    
-    
-    
+
+
     #####################
     # Schedule Parsing
     #####################
@@ -480,767 +584,3 @@ class SportsPage(GithubHelper):
             self.tracker_dict
         else:
             print("Feature only available if 'block_over_limit_calls' is set to True when instantiating the class")
-
-    ######################
-    # Game Dict Parsing
-    ######################
-    @staticmethod
-    def get_team_name_given_game_dict(game_dict, playing, string_type="cityShort"):
-        """
-
-        :param game_dict:               dict(), a sports page game dict from results (schedule_dict['results'][#])
-        :param playing:                 str(), away or home
-        :param string_type:             str(), cityShort or full
-        :return:                        str(), team name
-        """
-        playing = playing.lower()
-
-        if string_type == "cityShort":
-            return game_dict['teams'][playing]['abbreviation']
-        elif string_type == "full":
-            return game_dict['teams'][playing]['team']
-        else:
-            print("Unsupported string_type argument. Try 'full' or 'abbreviation'")
-            return None
-
-
-class NFLSportsPage(SportsPage):
-    """
-    NFL specific functions go in this class
-    """
-
-    def __init__(self, only_if_under_limit=True, provide_schedule_json=None):
-        SportsPage.__init__(self, only_if_under_limit=only_if_under_limit, provide_schedule_json=provide_schedule_json)
-
-    def get_schedule_for_today(self):
-        self.working_schedule = self.get_schedule("nfl", date_start=self.today, date_end=self.today)
-        return self.working_schedule
-
-
-
-
-
-def parse_game_basics(game_json, sport="nfl", team_name_abbreviation="no"):
-    """
-    :param game_json: dict(), a single game unit as defined by the api
-    :param sport: string(), currently only tested for nfl
-    :param team_name_abbreviation: string(), by default, returns the full team name. 'yes' means return abbreviation
-    :return: dict(), a simple dictionary with the basic information for a game parsed in good formats
-    """
-
-    op_dict = dict()
-
-    game_time = game_json['schedule']['date']
-    time_dict = timeCommon.convert_time_formats(game_time, 'ISO 8601')
-
-    op_dict['status'] = game_json['status']
-    op_dict['time'] = time_dict
-
-    team_name_abbreviation = team_name_abbreviation.lower()
-    if team_name_abbreviation == "no":
-        op_dict['awayteam'] = game_json['teams']['away']['team']
-        op_dict['hometeam'] = game_json['teams']['home']['team']
-    else:
-        op_dict['awayteam'] = game_json['teams']['away']['abbreviation']
-        op_dict['hometeam'] = game_json['teams']['home']['abbreviation']
-
-    return op_dict
-
-
-def get_key():
-    fName = osC.create_file_path_string(['resources', 'commonSports', 'key', 'key_sportspage.txt'])
-    key = fC.read_single_line_from_file(fName)
-    return key
-
-
-def get_base_url():
-    url = "https://sportspage-feeds.p.rapidapi.com/games"
-    return url
-
-
-def get_headers(key):
-    headers = {
-        'x-rapidapi-host': "sportspage-feeds.p.rapidapi.com",
-        'x-rapidapi-key': key
-    }
-
-    return headers
-
-
-def check_sport_option(sport):
-    sport = sport.lower()
-    if sport == 'nfl':
-        sport = 'NFL'
-    elif sport == 'nba':
-        sport = "NBA"
-    elif sport == 'cbb':
-        sport = "NCAAB"
-    elif sport == 'ncaab':
-        sport = "NCAAB"
-    elif sport == 'ncaaf' or sport == "cfb":
-        sport = "NCAAF"
-
-    sport = sport.upper()
-
-    return sport
-
-
-def parse_json_for_results(fPath, **kwargs):
-    # jayson is the file path to the json file to be parsed
-    # this function parses the standard json for the sportspageFeedsAPI and returns a list of dictionaries
-    # if games are not final, basic info comes in
-    # if games are final, more details come in
-    sport = 'NFL'
-    if 'sport' in kwargs:
-        sport = kwargs['sport']
-        sport = check_sport_option(sport)
-
-    # output
-    op_list = list()  # for nfl, only final games are returned, detailed dict. Other sports, all, basic
-
-    schedJson = fC.load_json_from_file(fPath)
-    if 'sport' in kwargs:
-        games = parse_json_for_games(schedJson, sport=sport)
-    else:
-        games = parse_json_for_games(schedJson)
-
-    if games > 0:
-        op_dict = dict()
-        gamesJson = schedJson['results']
-
-        for gameNum in range(0, games):
-            if sport == 'NFL' or sport == 'NBA':
-                gameDict = parse_game_basics(gamesJson[gameNum])
-                if gameDict['status'] == "final":  # game is final, get all details
-                    conferenceBool = gamesJson[gameNum]['details']['conferenceGame']
-                    divisionBool = gamesJson[gameNum]['details']['divisionGame']
-                    awayScore = gamesJson[gameNum]['scoreboard']['score']['away']
-                    homeScore = gamesJson[gameNum]['scoreboard']['score']['home']
-                    awayQ1 = gamesJson[gameNum]['scoreboard']['score']['awayPeriods'][0]
-                    awayQ2 = gamesJson[gameNum]['scoreboard']['score']['awayPeriods'][1]
-                    homeQ1 = gamesJson[gameNum]['scoreboard']['score']['homePeriods'][0]
-                    homeQ2 = gamesJson[gameNum]['scoreboard']['score']['homePeriods'][1]
-                    try:
-                        awaySpreadOpen = gamesJson[gameNum]['odds'][0]['spread']['open']['away']
-                    except KeyError:
-                        awaySpreadOpen = 'N/A'
-                    try:
-                        awaySpreadOpenOdds = gamesJson[gameNum]['odds'][0]['spread']['open']['awayOdds']
-                    except KeyError:
-                        awaySpreadOpenOdds = 'N/A'
-                    try:
-                        homeSpreadOpen = gamesJson[gameNum]['odds'][0]['spread']['open']['home']
-                    except KeyError:
-                        homeSpreadOpen = 'N/A'
-                    try:
-                        homeSpreadOpenOdds = gamesJson[gameNum]['odds'][0]['spread']['open']['homeOdds']
-                    except KeyError:
-                        homeSpreadOpenOdds = 'N/A'
-                    try:
-                        awaySpreadCurrent = gamesJson[gameNum]['odds'][0]['spread']['current']['away']
-                    except KeyError:
-                        awaySpreadCurrent = 'N/A'
-                    try:
-                        awaySpreadCurrentOdds = gamesJson[gameNum]['odds'][0]['spread']['current']['awayOdds']
-                    except KeyError:
-                        awaySpreadCurrentOdds = 'N/A'
-                    try:
-                        homeSpreadCurrent = gamesJson[gameNum]['odds'][0]['spread']['current']['home']
-                    except KeyError:
-                        homeSpreadCurrent = 'N/A'
-                    try:
-                        homeSpreadCurrentOdds = gamesJson[gameNum]['odds'][0]['spread']['current']['homeOdds']
-                    except KeyError:
-                        homeSpreadCurrentOdds = 'N/A'
-                    try:
-                        awayMoneyLineOpen = gamesJson[gameNum]['odds'][0]['moneyline']['open']['awayOdds']
-                    except KeyError:
-                        awayMoneyLineOpen = 'N/A'
-                    try:
-                        homeMoneyLineOpen = gamesJson[gameNum]['odds'][0]['moneyline']['open']['homeOdds']
-                    except KeyError:
-                        homeMoneyLineOpen = 'N/A'
-                    try:
-                        awayMoneyLineCurrent = gamesJson[gameNum]['odds'][0]['moneyline']['current']['awayOdds']
-                    except KeyError:
-                        awayMoneyLineCurrent = 'N/A'
-                    try:
-                        homeMoneyLineCurrent = gamesJson[gameNum]['odds'][0]['moneyline']['current']['homeOdds']
-                    except KeyError:
-                        homeMoneyLineCurrent = 'N/A'
-                    try:
-                        totalOpen = gamesJson[gameNum]['odds'][0]['total']['open']['total']
-                    except KeyError:
-                        totalOpen = 'N/A'
-                    try:
-                        totalOpenOverOdds = gamesJson[gameNum]['odds'][0]['total']['open']['overOdds']
-                    except KeyError:
-                        totalOpenOverOdds = 'N/A'
-                    try:
-                        totalOpenUnderOdds = gamesJson[gameNum]['odds'][0]['total']['open']['underOdds']
-                    except KeyError:
-                        totalOpenUnderOdds = 'N/A'
-                    try:
-                        totalCurrent = gamesJson[gameNum]['odds'][0]['total']['current']['total']
-                    except KeyError:
-                        totalCurrent = 'N/A'
-                    try:
-                        totalCurrentOverOdds = gamesJson[gameNum]['odds'][0]['total']['current']['overOdds']
-                    except KeyError:
-                        totalCurrentOverOdds = 'N/A'
-                    try:
-                        totalCurrentUnderOdds = gamesJson[gameNum]['odds'][0]['total']['current']['underOdds']
-                    except KeyError:
-                        totalCurrentUnderOdds = 'N/A'
-
-                    op_dict['awayTeam'] = gameDict['awayteam']
-                    op_dict['awayScore'] = awayScore
-                    op_dict['homeTeam'] = gameDict['hometeam']
-                    op_dict['homeScore'] = homeScore
-                    op_dict['hourPlayed'] = gameDict['time']['hour']
-                    op_dict['timeStamp'] = gameDict['time']['string']
-                    op_dict['conferenceBool'] = conferenceBool
-                    op_dict['divisionBool'] = divisionBool
-                    op_dict['awayQ1'] = awayQ1
-                    op_dict['awayQ2'] = awayQ2
-                    op_dict['awayQ3'] = 'N/A'
-                    op_dict['awayQ4'] = 'N/A'
-                    op_dict['homeQ1'] = homeQ1
-                    op_dict['homeQ2'] = homeQ2
-                    op_dict['homeQ3'] = 'N/A'
-                    op_dict['homeQ4'] = 'N/A'
-                    op_dict['awaySpreadOpen'] = awaySpreadOpen
-                    op_dict['awaySpreadOpenOdds'] = awaySpreadOpenOdds
-                    op_dict['homeSpreadOpen'] = homeSpreadOpen
-                    op_dict['homeSpreadOpenOdds'] = homeSpreadOpenOdds
-                    op_dict['awaySpreadCurrent'] = awaySpreadCurrent
-                    op_dict['awaySpreadCurrentOdds'] = awaySpreadCurrentOdds
-                    op_dict['homeSpreadCurrent'] = homeSpreadCurrent
-                    op_dict['homeSpreadCurrentOdds'] = homeSpreadCurrentOdds
-                    op_dict['awayMoneyLineOpen'] = awayMoneyLineOpen
-                    op_dict['homeMoneyLineOpen'] = homeMoneyLineOpen
-                    op_dict['awayMoneyLineCurrent'] = awayMoneyLineCurrent
-                    op_dict['homeMoneyLineCurrent'] = homeMoneyLineCurrent
-                    op_dict['totalOpen'] = totalOpen
-                    op_dict['totalOpenOverOdds'] = totalOpenOverOdds
-                    op_dict['totalOpenUnderOdds'] = totalOpenUnderOdds
-                    op_dict['totalCurrent'] = totalCurrent
-                    op_dict['totalCurrentOverOdds'] = totalCurrentOverOdds
-                    op_dict['totalCurrentUnderOdds'] = totalCurrentUnderOdds
-
-                    dictionary_copy = op_dict.copy()
-                else:
-                    gameDict = parse_game_basics(gamesJson[gameNum], sport=sport)
-                    dictionary_copy = gameDict.copy()
-
-                op_list.append(dictionary_copy)
-
-            elif sport == 'CBB' or sport == 'NCAAB':
-                gameDict = parse_game_basics(gamesJson[gameNum])
-                if gameDict['status'] == "final":  # game is final, get all details
-                    conferenceBool = gamesJson[gameNum]['details']['conferenceGame']
-                    divisionBool = gamesJson[gameNum]['details']['divisionGame']
-                    awayScore = gamesJson[gameNum]['scoreboard']['score']['away']
-                    homeScore = gamesJson[gameNum]['scoreboard']['score']['home']
-                    awayQ1 = gamesJson[gameNum]['scoreboard']['score']['awayPeriods'][0]
-                    awayQ2 = gamesJson[gameNum]['scoreboard']['score']['awayPeriods'][1]
-                    homeQ1 = gamesJson[gameNum]['scoreboard']['score']['homePeriods'][0]
-                    homeQ2 = gamesJson[gameNum]['scoreboard']['score']['homePeriods'][1]
-                    awaySpreadOpen = gamesJson[gameNum]['odds'][0]['spread']['open']['away']
-                    awaySpreadOpenOdds = gamesJson[gameNum]['odds'][0]['spread']['open']['awayOdds']
-                    homeSpreadOpen = gamesJson[gameNum]['odds'][0]['spread']['open']['home']
-                    homeSpreadOpenOdds = gamesJson[gameNum]['odds'][0]['spread']['open']['homeOdds']
-                    awaySpreadCurrent = gamesJson[gameNum]['odds'][0]['spread']['current']['away']
-                    awaySpreadCurrentOdds = gamesJson[gameNum]['odds'][0]['spread']['current']['awayOdds']
-                    homeSpreadCurrent = gamesJson[gameNum]['odds'][0]['spread']['current']['home']
-                    homeSpreadCurrentOdds = gamesJson[gameNum]['odds'][0]['spread']['current']['homeOdds']
-                    try:
-                        awayMoneyLineOpen = gamesJson[gameNum]['odds'][0]['moneyline']['open']['awayOdds']
-                    except KeyError:
-                        awayMoneyLineOpen = 'N/A'
-                    try:
-                        homeMoneyLineOpen = gamesJson[gameNum]['odds'][0]['moneyline']['open']['homeOdds']
-                    except KeyError:
-                        homeMoneyLineOpen = 'N/A'
-                    try:
-                        awayMoneyLineCurrent = gamesJson[gameNum]['odds'][0]['moneyline']['current']['awayOdds']
-                    except KeyError:
-                        awayMoneyLineCurrent = 'N/A'
-                    try:
-                        homeMoneyLineCurrent = gamesJson[gameNum]['odds'][0]['moneyline']['current']['homeOdds']
-                    except KeyError:
-                        homeMoneyLineCurrent = 'N/A'
-                    totalOpen = gamesJson[gameNum]['odds'][0]['total']['open']['total']
-                    totalOpenOverOdds = gamesJson[gameNum]['odds'][0]['total']['open']['overOdds']
-                    totalOpenUnderOdds = gamesJson[gameNum]['odds'][0]['total']['open']['underOdds']
-                    totalCurrent = gamesJson[gameNum]['odds'][0]['total']['current']['total']
-                    totalCurrentOverOdds = gamesJson[gameNum]['odds'][0]['total']['current']['overOdds']
-                    totalCurrentUnderOdds = gamesJson[gameNum]['odds'][0]['total']['current']['underOdds']
-
-                    op_dict['awayTeam'] = gameDict['awayteam']
-                    op_dict['awayScore'] = awayScore
-                    op_dict['homeTeam'] = gameDict['hometeam']
-                    op_dict['homeScore'] = homeScore
-                    op_dict['hourPlayed'] = gameDict['time']['hour']
-                    op_dict['timeStamp'] = gameDict['time']['string']
-                    op_dict['conferenceBool'] = conferenceBool
-                    op_dict['divisionBool'] = divisionBool
-                    op_dict['awayQ1'] = awayQ1
-                    op_dict['awayQ2'] = awayQ2
-                    op_dict['awayQ3'] = 'N/A'
-                    op_dict['awayQ4'] = 'N/A'
-                    op_dict['homeQ1'] = homeQ1
-                    op_dict['homeQ2'] = homeQ2
-                    op_dict['homeQ3'] = 'N/A'
-                    op_dict['homeQ4'] = 'N/A'
-                    op_dict['awaySpreadOpen'] = awaySpreadOpen
-                    op_dict['awaySpreadOpenOdds'] = awaySpreadOpenOdds
-                    op_dict['homeSpreadOpen'] = homeSpreadOpen
-                    op_dict['homeSpreadOpenOdds'] = homeSpreadOpenOdds
-                    op_dict['awaySpreadCurrent'] = awaySpreadCurrent
-                    op_dict['awaySpreadCurrentOdds'] = awaySpreadCurrentOdds
-                    op_dict['homeSpreadCurrent'] = homeSpreadCurrent
-                    op_dict['homeSpreadCurrentOdds'] = homeSpreadCurrentOdds
-                    op_dict['awayMoneyLineOpen'] = awayMoneyLineOpen
-                    op_dict['homeMoneyLineOpen'] = homeMoneyLineOpen
-                    op_dict['awayMoneyLineCurrent'] = awayMoneyLineCurrent
-                    op_dict['homeMoneyLineCurrent'] = homeMoneyLineCurrent
-                    op_dict['totalOpen'] = totalOpen
-                    op_dict['totalOpenOverOdds'] = totalOpenOverOdds
-                    op_dict['totalOpenUnderOdds'] = totalOpenUnderOdds
-                    op_dict['totalCurrent'] = totalCurrent
-                    op_dict['totalCurrentOverOdds'] = totalCurrentOverOdds
-                    op_dict['totalCurrentUnderOdds'] = totalCurrentUnderOdds
-
-                    dictionary_copy = op_dict.copy()
-                else:
-                    gameDict = parse_game_basics(gamesJson[gameNum], sport=sport)
-                    dictionary_copy = gameDict.copy()
-
-                op_list.append(dictionary_copy)
-            else:
-                gameDict = parse_game_basics(gamesJson[gameNum], sport=sport)
-
-        return op_list
-    else:
-        return 'error'
-
-
-def parse_json_for_games(schedJson, **kwargs):
-    # returns the # of games in a json file
-    games = 0  # default to 0
-
-    if 'sport' in kwargs:
-        noPrint = 1
-    else:
-        noPrint = 0
-
-    try:
-        games = int(schedJson['games'])  # get games from the json
-        if noPrint == 0:
-            print('games in file: ' + str(games))
-    except:
-        fncMessage = "no games in file"
-        return 0
-
-    return games
-
-
-def full_parse_rapid_schedule_file(schedule_file, sport=None):
-    # Takes in a schedule file (see data Harvest)
-    # If no sport is passed, basic info is returned
-
-    op_dict_list = list()
-    schedule_json = fC.load_json_from_file(schedule_file)
-    op_dict = {
-        'eventDetails': dict(),
-        'matchupDetails': dict(),
-        'resultDetails': dict()
-    }
-    if sport is not None:
-        sport = check_sport_option(sport)
-
-    games_int = parse_json_for_games(schedule_json)
-
-    if games_int > 0:
-        pull_time = timeCommon.convert_time_formats(schedule_json['time'], 'ISO 8601', to_format='string')
-        games_list = schedule_json['results']
-        for game in games_list:
-            op_dict['eventDetails'] = parse_event_details(game)
-            op_dict['matchupDetails'] = parse_matchup_details(game)
-            op_dict['resultDetails'] = parse_result_details(game)
-            op_dict_list.append(op_dict.copy())
-    else:
-        return 'No games in file'
-
-    return op_dict_list
-
-
-def parse_event_details(game_dict):
-    # Input is an individual game dict from rapid json
-    # Output is a dict shown below
-
-    schedule_dict = game_dict['schedule']
-    details_dict = game_dict['details']
-    venue_dict = game_dict['venue']
-
-    scheduled_rapid_format = errorHandleCommon.try_except_dictionary_key(schedule_dict, 'date')
-    if scheduled_rapid_format != "N/A":
-        scheduled = timeCommon.convert_time_formats(scheduled_rapid_format, 'ISO 8601', to_format='string')
-    else:
-        scheduled = "N/A"
-
-    last_updated = errorHandleCommon.try_except_dictionary_key(game_dict, 'lastUpdated')
-    match = errorHandleCommon.try_except_dictionary_key(game_dict, 'summary')
-    status = errorHandleCommon.try_except_dictionary_key(game_dict, 'status')
-    league = errorHandleCommon.try_except_dictionary_key(details_dict, 'league')
-    game_type = errorHandleCommon.try_except_dictionary_key(details_dict, 'seasonType')
-    conference_bool = errorHandleCommon.try_except_dictionary_key(details_dict, 'conferenceGame')
-    division_bool = errorHandleCommon.try_except_dictionary_key(details_dict, 'divisionGame')
-    season = errorHandleCommon.try_except_dictionary_key(details_dict, 'season')
-    neutral_site_bool = errorHandleCommon.try_except_dictionary_key(venue_dict, 'neutralSite')
-
-    op_dict = {
-        'scheduled': scheduled,
-        'scheduledRapidFormat': scheduled_rapid_format,
-        'season': season,
-        'lastUpdated': last_updated,
-        'match': match,
-        'status': status,
-        'league': league,
-        'gameType': game_type,
-        'conferenceGame': conference_bool,
-        'divisionGame': division_bool,
-        'neutralSite': neutral_site_bool
-    }
-
-    return op_dict
-
-
-def parse_matchup_details(game_dict):
-    op_dict = dict()
-
-    teams_dict = game_dict['teams']
-    odds_dict = errorHandleCommon.try_except_dictionary_key(game_dict, 'odds')
-
-    if odds_dict != "N/A":
-        odds_dict = game_dict['odds'][0]
-        spread_details = errorHandleCommon.try_except_dictionary_key(odds_dict, 'spread')
-        moneyline_details = errorHandleCommon.try_except_dictionary_key(odds_dict, 'moneyline')
-        total_details = errorHandleCommon.try_except_dictionary_key(odds_dict, 'total')
-        open_date = errorHandleCommon.try_except_dictionary_key(odds_dict, 'openDate')
-        last_updated = errorHandleCommon.try_except_dictionary_key(odds_dict, 'lastUpdated')
-    else:
-        spread_details = {"open": {"away": "N/A", "home": "N/A", "awayOdds": "N/A", "homeOdds": "N/A"},
-                          "current": {"away": "N/A", "home": "N/A", "awayOdds": "N/A", "homeOdds": "N/A"}}
-        moneyline_details = {"open": {"awayOdds": "N/A", "homeOdds": "N/A"},
-                             "current": {"awayOdds": "N/A", "homeOdds": "N/A"}}
-        total_details = {"open": {"total": "N/A", "overOdds": "N/A", "underOdds": "N/A"},
-                         "current": {"total": "N/A", "overOdds": "N/A", "underOdds": "N/A"}}
-        open_date = "N/A"
-        last_updated = "N/A"
-
-    away_team_dict = errorHandleCommon.try_except_dictionary_key(teams_dict, 'away')
-    home_team_dict = errorHandleCommon.try_except_dictionary_key(teams_dict, 'home')
-
-    if open_date != "N/A":
-        open_date = timeCommon.convert_time_formats(open_date, 'ISO 8601', to_format='string')
-
-    if last_updated != "N/A":
-        last_updated = timeCommon.convert_time_formats(last_updated, 'ISO 8601', to_format='string')
-
-    if type(spread_details) == str:
-        spread_details = {"open": {"away": "N/A", "home": "N/A", "awayOdds": "N/A", "homeOdds": "N/A"},
-                          "current": {"away": "N/A", "home": "N/A", "awayOdds": "N/A", "homeOdds": "N/A"}}
-
-    if type(moneyline_details) == str:
-        moneyline_details = {"open": {"awayOdds": "N/A", "homeOdds": "N/A"},
-                             "current": {"awayOdds": "N/A", "homeOdds": "N/A"}}
-
-    if type(total_details) == str:
-        total_details = {"open": {"total": "N/A", "overOdds": "N/A", "underOdds": "N/A"},
-                         "current": {"total": "N/A", "overOdds": "N/A", "underOdds": "N/A"}}
-
-    op_dict = {
-        'awayTeam': away_team_dict,
-        'homeTeam': home_team_dict,
-        'spreadDetails': spread_details,
-        'moneylineDetails': moneyline_details,
-        'totalDetails': total_details,
-        'openTime': open_date,
-        'lastUpdated': last_updated
-    }
-
-    return op_dict
-
-
-def parse_result_details(game_dict):
-    op_dict = dict()
-
-    test = 1
-    scoreboard_dict = errorHandleCommon.try_except_dictionary_key(game_dict, 'scoreboard')
-
-    if scoreboard_dict != "N/A":
-        score_dict = errorHandleCommon.try_except_dictionary_key(scoreboard_dict, 'score')
-        current_period = errorHandleCommon.try_except_dictionary_key(scoreboard_dict, 'currentPeriod')
-        time_remaining = errorHandleCommon.try_except_dictionary_key(scoreboard_dict, 'periodTimeRemaining')
-    else:
-        score_dict = "N/A"
-        current_period = "N/A"
-        time_remaining = "N/A"
-
-    op_dict = {
-        'score': score_dict,
-        'currentPeriod': current_period,
-        'periodTimeRemaining': time_remaining
-    }
-
-    return op_dict
-
-
-def parse_final_game_dict_for_results(game_dict):
-    test = 1
-
-
-def return_total_final_games_in_schedule_json(schedule_json):
-    game_count = 0
-
-    try:
-        result_list = schedule_json['results']  # get games from the json
-    except KeyError:
-        return game_count
-
-    for result in result_list:
-        if result["status"] == "final":
-            game_count = game_count + 1
-
-    return game_count
-
-
-def return_games_in_schedule(schedule_json, sport="nfl"):
-    sport = sport.lower()
-
-    if sport == 'nfl':
-        return schedule_json["results"]
-    else:
-        print("sport not set up in function yet")
-
-
-def parse_directory_for_results(dir_full_path):
-    files = osC.return_files_in_dir_as_strings(dir_full_path)
-    full_results_list = list()
-    for f in files:
-        if f == "weekCombined.json":
-            pass
-        else:
-            temp_results_list = list()
-            temp_json = dict()
-            temp_file = osC.append_to_dir(dir_full_path, f)
-            try:
-                temp_json = fC.load_json_from_file(temp_file)
-            except:
-                pass
-
-            try:
-                temp_results_list = temp_json['results']
-            except:
-                pass
-
-            for result in temp_results_list:
-                full_results_list.append(result)
-
-    return full_results_list
-
-
-def combine_results_in_directory(dir_full_path):
-    full_results_list = parse_directory_for_results(dir_full_path)
-    op_file = osC.append_to_dir(dir_full_path, "weekCombined.json")
-    op_dict = {
-        "fileType": "week combined",
-        "results": full_results_list
-    }
-
-    fC.dump_json_to_file(op_file, op_dict)
-
-
-def get_current_spread_given_dict(game_dict, playing):
-    """
-    :param playing: str(), home or away
-    :param game_dict: dict(), rapid game dict
-    :return: float(): spread
-    """
-    playing = playing.lower()
-    try:
-        return game_dict['odds'][0]['spread']['current'][playing]
-    except KeyError:
-        return "N/A"
-
-
-def get_final_score_given_dict(game_dict, playing):
-    """
-    :param playing: str(), home or away
-    :param game_dict: dict(), rapid game dict
-    :return: int(): score
-    """
-
-    playing = playing.lower()
-    return game_dict['scoreboard']['score'][playing]
-
-
-def get_total_given_dict(game_dict):
-    """
-    :param game_dict: dict(), rapid game dict()
-    :return: float(), total
-    """
-    try:
-        return game_dict['odds'][0]['total']['current']["total"]
-    except KeyError:
-        return "N/A"
-
-
-def return_game_final_basics_given_result_dict(game_dict):
-    """
-    Returns a dict with the game spread
-    :param game_dict: dict(), rapid api game dict with final results available
-    :return:
-    """
-
-    op_dict = dict()
-    op_dict['awayTeamFull'] = game_dict['teams']['away']['team']
-    op_dict['homeTeamFull'] = game_dict['teams']['home']['team']
-    op_dict['awayTeam'] = game_dict['teams']['away']['abbreviation']
-    op_dict['homeTeam'] = game_dict['teams']['home']['abbreviation']
-    op_dict['awaySpread'] = get_current_spread_given_dict(game_dict, 'away')
-    op_dict['homeSpread'] = get_current_spread_given_dict(game_dict, 'home')
-    op_dict['awayScore'] = get_final_score_given_dict(game_dict, 'away')
-    op_dict['homeScore'] = get_final_score_given_dict(game_dict, 'home')
-    op_dict['total'] = get_total_given_dict(game_dict)
-
-    return op_dict
-
-
-def get_conference_given_game_dict(playing, game_dict):
-    """
-    Returns the conference of the given team
-    :param playing: string(), "away" or "home"
-    :param game_dict: rapid game dict
-    :return: str(), Rapid conference
-    """
-    playing = playing.lower()
-    try:
-        return game_dict['teams'][playing]['conference']
-    except KeyError:
-        return "N/A"
-
-
-def get_final_result_basics_dict(game_dict):
-    game_details = parse_matchup_details(game_dict)
-    game_results = parse_result_details(game_dict)
-
-    if game_dict['status'] == "canceled":
-        away_score = "n/a"
-        home_score = "n/a"
-    else:
-        away_score = game_results["score"]["away"]
-        home_score = game_results["score"]["home"]
-    home_spread = game_details["spreadDetails"]["current"]["home"]
-    total = game_details["totalDetails"]["current"]["total"]
-
-    ats_analysis = commonSportsGameAnalysis.calculate_ats_data_for_game(away_score, home_score, home_spread, total)
-
-    try:
-        score_diff = abs(away_score - home_score)
-    except TypeError:
-        score_diff = "n/a"
-
-    try:
-        cov_by_abs = abs(ats_analysis["awayCoverBy"])
-    except TypeError:
-        cov_by_abs = "n/a"
-
-    try:
-        tot_by_abs = abs(ats_analysis["underCoverBy"])
-    except TypeError:
-        tot_by_abs = "n/a"
-
-    try:
-        away_moneyline = game_details["moneylineDetails"]["current"]["awayOdds"]
-    except KeyError:
-        away_moneyline = "n/a"
-
-    try:
-        home_moneyline = game_details["moneylineDetails"]["current"]["homeOdds"]
-    except KeyError:
-        home_moneyline = "n/a"
-
-    op_game_dict = {
-        "awayTeam": game_details["awayTeam"]["abbreviation"],
-        "homeTeam": game_details["homeTeam"]["abbreviation"],
-        "awayTeamFull": game_dict['teams']['away']['team'],
-        "homeTeamFull": game_dict['teams']['home']['team'],
-        "awaySpread": game_details["spreadDetails"]["current"]["away"],
-        "awayOdds": game_details["spreadDetails"]["current"]["awayOdds"],
-        "homeSpread": home_spread,
-        "homeOdds": game_details["spreadDetails"]["current"]["homeOdds"],
-        "total": total,
-        "totalPointsScored": home_score + away_score,
-        "overOdds": game_details["totalDetails"]["current"]["overOdds"],
-        "underOdds": game_details["totalDetails"]["current"]["underOdds"],
-        "awayScore": away_score,
-        "homeScore": home_score,
-        "gameWinner": ats_analysis["winner"],
-        "atsWinner": ats_analysis["atsWinner"],
-        "awayAtsResult": ats_analysis["awayAtsGrade"],
-        "homeAtsResult": ats_analysis["homeAtsGrade"],
-        "awayTeamCoverBy": ats_analysis["awayCoverBy"],
-        "homeTeamCoverBy": ats_analysis["homeCoverBy"],
-        "totalWinner": ats_analysis["totalGrade"],
-        "underCoverBy": ats_analysis["underCoverBy"],
-        "overCoverBy": ats_analysis["overCoverBy"],
-        "scoreDifferenceAbsoluteValue": score_diff,
-        "atsCoverByAbsoluteValue": cov_by_abs,
-        "totalCoverByAbsoluteValue": tot_by_abs,
-        "awayMoneyline": away_moneyline,
-        "homeMoneyline": home_moneyline
-    }
-
-    return op_game_dict
-
-
-def get_team_name(game_dict, playing, string_type="abbreviation"):
-    """
-
-    :param game_dict: dict(), rapid dict of result
-    :param playing: str(), away or home
-    :param string_type: str(), full or abbreviation
-    :return: str(), team name
-    """
-    playing = playing.lower()
-
-    if string_type == "abbreviation":
-        return game_dict['teams'][playing]['abbreviation']
-    elif string_type == "full":
-        return game_dict['teams'][playing]['team']
-    else:
-        return "Unsupported string_type argument. Try 'full' or 'abbreviation'"
-
-
-def test_check_games_within_time():
-    test = 1
-
-
-
-if __name__ == '__main__':
-    # sched_dict = fC.load_json_from_file("schedule_example.json")
-    # rapid_obj = RapidSchedule('nfl', sched_dict)
-    # game_check = rapid_obj.check_if_all_games_complete(started_before_date_hour=17, date_to_check="20210926")
-    nfl = NFLSportsPage()
-    nfl.get_schedule_for_today()
-    no_games = nfl.get_games_within_specified_minutes(11)
-    stop = 1
-    sp = SportsPage()
-    start_date = "2021-10-19"
-    end_date = "2021-10-26"
-    sched = sp.get_schedule("nfl", date_start=start_date, date_end=end_date)
-
-    test = 1

@@ -1,0 +1,90 @@
+{
+    "status": 200,
+    "time": "2024-12-30T19:13:46.491Z",
+    "games": 1,
+    "results": [
+        {
+            "summary": "Detroit Lions @ San Francisco 49ers",
+            "details": {
+                "league": "NFL",
+                "seasonType": "regular",
+                "season": 2024,
+                "conferenceGame": true,
+                "divisionGame": false
+            },
+            "schedule": {
+                "date": "2024-12-31T01:15:00.000Z",
+                "tbaTime": false
+            },
+            "status": "scheduled",
+            "teams": {
+                "away": {
+                    "team": "Detroit Lions",
+                    "location": "Detroit",
+                    "mascot": "Lions",
+                    "abbreviation": "DET",
+                    "conference": "NFC",
+                    "division": "North"
+                },
+                "home": {
+                    "team": "San Francisco 49ers",
+                    "location": "San Francisco",
+                    "mascot": "49ers",
+                    "abbreviation": "SF",
+                    "conference": "NFC",
+                    "division": "West"
+                }
+            },
+            "lastUpdated": "2024-12-30T19:13:14.816Z",
+            "gameId": 312013,
+            "venue": {
+                "name": "Levi's Stadium",
+                "neutralSite": false,
+                "city": "Santa Clara",
+                "state": "CA"
+            },
+            "odds": [
+                {
+                    "spread": {
+                        "open": {
+                            "away": -3.5,
+                            "home": 3.5,
+                            "awayOdds": -110,
+                            "homeOdds": -110
+                        },
+                        "current": {
+                            "away": -3.5,
+                            "home": 3.5,
+                            "awayOdds": -115,
+                            "homeOdds": -110
+                        }
+                    },
+                    "moneyline": {
+                        "open": {
+                            "awayOdds": -189,
+                            "homeOdds": 158
+                        },
+                        "current": {
+                            "awayOdds": -200,
+                            "homeOdds": 167
+                        }
+                    },
+                    "total": {
+                        "open": {
+                            "total": 51.5,
+                            "overOdds": -110,
+                            "underOdds": -110
+                        },
+                        "current": {
+                            "total": 50,
+                            "overOdds": -115,
+                            "underOdds": -110
+                        }
+                    },
+                    "openDate": "2024-12-23T08:36:31.974Z",
+                    "lastUpdated": "2024-12-30T19:13:31.108Z"
+                }
+            ]
+        }
+    ]
+}

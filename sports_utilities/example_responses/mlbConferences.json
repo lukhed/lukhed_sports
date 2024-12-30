@@ -1,0 +1,37 @@
+{
+    "status": 200,
+    "time": "2024-12-30T18:19:02.924Z",
+    "divisions": 6,
+    "results": [
+        {
+            "conference": "American League",
+            "division": "Central",
+            "league": "MLB"
+        },
+        {
+            "conference": "American League",
+            "division": "East",
+            "league": "MLB"
+        },
+        {
+            "conference": "American League",
+            "division": "West",
+            "league": "MLB"
+        },
+        {
+            "conference": "National League",
+            "division": "Central",
+            "league": "MLB"
+        },
+        {
+            "conference": "National League",
+            "division": "East",
+            "league": "MLB"
+        },
+        {
+            "conference": "National League",
+            "division": "West",
+            "league": "MLB"
+        }
+    ]
+}

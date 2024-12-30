@@ -1,0 +1,37 @@
+{
+    "status": 200,
+    "time": "2024-12-30T18:17:17.394Z",
+    "divisions": 6,
+    "results": [
+        {
+            "conference": "Eastern",
+            "division": "Atlantic",
+            "league": "NBA"
+        },
+        {
+            "conference": "Eastern",
+            "division": "Central",
+            "league": "NBA"
+        },
+        {
+            "conference": "Eastern",
+            "division": "Southeast",
+            "league": "NBA"
+        },
+        {
+            "conference": "Western",
+            "division": "Northwest",
+            "league": "NBA"
+        },
+        {
+            "conference": "Western",
+            "division": "Pacific",
+            "league": "NBA"
+        },
+        {
+            "conference": "Western",
+            "division": "Southwest",
+            "league": "NBA"
+        }
+    ]
+}

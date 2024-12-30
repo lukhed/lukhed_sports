@@ -1,0 +1,72 @@
+{
+    "status": 200,
+    "time": "2024-12-30T18:08:14.917Z",
+    "divisions": 13,
+    "results": [
+        {
+            "conference": "AAC",
+            "division": "N/A",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "ACC",
+            "division": "N/A",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "Big 12",
+            "division": "N/A",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "Big Ten",
+            "division": "N/A",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "Conference USA",
+            "division": "N/A",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "Independent",
+            "division": "N/A",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "MAC",
+            "division": "East",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "MAC",
+            "division": "West",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "Mountain West",
+            "division": "N/A",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "Pac 12",
+            "division": "N/A",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "SEC",
+            "division": "N/A",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "Sun Belt",
+            "division": "East",
+            "league": "NCAAF"
+        },
+        {
+            "conference": "Sun Belt",
+            "division": "West",
+            "league": "NCAAF"
+        }
+    ]
+}
