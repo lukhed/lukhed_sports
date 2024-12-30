@@ -2,7 +2,7 @@ from lukhed_basic_utils import osCommon as osC
 from lukhed_basic_utils import fileCommon as fC
 from lukhed_basic_utils import timeCommon as tC
 from lukhed_basic_utils import requestsCommon as rC
-from sports_utilities.calibrations import endpoint_valid_inputs
+from lukhed_sports.calibrations import endpoint_valid_inputs
 from lukhed_basic_utils.githubCommon import GithubHelper
 import json
 
