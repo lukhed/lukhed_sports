@@ -26,14 +26,14 @@ from lukhed-sports import SportsPage
 #### API Key Management Locally
 ```python
 # Upon first use, class will take you thru setup (copy and paste your Sportspage key)
-api = sports_utilities.SportsPage()
+api = SportsPage()
 games = api.get_games('nfl')
 ```
 
 #### API Key Managment with Private Github Repo
 ```python
 # Upon first use, class will take you thru setup (github token and Sportspage key)
-api = sports_utilities.SportsPage(
+api = SportsPage(
     config_file_preference='github', 
     github_project='any_project_name'
     )
