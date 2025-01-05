@@ -13,10 +13,12 @@ It provides:
 - Management of api key -> You can store api key locally (by default) or with a private github repo 
     so you can use the api efficiently across different hardware.
 - Optionally manage api limits (on by default) 
-- Methods to utilize each endpoint
+- Methods to utilize each endpoint from sportspagefeeds
 - Optionally validate input (on by default), to ensure you do not waste API calls
 - Methods to get valid inputs for each endpoint, as documentation is sparse
 - Methods to parse data returned by basic (non-paid) endpoints 
+
+Full documentation for this class is in development.
 
 ### Basic Usage
 ```python
@@ -45,7 +47,7 @@ api = SportsPage(
 api.get_games('nfl')
 ```
 
-Partial example resopnse below, for full example response [see here.](lukhed_sports/example_responses/nflGames.json)
+Partial example resopnse below, for full example response [see here.]([lukhed_sports/example_responses/nflGames.json](https://github.com/lukhed/lukhed_sports/blob/62abe3400f6abd69b1cf73ea3b97d59ec2ad5a10/lukhed_sports/example_responses/nflGames.json))
 ```json
 {
     "status": 200,
@@ -70,7 +72,7 @@ Partial example resopnse below, for full example response [see here.](lukhed_spo
 rankings = api.get_rankings('ncaaf')
 ```
 
-Partial example resopnse below, for full example response [see here.](tbd)
+Partial example resopnse below, for full example response [see here.]([tbd](https://github.com/lukhed/lukhed_sports/blob/dae9a5e1b35407c652f78620b44f03a94adf4529/lukhed_sports/example_responses/getRankings.json))
 ```json
 {
     "status": 200,
