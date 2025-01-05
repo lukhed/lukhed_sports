@@ -114,3 +114,14 @@ Response
     "lastCall": "20250105121251"
 }
 ```
+
+
+#### All Endpoints
+```python
+api.get_games           # Get schedule/status of games
+api.get_rankings        # Get rankings for various leagues    
+api.get_teams           # Get teams in leagues/conferences
+api.get_conferences     # Get conferences in leagues
+api.get_game_by_id      # Get info about a game by its ID
+api.get_odds            # Get odds for a game (requires paid tier)
+```
