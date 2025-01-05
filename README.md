@@ -22,7 +22,7 @@ Full documentation for this class is in development.
 
 ### Basic Usage
 ```python
-from lukhed-sports import SportsPage
+from lukhed_sports import SportsPage
 ```
 
 #### API Key Management Locally
