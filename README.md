@@ -7,16 +7,18 @@ pip install lukhed-sports
 
 
 ## Sportspage Feeds Wrapper
-This class is a custom wrapper for the sportspagefeeds API (https://sportspagefeeds.com/documentation). 
+This class is a custom wrapper for the [sportspagefeeds API](https://sportspagefeeds.com/documentation). 
 
 It provides:
 - Management of api key -> You can store api key locally (by default) or with a private github repo 
     so you can use the api efficiently across different hardware.
 - Optionally manage api limits (on by default) 
-- Methods to utilize each endpoint
+- Methods to utilize each endpoint from sportspagefeeds
 - Optionally validate input (on by default), to ensure you do not waste API calls
 - Methods to get valid inputs for each endpoint, as documentation is sparse
 - Methods to parse data returned by basic (non-paid) endpoints 
+
+Full documentation for this class is in development.
 
 ### Basic Usage
 ```python
@@ -37,23 +39,15 @@ api = SportsPage(
     config_file_preference='github', 
     github_project='any_project_name'
     )
-games = api.get_games('nba')
 ```
-
-#### Check API Usage
-```python
-sP.check_api_limit()
-
->>>
-You have 4 api calls remaining
-Your reset time is set for 20241230194114 US/Eastern
-Your limit is 20
-```
-
-
-
 
 #### Games
+```python
+# Get games occuring today
+api.get_games('nfl')
+```
+
+Partial example resopnse below, for full example response [see here.]([lukhed_sports/example_responses/nflGames.json](https://github.com/lukhed/lukhed_sports/blob/62abe3400f6abd69b1cf73ea3b97d59ec2ad5a10/lukhed_sports/example_responses/nflGames.json))
 ```json
 {
     "status": 200,
@@ -70,80 +64,64 @@ Your limit is 20
                 "conferenceGame": true,
                 "divisionGame": false
             },
-            "schedule": {
-                "date": "2024-12-31T01:15:00.000Z",
-                "tbaTime": false
-            },
-            "status": "scheduled",
-            "teams": {
-                "away": {
-                    "team": "Detroit Lions",
-                    "location": "Detroit",
-                    "mascot": "Lions",
-                    "abbreviation": "DET",
-                    "conference": "NFC",
-                    "division": "North"
-                },
-                "home": {
-                    "team": "San Francisco 49ers",
-                    "location": "San Francisco",
-                    "mascot": "49ers",
-                    "abbreviation": "SF",
-                    "conference": "NFC",
-                    "division": "West"
-                }
-            },
-            "lastUpdated": "2024-12-30T19:10:22.234Z",
-            "gameId": 312013,
-            "venue": {
-                "name": "Levi's Stadium",
-                "neutralSite": false,
-                "city": "Santa Clara",
-                "state": "CA"
-            },
-            "odds": [
+    ...
+```
+
+#### Rankings
+```python
+rankings = api.get_rankings('ncaaf')
+```
+
+Partial example resopnse below, for full example response [see here.]([tbd](https://github.com/lukhed/lukhed_sports/blob/dae9a5e1b35407c652f78620b44f03a94adf4529/lukhed_sports/example_responses/getRankings.json))
+```json
+{
+    "status": 200,
+    "time": "2025-01-05T17:12:24.613Z",
+    "results": [
+        {
+            "name": "College Football Playoff",
+            "rankings": [
                 {
-                    "spread": {
-                        "open": {
-                            "away": -3.5,
-                            "home": 3.5,
-                            "awayOdds": -110,
-                            "homeOdds": -110
-                        },
-                        "current": {
-                            "away": -3.5,
-                            "home": 3.5,
-                            "awayOdds": -115,
-                            "homeOdds": -110
-                        }
-                    },
-                    "moneyline": {
-                        "open": {
-                            "awayOdds": -189,
-                            "homeOdds": 158
-                        },
-                        "current": {
-                            "awayOdds": -200,
-                            "homeOdds": 167
-                        }
-                    },
-                    "total": {
-                        "open": {
-                            "total": 51.5,
-                            "overOdds": -110,
-                            "underOdds": -110
-                        },
-                        "current": {
-                            "total": 50,
-                            "overOdds": -115,
-                            "underOdds": -110
-                        }
-                    },
-                    "openDate": "2024-12-23T08:36:31.974Z",
-                    "lastUpdated": "2024-12-30T19:08:42.326Z"
-                }
-            ]
-        }
-    ]
+                    "rank": 1,
+                    "team": "Oregon",
+                    "teamId": 1388
+                },
+                {
+                    "rank": 2,
+                    "team": "Georgia",
+                    "teamId": 1365
+                },
+        ...
+```
+
+#### Check API Usage
+```python
+api.check_api_limit()
+
+# print to console
+>>>
+You have 4 api calls remaining
+Your reset time is set for 20241230194114 US/Eastern
+Your limit is 20
+```
+
+Response
+```json
+{
+    "limit": 20,
+    "remaining": 15,
+    "resetTime": "20250105194115",
+    "lastCall": "20250105121251"
 }
+```
+
+
+#### All Endpoints
+```python
+api.get_games           # Get schedule/status of games
+api.get_rankings        # Get rankings for various leagues    
+api.get_teams           # Get teams in leagues/conferences
+api.get_conferences     # Get conferences in leagues
+api.get_game_by_id      # Get info about a game by its ID
+api.get_odds            # Get odds for a game (requires paid tier)
 ```

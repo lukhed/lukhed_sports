@@ -1,0 +1,396 @@
+{
+    "status": 200,
+    "time": "2025-01-05T17:12:24.613Z",
+    "results": [
+        {
+            "name": "College Football Playoff",
+            "rankings": [
+                {
+                    "rank": 1,
+                    "team": "Oregon",
+                    "teamId": 1388
+                },
+                {
+                    "rank": 2,
+                    "team": "Georgia",
+                    "teamId": 1365
+                },
+                {
+                    "rank": 3,
+                    "team": "Texas",
+                    "teamId": 1398
+                },
+                {
+                    "rank": 4,
+                    "team": "Penn State",
+                    "teamId": 1302
+                },
+                {
+                    "rank": 5,
+                    "team": "Notre Dame",
+                    "teamId": 1064
+                },
+                {
+                    "rank": 6,
+                    "team": "Ohio State",
+                    "teamId": 1387
+                },
+                {
+                    "rank": 7,
+                    "team": "Tennessee",
+                    "teamId": 1397
+                },
+                {
+                    "rank": 8,
+                    "team": "Indiana",
+                    "teamId": 1370
+                },
+                {
+                    "rank": 9,
+                    "team": "Boise State",
+                    "teamId": 1115
+                },
+                {
+                    "rank": 10,
+                    "team": "SMU",
+                    "teamId": 1307
+                },
+                {
+                    "rank": 11,
+                    "team": "Alabama",
+                    "teamId": 1265
+                },
+                {
+                    "rank": 12,
+                    "team": "Arizona State",
+                    "teamId": 1193
+                },
+                {
+                    "rank": 13,
+                    "team": "Miami (FL)",
+                    "teamId": 1291
+                },
+                {
+                    "rank": 14,
+                    "team": "Mississippi",
+                    "teamId": 1138
+                },
+                {
+                    "rank": 15,
+                    "team": "South Carolina",
+                    "teamId": 1152
+                },
+                {
+                    "rank": 16,
+                    "team": "Clemson",
+                    "teamId": 1272
+                },
+                {
+                    "rank": 17,
+                    "team": "BYU",
+                    "teamId": 1117
+                },
+                {
+                    "rank": 18,
+                    "team": "Iowa State",
+                    "teamId": 1285
+                },
+                {
+                    "rank": 19,
+                    "team": "Missouri",
+                    "teamId": 1293
+                },
+                {
+                    "rank": 20,
+                    "team": "Illinois",
+                    "teamId": 1369
+                },
+                {
+                    "rank": 21,
+                    "team": "Syracuse",
+                    "teamId": 1075
+                },
+                {
+                    "rank": 22,
+                    "team": "Army",
+                    "teamId": 1268
+                },
+                {
+                    "rank": 23,
+                    "team": "Colorado",
+                    "teamId": 1273
+                },
+                {
+                    "rank": 24,
+                    "team": "UNLV",
+                    "teamId": 1316
+                },
+                {
+                    "rank": 25,
+                    "team": "Memphis",
+                    "teamId": 1136
+                }
+            ]
+        },
+        {
+            "name": "AP Poll",
+            "rankings": [
+                {
+                    "rank": 1,
+                    "team": "Oregon",
+                    "teamId": 1388
+                },
+                {
+                    "rank": 2,
+                    "team": "Georgia",
+                    "teamId": 1365
+                },
+                {
+                    "rank": 3,
+                    "team": "Notre Dame",
+                    "teamId": 1064
+                },
+                {
+                    "rank": 4,
+                    "team": "Texas",
+                    "teamId": 1398
+                },
+                {
+                    "rank": 5,
+                    "team": "Penn State",
+                    "teamId": 1302
+                },
+                {
+                    "rank": 6,
+                    "team": "Ohio State",
+                    "teamId": 1387
+                },
+                {
+                    "rank": 7,
+                    "team": "Tennessee",
+                    "teamId": 1397
+                },
+                {
+                    "rank": 8,
+                    "team": "Boise State",
+                    "teamId": 1115
+                },
+                {
+                    "rank": 9,
+                    "team": "Indiana",
+                    "teamId": 1370
+                },
+                {
+                    "rank": 10,
+                    "team": "Arizona State",
+                    "teamId": 1193
+                },
+                {
+                    "rank": 11,
+                    "team": "Alabama",
+                    "teamId": 1265
+                },
+                {
+                    "rank": 12,
+                    "team": "SMU",
+                    "teamId": 1307
+                },
+                {
+                    "rank": 13,
+                    "team": "Clemson",
+                    "teamId": 1272
+                },
+                {
+                    "rank": 14,
+                    "team": "South Carolina",
+                    "teamId": 1152
+                },
+                {
+                    "rank": 15,
+                    "team": "Miami (FL)",
+                    "teamId": 1291
+                },
+                {
+                    "rank": 16,
+                    "team": "Mississippi",
+                    "teamId": 1138
+                },
+                {
+                    "rank": 17,
+                    "team": "BYU",
+                    "teamId": 1117
+                },
+                {
+                    "rank": 18,
+                    "team": "Iowa State",
+                    "teamId": 1285
+                },
+                {
+                    "rank": 19,
+                    "team": "Army",
+                    "teamId": 1268
+                },
+                {
+                    "rank": 20,
+                    "team": "Colorado",
+                    "teamId": 1273
+                },
+                {
+                    "rank": 21,
+                    "team": "Illinois",
+                    "teamId": 1369
+                },
+                {
+                    "rank": 22,
+                    "team": "Syracuse",
+                    "teamId": 1075
+                },
+                {
+                    "rank": 23,
+                    "team": "Missouri",
+                    "teamId": 1293
+                },
+                {
+                    "rank": 24,
+                    "team": "UNLV",
+                    "teamId": 1316
+                },
+                {
+                    "rank": 25,
+                    "team": "Memphis",
+                    "teamId": 1136
+                }
+            ]
+        },
+        {
+            "name": "Coaches Poll",
+            "rankings": [
+                {
+                    "rank": 1,
+                    "team": "Oregon",
+                    "teamId": 1388
+                },
+                {
+                    "rank": 2,
+                    "team": "Georgia",
+                    "teamId": 1365
+                },
+                {
+                    "rank": 3,
+                    "team": "Notre Dame",
+                    "teamId": 1064
+                },
+                {
+                    "rank": 4,
+                    "team": "Texas",
+                    "teamId": 1398
+                },
+                {
+                    "rank": 5,
+                    "team": "Penn State",
+                    "teamId": 1302
+                },
+                {
+                    "rank": 6,
+                    "team": "Tennessee",
+                    "teamId": 1397
+                },
+                {
+                    "rank": 7,
+                    "team": "Ohio State",
+                    "teamId": 1387
+                },
+                {
+                    "rank": 8,
+                    "team": "Boise State",
+                    "teamId": 1115
+                },
+                {
+                    "rank": 9,
+                    "team": "Indiana",
+                    "teamId": 1370
+                },
+                {
+                    "rank": 10,
+                    "team": "Arizona State",
+                    "teamId": 1193
+                },
+                {
+                    "rank": 11,
+                    "team": "Alabama",
+                    "teamId": 1265
+                },
+                {
+                    "rank": 12,
+                    "team": "SMU",
+                    "teamId": 1307
+                },
+                {
+                    "rank": 13,
+                    "team": "Clemson",
+                    "teamId": 1272
+                },
+                {
+                    "rank": 14,
+                    "team": "South Carolina",
+                    "teamId": 1152
+                },
+                {
+                    "rank": 15,
+                    "team": "Mississippi",
+                    "teamId": 1138
+                },
+                {
+                    "rank": 16,
+                    "team": "Miami (FL)",
+                    "teamId": 1291
+                },
+                {
+                    "rank": 17,
+                    "team": "BYU",
+                    "teamId": 1117
+                },
+                {
+                    "rank": 18,
+                    "team": "Army",
+                    "teamId": 1268
+                },
+                {
+                    "rank": 19,
+                    "team": "Iowa State",
+                    "teamId": 1285
+                },
+                {
+                    "rank": 20,
+                    "team": "Missouri",
+                    "teamId": 1293
+                },
+                {
+                    "rank": 21,
+                    "team": "Illinois",
+                    "teamId": 1369
+                },
+                {
+                    "rank": 22,
+                    "team": "Colorado",
+                    "teamId": 1273
+                },
+                {
+                    "rank": 23,
+                    "team": "Memphis",
+                    "teamId": 1136
+                },
+                {
+                    "rank": 24,
+                    "team": "UNLV",
+                    "teamId": 1316
+                },
+                {
+                    "rank": 25,
+                    "team": "Syracuse",
+                    "teamId": 1075
+                }
+            ]
+        }
+    ]
+}

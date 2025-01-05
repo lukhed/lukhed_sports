@@ -175,7 +175,31 @@ class SportsPage(GithubHelper):
                 self.tracker_dict = fC.load_json_from_file(local_path)
             else:
                 self.tracker_dict = {}
+
+        self._check_reset_current_limit()
     
+    def _check_reset_current_limit(self):
+        """
+        This function checks the current limit and reset time to see if the limit should be reset based on the 
+        last logged reset time.
+
+        Returns the reamining limit for the user.
+        """
+
+        if self.tracker_dict == {}:
+            return None
+        else:
+            # check if limit was reset since last use
+            time_now = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
+            reset_time = self.tracker_dict["resetTime"]
+            reset_seconds = tC.subtract_time_stamps(reset_time, time_now, time_format='%Y%m%d%H%M%S')
+
+            if reset_seconds < 0:
+                # reset the limit
+                self.tracker_dict["reamining"] = self.tracker_dict["limit"]
+
+            return self.tracker_dict["remaining"]
+ 
     def _parse_provide_schedule_input(self, provide_schedule_input):
         if provide_schedule_input is None:
             return self.working_schedule
@@ -273,34 +297,29 @@ class SportsPage(GithubHelper):
         
     def _check_stop_calls_based_on_limit(self):
         if not self.limit_restrict:
+            # User does not want to check limits
             self.stop_calls = False
             return False
         
         if self.tracker_dict == {}:
-            self._load_tracker_json_from_file()
-
-        if self.tracker_dict == {}:
+            # No API calls yet while using class tracking, so we do not know limit.
             self.stop_calls = False
             return False
         else:
-            time_now = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
-            remaining = self.tracker_dict["remaining"]
-            reset_time = self.tracker_dict["resetTime"]
+            # Get last logged api limits
+            remaining_calls = self._check_reset_current_limit()
 
-            reset_dict = tC.subtract_time_stamps(reset_time, time_now, time_format='%Y%m%d%H%M%S', detailed=True)
-
-            if reset_dict["seconds"] <= 0:
+            if remaining_calls > 0:
+                # Still have calls left in limit, don't block
                 self.stop_calls = False
                 return False
+
             else:
-                if remaining == 0:
-                    self.stop_calls = True
-                    print("ERROR: Cannot call API as you have reached your limit. "
-                          "Instantiate class with 'block_over_limit_calls' = False to pay for the call")
-                    return True
-                else:
-                    self.stop_calls = False
-                    return False
+                # No more calls left with current plan
+                self.stop_calls = True
+                print("ERROR: Cannot call API as you have reached your limit. "
+                        "Instantiate class with 'block_over_limit_calls' = False to pay for the call")
+                return True
     
     def get_games(self, league=None, date_start=None, date_end=None, date_format="%Y-%m-%d", odds_type_filter=None, 
                   status_filter=None, skip=None, conference=None, division=None, team=None):
