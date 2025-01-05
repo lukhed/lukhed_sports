@@ -47,7 +47,7 @@ api = SportsPage(
 api.get_games('nfl')
 ```
 
-Partial example resopnse below, for full example response [see here.]([lukhed_sports/example_responses/nflGames.json](https://github.com/lukhed/lukhed_sports/blob/62abe3400f6abd69b1cf73ea3b97d59ec2ad5a10/lukhed_sports/example_responses/nflGames.json))
+Partial example resopnse below, for full example response [see here.](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/getRankings.json)
 ```json
 {
     "status": 200,
@@ -72,7 +72,7 @@ Partial example resopnse below, for full example response [see here.]([lukhed_sp
 rankings = api.get_rankings('ncaaf')
 ```
 
-Partial example resopnse below, for full example response [see here.]([tbd](https://github.com/lukhed/lukhed_sports/blob/dae9a5e1b35407c652f78620b44f03a94adf4529/lukhed_sports/example_responses/getRankings.json))
+Partial example resopnse below, for full example response [see here.](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/getRankings.json)
 ```json
 {
     "status": 200,
@@ -125,3 +125,18 @@ api.get_conferences     # Get conferences in leagues
 api.get_game_by_id      # Get info about a game by its ID
 api.get_odds            # Get odds for a game (requires paid tier)
 ```
+
+Example responses
+<br>
+[get_games nfl](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/nflGames.json)
+<br>
+[get_rankings ncaaf](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/getRankings.json)
+<br>
+[get_teams ncaaf](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/ncaafTeams.json)
+<br>
+[get_conferences ncaab](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/ncaabConferences.json)
+<br>
+[get_game_by_id nfl game id](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/getGameId.json)
+<br>
+[get_odds error response for non paid](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/getOddsById.json)
+
