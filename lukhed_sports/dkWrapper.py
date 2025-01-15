@@ -89,8 +89,3 @@ class DkSportsbook():
     def change_league(self, league):
         self.league = league.lower()
         self._set_league_data()
-        op_list = list()
-        for conference in self.team_futures["Conference Winner"]:
-            op_list.append(self.team_futures["Conference Winner"][conference])
-
-        return op_list
