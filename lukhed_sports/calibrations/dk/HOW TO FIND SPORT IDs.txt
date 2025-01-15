@@ -1,0 +1,7 @@
+Go to Google Console (right click draft kings page in chrome and select inspect)
+On top tab, select sources
+In panel on left, find sportsbook.drafking.com and expand it
+Find index page
+At the bottom of the html, there is a script tag
+Find the sports listing by finding json with key "sports", currently in window.__INITIAL_STATE__.
+Copy the "sports" key into sports_reference.json
