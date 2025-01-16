@@ -31,7 +31,6 @@ class DkSportsbook():
         if self._sport_id is not None:
             self._set_available_leagues()
 
-
     def _load_calibrations(self):
         # Load version cal
         version_cal_loc = osC.create_file_path_string(["lukhed_sports", "calibrations", "dk", "apiVersions.json"])
