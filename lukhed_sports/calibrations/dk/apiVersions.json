@@ -1,0 +1,6 @@
+{
+    "baseUrl": "https://sportsbook-nash.draftkings.com/api",
+    "navVersion": "v2",
+    "groupVersion": "v1",
+    "defaultSportsbook": "dkusmi"
+}
