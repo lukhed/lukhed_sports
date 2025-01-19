@@ -20,16 +20,21 @@ class DkSportsbook():
         # Available Sports
         self.available_sports = None
         self._available_sports = None
+        
+        
+        # Cache
         self.use_cache = use_local_cache
         self._local_cache_dir = osC.create_file_path_string(['lukhed_sports', 'local_cache'])
-        self._set_available_sports(reset_cache)
-
-        # Cache
-        # available leagues for a given sport cache
+        self. _sports_cache_file = osC.append_to_dir(self._local_cache_dir, 'dk_sports_cache.json')
         self._cached_available_leagues_json = {}
         self._leagues_cache_file = osC.append_to_dir(self._local_cache_dir, 'dk_available_leagues_cache.json')
-        self._cached_league_json = {}                   # league json for a given league
+        self._cached_league_json = {}
         self._cached_category = None
+
+        if self.use_cache and reset_cache:
+            self._reset_cache
+
+        self._set_available_sports()
 
     def _load_calibrations(self):
         # Load version cal
@@ -38,12 +43,11 @@ class DkSportsbook():
         self._base_url = self._api_versions['baseUrl']
         self.sportsbook = self._api_versions['defaultSportsbook']
         
-    def _set_available_sports(self, reset_cache):
+    def _set_available_sports(self):
         if self.use_cache:
-            sports_cache_file = osC.append_to_dir(self._local_cache_dir, 'dk_sports_cache.json')
-            if osC.check_if_file_exists(sports_cache_file) and not reset_cache:
+            if osC.check_if_file_exists(self._sports_cache_file):
                 print("Used local sports cache")
-                self._available_sports = fC.load_json_from_file(sports_cache_file)
+                self._available_sports = fC.load_json_from_file(self._sports_cache_file)
 
         if self._available_sports is None:
             # Call the api
@@ -51,7 +55,7 @@ class DkSportsbook():
             url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports?format=json"
             self._available_sports = self._call_api(url)['sports']
             if self.use_cache:
-                fC.dump_json_to_file(sports_cache_file, self._available_sports)
+                fC.dump_json_to_file(self._sports_cache_file, self._available_sports)
 
         self.available_sports = [x['name'].lower() for x in self._available_sports]
             
@@ -76,6 +80,10 @@ class DkSportsbook():
     ############################
     # Class cache management
     ############################
+    def _reset_cache(self):
+        fC.dump_json_to_file(self._sports_cache_file, {})
+        fC.dump_json_to_file(self._leagues_cache_file, {})
+    
     def _check_available_league_cache(self, sport_id):
         """
         This function tries to utilize saved available leagues for a sport. Useful for users doing multiple 
@@ -347,7 +355,8 @@ class DkSportsbook():
     ############################
     # Major Sport Convenience
     ############################
-    def nfl_get_gamelines_for_game(self, team, filter_market=None, filter_team=False):
+    def nfl_get_gamelines_for_game(self, team, filter_market=None, filter_team=False, filter_date=None, 
+                                   date_format="%Y%m%d"):
         'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/leagues/88808/categories/492/subcategories/4518'
         team = team.lower()
         
