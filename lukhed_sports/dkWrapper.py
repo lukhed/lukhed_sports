@@ -6,7 +6,7 @@ from lukhed_basic_utils import stringCommon as sC
 from lukhed_basic_utils import listWorkCommon as lC
 
 class DkSportsbook():
-    def __init__(self, api_delay=0.75, use_local_cache=True, reset_cache=False, retry_delay=2):
+    def __init__(self, api_delay=1.5, use_local_cache=True, reset_cache=False, retry_delay=2):
         # Set API Information
         self.api_delay = api_delay
         self.retry_delay = retry_delay
@@ -32,7 +32,7 @@ class DkSportsbook():
         self._cached_category = None
 
         if self.use_cache and reset_cache:
-            self._reset_cache
+            self._reset_cache()
 
         self._set_available_sports()
 
@@ -46,10 +46,11 @@ class DkSportsbook():
     def _set_available_sports(self):
         if self.use_cache:
             if osC.check_if_file_exists(self._sports_cache_file):
-                print("Used local sports cache")
                 self._available_sports = fC.load_json_from_file(self._sports_cache_file)
+            else:
+                self._available_sports = {}
 
-        if self._available_sports is None:
+        if self._available_sports == {}:
             # Call the api
             api_version = self._api_versions['navVersion']
             url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports?format=json"
@@ -65,9 +66,9 @@ class DkSportsbook():
             tC.sleep(self.api_delay)
 
         while retry_count > 0:
-            print("called api")
+            print(f"called api: {endpoint}")
             response = rC.request_json(endpoint, add_user_agent=True, timeout=1)
-            if type(response) is str():
+            if response == {}:
                 print("Sleeping then retrying api call")
                 tC.sleep(self.retry_delay)
             else:
@@ -125,7 +126,6 @@ class DkSportsbook():
         available_leagues_cache = self._check_available_league_cache(s_id)
         if available_leagues_cache is not None:
             # cache is available
-            print("Used available league json cache")
             available_leagues = available_leagues_cache
         else:
             # obtain league json from dk and add to cache
@@ -175,7 +175,6 @@ class DkSportsbook():
         league_json_cache = self._check_league_json_cache(league_id)
         if league_json_cache is not None:
             # cache is available
-            print("Used league json cache")
             return league_json_cache
         else:
             # obtain league json from dk and add to cache
@@ -293,7 +292,7 @@ class DkSportsbook():
         return [x['id'] for x in categories_json if category.lower() == x['name'].lower()][0]
 
     ############################
-    # User Facing Discovery
+    # Discovery Methods
     ############################
     def get_available_leagues(self, sport):
         sport_id = self._get_sport_id(sport)
@@ -353,18 +352,38 @@ class DkSportsbook():
     
 
     ############################
-    # Major Sport Convenience
+    # Core Betting Data Methods
     ############################
-    def nfl_get_gamelines_for_game(self, team, filter_market=None, filter_team=False, filter_date=None, 
+    @staticmethod
+    def _major_league_to_sport_mapping(league):
+        mapping = {
+            "nfl": "football",
+            "college football": "football",
+            "nba": "basketball",
+            "nhl": "hockey",
+            "mlb": "baseball"
+        }
+        league = league.lower()
+        try:
+            return mapping[league]
+        except KeyError:
+            return None
+        
+    def get_gamelines_for_game(self, league, team, filter_market=None, filter_team=False, filter_date=None, 
                                    date_format="%Y%m%d"):
         'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/leagues/88808/categories/492/subcategories/4518'
         team = team.lower()
         
+        sport = self._major_league_to_sport_mapping(league)
+        if sport is None:
+            print(f"ERROR: '{league}' is not supported by this method. (supported: nfl, nhl, mlb, nba)")
+            return []
+        
         # stuff needed for url
-        categories = self._get_data_from_league_json('football', 'nfl', 'categories', return_full=True)
-        events = self._get_data_from_league_json('football', 'nfl', 'events', return_full=True)
+        categories = self._get_data_from_league_json(sport, league, 'categories', return_full=True)
+        events = self._get_data_from_league_json(sport, league, 'events', return_full=True)
         cat_id = self._get_category_id(categories, 'game lines')
-        league_id = self._get_league_id('football', 'nfl')
+        league_id = self._get_league_id(sport, league)
 
         # parse team
         found_game = [x for x in events if team.lower() in x['name'].lower()]
@@ -400,3 +419,4 @@ class DkSportsbook():
             gameline_data = [x for x in gameline_data if team.lower() in x['label'].lower()]
 
         return gameline_data
+    
