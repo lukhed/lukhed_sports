@@ -289,7 +289,10 @@ class DkSportsbook():
     
     @staticmethod
     def _get_category_id(categories_json, category):
-        return [x['id'] for x in categories_json if category.lower() == x['name'].lower()][0]
+        try:
+            return [x['id'] for x in categories_json if category.lower() == x['name'].lower()][0]
+        except IndexError:
+            return None
 
     ############################
     # Discovery Methods
@@ -371,7 +374,6 @@ class DkSportsbook():
         
     def get_gamelines_for_game(self, league, team, filter_market=None, filter_team=False, filter_date=None, 
                                    date_format="%Y%m%d"):
-        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/leagues/88808/categories/492/subcategories/4518'
         team = team.lower()
         
         sport = self._major_league_to_sport_mapping(league)
@@ -383,6 +385,10 @@ class DkSportsbook():
         categories = self._get_data_from_league_json(sport, league, 'categories', return_full=True)
         events = self._get_data_from_league_json(sport, league, 'events', return_full=True)
         cat_id = self._get_category_id(categories, 'game lines')
+        if cat_id is None:
+            print(f"""ERROR: No {league} game lines found at DK. Try api.get_available_betting_categories() 
+                  to see what is available on dk for {league}""")
+            return []
         league_id = self._get_league_id(sport, league)
 
         # parse team
