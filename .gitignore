@@ -172,3 +172,4 @@ cython_debug/
 
 quickTest.py
 lukhedConfig
+lukhed_sports/local_cache/*

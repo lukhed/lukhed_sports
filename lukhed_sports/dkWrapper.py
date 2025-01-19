@@ -6,9 +6,10 @@ from lukhed_basic_utils import stringCommon as sC
 from lukhed_basic_utils import listWorkCommon as lC
 
 class DkSportsbook():
-    def __init__(self, api_delay=0.75):
+    def __init__(self, api_delay=0.75, use_local_cache=True, reset_cache=False, retry_delay=2):
         # Set API Information
         self.api_delay = api_delay
+        self.retry_delay = retry_delay
 
         # Set cals
         self._api_versions = None
@@ -19,13 +20,16 @@ class DkSportsbook():
         # Available Sports
         self.available_sports = None
         self._available_sports = None
-        self._check_set_available_sports()
+        self.use_cache = use_local_cache
+        self._local_cache_dir = osC.create_file_path_string(['lukhed_sports', 'local_cache'])
+        self._set_available_sports(reset_cache)
 
         # Cache
-        self._cached_available_leagues_json = {}        # available leagues for a given sport cache
+        # available leagues for a given sport cache
+        self._cached_available_leagues_json = {}
+        self._leagues_cache_file = osC.append_to_dir(self._local_cache_dir, 'dk_available_leagues_cache.json')
         self._cached_league_json = {}                   # league json for a given league
         self._cached_category = None
-
 
     def _load_calibrations(self):
         # Load version cal
@@ -34,19 +38,39 @@ class DkSportsbook():
         self._base_url = self._api_versions['baseUrl']
         self.sportsbook = self._api_versions['defaultSportsbook']
         
-    def _check_set_available_sports(self, force_set=False):
-        if self.available_sports is None or force_set:
+    def _set_available_sports(self, reset_cache):
+        if self.use_cache:
+            sports_cache_file = osC.append_to_dir(self._local_cache_dir, 'dk_sports_cache.json')
+            if osC.check_if_file_exists(sports_cache_file) and not reset_cache:
+                print("Used local sports cache")
+                self._available_sports = fC.load_json_from_file(sports_cache_file)
+
+        if self._available_sports is None:
+            # Call the api
             api_version = self._api_versions['navVersion']
             url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports?format=json"
             self._available_sports = self._call_api(url)['sports']
-            self.available_sports = [x['name'].lower() for x in self._available_sports]
+            if self.use_cache:
+                fC.dump_json_to_file(sports_cache_file, self._available_sports)
 
+        self.available_sports = [x['name'].lower() for x in self._available_sports]
+            
     def _call_api(self, endpoint):
+        retry_count = 3
         if self.api_delay is not None:
             tC.sleep(self.api_delay)
-        
-        print("called api")
-        response = rC.request_json(endpoint, add_user_agent=True)
+
+        while retry_count > 0:
+            print("called api")
+            response = rC.request_json(endpoint, add_user_agent=True, timeout=1)
+            if type(response) is str():
+                print("Sleeping then retrying api call")
+                tC.sleep(self.retry_delay)
+            else:
+                break
+
+            retry_count = retry_count - 1
+
         return response
     
     ############################
@@ -56,6 +80,13 @@ class DkSportsbook():
         """
         This function tries to utilize saved available leagues for a sport. Useful for users doing multiple 
         queries against the same sport so as to save api calls.
+
+        There are two types of cache for available leagues: local file storage and RAM (local class variable).
+
+        The RAM cache is on by default, as the leagues associated with a sport should not change during an 
+        active session.
+
+        The local file storage option is linked to user instantiation method (use_local_cache). 
 
 
         Parameters
@@ -68,7 +99,12 @@ class DkSportsbook():
         dict()
             Output from self._get_json_for_league() or blank dict {} if no cache
         """
-
+        if self._cached_available_leagues_json == {} and self.use_cache:
+            # Try to load available leagues cache from file
+            if osC.check_if_file_exists(self._leagues_cache_file):
+                self._cached_available_leagues_json = fC.load_json_from_file(self._leagues_cache_file)
+        
+        # See if leagues available for sport are in cache
         try:
             available_leagues_json = self._cached_available_leagues_json[sport_id]
         except KeyError:
@@ -82,14 +118,17 @@ class DkSportsbook():
         if available_leagues_cache is not None:
             # cache is available
             print("Used available league json cache")
-            return available_leagues_cache
+            available_leagues = available_leagues_cache
         else:
             # obtain league json from dk and add to cache
             api_version = self._api_versions['navVersion']
             url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports/{s_id}?format=json"
             available_leagues = self._call_api(url)
             self._cached_available_leagues_json[s_id] = available_leagues
-            return available_leagues
+            if self.use_cache:
+                fC.dump_json_to_file(self._leagues_cache_file, self._cached_available_leagues_json)
+
+        return available_leagues
     
     def _check_league_json_cache(self, league_id):
         """
@@ -156,7 +195,7 @@ class DkSportsbook():
             return False
 
     ############################
-    # API Parsing
+    # API Response Parsing
     ############################   
     def _get_sport_id(self, sport):
         """
@@ -180,7 +219,6 @@ class DkSportsbook():
             A sport ID which is used in API calls.
         """
         sport = sport.lower()
-        self._check_set_available_sports()
         if sport in self.available_sports:
             index = self.available_sports.index(sport)
             return self._available_sports[index]['id']
@@ -220,12 +258,7 @@ class DkSportsbook():
         print(f"ERROR: '{league}' was not found for '{sport}'. Use api.get_available_leagues() to check valid input")
         return None
     
-    def get_available_leagues(self, sport):
-        sport_id = self._get_sport_id(sport)
-        league_data = self._get_league_data_for_sport(sport_id)
-        return [x['name'].lower() for x in league_data['leagues']]
-    
-    def _get_data_from_league_json(self, sport, league, key):
+    def _get_data_from_league_json(self, sport, league, key, return_full=False):
         sport = sport.lower()
         league = league.lower()
         key = key.lower()
@@ -235,7 +268,10 @@ class DkSportsbook():
         # test the key availability
         try:
             league_json[key]
-            data = [x['name'].lower() for x in league_json[key]]
+            if not return_full:
+                data = [x['name'].lower() for x in league_json[key]]
+            else:
+                return league_json[key]
         except KeyError:
             data = []
             
@@ -244,9 +280,12 @@ class DkSportsbook():
 
         return data
     
+    @staticmethod
+    def _get_category_id(categories_json, category):
+        return [x['id'] for x in categories_json if category.lower() == x['name'].lower()][0]
 
     ############################
-    # Core User Facing
+    # User Facing Discovery
     ############################
     def get_available_leagues(self, sport):
         sport_id = self._get_sport_id(sport)
@@ -274,6 +313,7 @@ class DkSportsbook():
         return lC.return_unique_values(markets)
 
     def get_betting_selections_by_category(self, sport, league, category):
+        # Maybe useless as over and under don't have any indication of event association
         category = category.lower()
         league_json = self._get_json_for_league(sport, league)
         available = self.get_available_betting_categories(sport, league)
@@ -302,3 +342,52 @@ class DkSportsbook():
         print(f"""ERROR: '{event}' is not available for '{league}'. Use function 
                   get_available_betting_events() to get valid input.""")
         return {}
+    
+
+    ############################
+    # Major Sport Convenience
+    ############################
+    def nfl_get_gameline_for_game(self, team, filter_market=None, filter_team=False):
+        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/leagues/88808/categories/492/subcategories/4518'
+        team = team.lower()
+        
+        # stuff needed for url
+        categories = self._get_data_from_league_json('football', 'nfl', 'categories', return_full=True)
+        events = self._get_data_from_league_json('football', 'nfl', 'events', return_full=True)
+        cat_id = self._get_category_id(categories, 'game lines')
+        league_id = self._get_league_id('football', 'nfl')
+
+        # parse team
+        found_game = [x for x in events if team.lower() in x['name'].lower()]
+
+        if len(found_game) < 1:
+            print(f"""ERROR: Could not find '{team}' in available nfl events. Try api.get_available_betting_events() 
+                      to get valid input""")
+            return {}
+        
+        
+        # call the api
+        api_version = self._api_versions['groupVersion']
+        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/leagues/{league_id}/categories/{cat_id}"
+        game_lines = self._call_api(url)
+
+        # parse the data from api
+        gameline_data = []
+        found_event_id = found_game[0]['id']
+        markets = game_lines['markets']
+        selections = game_lines['selections']
+        applicable_market_ids = [x['id'] for x in markets if x['eventId'] == found_event_id]
+        applicable_market_types = [x['name'] for x in markets if x['eventId'] == found_event_id]
+        for selection in selections:
+            if selection['marketId'] in applicable_market_ids:
+                selection['marketType'] = applicable_market_types[applicable_market_ids.index(selection['marketId'])]
+                if filter_market is not None:
+                    if selection['marketType'].lower() == filter_market.lower():
+                        gameline_data.append(selection.copy())
+                else:
+                    gameline_data.append(selection.copy())
+
+        if filter_team:
+            gameline_data = [x for x in gameline_data if team.lower() in x['label'].lower()]
+
+        return gameline_data
