@@ -347,7 +347,7 @@ class DkSportsbook():
     ############################
     # Major Sport Convenience
     ############################
-    def nfl_get_gameline_for_game(self, team, filter_market=None, filter_team=False):
+    def nfl_get_gamelines_for_game(self, team, filter_market=None, filter_team=False):
         'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/leagues/88808/categories/492/subcategories/4518'
         team = team.lower()
         
