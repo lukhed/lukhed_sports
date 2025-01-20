@@ -1,2 +1,5 @@
 # Exclude example files
 sports_utilities/example_responses*
+
+# Include json calibrations
+lukhed_sports/*.json
