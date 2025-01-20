@@ -14,13 +14,14 @@ pip install lukhed-sports
 ## Drafkings Sportsbook Wrapper
 Access live data from Draftkings Sportsbook via their API methods. Quick start information below. Full documentation coming.
 
-[Instantiation](#instantiation)<br>
-[get_available_leagues(sport)](#get_available_leagues)<br>
-[get_spread_for_team(league, sport)](#get_spread_for_team)<br>
-[get_game_lines_for_league(league)](#get_gamelines_for_league)<br>
-[get_basic_touchdown_scorer_props(league, prop_type_filter=None, game_filter=None)](#get_basic_touchdown_scorer_props)<br>
+### Table of Contents
+- [Instantiation](#instantiation)
+- [get_available_leagues(sport)](#get_available_leagues)
+- [get_spread_for_team(league, sport)](#get_spread_for_team)
+- [get_game_lines_for_league(league)](#get_game_lines_for_league)
+- [get_basic_touchdown_scorer_props(league, prop_type_filter=None, game_filter=None)](#get_basic_touchdown_scorer_props)
 
-#### Instantiation
+### Instantiation
 ```python
 from lukhed_sports import DkSportsbook
 
@@ -175,7 +176,7 @@ api = SportsPage(
 api.get_games('nfl')
 ```
 
-Partial example resopnse below, for full example response [see here.](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/getRankings.json)
+Partial example resopnse below, for full example response [see here.](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/nflGames.json)
 ```json
 {
     "status": 200,
