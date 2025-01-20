@@ -21,10 +21,9 @@ class DkSportsbook():
         self.available_sports = None
         self._available_sports = None
         
-        
         # Cache
         self.use_cache = use_local_cache
-        self._local_cache_dir = osC.create_file_path_string(['lukhed_sports', 'local_cache'])
+        self._local_cache_dir = osC.check_create_dir_structure(['lukhed_sports', 'local_cache'], return_path=True)
         self. _sports_cache_file = osC.append_to_dir(self._local_cache_dir, 'dk_sports_cache.json')
         self._cached_available_leagues_json = {}
         self._leagues_cache_file = osC.append_to_dir(self._local_cache_dir, 'dk_available_leagues_cache.json')
