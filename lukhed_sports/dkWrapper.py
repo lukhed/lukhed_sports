@@ -516,23 +516,6 @@ class DkSportsbook():
         data = self._call_api(url, f'get player odds {player_id}')
         return data
     
-    def get_betting_selections_by_event_category(self, sport, league, event, category):
-        url = 'https://sportsbook-nash.draftkings.com/api/sportscontent/navigation/dkusmi//v2/nav/leagues/88808'
-        response = self._call_api(url, 'try subcategory')
-        
-        'terry mclaurin'
-
-        
-        'https://sportsbook-nash.draftkings.com/api/sportscontent/navigation/dkusmi//v2/nav/leagues/88808'
-        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/events/31678188/categories'
-        'https://gaming.draftkings.com/api/players/v1/players/20277'
-        'https://gaming.draftkings.com/api/players/v1/players/20277'
-        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/leagues/42133/categories/1190'
-        'https://gaming.draftkings.com/api/players/v1/players/34795'
-
-        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/events/31678188/categories/16570'
-
-        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/events/31678188/categories/530'
 
     ############################
     # Core Betting Data Methods
@@ -551,6 +534,11 @@ class DkSportsbook():
             return mapping[league]
         except KeyError:
             return None
+        
+    def _build_sub_category_event_url(self, event_id, sub_cat):
+        api_version = self._api_versions['groupVersion']
+        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/events/{event_id}/categories/{sub_cat}"
+        return url
         
     def get_gamelines_for_game(self, league, team, filter_market=None, filter_team=False):
         team = team.lower()
@@ -600,7 +588,94 @@ class DkSportsbook():
 
         return half_line_data
 
-    def get_touchdown_scorer_props(self):
-        selections = self.get_betting_selections_by_category('football', 'nfl', 'td scorers')
-        return selections
+    def get_basic_touchdown_scorer_props(self, league, prop_type_filter=None, game_filter=None):
+        """
+        This method returns basic touchdown scoring props for the given league with optional filtering. Basic props are
+        2+ tds, first time scorer, and anytime.
+
+        Parameters
+        ----------
+        league : str()
+            'nfl' or 'college football'
+        prop_type_filter : str(), optional
+            Use this filter to return only the type of touchdown prop you want, by default None and all available 
+            selections are returned. Options are '2 or more', 'first', 'anytime'.
+        game_filter : str(), optional
+            Use this filter to return only touchdown props for a given game, by default None and all available 
+            selections are returned. Input is one team name, for example: 'redskins'
+
+        Returns
+        -------
+        list()
+            A list of selections available for touchdown scorers and their odds.
+        """
+
+        league = league.lower()
+        if league != 'nfl' and league != 'college football':
+            print("ERROR: league parameter must be 'college football' or 'nfl'")
+            return []
+        
+        if prop_type_filter is not None:
+            prop_type_filter = prop_type_filter.lower()
+            if prop_type_filter != '2 or more' and prop_type_filter != 'first' and prop_type_filter != 'anytime':
+                print(f"ERROR: {prop_type_filter} is not a valid input. Must be '2 or more', 'first', or 'anytime'")
+                return []
+        
+        selections = self.get_betting_selections_by_category('football', league, 'td scorers')
+
+        game_filtered_selections = []
+        if game_filter is not None:
+            game = self._find_game_by_team_from_events('football', league, game_filter)
+            if game is None:
+                return []
+            event_name = game[0]['name']
+            players = self.get_player_data_by_event('football', league, event_name)
+            player_ids = [x['id'] for x in players]
+            
+            for selection in selections:
+                try:
+                    test_id = selection['participants'][0]['id']
+                    if test_id in player_ids:
+                        game_filtered_selections.append(selection.copy())
+                except KeyError:
+                    pass
+        else:
+            game_filtered_selections = selections
+        
+        if prop_type_filter is not None:
+            final_selections = [x for x in game_filtered_selections if prop_type_filter.lower() in 
+                                x['outcomeType'].lower()]
+        else:
+            final_selections = game_filtered_selections
+        
+        return final_selections
     
+    def get_all_touchdown_props_for_game(self, league, team):
+        league = league.lower()
+        if league != 'nfl' and league != 'college football':
+            print("ERROR: league parameter must be 'college football' or 'nfl'")
+            return []
+        
+        game = self._find_game_by_team_from_events('football', league, team)
+        if game is None:
+            return []
+        cat_id = self._get_category_id_for_named_category('football', league, 'td scorers')
+        url = self._build_sub_category_event_url(game[0]['id'], cat_id)
+        data = self._call_api(url, f"getting td scorers for event: {game[0]['id']}")
+
+        market_ids = [x['id'] for x in data['markets']]
+        market_names = [x['name'] for x in data['markets']]
+        
+        props = []
+        for selection in data['selections']:
+            market_index = market_ids.index(selection['marketId'])
+            market_name = market_names[market_index]
+            props.append({
+                "name": market_name,
+                "selection": selection.copy()
+            })
+        
+        return props
+    
+    def get_spread_for_team(self, league, team):
+        stop = 1
