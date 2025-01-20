@@ -6,7 +6,7 @@ from lukhed_basic_utils import stringCommon as sC
 from lukhed_basic_utils import listWorkCommon as lC
 
 class DkSportsbook():
-    def __init__(self, api_delay=1.5, use_local_cache=True, reset_cache=False, retry_delay=2):
+    def __init__(self, api_delay=0.5, use_local_cache=True, reset_cache=False, retry_delay=1):
         # Set API Information
         self.api_delay = api_delay
         self.retry_delay = retry_delay
@@ -14,6 +14,7 @@ class DkSportsbook():
         # Set cals
         self._api_versions = None
         self._base_url = None
+        self._player_url = None
         self.sportsbook = None
         self._load_calibrations()
         
@@ -40,6 +41,7 @@ class DkSportsbook():
         version_cal_loc = osC.create_file_path_string(["lukhed_sports", "calibrations", "dk", "apiVersions.json"])
         self._api_versions = fC.load_json_from_file(version_cal_loc)
         self._base_url = self._api_versions['baseUrl']
+        self._player_url = self._api_versions['playerUrl']
         self.sportsbook = self._api_versions['defaultSportsbook']
         
     def _set_available_sports(self):
@@ -68,7 +70,7 @@ class DkSportsbook():
             print(f"called api: {endpoint}\npurpose: {purpose}\n")
             response = rC.request_json(endpoint, add_user_agent=True, timeout=1)
             if response == {}:
-                print("Sleeping then retrying api call")
+                print("Sleeping then retrying api call\n")
                 tC.sleep(self.retry_delay)
             else:
                 break
@@ -397,6 +399,13 @@ class DkSportsbook():
     ############################
     # Discovery Methods
     ############################
+    
+    def _get_event_market_data(self, event_id):
+        api_version = self._api_versions['groupVersion']
+        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/events/{event_id}/categories"
+        data = self._call_api(url, f'get markets for {event_id}')
+        return data
+    
     def get_available_leagues(self, sport):
         sport_id = self._get_sport_id(sport)
         league_data = self._get_league_data_for_sport(sport_id)
@@ -452,6 +461,78 @@ class DkSportsbook():
                   get_available_betting_events() to get valid input.""")
         return {}
     
+    def get_available_markets_by_event(self, sport, league, event):
+        event_data = self.get_event_data(sport, league, event)
+        if event_data == {}:
+            return {}
+        
+        event_id = event_data['id']
+        data = self._get_event_market_data(event_id)
+        return [x['name'] for x in data['markets']]
+    
+    def get_betting_selections_by_event_market(self, sport, league, event, event_market):
+        event_data = self.get_event_data(sport, league, event)
+        if event_data == {}:
+            return {}
+        
+        event_id = event_data['id']
+        data = self._get_event_market_data(event_id)
+        matching_markets = [x['id'] for x in data['markets'] if x['name'].lower() == event_market]
+
+        if len(matching_markets) < 1:
+            print(f"""ERROR: '{event_market}' is not available for '{event}'. Use function 
+                  get_available_markets_by_event() to get valid input.""")
+        
+        market_id = matching_markets[0]
+
+        selections = [x for x in data['selections'] if x['marketId'] == market_id]
+        return selections
+    
+    def get_player_data_by_event(self, sport, league, event):
+        event_data = self.get_event_data(sport, league, event)
+        if event_data == {}:
+            return {}
+        
+        event_id = event_data['id']
+        data = self._get_event_market_data(event_id)
+
+        player_names = []
+        player_data = []
+        for selection in data['selections']:
+            try:
+                potential_player = selection['participants'][0]
+                if potential_player['type'] == 'Player':
+                    if potential_player['name'] not in player_names:
+                        player_names.append(potential_player['name'])
+                        player_data.append({'name': potential_player['name'], 'id': potential_player['id']})
+            except KeyError:
+                pass
+
+        return player_data
+
+    def get_player_data_by_id(self, player_id):
+        api_version = self._api_versions['playerVersion']
+        url = f"{self._player_url}/{api_version}/players/{player_id}"
+        data = self._call_api(url, f'get player odds {player_id}')
+        return data
+    
+    def get_betting_selections_by_event_category(self, sport, league, event, category):
+        url = 'https://sportsbook-nash.draftkings.com/api/sportscontent/navigation/dkusmi//v2/nav/leagues/88808'
+        response = self._call_api(url, 'try subcategory')
+        
+        'terry mclaurin'
+
+        
+        'https://sportsbook-nash.draftkings.com/api/sportscontent/navigation/dkusmi//v2/nav/leagues/88808'
+        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/events/31678188/categories'
+        'https://gaming.draftkings.com/api/players/v1/players/20277'
+        'https://gaming.draftkings.com/api/players/v1/players/20277'
+        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/leagues/42133/categories/1190'
+        'https://gaming.draftkings.com/api/players/v1/players/34795'
+
+        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/events/31678188/categories/16570'
+
+        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/events/31678188/categories/530'
 
     ############################
     # Core Betting Data Methods
@@ -518,7 +599,7 @@ class DkSportsbook():
                                                                        team, filter_market, filter_team)
 
         return half_line_data
-    
+
     def get_touchdown_scorer_props(self):
         selections = self.get_betting_selections_by_category('football', 'nfl', 'td scorers')
         return selections
