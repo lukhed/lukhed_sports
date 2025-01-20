@@ -6,7 +6,7 @@ from lukhed_basic_utils import stringCommon as sC
 from lukhed_basic_utils import listWorkCommon as lC
 
 class DkSportsbook():
-    def __init__(self, api_delay=0.5, use_local_cache=True, reset_cache=False, retry_delay=1):
+    def __init__(self, api_delay=0.5, use_local_cache=True, reset_cache=False, retry_delay=1.5):
         # Set API Information
         self.api_delay = api_delay
         self.retry_delay = retry_delay
@@ -68,7 +68,7 @@ class DkSportsbook():
 
         while retry_count > 0:
             print(f"called api: {endpoint}\npurpose: {purpose}\n")
-            response = rC.request_json(endpoint, add_user_agent=True, timeout=1)
+            response = rC.request_json(endpoint, add_user_agent=True, timeout=2)
             if response == {}:
                 print("Sleeping then retrying api call\n")
                 tC.sleep(self.retry_delay)
@@ -378,7 +378,7 @@ class DkSportsbook():
 
         return filtered_data
     
-    def _build_url_for_category(self, sport, league, category_string):
+    def _build_league_url_for_category(self, sport, league, category_string):
         # stuff for url
         cat_id = self._get_category_id_for_named_category(sport, league, category_string)
         league_id = self._get_league_id(sport, league)
@@ -410,6 +410,18 @@ class DkSportsbook():
         sport_id = self._get_sport_id(sport)
         league_data = self._get_league_data_for_sport(sport_id)
         return [x['name'].lower() for x in league_data['leagues']]
+    
+    def get_supported_major_sport_leagues(self):
+        """
+        This method returns a list of the leagues that are considered 'major sport leagues'. Many methods only 
+        work with these leagues.
+
+        Returns
+        -------
+        list()
+            List of the major sports leagues.
+        """
+        return list(self._get_major_league_support_dict().keys())
 
     def get_available_betting_categories(self, sport, league):
         if not self._check_valid_sport(sport):
@@ -520,32 +532,112 @@ class DkSportsbook():
     ############################
     # Core Betting Data Methods
     ############################
-    @staticmethod
-    def _major_league_to_sport_mapping(league):
-        mapping = {
-            "nfl": "football",
-            "college football": "football",
-            "nba": "basketball",
-            "nhl": "hockey",
-            "mlb": "baseball"
-        }
+    def _major_league_to_sport_mapping(self, league):
+        mapping = self._get_major_league_support_dict()
         league = league.lower()
         try:
             return mapping[league]
         except KeyError:
             return None
+    
+    @staticmethod
+    def _get_major_league_support_dict():
+        return {
+            "nfl": "football",
+            "college football": "football",
+            "nba": "basketball",
+            "nhl": "hockey",
+            "mlb": "baseball",
+            "college basketball (m)": "basketball",
+            "college basketball (w)": "basketball",
+            "wnba": "basketball"
+        }
+    
+    def _print_major_league_not_supported_message(self, league):
+        message = (
+            f"ERROR: '{league}' is not supported by this method. "
+            f"Supported leagues are: {list(self._get_major_league_support_dict().keys())}"
+        )
+        print(message)
         
     def _build_sub_category_event_url(self, event_id, sub_cat):
         api_version = self._api_versions['groupVersion']
         url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/events/{event_id}/categories/{sub_cat}"
         return url
         
+    def get_gamelines_for_league(self, league):
+        """
+        Use this method to retrieve all gamelines (spread, total, and moneyline) for every game in the specified 
+        league. This method works for all major sport leagues 
+
+        Parameters
+        ----------
+        league : str()
+            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.). 
+            Use api.get_supported_major_sport_leagues() for a complete list.
+
+        Returns
+        -------
+        list()
+            Game lines separate by event name.
+        """
+        sport = self._major_league_to_sport_mapping(league)
+        if sport is None:
+            self._print_major_league_not_supported_message(league)
+            return []
+        
+        url = self._build_league_url_for_category(sport, league, 'game lines')
+        data = self._call_api(url, f'get game lines for {league}')
+
+        event_data = self._get_data_from_league_json(sport, league, 'events', return_full=True)
+        event_names = [x['name'] for x in event_data]
+        event_ids = [x['id'] for x in event_data]
+
+        gamelines = []
+        for index, event_id in enumerate(event_ids):
+            appplicable_market_ids = [x['id'] for x in data['markets'] if x['eventId'] == event_id]
+            applicable_selections = [x for x in data['selections'] if x['marketId'] in appplicable_market_ids]
+            event_name = event_names[index]
+            gamelines.append(
+                {
+                    "event": event_name,
+                    "selections": applicable_selections
+                }
+            )
+        
+        return gamelines
+    
     def get_gamelines_for_game(self, league, team, filter_market=None, filter_team=False):
+        """
+        Use this method to retrieve all gamelines (spread, total, and moneylines) for a given game.
+
+        Parameters
+        ----------
+        league : str()
+            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.). 
+            Use api.get_supported_major_sport_leagues() for a complete list.
+
+        team : str()
+            Use one team name playing in the game. For pro teams, you can use the nickname like "lions" for 
+            the detroit lions. For college teams, use the team name as displayed on draftkings. For example: 
+            'notre dame'.
+        filter_market : str(), optional
+            Use this parameter to return only certain gamelines, by default None. Valid options are: 'spread', 
+            'total', and 'moneyline'.
+        filter_team : bool, optional
+            If True, the selections will only be applicable to the team provided, by default False and both team 
+            spreads and moneylines are returned in the list.
+
+        Returns
+        -------
+        list()
+            Gamelines for the specided game in list format.
+        """
         team = team.lower()
         
         sport = self._major_league_to_sport_mapping(league)
         if sport is None:
-            print(f"ERROR: '{league}' is not supported by this method. (supported: nfl, nhl, mlb, nba)")
+            self._print_major_league_not_supported_message(league)
             return []
         
         # parse team
@@ -554,7 +646,7 @@ class DkSportsbook():
             return []
 
         # call the api
-        url = self._build_url_for_category(sport, league, 'game lines')
+        url = self._build_league_url_for_category(sport, league, 'game lines')
         game_lines = self._call_api(url, f'retrieve {league} game lines')
 
         # parse the result
@@ -567,8 +659,8 @@ class DkSportsbook():
     
     def get_half_lines_for_game(self, league, team, filter_market=None, filter_team=False):
         sport = self._major_league_to_sport_mapping(league)
-        if sport is None or sport == 'nhl' or sport == 'mlb':
-            print(f"ERROR: '{league}' is not supported by this method. (supported: nfl, nba)")
+        if sport is None:
+            self._print_major_league_not_supported_message(league)
             return []
         
         # parse team
@@ -577,7 +669,7 @@ class DkSportsbook():
             return []
         
         # call the api
-        url = self._build_url_for_category(sport, league, 'halves')
+        url = self._build_league_url_for_category(sport, league, 'halves')
         half_lines = self._call_api(url, f'retrieve {league} half lines')
         
         # parse the result
@@ -678,4 +770,36 @@ class DkSportsbook():
         return props
     
     def get_spread_for_team(self, league, team):
-        stop = 1
+        """
+        Use this method to return a simple dict containing the spread and the spread odds.
+
+        Parameters
+        ----------
+        league : str()
+            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.). 
+            Use api.get_supported_major_sport_leagues() for a complete list.
+        team : str()
+            Use the team you want the spread for. For pro teams, you can use the nickname like "lions" for 
+            the detroit lions. For college teams, use the team name as displayed on draftkings. For example: 
+            'notre dame'.
+
+        Returns
+        -------
+        dict()
+            Dict with keys 'spread' and 'odds' for the specied team.
+        """
+        sport = self._major_league_to_sport_mapping(league)
+        if sport is None:
+            self._print_major_league_not_supported_message(league)
+            return []
+        
+        result = self.get_gamelines_for_game(league, team, filter_market='spread', filter_team=team)
+        if len(result) > 0:
+            spread = result[0]['points']
+            odds = result[0]['displayOdds']
+            return {
+                'spread': spread,
+                'odds': odds
+            }
+        else:
+            return {}
