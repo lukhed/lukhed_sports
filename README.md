@@ -1,8 +1,141 @@
 # lukhed_sports
 A collection of sports analysis utility functions and API wrappers
 
+## Installation
 ```bash
 pip install lukhed-sports
+```
+
+## Available Wrappers
+[Sportspage Feeds Wrapper](#sportspage-feeds-wrapper) - For sports schedules and odds from [sportspagefeeds API](https://sportspagefeeds.com/documentation)
+[Draftkings Sports Wrapper](#drafkings-sportsbook-wrapper) - For obtaining live data from [Draftkings sportsbook](https://sportsbook.draftkings.com/)
+
+
+## Drafkings Sportsbook Wrapper
+Access live data from Draftkings Sportsbook via their API methods. Quick start information below. Full documentation coming.
+
+[Instantiation](#instantiation)<br>
+[get_available_leagues(sport)](#get_available_leagues)<br>
+[get_spread_for_team(league, sport)](#get_spread_for_team)<br>
+[get_game_lines_for_league(league)](#get_gamelines_for_league)<br>
+[get_basic_touchdown_scorer_props(league, prop_type_filter=None, game_filter=None)](#get_basic_touchdown_scorer_props)<br>
+
+#### Instantiation
+```python
+from lukhed_sports import DkSportsbook
+
+api = DkSportsbook()
+```
+
+### get_available_leagues
+```python
+leagues = api.get_available_leagues('basketball')
+```
+
+```json
+[
+    "argentina - liga nacional de basquetbol",
+    "australia - nbl",
+    "brazil - nbb",
+    "china - cba",
+    "college basketball (m)",
+    "college basketball (w)",
+    "croatia premier league",
+    "germany - bundesliga",
+    "greece - basket league",
+    "israel - super league (w)",
+    "italy - lega 1",
+    "korea - basketball league (w)",
+    "nba",
+    "turkey - bsl",
+    "wnba"
+]
+```
+
+
+### get_spread_for_team
+```python
+spread = api.get_spread_for_team('nfl', 'commanders')
+```
+
+```json
+{
+    "spread": 5.5,
+    "odds": {
+        "american": "-108",
+        "decimal": "1.92",
+        "fractional": "25/27"
+    }
+}
+```
+
+### get_gamelines_for_league
+```python
+gamelines = api.get_gamelines_for_league('nfl')
+```
+[Full example response](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/gamelinesForLeague.json)
+
+
+### get_basic_touchdown_scorer_props
+```python
+gamelines = api.get_gamelines_for_league('nfl')
+```
+
+```json
+[
+    {
+        "id": "0QA229129141#130806310_13L87637Q1477509025Q20",
+        "marketId": "229129141",
+        "label": "Jeremiah Smith",
+        "displayOdds": {
+            "american": "-140",
+            "decimal": "1.71",
+            "fractional": "5/7"
+        },
+        "trueOdds": 1.71428572,
+        "outcomeType": "Anytime Scorer",
+        "participants": [
+            {
+                "id": "786772",
+                "name": "Jeremiah Smith",
+                "type": "Player",
+                "seoIdentifier": "Jeremiah Smith"
+            }
+        ],
+        "sortOrder": 3001710,
+        "tags": [
+            "SGP",
+            "1stFavorite"
+        ],
+        "metadata": {}
+    },
+    {
+        "id": "0QA229129141#130806308_13L87637Q1709721529Q20",
+        "marketId": "229129141",
+        "label": "TreVeyon Henderson",
+        "displayOdds": {
+            "american": "-140",
+            "decimal": "1.71",
+            "fractional": "5/7"
+        },
+        "trueOdds": 1.71428572,
+        "outcomeType": "Anytime Scorer",
+        "participants": [
+            {
+                "id": "570977",
+                "name": "TreVeyon Henderson",
+                "type": "Player",
+                "seoIdentifier": "TreVeyon Henderson"
+            }
+        ],
+        "sortOrder": 3001710,
+        "tags": [
+            "SGP",
+            "2ndFavorite"
+        ],
+        "metadata": {}
+    },
+    ...
 ```
 
 
@@ -19,11 +152,6 @@ It provides:
 - Methods to parse data returned by basic (non-paid) endpoints 
 
 Full documentation for this class is in development.
-
-### Basic Usage
-```python
-from lukhed_sports import SportsPage
-```
 
 #### API Key Management Locally
 ```python

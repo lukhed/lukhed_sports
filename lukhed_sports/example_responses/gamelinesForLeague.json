@@ -1,0 +1,308 @@
+[
+    {
+        "event": "WAS Commanders @ PHI Eagles",
+        "selections": [
+            {
+                "id": "0HC78305430P550_3",
+                "marketId": "2_78305430",
+                "label": "WAS Commanders",
+                "displayOdds": {
+                    "american": "\u2212108",
+                    "decimal": "1.92",
+                    "fractional": "25/27"
+                },
+                "trueOdds": 1.92592593,
+                "points": 5.5,
+                "outcomeType": "Away",
+                "participants": [
+                    {
+                        "id": "18480",
+                        "name": "WAS Commanders",
+                        "type": "Team"
+                    }
+                ],
+                "sortOrder": 5499,
+                "tags": [
+                    "ProgressiveParlayTeamEligible",
+                    "MainPointLine",
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            },
+            {
+                "id": "0HC78305430N550_1",
+                "marketId": "2_78305430",
+                "label": "PHI Eagles",
+                "displayOdds": {
+                    "american": "\u2212112",
+                    "decimal": "1.89",
+                    "fractional": "25/28"
+                },
+                "trueOdds": 1.89285715,
+                "points": -5.5,
+                "outcomeType": "Home",
+                "participants": [
+                    {
+                        "id": "18448",
+                        "name": "PHI Eagles",
+                        "type": "Team"
+                    }
+                ],
+                "sortOrder": 5501,
+                "tags": [
+                    "ProgressiveParlayTeamEligible",
+                    "MainPointLine",
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            },
+            {
+                "id": "0OU78305430O4750_1",
+                "marketId": "3_78305430",
+                "label": "Over",
+                "displayOdds": {
+                    "american": "\u2212115",
+                    "decimal": "1.86",
+                    "fractional": "20/23"
+                },
+                "trueOdds": 1.86956522,
+                "points": 47.5,
+                "outcomeType": "Over",
+                "sortOrder": 47500,
+                "tags": [
+                    "ProgressiveParlayTeamEligible",
+                    "MainPointLine",
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            },
+            {
+                "id": "0OU78305430U4750_3",
+                "marketId": "3_78305430",
+                "label": "Under",
+                "displayOdds": {
+                    "american": "\u2212105",
+                    "decimal": "1.95",
+                    "fractional": "20/21"
+                },
+                "trueOdds": 1.95238096,
+                "points": 47.5,
+                "outcomeType": "Under",
+                "sortOrder": 47502,
+                "tags": [
+                    "ProgressiveParlayTeamEligible",
+                    "MainPointLine",
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            },
+            {
+                "id": "0ML78305430_3",
+                "marketId": "1_78305430",
+                "label": "WAS Commanders",
+                "displayOdds": {
+                    "american": "+215",
+                    "decimal": "3.15",
+                    "fractional": "43/20"
+                },
+                "trueOdds": 3.15,
+                "outcomeType": "Away",
+                "participants": [
+                    {
+                        "id": "18480",
+                        "name": "WAS Commanders",
+                        "type": "Team"
+                    }
+                ],
+                "sortOrder": 1260502924,
+                "tags": [
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            },
+            {
+                "id": "0ML78305430_1",
+                "marketId": "1_78305430",
+                "label": "PHI Eagles",
+                "displayOdds": {
+                    "american": "\u2212265",
+                    "decimal": "1.37",
+                    "fractional": "20/53"
+                },
+                "trueOdds": 1.3773585,
+                "outcomeType": "Home",
+                "participants": [
+                    {
+                        "id": "18448",
+                        "name": "PHI Eagles",
+                        "type": "Team"
+                    }
+                ],
+                "sortOrder": 1260504920,
+                "tags": [
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            }
+        ]
+    },
+    {
+        "event": "BUF Bills @ KC Chiefs",
+        "selections": [
+            {
+                "id": "0HC78305424P150_3",
+                "marketId": "2_78305424",
+                "label": "BUF Bills",
+                "displayOdds": {
+                    "american": "\u2212105",
+                    "decimal": "1.95",
+                    "fractional": "20/21"
+                },
+                "trueOdds": 1.95238096,
+                "points": 1.5,
+                "outcomeType": "Away",
+                "participants": [
+                    {
+                        "id": "18302",
+                        "name": "BUF Bills",
+                        "type": "Team"
+                    }
+                ],
+                "sortOrder": 1499,
+                "tags": [
+                    "ProgressiveParlayTeamEligible",
+                    "MainPointLine",
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            },
+            {
+                "id": "0HC78305424N150_1",
+                "marketId": "2_78305424",
+                "label": "KC Chiefs",
+                "displayOdds": {
+                    "american": "\u2212115",
+                    "decimal": "1.86",
+                    "fractional": "20/23"
+                },
+                "trueOdds": 1.86956522,
+                "points": -1.5,
+                "outcomeType": "Home",
+                "participants": [
+                    {
+                        "id": "18379",
+                        "name": "KC Chiefs",
+                        "type": "Team"
+                    }
+                ],
+                "sortOrder": 1501,
+                "tags": [
+                    "ProgressiveParlayTeamEligible",
+                    "MainPointLine",
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            },
+            {
+                "id": "0OU78305424O4750_1",
+                "marketId": "3_78305424",
+                "label": "Over",
+                "displayOdds": {
+                    "american": "\u2212110",
+                    "decimal": "1.90",
+                    "fractional": "10/11"
+                },
+                "trueOdds": 1.90909091,
+                "points": 47.5,
+                "outcomeType": "Over",
+                "sortOrder": 47500,
+                "tags": [
+                    "ProgressiveParlayTeamEligible",
+                    "MainPointLine",
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            },
+            {
+                "id": "0OU78305424U4750_3",
+                "marketId": "3_78305424",
+                "label": "Under",
+                "displayOdds": {
+                    "american": "\u2212110",
+                    "decimal": "1.90",
+                    "fractional": "10/11"
+                },
+                "trueOdds": 1.90909091,
+                "points": 47.5,
+                "outcomeType": "Under",
+                "sortOrder": 47502,
+                "tags": [
+                    "ProgressiveParlayTeamEligible",
+                    "MainPointLine",
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            },
+            {
+                "id": "0ML78305424_3",
+                "marketId": "1_78305424",
+                "label": "BUF Bills",
+                "displayOdds": {
+                    "american": "+105",
+                    "decimal": "2.05",
+                    "fractional": "21/20"
+                },
+                "trueOdds": 2.05,
+                "outcomeType": "Away",
+                "participants": [
+                    {
+                        "id": "18302",
+                        "name": "BUF Bills",
+                        "type": "Team"
+                    }
+                ],
+                "sortOrder": 1260502882,
+                "tags": [
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            },
+            {
+                "id": "0ML78305424_1",
+                "marketId": "1_78305424",
+                "label": "KC Chiefs",
+                "displayOdds": {
+                    "american": "\u2212125",
+                    "decimal": "1.80",
+                    "fractional": "4/5"
+                },
+                "trueOdds": 1.8,
+                "outcomeType": "Home",
+                "participants": [
+                    {
+                        "id": "18379",
+                        "name": "KC Chiefs",
+                        "type": "Team"
+                    }
+                ],
+                "sortOrder": 1260504878,
+                "tags": [
+                    "SGP"
+                ],
+                "main": true,
+                "metadata": {}
+            }
+        ]
+    }
+]
