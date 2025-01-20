@@ -53,19 +53,19 @@ class DkSportsbook():
             # Call the api
             api_version = self._api_versions['navVersion']
             url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports?format=json"
-            self._available_sports = self._call_api(url)['sports']
+            self._available_sports = self._call_api(url, 'retrieve available sports')['sports']
             if self.use_cache:
                 fC.dump_json_to_file(self._sports_cache_file, self._available_sports)
 
         self.available_sports = [x['name'].lower() for x in self._available_sports]
             
-    def _call_api(self, endpoint):
+    def _call_api(self, endpoint, purpose):
         retry_count = 3
         if self.api_delay is not None:
             tC.sleep(self.api_delay)
 
         while retry_count > 0:
-            print(f"called api: {endpoint}")
+            print(f"called api: {endpoint}\npurpose: {purpose}\n")
             response = rC.request_json(endpoint, add_user_agent=True, timeout=1)
             if response == {}:
                 print("Sleeping then retrying api call")
@@ -142,7 +142,7 @@ class DkSportsbook():
             # obtain league json from dk and add to cache
             api_version = self._api_versions['navVersion']
             url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports/{s_id}?format=json"
-            available_leagues = self._call_api(url)
+            available_leagues = self._call_api(url, 'retrieve league data for id={s_id}')
             self._cached_available_leagues_json[s_id] = available_leagues
             if self.use_cache:
                 fC.dump_json_to_file(self._leagues_cache_file, self._cached_available_leagues_json)
@@ -191,7 +191,7 @@ class DkSportsbook():
             # obtain league json from dk and add to cache
             api_version = self._api_versions['groupVersion']
             url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/leagues/{league_id}"
-            league_json = self._call_api(url)
+            league_json = self._call_api(url, f'retrieve league json for {league}')
             self._cached_league_json[league_id] = league_json
 
         return league_json
@@ -436,7 +436,7 @@ class DkSportsbook():
         cat_id = league_json['categories'][market_index]['id']
         api_version = self._api_versions['groupVersion']
         url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/leagues/{league_id}/categories/{cat_id}"
-        selections = self._call_api(url)['selections']
+        selections = self._call_api(url, f'retrieve selections for {league} {category}')['selections']
         
         return selections
     
@@ -486,7 +486,7 @@ class DkSportsbook():
 
         # call the api
         url = self._build_url_for_category(sport, league, 'game lines')
-        game_lines = self._call_api(url)
+        game_lines = self._call_api(url, f'retrieve {league} game lines')
 
         # parse the result
         event_id = found_game[0]['id']
@@ -509,7 +509,7 @@ class DkSportsbook():
         
         # call the api
         url = self._build_url_for_category(sport, league, 'halves')
-        half_lines = self._call_api(url)
+        half_lines = self._call_api(url, f'retrieve {league} half lines')
         
         # parse the result
         event_id = found_game[0]['id']
