@@ -10,6 +10,7 @@ setup(
     author_email="lukhed.mail@gmail.com",
     url="https://github.com/lukhed/lukhed_sports_common",
     packages=find_packages(),
+    include_package_data=True,  # Ensures MANIFEST.in is used
     python_requires=">=3.9",
     classifiers=[
         "Programming Language :: Python :: 3",

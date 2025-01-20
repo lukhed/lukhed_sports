@@ -4,6 +4,7 @@ from lukhed_basic_utils import requestsCommon as rC
 from lukhed_basic_utils import fileCommon as fC
 from lukhed_basic_utils import stringCommon as sC
 from lukhed_basic_utils import listWorkCommon as lC
+from lukhed_sports.calibrations.dk import api_versions
 
 class DkSportsbook():
     def __init__(self, api_delay=0.5, use_local_cache=True, reset_cache=False, retry_delay=1.5):
@@ -38,8 +39,7 @@ class DkSportsbook():
 
     def _load_calibrations(self):
         # Load version cal
-        version_cal_loc = osC.create_file_path_string(["lukhed_sports", "calibrations", "dk", "apiVersions.json"])
-        self._api_versions = fC.load_json_from_file(version_cal_loc)
+        self._api_versions = api_versions.api_versions
         self._base_url = self._api_versions['baseUrl']
         self._player_url = self._api_versions['playerUrl']
         self.sportsbook = self._api_versions['defaultSportsbook']
