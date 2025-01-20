@@ -18,7 +18,7 @@ Access live data from Draftkings Sportsbook via their API methods. Quick start i
 - [Instantiation](#instantiation)
 - [get_available_leagues(sport)](#get_available_leagues)
 - [get_spread_for_team(league, sport)](#get_spread_for_team)
-- [get_game_lines_for_league(league)](#get_game_lines_for_league)
+- [get_game_lines_for_league(league)](#get_gamelines_for_league)
 - [get_basic_touchdown_scorer_props(league, prop_type_filter=None, game_filter=None)](#get_basic_touchdown_scorer_props)
 
 ### Instantiation
