@@ -631,7 +631,7 @@ class DkSportsbook():
         Returns
         -------
         list()
-            Gamelines for the specided game in list format.
+            Gamelines for the specified game in list format.
         """
         team = team.lower()
         
@@ -658,6 +658,31 @@ class DkSportsbook():
         return gameline_data
     
     def get_half_lines_for_game(self, league, team, filter_market=None, filter_team=False):
+        """
+        Use this method to retrieve all gamelines for halves (spread, total, and moneylines) for a given game.
+
+        Parameters
+        ----------
+        league : str()
+            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.). 
+            Use api.get_supported_major_sport_leagues() for a complete list.
+        team : str()
+            Use one team name playing in the game. For pro teams, you can use the nickname like "lions" for 
+            the detroit lions. For college teams, use the team name as displayed on draftkings. For example: 
+            'notre dame'.
+        filter_market : str(), optional
+            Use this parameter to return only certain gamelines, by default None. Valid options are: 'spread', 
+            'total', and 'moneyline'.
+        filter_team : bool, optional
+            If True, the selections will only be applicable to the team provided, by default False and both team 
+            spreads and moneylines are returned in the list.
+
+        Returns
+        -------
+        list()
+            Gamelines for halves for the specified game in list format.
+        """
+
         sport = self._major_league_to_sport_mapping(league)
         if sport is None:
             self._print_major_league_not_supported_message(league)
@@ -743,6 +768,25 @@ class DkSportsbook():
         return final_selections
     
     def get_all_touchdown_props_for_game(self, league, team):
+        """
+        Use this method to get every prop listed under td scorers at draftkings. This includes all of the simple 
+        selections retrieved by api.get_basic_touchdown_scorer_props() + any additional bets draftking supports. 
+        Examples are: 'either player to score', 'either player first td', 'player 1 & player 2 4tds', 'either/or', etc.
+
+        Parameters
+        ----------
+        league : str()
+            'nfl' or 'college football'
+        team : str()
+            Use one team name playing in the game. For pro teams, you can use the nickname like "lions" for 
+            the detroit lions. For college teams, use the team name as displayed on draftkings. For example: 
+            'notre dame'.
+
+        Returns
+        -------
+        list()
+            List of td selections dicts with key 'name' and the corresponding available 'selection'.
+        """
         league = league.lower()
         if league != 'nfl' and league != 'college football':
             print("ERROR: league parameter must be 'college football' or 'nfl'")
