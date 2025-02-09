@@ -475,7 +475,7 @@ def convert_american_odds_to_int(american_odds):
     return int(american_odds)
 
 
-def calculate_win_rate_given_record(record, exclude_push=True):
+def calculate_win_rate_given_record(record, exclude_push=False):
     """
     :param record: str(), format: "w-l-t", for example "8-2-1"
     :param exclude_push: bool(), if true, win rate will ignore pushes, just use wins and losses. If false pushes
@@ -499,6 +499,67 @@ def calculate_win_rate_given_record(record, exclude_push=True):
         return "undefined"
     else:
         return mC.pretty_round_function(n/d, round_num=2)
+    
+def calculate_record_percentages(record, round_decimal_points=2):
+    """
+    Comprehensive win/loss/push percentage calculations based on records
+
+    Parameters
+    ----------
+    record : str
+        format: "w-l-t", for example "8-2-1"
+    
+    round_decimal_points : int
+        The number of spots to round the decimal point to, default is 2
+
+    Returns
+    -------
+    dict
+        Comprehensive percentage calculations based on records in the form of a dict:
+        1. winPercentage (Standard Definition): Wins divided by total games, including pushes.
+        2. winPercentagePushesHalf: Each push is considered as half a win.
+        3. winPercentageIgnorePushes: Pushes are excluded from the total game count.
+        4. lossPercentage (Standard Definition): Losses divided by total games, including pushes.
+        5. lossPercentagePushesHalf: Each push is considered as half a loss.
+        6. lossPercentageIgnorePushes: Pushes are excluded from the total game count.
+        7. pushPercentage: Proportion of games that resulted in a push.
+    """
+
+    wins, losses, pushes = map(int, record.split('-'))
+    total_games = wins + losses + pushes
+    
+    # 1.
+    win_percentage_standard = (wins / total_games) * 100 if total_games > 0 else 'undefined'
+    
+    # 2.
+    win_percentage_half_push = ((wins + 0.5 * pushes) / total_games) * 100 if total_games > 0 else 'undefined'
+    
+    # 3.
+    games_without_pushes = wins + losses
+    win_percentage_ignore_push = (wins / games_without_pushes) * 100 if games_without_pushes > 0 else 'undefined'
+    
+    # 4.
+    loss_percentage_standard = (losses / total_games) * 100 if total_games > 0 else 'undefined'
+    
+    # 5.
+    loss_percentage_half_push = ((losses + 0.5 * pushes) / total_games) * 100 if total_games > 0 else 'undefined'
+    
+    # 6.
+    loss_percentage_ignore_push = (losses / games_without_pushes) * 100 if games_without_pushes > 0 else 'undefined'
+    
+    # 7. Push percentage
+    push_percentage = (pushes / total_games) * 100 if total_games > 0 else 'undefined'
+
+    r = round_decimal_points
+    return {
+        "winPercentage": mC.pretty_round_function(win_percentage_standard, r),
+        "winPercentagePushesHalf": mC.pretty_round_function(win_percentage_half_push, r),
+        "winPercentageIgnorePushes": mC.pretty_round_function(win_percentage_ignore_push, r),
+        "lossPercentage": mC.pretty_round_function(loss_percentage_standard, r),
+        "lossPercentagePushesHalf": mC.pretty_round_function(loss_percentage_half_push, r),
+        "lossPercentageIgnorePushes": mC.pretty_round_function(loss_percentage_ignore_push, r),
+        "pushPercentage": mC.pretty_round_function(push_percentage, r)
+    }
 
 
 def determine_favorite_for_game(away_spread, home_spread, inverse=False):
