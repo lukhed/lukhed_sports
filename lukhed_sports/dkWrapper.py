@@ -8,6 +8,25 @@ from lukhed_sports.calibrations.dk import api_versions
 
 class DkSportsbook():
     def __init__(self, api_delay=0.5, use_local_cache=True, reset_cache=False, retry_delay=1.5):
+        """
+        A wrapper class for accessing DraftKings Sportsbook API data.
+
+        This class provides methods to retrieve betting lines, odds, and other sports betting data
+        from DraftKings Sportsbook. It supports major sports leagues including NFL, NBA, NHL, MLB,
+        and NCAA sports, with functionality to get game lines, player props, and other betting markets.
+
+        Parameters
+        ----------
+        api_delay : float, optional
+            Delay between API calls in seconds, by default 0.5
+        use_local_cache : bool, optional
+            Whether to cache reference API responses (sport list, league list, etc.) locally, by default True
+            Note: use reset cache if the data is very stale (sports or leagues change over time)
+        reset_cache : bool, optional
+            Whether to clear existing cache on initialization, by default False
+        retry_delay : float, optional
+            Delay between retry attempts for failed API calls in seconds, by default 1.5
+        """
         # Set API Information
         self.api_delay = api_delay
         self.retry_delay = retry_delay
@@ -349,17 +368,17 @@ class DkSportsbook():
         Parameters
         ----------
         event_id : _type_
-            _description_
+            Provide the event id you are looking for within the selections data
         markets : _type_
-            _description_
+            The markets available in the dk data (returned in a dk call)
         selections : _type_
-            _description_
+            selections available in the dk data (returned in a dk call)
         team : _type_
-            _description_
+            Provide a team name in conjunction with filter_team to filter by team
         filter_market : _type_
-            _description_
-        filter_team : _type_
-            _description_
+            Provide a market type to filter by. If None, market is ignored
+        filter_team : bool()
+            Instruction to filter team or not
         """
         filtered_data = []
         applicable_market_ids = [x['id'] for x in markets if x['eventId'] == event_id]
@@ -399,7 +418,6 @@ class DkSportsbook():
     ############################
     # Discovery Methods
     ############################
-    
     def _get_event_market_data(self, event_id):
         api_version = self._api_versions['groupVersion']
         url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/events/{event_id}/categories"
@@ -565,7 +583,7 @@ class DkSportsbook():
         url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/events/{event_id}/categories/{sub_cat}"
         return url
         
-    def get_gamelines_for_league(self, league):
+    def get_gamelines_for_league(self, league, filter_market=None):
         """
         Use this method to retrieve all gamelines (spread, total, and moneyline) for every game in the specified 
         league. This method works for all major sport leagues 
@@ -575,6 +593,9 @@ class DkSportsbook():
         league : str()
             The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.). 
             Use api.get_supported_major_sport_leagues() for a complete list.
+        filter_market : str(), optional
+            Use this parameter to return only certain gamelines, by default None. Valid options are: 'spread', 
+            'total', and 'moneyline'.
 
         Returns
         -------
@@ -595,9 +616,9 @@ class DkSportsbook():
 
         gamelines = []
         for index, event_id in enumerate(event_ids):
-            appplicable_market_ids = [x['id'] for x in data['markets'] if x['eventId'] == event_id]
-            applicable_selections = [x for x in data['selections'] if x['marketId'] in appplicable_market_ids]
             event_name = event_names[index]
+            applicable_selections = self._parse_gameline_selections_given_filters(
+                event_id, data['markets'], data['selections'], None, filter_market, None)
             gamelines.append(
                 {
                     "event": event_name,
