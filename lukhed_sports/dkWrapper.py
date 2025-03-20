@@ -868,3 +868,46 @@ class DkSportsbook():
             }
         else:
             return {}
+
+    def get_player_three_props(self, league='college basketball (m)', game_filter=None):
+        if league != 'college basketball (m)':
+            print("ERROR: league parameter must be 'college basketball (m)', NBA not supported yet")
+            return []
+        
+        selections = self.get_betting_selections_by_category('basketball', league, 'player threes')
+
+        game_filtered_selections = []
+        if game_filter is not None:
+            game = self._find_game_by_team_from_events('basketball', league, game_filter)
+            if game is None:
+                return []
+            
+            event_name = game[0]['name']
+            players = self.get_player_data_by_event('basketball', league, event_name)
+            player_ids = [x['id'] for x in players]
+            for selection in selections:
+                try:
+                    test_id = selection['participants'][0]['id']
+                    if test_id in player_ids:
+                        game_filtered_selections.append(selection.copy())
+                        
+                except KeyError:
+                    pass
+        else:
+            game_filtered_selections = selections
+        
+        
+        final_selections = []
+        for prop in game_filtered_selections:
+            player = prop['participants'][0]['name']
+            threes = prop['label']
+            odds = prop['displayOdds'].copy()
+            final_selections.append(
+                {
+                    "player": player,
+                    "line": threes,
+                    "odds": odds
+                }
+            )
+        
+        return final_selections
