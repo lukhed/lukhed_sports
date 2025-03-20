@@ -870,7 +870,7 @@ class DkSportsbook():
             return {}
 
     def get_player_three_props(self, league='college basketball (m)', game_filter=None):
-        if league != 'college basketball (m)':
+        if league.lower() != 'college basketball (m)' and league != "nba":
             print("ERROR: league parameter must be 'college basketball (m)', NBA not supported yet")
             return []
         
