@@ -458,48 +458,93 @@ def calculate_spread_move(open_spread, latest_spread, move_type="absolute"):
         return open_spread - latest_spread
 
 
-def convert_spread_to_float(spread_to_convert):
+###############################
+# Determine games
+###############################
+def determine_spread_winner(away_score, home_score, spread_float, spread_for="away"):
+    spread_float = convert_spread_to_float(spread_float)
+
     try:
-        return float(spread_to_convert)
-    except:
-        if type(spread_to_convert) is str:
-            if spread_to_convert == "pk" or spread_to_convert == "PK" or spread_to_convert.lower() == "ev":
-                return 0.0
-            elif spread_to_convert == "" or spread_to_convert is None or spread_to_convert.lower() == "n/a":
-                return "n/a"
+        if spread_for == "away":
+            res = grade_wager_side(away_score, home_score, spread_float)[0]
+            if res == "w":
+                return "away"
+            elif res == "l":
+                return "home"
+            else:
+                return "push"
+        elif spread_for == "home":
+            res = grade_wager_side(home_score, away_score, spread_float)[0]
+            if res == "w":
+                return "home"
+            elif res == "l":
+                return "away"
+            else:
+                return "push"
         else:
             return "n/a"
-
-
-def convert_american_odds_to_int(american_odds):
-    return int(american_odds)
-
-
-def calculate_win_rate_given_record(record, exclude_push=False):
-    """
-    :param record: str(), format: "w-l-t", for example "8-2-1"
-    :param exclude_push: bool(), if true, win rate will ignore pushes, just use wins and losses. If false pushes
-                         will be considered in the win rate.
-    :return: str(), percent string, for example "56%"
-    """
-
-    record_list = record.split("-")
-    wins = int(record_list[0])
-    losses = int(record_list[1])
-    pushes = int(record_list[2])
-
-    if exclude_push:
-        d = wins + losses
-        n = wins
-    else:
-        d = wins + losses + pushes
-        n = wins
-
-    if d == 0:
-        return "undefined"
-    else:
-        return mC.pretty_round_function(n/d, round_num=2)
+    except:
+        return "n/a"
     
+def determine_game_winner(away_score, home_score):
+    try:
+        away_score = int(away_score)
+        home_score = int(home_score)
+    except:
+        return "n/a"
+
+    if away_score > home_score:
+        return "away"
+    elif away_score < home_score:
+        return "home"
+    else:
+        return "push"
+    
+def determine_favorite_for_game(away_spread, home_spread, inverse=False):
+    try:
+        away_spread = float(away_spread)
+    except ValueError:
+        return "invalid away spread"
+
+    try:
+        home_spread = float(home_spread)
+    except ValueError:
+        return "invalid home spread"
+
+    if away_spread == 0 or home_spread == 0:
+        return "pk"
+    elif away_spread > 0:
+        if inverse:
+            return "away"
+        else:
+            return "home"
+    else:
+        if inverse:
+            return "home"
+        else:
+            return "away"
+        
+
+###############################
+# Team record Conversions
+###############################
+def get_plus_minus_given_record(record_string):
+    """
+    Takes a record string and calculates the plus minus. Pushes are 0, losses are -1, and wins are 1.
+
+    For example
+    1-0-0 = 1
+    0-1-0 = -1
+
+    :param record_string:       str(), record example: '1-0-0'
+    :return:                    int(), plush minus calculated
+    """
+
+    wins = get_wins_given_record(record_string)
+    losses = get_losses_given_record(record_string)
+
+    return wins - losses
+
 def calculate_record_percentages(record, round_decimal_points=2):
     """
     Comprehensive win/loss/push percentage calculations based on records
@@ -561,98 +606,150 @@ def calculate_record_percentages(record, round_decimal_points=2):
         "pushPercentage": mC.pretty_round_function(push_percentage, r)
     }
 
-
-def determine_favorite_for_game(away_spread, home_spread, inverse=False):
-    try:
-        away_spread = float(away_spread)
-    except ValueError:
-        return "invalid away spread"
-
-    try:
-        home_spread = float(home_spread)
-    except ValueError:
-        return "invalid home spread"
-
-    if away_spread == 0 or home_spread == 0:
-        return "pk"
-    elif away_spread > 0:
-        if inverse:
-            return "away"
-        else:
-            return "home"
-    else:
-        if inverse:
-            return "home"
-        else:
-            return "away"
-
-
-def determine_game_winner(away_score, home_score):
-    try:
-        away_score = int(away_score)
-        home_score = int(home_score)
-    except:
-        return "n/a"
-
-    if away_score > home_score:
-        return "away"
-    elif away_score < home_score:
-        return "home"
-    else:
-        return "push"
-
-
-def determine_spread_winner(away_score, home_score, spread_float, spread_for="away"):
-    spread_float = convert_spread_to_float(spread_float)
-
-    try:
-        if spread_for == "away":
-            res = grade_wager_side(away_score, home_score, spread_float)[0]
-            if res == "w":
-                return "away"
-            elif res == "l":
-                return "home"
-            else:
-                return "push"
-        elif spread_for == "home":
-            res = grade_wager_side(home_score, away_score, spread_float)[0]
-            if res == "w":
-                return "home"
-            elif res == "l":
-                return "away"
-            else:
-                return "push"
-        else:
-            return "n/a"
-    except:
-        return "n/a"
-
-
-def calculate_implied_volatility(odds_american, round_digit=4):
-    odds = convert_american_odds_to_int(odds_american)
-    if odds > 0:
-        return mC.pretty_round_function(100 / (odds + 100), round_digit)
-    else:
-        return mC.pretty_round_function(odds / (odds + 100), round_digit)
-
-
-def get_plus_minus_given_record(record_string):
+def calculate_win_rate_given_record(record, exclude_push=False):
     """
-    Takes a record string and calculates the plus minus. Pushes are 0, losses are -1, and wins are 1.
-
-    For example
-    1-0-0 = 1
-    0-1-0 = -1
-
-    :param record_string:       str(), record example: '1-0-0'
-    :return:                    int(), plush minus calculated
+    :param record: str(), format: "w-l-t", for example "8-2-1"
+    :param exclude_push: bool(), if true, win rate will ignore pushes, just use wins and losses. If false pushes
+                         will be considered in the win rate.
+    :return: str(), percent string, for example "56%"
     """
 
-    wins = get_wins_given_record(record_string)
-    losses = get_losses_given_record(record_string)
+    record_list = record.split("-")
+    wins = int(record_list[0])
+    losses = int(record_list[1])
+    pushes = int(record_list[2])
 
-    return wins - losses
+    if exclude_push:
+        d = wins + losses
+        n = wins
+    else:
+        d = wins + losses + pushes
+        n = wins
 
+    if d == 0:
+        return "undefined"
+    else:
+        return mC.pretty_round_function(n/d, round_num=2)
+
+
+###############################
+# Odds Conversions
+###############################
+def calculate_implied_probability(odds, odds_type="american", round_digit=4):
+    """
+    Calculates the implied probability of a given odds value.
+
+    Parameters
+    ----------
+    odds : int, float, str
+        The odds value to calculate the implied probability for.
+    odds_type : str, optional
+        The type of odds value provided. Options are "american", "decimal", "fractional", by default "american"
+    round_digit : int, optional
+        The number of decimal places to round the implied probability to, by default 4
+
+    Returns
+    -------
+    float or None
+        The implied probability as a decimal (e.g., 0.6000 for 60%)
+        Returns None if input is invalid or calculation fails
+    """
+    try:
+        # Convert to decimal odds first
+        decimal_odds = convert_odds_format(odds, odds_type, 'decimal')
+        
+        # Check if conversion failed
+        if isinstance(decimal_odds, str):
+            return None
+            
+        probability = 1 / float(decimal_odds)
+        return round(probability, round_digit)
+    except (ValueError, TypeError, ZeroDivisionError):
+        return None
+    
+def convert_odds_format(odds, input_format, output_format):
+    """
+    Converts odds from one format to another.
+
+    Parameters
+    ----------
+    odds : str, int, float
+        The odds value to convert
+    input_format : str
+        The format of the input odds: 'american', 'decimal', or 'fractional'
+    output_format : str
+        The desired output format: 'american', 'decimal', or 'fractional'
+
+    Returns
+    -------
+    str, int, or float
+        The converted odds value in the requested format
+    """
+    input_format = input_format.lower()
+    output_format = output_format.lower()
+
+    if input_format == output_format:
+        return odds
+
+    # First convert input to decimal as intermediate format
+    decimal_odds = None
+
+    # Convert input to decimal odds with high precision
+    if input_format == "american":
+        american = float(odds)
+        if american > 0:
+            decimal_odds = round((american / 100.0) + 1, 6)
+        else:
+            decimal_odds = round((100.0 / abs(american)) + 1, 6)
+    
+    elif input_format == "decimal":
+        decimal_odds = round(float(odds), 6)
+    
+    elif input_format == "fractional":
+        if '/' in str(odds):
+            num, denom = map(int, str(odds).split('/'))
+            decimal_odds = round(num / denom + 1, 6)
+        else:
+            return "Invalid fractional odds format"
+    else:
+        return "Invalid input format"
+
+    # Convert decimal odds to desired output format
+    if output_format == "decimal":
+        return round(decimal_odds, 3)
+    
+    elif output_format == "american":
+        if decimal_odds >= 2.0:
+            american = int(round((decimal_odds - 1) * 100))
+            return f"+{american}"
+        else:
+            american = int(round(-100 / (decimal_odds - 1)))
+            return str(american)
+    
+    elif output_format == "fractional":
+        # Convert to simplified fraction
+        decimal = decimal_odds - 1  # Remove the 1 to get just the profit part
+        if decimal == 0:
+            return "0/1"
+        
+        precision = 1000
+        h = int(round(decimal * precision))
+        k = precision
+        
+        # Find greatest common divisor
+        def gcd(a, b):
+            while b:
+                a, b = b, a % b
+            return a
+        
+        divisor = gcd(h, k)
+        h = h // divisor
+        k = k // divisor
+        
+        return f"{h}/{k}"
+    
+    else:
+        return "Invalid output format"
 
 def make_spread_pretty(spread):
     """
@@ -677,26 +774,17 @@ def make_spread_pretty(spread):
 
     return None
 
+def convert_american_odds_to_int(american_odds):
+    return int(american_odds)
 
-
-if __name__ == '__main__':
-    print(make_spread_pretty(3))
-    print(make_spread_pretty(0))
-    print(make_spread_pretty(7.5))
-    print(make_spread_pretty(-7.5))
-    print(make_spread_pretty("3.5"))
-    print(make_spread_pretty("-5.5"))
-    stop = 1
-    calculate_unit_profit(-110, 1, "w")
-    t1 = calculate_spread_move(-3, -2, move_type="value")
-    t2 = calculate_spread_move(-3, -4, move_type="value")
-    t3 = calculate_spread_move(3, 2, move_type="value")
-    t4 = calculate_spread_move(2, 3, move_type="value")
-    t5 = calculate_spread_move(-3, 3, move_type="value")
-    t6 = calculate_spread_move(3, -3, move_type="value")
-    t7 = calculate_spread_move(0, -1, move_type="value")
-    t8 = calculate_spread_move(0, 1, move_type="value")
-
-    test = 1
-
-    print(calculate_win_rate_given_record("5-1-1", False))
+def convert_spread_to_float(spread_to_convert):
+    try:
+        return float(spread_to_convert)
+    except:
+        if type(spread_to_convert) is str:
+            if spread_to_convert == "pk" or spread_to_convert == "PK" or spread_to_convert.lower() == "ev":
+                return 0.0
+            elif spread_to_convert == "" or spread_to_convert is None or spread_to_convert.lower() == "n/a":
+                return "n/a"
+        else:
+            return "n/a"
