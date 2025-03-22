@@ -397,6 +397,38 @@ class DkSportsbook():
 
         return filtered_data
     
+    def _parse_league_prop_selections_given_filters(self, league, category, prop_type_filter=None, game_filter=None):
+        selections = self.get_betting_selections_by_category('basketball', league, category)
+
+        game_filtered_selections = []
+        if game_filter is not None:
+            game = self._find_game_by_team_from_events('basketball', league, game_filter)
+            if game is None:
+                return []
+            
+            event_name = game[0]['name']
+            players = self.get_player_data_by_event('basketball', league, event_name)
+            player_ids = [x['id'] for x in players]
+            for selection in selections:
+                try:
+                    test_id = selection['participants'][0]['id']
+                    if test_id in player_ids:
+                        game_filtered_selections.append(selection.copy())
+                        
+                except KeyError:
+                    pass
+        else:
+            game_filtered_selections = selections
+
+        if prop_type_filter is not None:
+            prop_type_filter = prop_type_filter.lower()
+            final_selections = [x for x in game_filtered_selections if prop_type_filter.lower() in 
+                                x['outcomeType'].lower()]
+        else:
+            final_selections = game_filtered_selections
+            
+        return final_selections
+    
     def _build_league_url_for_category(self, sport, league, category_string):
         # stuff for url
         cat_id = self._get_category_id_for_named_category(sport, league, category_string)
@@ -868,3 +900,99 @@ class DkSportsbook():
             }
         else:
             return {}
+
+    def get_player_three_props(self, league='college basketball (m)', game_filter=None):
+        if league.lower() != 'college basketball (m)' and league != "nba":
+            print("ERROR: league parameter must be 'college basketball (m)', NBA not supported yet")
+            return []
+        
+        filtered_selections = self._parse_league_prop_selections_given_filters(league, 
+                                                                               'player threes', 
+                                                                               prop_type_filter=None, 
+                                                                               game_filter=game_filter)
+        final_selections = []
+        for prop in filtered_selections:
+            player = prop['participants'][0]['name']
+            threes = prop['label']
+            odds = prop['displayOdds'].copy()
+            final_selections.append(
+                {
+                    "player": player,
+                    "line": threes,
+                    "odds": odds
+                }
+            )
+        
+        return final_selections
+    
+    def get_player_points_props(self, league='college basketball (m)', game_filter=None):
+        if league.lower() != 'college basketball (m)' and league != "nba":
+            print("ERROR: league parameter must be 'college basketball (m)', NBA not supported yet")
+            return []
+        
+        filtered_selections = self._parse_league_prop_selections_given_filters(league, 
+                                                                               'player points', 
+                                                                               prop_type_filter=None, 
+                                                                               game_filter=game_filter)
+        final_selections = []
+        for prop in filtered_selections:
+            player = prop['participants'][0]['name']
+            threes = prop['label']
+            odds = prop['displayOdds'].copy()
+            final_selections.append(
+                {
+                    "player": player,
+                    "line": threes,
+                    "odds": odds
+                }
+            )
+        
+        return final_selections
+
+    def get_player_assists_props(self, league='college basketball (m)', game_filter=None):
+        if league.lower() != 'college basketball (m)' and league != "nba":
+            print("ERROR: league parameter must be 'college basketball (m)', NBA not supported yet")
+            return []
+        
+        filtered_selections = self._parse_league_prop_selections_given_filters(league, 
+                                                                               'player assists', 
+                                                                               prop_type_filter=None, 
+                                                                               game_filter=game_filter)
+        final_selections = []
+        for prop in filtered_selections:
+            player = prop['participants'][0]['name']
+            threes = prop['label']
+            odds = prop['displayOdds'].copy()
+            final_selections.append(
+                {
+                    "player": player,
+                    "line": threes,
+                    "odds": odds
+                }
+            )
+        
+        return final_selections
+    
+    def get_player_rebound_props(self, league='college basketball (m)', game_filter=None):
+        if league.lower() != 'college basketball (m)' and league != "nba":
+            print("ERROR: league parameter must be 'college basketball (m)', NBA not supported yet")
+            return []
+        
+        filtered_selections = self._parse_league_prop_selections_given_filters(league, 
+                                                                               'player rebounds', 
+                                                                               prop_type_filter=None, 
+                                                                               game_filter=game_filter)
+        final_selections = []
+        for prop in filtered_selections:
+            player = prop['participants'][0]['name']
+            threes = prop['label']
+            odds = prop['displayOdds'].copy()
+            final_selections.append(
+                {
+                    "player": player,
+                    "line": threes,
+                    "odds": odds
+                }
+            )
+        
+        return final_selections
