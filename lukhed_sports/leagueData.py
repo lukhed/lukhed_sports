@@ -325,8 +325,8 @@ class TeamConversion:
         """
 
         self._set_provider_data(provider.lower(), "from")
-        file_details = self._get_provider_file_name(provider, check_exist=True)
-        season_key = self._get_key_for_season(str(season).lower(), file_details['fn'])
+        fn = self._get_provider_file_name(provider, check_exist=True)
+        season_key = self._get_key_for_season(str(season).lower(), fn)
         return self.from_data[season_key][team_type]
 
     def get_supported_providers(self):

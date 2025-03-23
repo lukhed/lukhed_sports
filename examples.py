@@ -1,4 +1,5 @@
 from lukhed_sports import leagueData
+from lukhed_sports.espnWrapper import EspnStats
 
 def team_translation_example():
     # Example of how to use the TeamConversion class to translate team names between providers
@@ -34,3 +35,11 @@ def team_translation_example():
         )
     
     print(f"The translated result is: {converted_team}")
+
+def espn_wrapper():
+    # Build the player list: should be done periodically to ensure the most up-to-date data (roster chagnes, etc.)
+    espn = EspnStats(sport='nfl')
+
+    espn.build_player_list()
+    # team_stats = espn.get_all_teams_stats('2023')
+    stop = 1

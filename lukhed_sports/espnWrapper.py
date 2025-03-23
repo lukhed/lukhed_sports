@@ -1,6 +1,14 @@
 from typing import Optional
 from lukhed_basic_utils import requestsCommon as rC
+from lukhed_basic_utils import timeCommon as tC
+from lukhed_basic_utils import fileCommon as fC
+from lukhed_basic_utils import osCommon as osC
+from lukhed_basic_utils import fileCommon as fC
+from lukhed_basic_utils import stringCommon as sC
+from lukhed_basic_utils import listWorkCommon as lC
 from lukhed_sports.leagueData import TeamConversion
+import re
+import json
 
 
 class EspnStats():
@@ -8,6 +16,7 @@ class EspnStats():
         self.sport = sport.lower()
         self.team_stats_raw_data = None
         self.team_format = {"provider": 'espn', "teamType": 'cityShort'}
+        self.cache_dir = osC.create_file_path_string(['lukhed_sports', 'local_cache'])
 
         self.team_conversion_object = None                 # type: Optional[TeamConversion]
 
@@ -34,7 +43,7 @@ class EspnStats():
         # Holds a working rosters (https://www.espn.com/nfl/team/depth/_/name/det/detroit-lions)
         self.team_roster = []
 
-        # All players from (depth charts). Cached here: grindSunday/grindSports/tree/main/players/nfl/espn.json
+        # All players from (depth charts). Cached here: lukhed_sports/local_cache/espn_<sport>_players.json
         # Use self.build_player_list() to update the cache.
         self.player_list = []
         self.player_list_last_updated = None
@@ -45,7 +54,7 @@ class EspnStats():
 
     def _check_create_team_conversion_object(self):
         if self.team_conversion_object is None:
-            self.team_conversion_object = commonSportsLeagueData.TeamConversion(self.sport)
+            self.team_conversion_object = TeamConversion(self.sport)
 
     def _check_create_nfl_schedule(self):
         if self.nfl_schedule is None:
@@ -98,7 +107,7 @@ class EspnStats():
             if got_response:
                 break
             if try_count > 0:
-                time.sleep(1)       # don't spam on retries
+                tC.sleep(1)       # don't spam on retries
 
             # Give a user agent
             headers = {}
@@ -447,15 +456,15 @@ class EspnStats():
 
     ################################
     # Rosters
-    def build_player_list(self, create_new_file=False):
+    def build_player_list(self):
         """
-        Use this function to build a database of all nfl players. This should be ran periodically to keep the list
+        Use this function to build a database of all players. This should be ran periodically to keep the list
         of players accurate.
 
         This function may take some time as it loops thru all depth charts
 
         The database is kept here:
-        https://github.com/grindSunday/grindSports/tree/main/players/nfl/espn.json
+        lukhed_sports/local_cache
 
         :return:
         """
@@ -464,11 +473,11 @@ class EspnStats():
             if count != len(team_list) - 1:
                 tC.sleep(1)
 
-        op_dict = {"lastUpdate": tC.create_time_stamp_new(), "players": None}
-        fn = 'players/nfl/espn.json'
-        self._check_create_gh_instance()
-
-        team_list = commonSportsLeagueData.get_team_list('nfl', 'espn', "cityShort", season="latest")
+        fn = f'espn_{self.sport}_players.json'
+        fp = osC.append_to_dir(self.cache_dir, fn)
+        self._check_create_team_conversion_object()
+        team_list = self.team_conversion_object.get_team_list('espn', 'cityShort', season="latest")
+        op_dict = {"lastUpdate": tC.create_timestamp(), "players": None}
 
         all_players = []
         counter = 0
@@ -489,25 +498,27 @@ class EspnStats():
             counter = counter + 1
 
         op_dict["players"] = all_players
-        if create_new_file:
-            gC.create_new_file_in_repository('grindSunday', 'grindSports', fn, op_dict,
-                                             github_object=self.gh_instance)
-        else:
-            gC.update_file_in_repository('grindSunday', 'grindSports', fn, op_dict,
-                                         github_object=self.gh_instance)
+
+        fC.dump_json_to_file(fp, op_dict)
 
         return all_players
 
     def get_league_player_list(self):
-        self._check_create_gh_instance()
-        fn = 'players/nfl/espn.json'
-        player_json = gC.retrieve_json_content_from_file('grindSunday', 'grindSports', fn,
-                                                         github_object=self.gh_instance)
-        self.player_list = player_json["players"]
+        fn = f'espn_{self.sport}_players.json'
+        fp = osC.append_to_dir(self.cache_dir, fn)
+        if osC.check_if_file_exists(fp):
+            player_json = fC.load_json_from_file(fp)
+        else:
+            print("INFO: The player list has not been built yet. Building now.")
+            self.build_player_list()
+            player_json = fC.load_json_from_file(fp)
+
         self.player_list_last_updated = player_json["lastUpdate"]
 
         print(f"INFO: The player list was last updated: "
               f"{tC.convert_date_format(self.player_list_last_updated, '%Y%m%d%H%M%S')}")
+
+        self.player_list = player_json["players"]
 
         return self.player_list
 
@@ -770,7 +781,6 @@ class EspnStats():
             _gamelog_scrape()
 
         return self.raw_player_stats
-
 
     def get_player_stat_overview(self, player, last_name_only=False, first_name_only=False, team=None, position=None,
                                  force_single_result=False, id_provided=False):
