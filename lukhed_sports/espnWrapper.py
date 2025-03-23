@@ -1,15 +1,15 @@
 from typing import Optional
+from lukhed_basic_utils import requestsCommon as rC
+from lukhed_sports.leagueData import TeamConversion
 
 
-class EspnScraping:
+class EspnStats():
     def __init__(self, sport='nfl'):
         self.sport = sport.lower()
         self.team_stats_raw_data = None
         self.team_format = {"provider": 'espn', "teamType": 'cityShort'}
 
-        self.team_conversion_object = None                 # type: Optional[commonSportsLeagueData.TeamConversion]
-        self.nfl_schedule = None                           # type: Optional[commonSportsFutureSchedules.NflSchedule]
-        self.gh_instance = None
+        self.team_conversion_object = None                 # type: Optional[TeamConversion]
 
         # Holds the following page +: https://www.espn.com/nfl/stats/team. Use "get_all_team_stats"
         self.teams_stats = {
@@ -43,12 +43,121 @@ class EspnScraping:
         self.player_stats = {}
         self.raw_player_stats = {}
 
+    def _check_create_team_conversion_object(self):
+        if self.team_conversion_object is None:
+            self.team_conversion_object = commonSportsLeagueData.TeamConversion(self.sport)
+
+    def _check_create_nfl_schedule(self):
+        if self.nfl_schedule is None:
+            self.nfl_schedule = commonSportsFutureSchedules.NflSchedule()
+
+    def _check_create_gh_instance(self):
+        if self.gh_instance is None:
+            self.gh_instance = gC.return_github_instance()
+
+    def _get_team_rank_for_stat(self, team, stat_level_one, stat_key, more_is_better=True):
+        team = team.lower()
+        teams = [x['team'].lower() for x in self.teams_stats[stat_level_one]]
+        indices = [x for x in range(0, 32)]
+        stat = [x[stat_key] for x in self.teams_stats[stat_level_one]]
+
+        teams = lC.sort_lists_based_on_reference_list(stat, teams)
+        indices = lC.sort_lists_based_on_reference_list(stat, indices)
+
+        if more_is_better:
+            stat.sort(reverse=True)
+            teams.reverse()
+            indices.reverse()
+
+        team_index = teams.index(team)
+        rank = team_index + 1
+        check_tie = True if stat.count(stat[team_index]) >= 2 else False
+        return {"rank": rank, "tied": check_tie}
+
+    def _check_load_player_list(self):
+        if not self.player_list:
+            self.get_league_player_list()
+
+    @staticmethod
+    def _special_request_handling(url):
+        import requests
+        from bs4 import BeautifulSoup
+        from fake_useragent import UserAgent  # https://pypi.org/project/fake-useragent/#description
+
+        # Create a session to persist cookies and settings
+        session = requests.Session()
+
+        # Set the maximum number of redirects
+        max_redirects = 10
+
+        # Try up to 5 times on the URL
+        response = None
+        got_response = False
+        try_count = 0
+        while try_count < 5:
+            if got_response:
+                break
+            if try_count > 0:
+                time.sleep(1)       # don't spam on retries
+
+            # Give a user agent
+            headers = {}
+            random_agent = UserAgent(fallback="chrome").random
+            headers["User-Agent"] = random_agent
+
+            # Manually follow redirects with a loop
+            for _ in range(max_redirects):
+                response = session.get(url, headers=headers, allow_redirects=False)
+
+                # Check if the response is a redirect
+                if response.is_redirect:
+                    # Extract the new URL from the Location header
+                    url = response.headers['Location']
+                else:
+                    # Break the loop if it's not a redirect
+                    got_response = True
+                    break
+            else:
+                # If the loop completes, it means too many redirects occurred, try again
+                try_count = try_count + 1
+
+        if got_response:
+            return BeautifulSoup(response.content, 'html.parser')
+        else:
+            print("ERROR: Could not get response from ESPN. Too many redirects event after 5 tries.")
+            return response
+
+    @staticmethod
+    def _get_json_from_script(soup):
+        script_tags = soup.find_all('script')
+        script_tag = next((x for x in script_tags[1:] if "__espnfitt__" in x.text), None)
+        script_content = str(script_tag.string)
+        # Use regular expressions to extract the dictionary inside window['__espnfitt__']
+        match = re.search(r'window\[\'__espnfitt__\'\]\s*=\s*(\{.*?\});', script_content)
+        return json.loads(match.group(1))
+
+    ################################
+    # General Helpers
+    def convert_team_names_to_specified_format(self, to_format, team_type="long"):
+        self._check_create_team_conversion_object()
+        f_c = self.team_conversion_object.convert_team
+        fp = self.team_format['provider']
+        ft = self.team_format['teamType']
+        for stat_key in self.teams_stats:
+            temp_teams = self.teams_stats[stat_key]
+            for team in temp_teams:
+                team['team'] = f_c(team['team'], fp, to_format, ft, team_type)
+
+        self.team_format = {"provider": to_format, "teamType": team_type}
+
+    ################################
+    # Team Stats (done)
     def _get_check_team_stats_raw_data(self, season, regular_or_offseason):
         def _build_url():
             core_url = 'https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/statistics/' \
                        'byteam?region=us&lang=en&contentorigin=espn&sort='
-            stat_type_string = 'team.passing.'
-            sort_string = '.netYardsPerGame%3Aasc&limit=32&'
+            stat_type_string = 'team.passing'
+            sort_string = '.netYardsPerGame&limit=32&'
             s_num = 2 if regular_or_offseason == 'regular' else 3
             season_string = f'season={season}&seasontype={s_num}'
 
@@ -56,12 +165,14 @@ class EspnScraping:
 
         if self.team_stats_raw_data is None:
             api_url = _build_url()
-            self.team_stats_raw_data = rC.use_requests_return_json(api_url, add_user_agent='yes')
+            self.team_stats_raw_data = rC.request_json(api_url, add_user_agent=True)
             self.team_stats_raw_data.update({"season": season, "seasonType": regular_or_offseason})
         else:
-            if season != self.team_stats_raw_data['season'] or regular_or_offseason != self.team_stats_raw_data["seasonType"]:
+            if (season != self.team_stats_raw_data['season'] or 
+                regular_or_offseason != self.team_stats_raw_data["seasonType"]):
+                
                 api_url = _build_url()
-                self.team_stats_raw_data = rC.use_requests_return_json(api_url, add_user_agent='yes')
+                self.team_stats_raw_data = rC.request_json(api_url, add_user_agent=True)
                 self.team_stats_raw_data.update({"season": season, "seasonType": regular_or_offseason})
             else:
                 pass
@@ -236,102 +347,7 @@ class EspnScraping:
                 self.teams_stats['misc'].append(all_dict.copy())
             else:
                 self.teams_stats['miscOpponent'].append(all_dict.copy())
-
-    def _check_create_team_conversion_object(self):
-        if self.team_conversion_object is None:
-            self.team_conversion_object = commonSportsLeagueData.TeamConversion(self.sport)
-
-    def _check_create_nfl_schedule(self):
-        if self.nfl_schedule is None:
-            self.nfl_schedule = commonSportsFutureSchedules.NflSchedule()
-
-    def _check_create_gh_instance(self):
-        if self.gh_instance is None:
-            self.gh_instance = gC.return_github_instance()
-
-    def _get_team_rank_for_stat(self, team, stat_level_one, stat_key, more_is_better=True):
-        team = team.lower()
-        teams = [x['team'].lower() for x in self.teams_stats[stat_level_one]]
-        indices = [x for x in range(0, 32)]
-        stat = [x[stat_key] for x in self.teams_stats[stat_level_one]]
-
-        teams = lC.sort_lists_based_on_reference_list(stat, teams)
-        indices = lC.sort_lists_based_on_reference_list(stat, indices)
-
-        if more_is_better:
-            stat.sort(reverse=True)
-            teams.reverse()
-            indices.reverse()
-
-        team_index = teams.index(team)
-        rank = team_index + 1
-        check_tie = True if stat.count(stat[team_index]) >= 2 else False
-        return {"rank": rank, "tied": check_tie}
-
-    def _check_load_player_list(self):
-        if not self.player_list:
-            self.get_league_player_list()
-
-
-
-    @staticmethod
-    def _special_request_handling(url):
-        import requests
-        from bs4 import BeautifulSoup
-        from fake_useragent import UserAgent  # https://pypi.org/project/fake-useragent/#description
-
-        # Create a session to persist cookies and settings
-        session = requests.Session()
-
-        # Set the maximum number of redirects
-        max_redirects = 10
-
-        # Try up to 5 times on the URL
-        response = None
-        got_response = False
-        try_count = 0
-        while try_count < 5:
-            if got_response:
-                break
-            if try_count > 0:
-                time.sleep(1)       # don't spam on retries
-
-            # Give a user agent
-            headers = {}
-            random_agent = UserAgent(fallback="chrome").random
-            headers["User-Agent"] = random_agent
-
-            # Manually follow redirects with a loop
-            for _ in range(max_redirects):
-                response = session.get(url, headers=headers, allow_redirects=False)
-
-                # Check if the response is a redirect
-                if response.is_redirect:
-                    # Extract the new URL from the Location header
-                    url = response.headers['Location']
-                else:
-                    # Break the loop if it's not a redirect
-                    got_response = True
-                    break
-            else:
-                # If the loop completes, it means too many redirects occurred, try again
-                try_count = try_count + 1
-
-        if got_response:
-            return BeautifulSoup(response.content, 'html.parser')
-        else:
-            print("ERROR: Could not get response from ESPN. Too many redirects event after 5 tries.")
-            return response
-
-    @staticmethod
-    def _get_json_from_script(soup):
-        script_tags = soup.find_all('script')
-        script_tag = next((x for x in script_tags[1:] if "__espnfitt__" in x.text), None)
-        script_content = str(script_tag.string)
-        # Use regular expressions to extract the dictionary inside window['__espnfitt__']
-        match = re.search(r'window\[\'__espnfitt__\'\]\s*=\s*(\{.*?\});', script_content)
-        return json.loads(match.group(1))
-
+    
     def get_all_teams_stats(self, season, regular_or_offseason='regular'):
         """
         Scrapes the following page: https://www.espn.com/nfl/stats/team
@@ -351,18 +367,6 @@ class EspnScraping:
         self._add_misc_teams_stats(misc_type="Opponent")
 
         return self.teams_stats
-
-    def convert_team_names_to_specified_format(self, to_format, team_type="long"):
-        self._check_create_team_conversion_object()
-        f_c = self.team_conversion_object.convert_team
-        fp = self.team_format['provider']
-        ft = self.team_format['teamType']
-        for stat_key in self.teams_stats:
-            temp_teams = self.teams_stats[stat_key]
-            for team in temp_teams:
-                team['team'] = f_c(team['team'], fp, to_format, ft, team_type)
-
-        self.team_format = {"provider": to_format, "teamType": team_type}
 
     def team_stats_get_total_stats_for_team(self, team, ball_side="offense", visible_or_all="all"):
         team = team.lower()
@@ -936,41 +940,3 @@ class EspnScraping:
 
 
         return self.player_stats
-
-
-class EspnDepthCharts:
-    # This is already available within ESPN scraping
-    def __init__(self, team):
-        import bs4
-        self.team = team.lower()
-        self.offensive_depth_chart = {}
-        self.get_offensive_depth_chart()
-
-    def get_offensive_depth_chart(self):
-        url = f'https://www.espn.com/nfl/team/depth/_/name/{self.team}'
-        soup = rC.get_soup(url, add_user_agent=True)
-        pos_table = rC.soup_find_all_classes_in_soup(soup, 'table', 'Table--fixed-left')[0]
-        o_pos = rC.soup_find_all_classes_that_contain_string_in_soup(pos_table, 'td', 'Table__TD')
-        pos_strings = [x.text.strip() for x in o_pos]
-
-        player_table_div = rC.soup_find_all_classes_in_soup(soup, 'div', 'Table__ScrollerWrapper')[0]
-        player_table = rC.soup_find_all_classes_in_soup(player_table_div, 'table', 'Table')[0]
-        player_rows = rC.soup_find_all_classes_in_soup(player_table, 'tr', 'Table__TR--sm')
-
-        for i, row in enumerate(player_rows):
-            self.offensive_depth_chart[pos_strings[i]] = []
-            columns = rC.soup_find_all_classes_in_soup(row, 'td', 'Table__TD')
-            for a, column in enumerate(columns):
-                if column.text.strip() == '-':
-                    pass
-                else:
-                    link = rC.soup_find_all_classes_in_soup(column, 'a', 'AnchorLink')[0]
-                    temp_player = link.text.strip()
-                    player_link = link.attrs['href']
-                    self.offensive_depth_chart[pos_strings[i]].append({"player": temp_player, "playerLink": player_link, "depth": a + 1})
-
-        stop = 1
-
-    def change_team(self, team):
-        self.team = team.lower()
-        self.get_offensive_depth_chart()
