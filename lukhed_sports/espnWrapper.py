@@ -56,22 +56,14 @@ class EspnStats():
         if self.team_conversion_object is None:
             self.team_conversion_object = TeamConversion(self.sport)
 
-    def _check_create_nfl_schedule(self):
-        if self.nfl_schedule is None:
-            self.nfl_schedule = commonSportsFutureSchedules.NflSchedule()
-
-    def _check_create_gh_instance(self):
-        if self.gh_instance is None:
-            self.gh_instance = gC.return_github_instance()
-
     def _get_team_rank_for_stat(self, team, stat_level_one, stat_key, more_is_better=True):
         team = team.lower()
         teams = [x['team'].lower() for x in self.teams_stats[stat_level_one]]
         indices = [x for x in range(0, 32)]
         stat = [x[stat_key] for x in self.teams_stats[stat_level_one]]
 
-        teams = lC.sort_lists_based_on_reference_list(stat, teams)
-        indices = lC.sort_lists_based_on_reference_list(stat, indices)
+        teams = lC.sort_list_based_on_reference_list(stat, teams)
+        indices = lC.sort_list_based_on_reference_list(stat, indices)
 
         if more_is_better:
             stat.sort(reverse=True)
