@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="lukhed_sports",
-    version="0.5.1",
+    version="0.6.0",
     description="A collection of sports analysis utility functions and API wrappers",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -18,6 +18,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        "lukhed-basic-utils>=1.2.3"
+        "lukhed-basic-utils>=1.4.7"
     ],
 )
