@@ -1,5 +1,5 @@
 from lukhed_sports import leagueData
-from lukhed_sports.espnWrapper import EspnStats
+from lukhed_sports.espnWrapper import EspnNflStats
 
 def team_translation_example():
     # Example of how to use the TeamConversion class to translate team names between providers
@@ -37,15 +37,14 @@ def team_translation_example():
     print(f"The translated result is: {converted_team}")
 
 #################################
-# ESPN Wrapper Examples
-def espn_wrapper_build_player_list():
+# ESPN NFL Stats Wrapper Examples
+def espn_nfl_stats_swrapper_build_player_list():
     # Build the player list: should be done periodically to ensure the most up-to-date data (roster changes, etc.)
-    espn = EspnStats(sport='nfl')
-
+    espn = EspnNflStats()
     espn.build_player_list()
 
-def espn_wrapper_player_search():
-    espn = EspnStats(sport='nfl')
+def espn_nfl_stats_wrapper_player_search():
+    espn = EspnNflStats()
 
     # Understand the positions and teams in the data
     team_list = espn.get_team_list()
@@ -63,3 +62,12 @@ def espn_wrapper_player_search():
 
     # Next time i'll use fuzzy match
     exact_player_match = espn.player_search('roquon smith', fuzzy_search=True)
+
+def espn_nfl_stats_wrapper_get_player_stats():
+    espn = EspnNflStats()
+    # stats = espn.get_player_stat_overview('roquan smith', team='bal')
+    # stats = espn.get_player_stat_bio('roquan smith', team='bal')
+    # stats = espn.get_player_stat_splits('roquan smith', team='bal')
+    stats = espn.get_player_stat_gamelog('roquan smith', team='bal')
+    stop = 1
+    

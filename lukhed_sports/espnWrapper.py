@@ -11,9 +11,8 @@ import re
 import json
 
 
-class EspnStats():
-    def __init__(self, sport='nfl'):
-        self.sport = sport.lower()
+class EspnNflStats():
+    def __init__(self):
         self.team_stats_raw_data = None
         self.team_format = {"provider": 'espn', "teamType": 'cityShort'}
         self.cache_dir = osC.create_file_path_string(['lukhed_sports', 'local_cache'])
@@ -57,7 +56,7 @@ class EspnStats():
 
     def _check_create_team_conversion_object(self):
         if self.team_conversion_object is None:
-            self.team_conversion_object = TeamConversion(self.sport)
+            self.team_conversion_object = TeamConversion('nfl')
 
     def _get_team_rank_for_stat(self, team, stat_level_one, stat_key, more_is_better=True):
         team = team.lower()
@@ -495,7 +494,7 @@ class EspnStats():
             if count != len(team_list) - 1:
                 tC.sleep(1)
 
-        fn = f'espn_{self.sport}_players.json'
+        fn = f'espn_nfl_players.json'
         fp = osC.append_to_dir(self.cache_dir, fn)
         self._check_create_team_conversion_object()
         team_list = self.team_conversion_object.get_team_list('espn', 'cityShort', season="latest")
@@ -526,7 +525,7 @@ class EspnStats():
         return all_players
 
     def get_league_player_list(self):
-        fn = f'espn_{self.sport}_players.json'
+        fn = f'espn_nfl_players.json'
         fp = osC.append_to_dir(self.cache_dir, fn)
         if osC.check_if_file_exists(fp):
             player_json = fC.load_json_from_file(fp)
@@ -576,17 +575,45 @@ class EspnStats():
 
         return self.team_roster
 
-    def player_search(self, name_to_search, last_name_search=False, first_name_search=False, team=None,
-                      position=None, fuzzy_search=False, fuzzy_threshold=80, inury=None):
+    def player_search(self, search_term, 
+                      id_provided=False, 
+                      last_name_search=False, 
+                      first_name_search=False, 
+                      team=None,
+                      position=None, 
+                      fuzzy_search=False, 
+                      fuzzy_threshold=80, 
+                      inury=None, 
+                      provide_player_list=None, 
+                      force_single_result=False):
+        
         self._check_load_player_list()
-        name_list = [x['name'] for x in self.player_list]
-        matches_indices = advanced_player_search(name_to_search, name_list, search_last_name_only=last_name_search,
-                                                  search_first_name_only=first_name_search, return_indices=True, 
-                                                  fuzzy_search=fuzzy_search, fuzzy_threshold=fuzzy_threshold)
-        player_dicts = [self.player_list[x] for x in matches_indices]
+        player_list = self._parse_player_list_to_filter(provide_player_list)
+
+        if not id_provided:
+            name_list = [x['name'] for x in player_list]
+            matches_indices = advanced_player_search(search_term, name_list, search_last_name_only=last_name_search,
+                                                    search_first_name_only=first_name_search, return_indices=True, 
+                                                    fuzzy_search=fuzzy_search, fuzzy_threshold=fuzzy_threshold)
+            player_dicts = [player_list[x] for x in matches_indices]
+        else:
+            player_dicts = [x for x in player_list if f'http://www.espn.com/nfl/player/_/id/{search_term}' in x['href']]
 
         player_dicts = self.filter_player_list(team=team, position=position, injury=inury, 
                                                player_list_to_filter=player_dicts)
+        
+        if force_single_result:
+            if len(player_dicts) > 1:
+                print(f"INFO: More than one player found. Returning the first one based on {force_single_result}.")
+                return player_dicts[0]
+            elif len(player_dicts) == 1:
+                return player_dicts[0]
+            else:
+                print(f"WARNING: No players found for search term: {search_term}.")
+                return {}
+            
+        if player_dicts == []:
+            print(f"WARNING: No players found for search term: {search_term}.")
 
         return player_dicts
 
@@ -722,32 +749,6 @@ class EspnStats():
 
     ################################
     # Player Stats
-    def _player_search_common(self, player, last_name_only, first_name_only, team, position, force_single_result,
-                              id_provided):
-        self._check_load_player_list()
-
-        if id_provided:
-            player = str(player)
-            try:
-                return [x for x in self.player_list if f'http://www.espn.com/nfl/player/_/id/{player}' in x['href']][0]
-            except IndexError:
-                print("Player ID not found in player list. Try searching by name")
-                return None
-        else:
-            search_result = self.player_search(player, last_name_search=last_name_only,
-                                               first_name_search=first_name_only,
-                                               team=team, position=position)
-            if len(search_result) == 1 or force_single_result:
-                try:
-                    player_dict = search_result[0]
-                    return player_dict
-                except IndexError:
-                    print("ERROR: No players match your search criteria.")
-                    return None
-            else:
-                input(f"More than one player match the criteria. Enter the number of the player you want:\n")
-                print("This function is not complete yet")
-                return None
 
     def _scrape_player_data(self, url, data_type):
         """
@@ -805,87 +806,192 @@ class EspnStats():
 
         return self.raw_player_stats
     
-    def get_player_stat_overview(self, player, last_name_only=False, first_name_only=False, team=None, position=None,
-                                 force_single_result=False, id_provided=False):
+    def _parse_player_input_for_stats(self, 
+                                      player,
+                                      id_provided=False, 
+                                      last_name_search=False, 
+                                      first_name_search=False, 
+                                      team=None,
+                                      position=None, 
+                                      fuzzy_search=False, 
+                                      fuzzy_threshold=80, 
+                                      inury=None, 
+                                      provide_player_list=None):
+        if type(player) == dict:
+            url = player['href']
+        else:
+           player = self.player_search(player, id_provided=id_provided, last_name_search=last_name_search,
+                                        first_name_search=first_name_search, team=team, position=position,
+                                        fuzzy_search=fuzzy_search, fuzzy_threshold=fuzzy_threshold,
+                                        inury=inury, provide_player_list=provide_player_list, 
+                                        force_single_result=True)
+        try:
+            url = player['href']
+        except KeyError:
+            print("WARNING: No players found for search term: {player}.")
+            url = None
+
+        return url, player
+    
+    def get_player_stat_overview(self,
+                                 player,
+                                 id_provided=False, 
+                                 last_name_search=False, 
+                                 first_name_search=False, 
+                                 team=None,
+                                 position=None, 
+                                 fuzzy_search=False, 
+                                 fuzzy_threshold=80, 
+                                 inury=None, 
+                                 provide_player_list=None):
         """
         Gets data from espn, the overview section for the player. See example page here:
         https://www.espn.com/nfl/player/_/id/4430807/bijan-robinson
 
-        :param player:
-        :param last_name_only:
-        :param first_name_only:
-        :param team:
-        :param position:
-        :param force_single_result:
-        :param id_provided:
-        :return:
+        Parameters
+        ----------
+
+        Returns
+        -------
+        
         """
 
-        res = self._player_search_common(player, last_name_only, first_name_only, team, position,
-                                         force_single_result, id_provided)
-        url = res['href']
+        url, player = self._parse_player_input_for_stats(player,
+                                                         id_provided=id_provided, 
+                                                         last_name_search=last_name_search, 
+                                                         first_name_search=first_name_search, 
+                                                         team=team,
+                                                         position=position, 
+                                                         fuzzy_search=fuzzy_search, 
+                                                         fuzzy_threshold=fuzzy_threshold, 
+                                                         inury=inury, 
+                                                         provide_player_list=provide_player_list)
+
+        if url is None:
+            self.raw_player_stats = {}
+            return None
+        
         self._scrape_player_data(url, 'overview')
-        self.raw_player_stats['playerDetails'] = res
+        self.raw_player_stats['playerDetails'] = player.copy()
         return self.player_stats
 
-    def get_player_stat_bio(self, player, last_name_only=False, first_name_only=False, team=None, position=None,
-                            force_single_result=False, id_provided=False):
+    def get_player_stat_bio(self,
+                            player,
+                            id_provided=False, 
+                            last_name_search=False, 
+                            first_name_search=False, 
+                            team=None,
+                            position=None, 
+                            fuzzy_search=False, 
+                            fuzzy_threshold=80, 
+                            inury=None, 
+                            provide_player_list=None):
         """
         Gets data from espn, the bio section for the player. See example page here:
         https://www.espn.com/nfl/player/bio/_/id/4430807/bijan-robinson
 
-        :param player:
-        :param last_name_only:
-        :param first_name_only:
-        :param team:
-        :param position:
-        :param force_single_result:
-        :param id_provided:
-        :return:
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
         """
-        res = self._player_search_common(player, last_name_only, first_name_only, team, position, force_single_result,
-                                         id_provided)
-        url = res['href']
+        url, player = self._parse_player_input_for_stats(player,
+                                                         id_provided=id_provided, 
+                                                         last_name_search=last_name_search, 
+                                                         first_name_search=first_name_search, 
+                                                         team=team,
+                                                         position=position, 
+                                                         fuzzy_search=fuzzy_search, 
+                                                         fuzzy_threshold=fuzzy_threshold, 
+                                                         inury=inury, 
+                                                         provide_player_list=provide_player_list)
+
+        if url is None:
+            self.raw_player_stats = {}
+            return None
+        
         self._scrape_player_data(url, 'bio')
-        self.raw_player_stats['playerDetails'] = res
+        self.raw_player_stats['playerDetails'] = player
         return self.raw_player_stats
 
-    def get_player_stat_splits(self, player, last_name_only=False, first_name_only=False, team=None, position=None,
-                               force_single_result=False, id_provided=False):
+    def get_player_stat_splits(self,
+                               player,
+                               id_provided=False, 
+                               last_name_search=False, 
+                               first_name_search=False, 
+                               team=None,
+                               position=None, 
+                               fuzzy_search=False, 
+                               fuzzy_threshold=80, 
+                               inury=None, 
+                               provide_player_list=None):
         """
         Gets data from espn, the splits section for the player. See example page here:
         https://www.espn.com/nfl/player/splits/_/id/4430807/bijan-robinson
 
-        :param player:
-        :param last_name_only:
-        :param first_name_only:
-        :param team:
-        :param position:
-        :param force_single_result:
-        :param id_provided:
-        :return:
+        Parameters
+        ----------
+
+        Returns
+        -------
+
         """
-        res = self._player_search_common(player, last_name_only, first_name_only, team, position, force_single_result,
-                                         id_provided)
-        url = res['href']
+        url, player = self._parse_player_input_for_stats(player,
+                                                         id_provided=id_provided, 
+                                                         last_name_search=last_name_search, 
+                                                         first_name_search=first_name_search, 
+                                                         team=team,
+                                                         position=position, 
+                                                         fuzzy_search=fuzzy_search, 
+                                                         fuzzy_threshold=fuzzy_threshold, 
+                                                         inury=inury, 
+                                                         provide_player_list=provide_player_list)
+
+        if url is None:
+            self.raw_player_stats = {}
+            return None
+        
         self._scrape_player_data(url, 'splits')
-        self.raw_player_stats['playerDetails'] = res
+        self.raw_player_stats['playerDetails'] = player
         return self.raw_player_stats
 
-    def get_player_stat_gamelog(self, player, last_name_only=False, first_name_only=False, team=None, position=None,
-                                force_single_result=False, id_provided=False):
+    def get_player_stat_gamelog(self,
+                                player,
+                                id_provided=False, 
+                                last_name_search=False, 
+                                first_name_search=False, 
+                                team=None,
+                                position=None, 
+                                fuzzy_search=False, 
+                                fuzzy_threshold=80, 
+                                inury=None, 
+                                provide_player_list=None):
         """
         Gets data from espn, the splits section for the player. See example page here:
         https://www.espn.com/nfl/player/splits/_/id/4430807/bijan-robinson
 
-        :param player:
-        :param last_name_only:
-        :param first_name_only:
-        :param team:
-        :param position:
-        :param force_single_result:
-        :param id_provided:
-        :return:
+        Parameters
+        ----------
+        player : _type_
+            _description_
+        last_name_only : bool, optional
+            _description_, by default False
+        first_name_only : bool, optional
+            _description_, by default False
+        team : _type_, optional
+            _description_, by default None
+        position : _type_, optional
+            _description_, by default None
+        force_single_result : bool, optional
+            _description_, by default False
+        id_provided : bool, optional
+            _description_, by default False
+
+        Returns
+        -------
+
         """
 
         def _check_stat_applicability(stat_cat):
@@ -894,9 +1000,21 @@ class EspnStats():
             except ValueError:
                 return None
 
-        res = self._player_search_common(player, last_name_only, first_name_only, team, position, force_single_result,
-                                         id_provided)
-        url = res['href']
+        url, player = self._parse_player_input_for_stats(player,
+                                                         id_provided=id_provided, 
+                                                         last_name_search=last_name_search, 
+                                                         first_name_search=first_name_search, 
+                                                         team=team,
+                                                         position=position, 
+                                                         fuzzy_search=fuzzy_search, 
+                                                         fuzzy_threshold=fuzzy_threshold, 
+                                                         inury=inury, 
+                                                         provide_player_list=provide_player_list)
+
+        if url is None:
+            self.raw_player_stats = {}
+            return None
+        
         self._scrape_player_data(url, 'gamelog')
 
         self.player_stats = {
@@ -908,10 +1026,11 @@ class EspnStats():
             "fumbles": {},
             "interceptions": {},
             "totals": {},
+            "gameType": [],
             "opponents": [],
             "gameDates": [],
             "gameResults": [],
-            "playerDetails": res
+            "playerDetails": player
         }
 
         stat_legend = {
@@ -926,16 +1045,53 @@ class EspnStats():
 
         # Same for all
         try:
-            self.player_stats["opponents"] = \
+            temp_opponents = \
                 [x['opp']['abbr'] for x in self.raw_player_stats['groups'][0]['tbls'][0]['events']]
-
-            self.player_stats["gameDates"] = \
-                [tC.convert_date_format(x['dt'], date_format='%Y-%m-%dT%H:%M:%S.%f%z', to_format="%a %m-%d")
+            
+            temp_game_dates = \
+                [tC.convert_date_format(x['dt'], from_format='%Y-%m-%dT%H:%M:%S.%f%z', to_format="%a %m-%d")
                  for x in self.raw_player_stats['groups'][0]['tbls'][0]['events']]
+            
+            temp_game_results = \
+                [x['res']["abbr"] + f" {x['res']['score']}" for 
+                 x in self.raw_player_stats['groups'][0]['tbls'][0]['events']]
+            
+            temp_game_type = [self.raw_player_stats['groups'][0]['name']]*len(temp_opponents)
+            
+            try:
+                # Check if two tables
+                self.raw_player_stats['groups'][1]['tbls'][0]['events']
 
-            self.player_stats["gameResults"] = \
-                [x['res']["abbr"] + f" {x['res']['score']}" for x in self.raw_player_stats['groups'][0]['tbls'][0]['events']]
+                # Get the opponents
+                second_game_opponents = \
+                    [x['opp']['abbr'] for x in self.raw_player_stats['groups'][1]['tbls'][0]['events']]
+                temp_opponents.extend(second_game_opponents)
+                
+                # Get the game dates
+                second_game_data = \
+                    [tC.convert_date_format(x['dt'], from_format='%Y-%m-%dT%H:%M:%S.%f%z', to_format="%a %m-%d")
+                    for x in self.raw_player_stats['groups'][1]['tbls'][0]['events']]
+                temp_game_dates.extend(second_game_data)
 
+                # Get the game results
+                second_game_results = \
+                    [x['res']["abbr"] + f" {x['res']['score']}" for 
+                     x in self.raw_player_stats['groups'][1]['tbls'][0]['events']]
+                temp_game_results.extend(second_game_results)
+
+                # Get game type
+                second_game_type = [self.raw_player_stats['groups'][1]['name']]*len(second_game_opponents)
+                temp_game_type.extend(second_game_type)
+
+            except IndexError:
+                # only one table on the page (regular season not postseason)
+                pass
+
+            self.player_stats["opponents"] = temp_opponents.copy()
+            self.player_stats["gameDates"] = temp_game_dates.copy()
+            self.player_stats["gameResults"] = temp_game_results.copy()
+            self.player_stats["gameType"] = temp_game_type.copy()
+            
             columns = [x['ttl'] for x in self.raw_player_stats['labels']]
         except:
             return self.player_stats
@@ -943,7 +1099,7 @@ class EspnStats():
 
         # Get position dependent game stats
         applicable_stat_keys = []
-        pos = res["position"]
+        pos = player["position"]
         if pos == 'QB':
             applicable_stat_keys = ["passing", "rushing"]
         elif pos == "WR" or pos == "TE" or pos == "RB":
