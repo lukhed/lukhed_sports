@@ -36,10 +36,30 @@ def team_translation_example():
     
     print(f"The translated result is: {converted_team}")
 
-def espn_wrapper():
-    # Build the player list: should be done periodically to ensure the most up-to-date data (roster chagnes, etc.)
+#################################
+# ESPN Wrapper Examples
+def espn_wrapper_build_player_list():
+    # Build the player list: should be done periodically to ensure the most up-to-date data (roster changes, etc.)
     espn = EspnStats(sport='nfl')
 
     espn.build_player_list()
-    # team_stats = espn.get_all_teams_stats('2023')
-    stop = 1
+
+def espn_wrapper_player_search():
+    espn = EspnStats(sport='nfl')
+
+    # Understand the positions and teams in the data
+    team_list = espn.get_team_list()
+    postion_list = espn.get_position_list()
+
+    # Trying to look by full name by default, but misspelled will return []
+    missspelled_name = espn.player_search('roquon smith')
+
+    # I know how to spell his last name...Thats a lot of players named smith!
+    all_players_with_last_name_smith = espn.player_search('smith', last_name_search=True)
+
+    # I meant the one on the Ravens
+    # Note: this will return multiple players if there are multiple players with the same name on the same team
+    smith_lb_on_baltimore = espn.player_search('smith', team='Bal', position='LB')
+
+    # Next time i'll use fuzzy match
+    exact_player_match = espn.player_search('roquon smith', fuzzy_search=True)

@@ -40,6 +40,9 @@ class EspnStats():
             "miscOpponent": []
         }
 
+        self.general_positions = ["OL", "DL", "LB", "DB", "WR", "TE", "RB", "QB", "K", "P", "R"]
+        self.granular_positions = []
+
         # Holds working rosters (https://www.espn.com/nfl/team/depth/_/name/det/detroit-lions)
         self.team_roster = []
 
@@ -157,6 +160,15 @@ class EspnStats():
         all_teams = lC.return_unique_values(all_teams)
         all_teams.sort()
         return all_teams
+    
+    def get_position_list(self):
+        self._check_load_player_list()
+        all_positions = [x['position'] for x in self.player_list if x['position'] is not None or x['position'] != '']
+        all_positions = lC.return_unique_values(all_positions)
+        all_positions.sort()
+        self.granular_positions = all_positions.copy()
+
+        return {"general": self.general_positions, "granular": all_positions}
 
     ################################
     # Team Stats (done)
@@ -455,6 +467,13 @@ class EspnStats():
 
     ################################
     # Rosters
+    def _parse_player_list_to_filter(self, list_to_filter):
+        self._check_load_player_list()
+        if isinstance(list_to_filter, list):
+            return list_to_filter
+        else:
+            return self.player_list
+    
     def _check_load_player_list(self):
         if not self.player_list:
             self.get_league_player_list()
@@ -558,7 +577,7 @@ class EspnStats():
         return self.team_roster
 
     def player_search(self, name_to_search, last_name_search=False, first_name_search=False, team=None,
-                      position=None, fuzzy_search=False, fuzzy_threshold=80):
+                      position=None, fuzzy_search=False, fuzzy_threshold=80, inury=None):
         self._check_load_player_list()
         name_list = [x['name'] for x in self.player_list]
         matches_indices = advanced_player_search(name_to_search, name_list, search_last_name_only=last_name_search,
@@ -566,15 +585,12 @@ class EspnStats():
                                                   fuzzy_search=fuzzy_search, fuzzy_threshold=fuzzy_threshold)
         player_dicts = [self.player_list[x] for x in matches_indices]
 
-        if team is not None:
-            player_dicts = [x for x in player_dicts if x["team"].lower() == team.lower()]
-
-        if position is not None:
-            player_dicts = [x for x in player_dicts if x["position"].lower() == position.lower()]
+        player_dicts = self.filter_player_list(team=team, position=position, injury=inury, 
+                                               player_list_to_filter=player_dicts)
 
         return player_dicts
 
-    def filter_player_list(self, team=None, position=None, injury=None):
+    def filter_player_list(self, team=None, position=None, injury=None, player_list_to_filter=None):
         """
 
         :param team:            list or string
@@ -668,7 +684,9 @@ class EspnStats():
             return lC.return_unique_values(injuries)
 
         self._check_load_player_list()
-        final_list = self.player_list
+
+        final_list = self._parse_player_list_to_filter(player_list_to_filter)
+        
         if team is not None:
             if type(team) == list:
                 teams = [x.lower() for x in team]
