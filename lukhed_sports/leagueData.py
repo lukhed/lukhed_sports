@@ -5,6 +5,8 @@ from lukhed_basic_utils import requestsCommon as rC
 from lukhed_basic_utils import githubCommon as gC
 from lukhed_basic_utils import stringCommon as sC
 from lukhed_basic_utils import timeCommon as tC
+from nameparser import HumanName
+from fuzzywuzzy import fuzz
 
 
 class TeamConversion:
@@ -354,6 +356,116 @@ class TeamConversion:
             data_support.append(temp_dict.copy())
 
         return data_support
+    
 
+def advanced_player_search(search_name, full_name_list, search_last_name_only=False, search_first_name_only=False, 
+                  return_indices=False, fuzzy_search=False, fuzzy_threshold=80):
+    """
+    This function performs an advanced search for player names in a list of full names. It can search by last name,
+    first name, or full name. It also supports fuzzy searching for more flexible name comparisons.
+
+    Parameters
+    ----------
+    search_name : str
+        The name to search for. This can be a first name, last name, or full name.
+    full_name_list : list
+        A list of full names to search through. Each name should be a string.
+    search_last_name_only : bool, optional
+        If True, the search will only look for matches in the last names. If False, it will search in first names
+        and full names as well. by default False
+    search_first_name_only : bool, optional
+        If True, the search will only look for matches in the first names. If False, it will search in last names
+        and full names as well. by default False
+    return_indices : bool, optional
+        If True, the function will return the indices of the matches in the full_name_list. If False, it will return
+        the matching names. by default False
+    fuzzy_search : bool, optional
+        If True, the function will use fuzzy matching for more flexible name comparisons. If False, it will use
+        exact matching. by default False
+    fuzzy_threshold : int, optional
+        The threshold for fuzzy matching. A higher value means stricter matching. This is a percentage value between 0
+        and 100. For example, a threshold of 80 means that the names must be at least 80% similar to be considered a
+        potential match, by default 80.
+        
+    Returns
+    -------
+    list
+        A list of matching names or their indices in the full_name_list, depending on the value of return_indices.
+        If no matches are found, an empty list is returned.
+    """
+    search_name = search_name.lower()
+    full_name_list = [x.lower() for x in full_name_list]
+    matches = []
+
+    if fuzzy_search:
+        # Use fuzzy matching for more flexible name comparisons
+        for index, full_name in enumerate(full_name_list):
+            human_name = HumanName(full_name)
+            
+            # Determine what to compare based on search parameters
+            if search_last_name_only:
+                similarity = fuzz.ratio(search_name, human_name.last.lower())
+            elif search_first_name_only:
+                similarity = fuzz.ratio(search_name, human_name.first.lower())
+            else:
+                # For full name search, use token_sort_ratio to handle different name orders
+                similarity = fuzz.token_sort_ratio(search_name, full_name)
+            
+            # If similarity meets the threshold, add to matches
+            if similarity >= fuzzy_threshold:
+                matches.append({
+                    'index': index if return_indices else None,
+                    'name': full_name,
+                    'similarity': similarity
+                })
+        
+        # Sort matches by similarity score (highest first)
+        matches.sort(key=lambda x: x['similarity'], reverse=True)
+        
+        # Return just the indices or names based on return_indices parameter
+        if return_indices:
+            matches = [match['index'] for match in matches]
+        else:
+            matches = [match['name'] for match in matches]
+    else:
+        # Original non-fuzzy search implementation
+        for index, full_name in enumerate(full_name_list):
+            human_name = HumanName(full_name)
+
+            if search_last_name_only:
+                if human_name.last.lower() == search_name:
+                    matches.append(index if return_indices else full_name)
+            elif search_first_name_only:
+                if human_name.first.lower() == search_name:
+                    matches.append(index if return_indices else full_name)
+            else:
+                # Default search (full name)
+                if search_name in full_name:
+                    matches.append(index if return_indices else full_name)
+
+    return matches
+
+def advanced_fuzzy_name_search(target_name, candidate_names):
+    target_name_parsed = HumanName(target_name.lower())
+    best_match = None
+    highest_similarity = 0
+    best_match_index = None
+
+    for index, candidate_name in enumerate(candidate_names):
+        candidate_name_parsed = HumanName(candidate_name.lower())
+        similarity = fuzz.token_sort_ratio(target_name_parsed.full_name, candidate_name_parsed.full_name)
+
+        if similarity > highest_similarity:
+            highest_similarity = similarity
+            best_match = candidate_name
+            best_match_index = index
+
+    result_dict = {
+        "bestMatch": best_match,
+        "confidence": highest_similarity,
+        "index": best_match_index
+    }
+
+    return result_dict
 
 

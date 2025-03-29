@@ -18,6 +18,9 @@ setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        "lukhed-basic-utils>=1.4.7"
+        "lukhed-basic-utils>=1.4.7",
+        "nameparser>=1.1.3",
+        "fuzzywuzzy>=0.18.0",
+        "Levenshtein>=0.27.1"
     ],
 )

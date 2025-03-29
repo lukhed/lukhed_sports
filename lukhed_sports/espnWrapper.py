@@ -6,7 +6,7 @@ from lukhed_basic_utils import osCommon as osC
 from lukhed_basic_utils import fileCommon as fC
 from lukhed_basic_utils import stringCommon as sC
 from lukhed_basic_utils import listWorkCommon as lC
-from lukhed_sports.leagueData import TeamConversion
+from lukhed_sports.leagueData import TeamConversion, advanced_player_search
 import re
 import json
 
@@ -40,7 +40,7 @@ class EspnStats():
             "miscOpponent": []
         }
 
-        # Holds a working rosters (https://www.espn.com/nfl/team/depth/_/name/det/detroit-lions)
+        # Holds working rosters (https://www.espn.com/nfl/team/depth/_/name/det/detroit-lions)
         self.team_roster = []
 
         # All players from (depth charts). Cached here: lukhed_sports/local_cache/espn_<sport>_players.json
@@ -150,6 +150,13 @@ class EspnStats():
                 team['team'] = f_c(team['team'], fp, to_format, ft, team_type)
 
         self.team_format = {"provider": to_format, "teamType": team_type}
+
+    def get_team_list(self):
+        self._check_load_player_list()
+        all_teams = [x['team'] for x in self.player_list if x['team'] is not None or x['team'] != '']
+        all_teams = lC.return_unique_values(all_teams)
+        all_teams.sort()
+        return all_teams
 
     ################################
     # Team Stats (done)
@@ -448,6 +455,10 @@ class EspnStats():
 
     ################################
     # Rosters
+    def _check_load_player_list(self):
+        if not self.player_list:
+            self.get_league_player_list()
+    
     def build_player_list(self):
         """
         Use this function to build a database of all players. This should be ran periodically to keep the list
@@ -508,7 +519,8 @@ class EspnStats():
         self.player_list_last_updated = player_json["lastUpdate"]
 
         print(f"INFO: The player list was last updated: "
-              f"{tC.convert_date_format(self.player_list_last_updated, '%Y%m%d%H%M%S')}")
+              f"{tC.convert_date_format(self.player_list_last_updated, '%Y%m%d%H%M%S')}. "
+              f"You can run build_player_list() if it needs a refresh.")
 
         self.player_list = player_json["players"]
 
@@ -546,11 +558,12 @@ class EspnStats():
         return self.team_roster
 
     def player_search(self, name_to_search, last_name_search=False, first_name_search=False, team=None,
-                      position=None):
+                      position=None, fuzzy_search=False, fuzzy_threshold=80):
         self._check_load_player_list()
         name_list = [x['name'] for x in self.player_list]
-        matches_indices = sC.advanced_name_search(name_to_search, name_list, search_last_name_only=last_name_search,
-                                                  search_first_name_only=first_name_search, return_indices=True)
+        matches_indices = advanced_player_search(name_to_search, name_list, search_last_name_only=last_name_search,
+                                                  search_first_name_only=first_name_search, return_indices=True, 
+                                                  fuzzy_search=fuzzy_search, fuzzy_threshold=fuzzy_threshold)
         player_dicts = [self.player_list[x] for x in matches_indices]
 
         if team is not None:
@@ -773,7 +786,7 @@ class EspnStats():
             _gamelog_scrape()
 
         return self.raw_player_stats
-
+    
     def get_player_stat_overview(self, player, last_name_only=False, first_name_only=False, team=None, position=None,
                                  force_single_result=False, id_provided=False):
         """
