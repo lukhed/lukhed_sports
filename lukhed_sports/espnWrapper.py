@@ -749,7 +749,6 @@ class EspnNflStats():
 
     ################################
     # Player Stats
-
     def _scrape_player_data(self, url, data_type):
         """
 
@@ -845,15 +844,36 @@ class EspnNflStats():
                                  inury=None, 
                                  provide_player_list=None):
         """
-        Gets data from espn, the overview section for the player. See example page here:
-        https://www.espn.com/nfl/player/_/id/4430807/bijan-robinson
+        Gets data from ESPN's player overview section. This includes overall stats and recent game stats.
+        See example page: https://www.espn.com/nfl/player/_/id/4430807/bijan-robinson
 
         Parameters
         ----------
+        player : str or dict
+            Player name to search for, or player dict if already retrieved from another method
+        id_provided : bool, optional
+            If True, treats the player parameter as an ESPN player ID, by default False
+        last_name_search : bool, optional
+            If True, searches only by last name, by default False
+        first_name_search : bool, optional
+            If True, searches only by first name, by default False
+        team : str or list, optional
+            Filter results by team name(s), by default None
+        position : str or list, optional
+            Filter results by position(s), by default None
+        fuzzy_search : bool, optional
+            If True, uses fuzzy matching for player names, by default False
+        fuzzy_threshold : int, optional
+            Minimum similarity score (0-100) for fuzzy matching, by default 80
+        inury : str or list, optional
+            Filter results by injury status, by default None
+        provide_player_list : list, optional
+            Custom player list to search from instead of the full player database, by default None
 
         Returns
         -------
-        
+        dict
+            Dictionary containing player's overall stats and recent game stats, or None if player not found
         """
 
         url, player = self._parse_player_input_for_stats(player,
@@ -887,16 +907,38 @@ class EspnNflStats():
                             inury=None, 
                             provide_player_list=None):
         """
-        Gets data from espn, the bio section for the player. See example page here:
-        https://www.espn.com/nfl/player/bio/_/id/4430807/bijan-robinson
+        Gets data from ESPN's player bio section, including personal information and career stats.
+        See example page: https://www.espn.com/nfl/player/bio/_/id/4430807/bijan-robinson
 
         Parameters
         ----------
-        
+        player : str or dict
+            Player name to search for, or player dict if already retrieved from another method
+        id_provided : bool, optional
+            If True, treats the player parameter as an ESPN player ID, by default False
+        last_name_search : bool, optional
+            If True, searches only by last name, by default False
+        first_name_search : bool, optional
+            If True, searches only by first name, by default False
+        team : str or list, optional
+            Filter results by team name(s), by default None
+        position : str or list, optional
+            Filter results by position(s), by default None
+        fuzzy_search : bool, optional
+            If True, uses fuzzy matching for player names, by default False
+        fuzzy_threshold : int, optional
+            Minimum similarity score (0-100) for fuzzy matching, by default 80
+        inury : str or list, optional
+            Filter results by injury status, by default None
+        provide_player_list : list, optional
+            Custom player list to search from instead of the full player database, by default None
+
         Returns
         -------
-        
+        dict
+            Dictionary containing player's biographical information, or None if player not found
         """
+
         url, player = self._parse_player_input_for_stats(player,
                                                          id_provided=id_provided, 
                                                          last_name_search=last_name_search, 
@@ -928,16 +970,38 @@ class EspnNflStats():
                                inury=None, 
                                provide_player_list=None):
         """
-        Gets data from espn, the splits section for the player. See example page here:
-        https://www.espn.com/nfl/player/splits/_/id/4430807/bijan-robinson
+        Gets data from ESPN's player splits section, showing performance breakdowns by various categories.
+        See example page: https://www.espn.com/nfl/player/splits/_/id/4430807/bijan-robinson
 
         Parameters
         ----------
+        player : str or dict
+            Player name to search for, or player dict if already retrieved from another method
+        id_provided : bool, optional
+            If True, treats the player parameter as an ESPN player ID, by default False
+        last_name_search : bool, optional
+            If True, searches only by last name, by default False
+        first_name_search : bool, optional
+            If True, searches only by first name, by default False
+        team : str or list, optional
+            Filter results by team name(s), by default None
+        position : str or list, optional
+            Filter results by position(s), by default None
+        fuzzy_search : bool, optional
+            If True, uses fuzzy matching for player names, by default False
+        fuzzy_threshold : int, optional
+            Minimum similarity score (0-100) for fuzzy matching, by default 80
+        inury : str or list, optional
+            Filter results by injury status, by default None
+        provide_player_list : list, optional
+            Custom player list to search from instead of the full player database, by default None
 
         Returns
         -------
-
+        dict
+            Dictionary containing player's statistical splits, or None if player not found
         """
+
         url, player = self._parse_player_input_for_stats(player,
                                                          id_provided=id_provided, 
                                                          last_name_search=last_name_search, 
@@ -969,29 +1033,36 @@ class EspnNflStats():
                                 inury=None, 
                                 provide_player_list=None):
         """
-        Gets data from espn, the splits section for the player. See example page here:
-        https://www.espn.com/nfl/player/splits/_/id/4430807/bijan-robinson
+        Gets data from ESPN's player game log section, showing game-by-game statistics.
+        See example page: https://www.espn.com/nfl/player/gamelog/_/id/4430807/bijan-robinson
 
         Parameters
         ----------
-        player : _type_
-            _description_
-        last_name_only : bool, optional
-            _description_, by default False
-        first_name_only : bool, optional
-            _description_, by default False
-        team : _type_, optional
-            _description_, by default None
-        position : _type_, optional
-            _description_, by default None
-        force_single_result : bool, optional
-            _description_, by default False
+        player : str or dict
+            Player name to search for, or player dict if already retrieved from another method
         id_provided : bool, optional
-            _description_, by default False
+            If True, treats the player parameter as an ESPN player ID, by default False
+        last_name_search : bool, optional
+            If True, searches only by last name, by default False
+        first_name_search : bool, optional
+            If True, searches only by first name, by default False
+        team : str or list, optional
+            Filter results by team name(s), by default None
+        position : str or list, optional
+            Filter results by position(s), by default None
+        fuzzy_search : bool, optional
+            If True, uses fuzzy matching for player names, by default False
+        fuzzy_threshold : int, optional
+            Minimum similarity score (0-100) for fuzzy matching, by default 80
+        inury : str or list, optional
+            Filter results by injury status, by default None
+        provide_player_list : list, optional
+            Custom player list to search from instead of the full player database, by default None
 
         Returns
         -------
-
+        dict
+            Dictionary containing player's game-by-game statistics, or None if player not found
         """
 
         def _check_stat_applicability(stat_cat):

@@ -65,9 +65,6 @@ def espn_nfl_stats_wrapper_player_search():
 
 def espn_nfl_stats_wrapper_get_player_stats():
     espn = EspnNflStats()
-    # stats = espn.get_player_stat_overview('roquan smith', team='bal')
-    # stats = espn.get_player_stat_bio('roquan smith', team='bal')
-    # stats = espn.get_player_stat_splits('roquan smith', team='bal')
-    stats = espn.get_player_stat_gamelog('roquan smith', team='bal')
+    game_log_stats = espn.get_player_stat_gamelog('roquan smith', team='bal')
     stop = 1
     
