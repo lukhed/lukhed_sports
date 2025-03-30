@@ -749,7 +749,7 @@ class EspnNflStats():
 
     ################################
     # Player Stats
-    def _scrape_player_data(self, url, data_type, season):
+    def _scrape_player_data(self, url, data_type, season, league):
         """
 
         :param url:             Url is base url for player, for example:
@@ -782,20 +782,36 @@ class EspnNflStats():
         def _splits_scrape():
             self.raw_player_stats = player_json['page']['content']['player']["splt"]
 
-        def _gamelog_scrape(season='latest'):
+        def _gamelog_scrape():
             self.raw_player_stats = player_json['page']['content']['player']["gmlog"]
 
         if data_type != 'overview':
             url_parts = url.split("/")
             url_parts.insert(5, data_type)
             url = '/'.join(url_parts)
-        
+
+
+        # Parase league first
+        if league is not None:
+            league = league.lower()
+
+        if (data_type == 'gamelog' or data_type == 'splits') and league != 'nfl':
+            url_parts = url_parts[:9]
+            url = '/'.join(url_parts)
+            url = url + f'/type/{league}-football'
+
         if season is not None:
             # add season to supporting urls
+            url_parts = url.split("/")
             if (data_type == 'gamelog' or data_type == 'splits') and season != 'latest':
-                new_url_parts = url_parts[:9]
-                url = '/'.join(new_url_parts)
-                url = url + f'/type/nfl/year/{season}'
+                if f'/type/{league}-football' in url:
+                    url_parts = url_parts[:11]
+                    url = '/'.join(url_parts)
+                    url = url + f'/year/{season}'
+                else:
+                    url_parts = url_parts[:9]
+                    url = '/'.join(url_parts)
+                    url = url + f'/type/{league}-football/year/{season}'
 
         soup = self._special_request_handling(url)
         player_json = self._get_json_from_script(soup)
@@ -808,7 +824,7 @@ class EspnNflStats():
         elif data_type == 'splits':
             _splits_scrape()
         elif data_type == 'gamelog':
-            _gamelog_scrape(season)
+            _gamelog_scrape()
 
         return self.raw_player_stats
     
@@ -898,7 +914,7 @@ class EspnNflStats():
             self.raw_player_stats = {}
             return None
         
-        self._scrape_player_data(url, 'overview', None)
+        self._scrape_player_data(url, 'overview', None, None)
         self.raw_player_stats['playerDetails'] = player.copy()
         return self.player_stats
 
@@ -961,13 +977,14 @@ class EspnNflStats():
             self.raw_player_stats = {}
             return None
         
-        self._scrape_player_data(url, 'bio', None)
+        self._scrape_player_data(url, 'bio', None, None)
         self.raw_player_stats['playerDetails'] = player
         return self.raw_player_stats
 
     def get_player_stat_splits(self,
                                player,
                                season='latest',
+                               league='nfl',
                                id_provided=False, 
                                last_name_search=False, 
                                first_name_search=False, 
@@ -987,6 +1004,8 @@ class EspnNflStats():
             Player name to search for, or player dict if already retrieved from another method
         season : str, optional
             Season to retrieve stats for, by default 'latest'
+        league : str, optional
+            League to retrieve stats for: 'nfl' or 'college', by default 'nfl'
         id_provided : bool, optional
             If True, treats the player parameter as an ESPN player ID, by default False
         last_name_search : bool, optional
@@ -1027,13 +1046,14 @@ class EspnNflStats():
             self.raw_player_stats = {}
             return None
         
-        self._scrape_player_data(url, 'splits', season)
+        self._scrape_player_data(url, 'splits', season, league)
         self.raw_player_stats['playerDetails'] = player
         return self.raw_player_stats
 
     def get_player_stat_gamelog(self,
                                 player,
                                 season='latest',
+                                league='nfl',
                                 id_provided=False, 
                                 last_name_search=False, 
                                 first_name_search=False, 
@@ -1053,6 +1073,8 @@ class EspnNflStats():
             Player name to search for, or player dict if already retrieved from another method
         season : str, optional
             Season to retrieve stats for, by default 'latest'
+        league : str, optional
+            League to retrieve stats for: 'nfl' or 'college', by default 'nfl'
         id_provided : bool, optional
             If True, treats the player parameter as an ESPN player ID, by default False
         last_name_search : bool, optional
@@ -1099,7 +1121,7 @@ class EspnNflStats():
             self.raw_player_stats = {}
             return None
         
-        self._scrape_player_data(url, 'gamelog', season)
+        self._scrape_player_data(url, 'gamelog', season, league)
 
         self.player_stats = {
             "passing": {},

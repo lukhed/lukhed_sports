@@ -66,9 +66,19 @@ def espn_nfl_stats_wrapper_player_search():
 def espn_nfl_stats_wrapper_get_player_stats():
     espn = EspnNflStats()
     # See example page: https://www.espn.com/nfl/player/gamelog/_/id/4430807/bijan-robinson
+
+    # Get what is showing on game log page for player
     game_log_stats = espn.get_player_stat_gamelog('roquan smith', team='bal')
 
+    # Specify a prior season (also showing advanced search options)
     prior_season_stats = espn.get_player_stat_gamelog('jackson', last_name_search=True, team='bal', season=2022, 
                                                       position='QB')
-    stop = 1
+    
+    # Get the last year college stats for player (2017 for Lamar jackson)
+    college_stats = espn.get_player_stat_gamelog('jackson', last_name_search=True, team='bal', 
+                                                 position='QB', league='college')
+    
+    # Get a specific college year stat (lamar freshman year)
+    college_stats = espn.get_player_stat_gamelog('jackson', last_name_search=True, team='bal', season=2015, 
+                                                 position='QB', league='college')
     
