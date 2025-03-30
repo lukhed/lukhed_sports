@@ -774,7 +774,7 @@ class EspnNflStats():
                 "stats": player_json['page']['content']['player']['gmlg']['stats']
             }
 
-            self.player_stats = {"overall": player_overall_stats, "recentGames": player_recent_game_stats}
+            self.raw_player_stats = {"overall": player_overall_stats, "recentGames": player_recent_game_stats}
 
         def _bio_scrape():
             self.raw_player_stats = player_json['page']['content']['player']["bio"]
@@ -867,7 +867,8 @@ class EspnNflStats():
                                  inury=None, 
                                  provide_player_list=None):
         """
-        Gets data from ESPN's player overview section. This includes overall stats and recent game stats.
+        Gets data from ESPN's player overview section. This includes overall just overall stats portion, as recent 
+        games and stats portion link to separate pages and have their own methods.
         See example page: https://www.espn.com/nfl/player/_/id/4430807/bijan-robinson
 
         Parameters
@@ -916,6 +917,19 @@ class EspnNflStats():
         
         self._scrape_player_data(url, 'overview', None, None)
         self.raw_player_stats['playerDetails'] = player.copy()
+
+        stat_keys = [x['ttl'] for x in self.raw_player_stats['overall']['stats']['lbls']]
+        self.player_stats = {key: {} for key in stat_keys}
+
+        for stat_data in self.raw_player_stats['overall']['stats']['stats']:
+            stat_type = stat_data[0]
+            stat_values = stat_data[1:len(stat_data)]
+            for i, value in enumerate(stat_values):
+                temp_key = stat_keys[i]
+                self.player_stats[temp_key][stat_type] = value
+
+        self.player_stats['playerDetails'] = player.copy()
+                
         return self.player_stats
 
     def get_player_stat_bio(self,
