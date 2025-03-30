@@ -1080,7 +1080,23 @@ class EspnNflStats():
         
         self._scrape_player_data(url, 'splits', season, league)
         self.raw_player_stats['playerDetails'] = player
-        return self.raw_player_stats
+
+        stat_keys = [x['ttl'] for x in self.raw_player_stats['hdrs']]
+        self.player_stats = {key: {} for key in stat_keys}
+        split_types = [x['dspNm'] for x in self.raw_player_stats['tbl']]
+        
+        for a, stat in enumerate(stat_keys):
+            for i, split in enumerate(split_types):
+                data = self.raw_player_stats['tbl'][i]['row']
+                sub_split_keys = [x[0] for x in data]
+                data_for_extraction = [x[1:len(x)] for x in data]
+                sub_split_values = [x[a] for x in data_for_extraction]
+                sub_split_dict = {key: sub_split_values[z] for z, key in enumerate(sub_split_keys)}
+                self.player_stats[stat][split] = sub_split_dict.copy()
+        
+        self.player_stats['playerDetails'] = player.copy()
+
+        return self.player_stats
 
     def get_player_stat_gamelog(self,
                                 player,
