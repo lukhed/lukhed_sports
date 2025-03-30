@@ -1,5 +1,6 @@
 from lukhed_sports import leagueData
 from lukhed_sports.espnWrapper import EspnNflStats
+from lukhed_sports.dkWrapper import DkSportsbook
 
 def team_translation_example():
     # Example of how to use the TeamConversion class to translate team names between providers
@@ -81,4 +82,21 @@ def espn_nfl_stats_wrapper_get_player_stats():
     # Get a specific college year stat (lamar freshman year)
     college_stats = espn.get_player_stat_gamelog('jackson', last_name_search=True, team='bal', season=2015, 
                                                  position='QB', league='college')
+
+def dk_wrapper_example():
+    """"
+    This example uses default instantiation of dkWrapper which utilizes local cache for keeping basic 
+    sports and league data. This limits the amount of api calls needed for many methods.
     
+    If you have not used the class in awhile, you can reset the cache by setting reset_cache=True."
+    """
+
+    dk = DkSportsbook()
+
+    # First understand what leagues are available at dk
+    leagues = dk.get_available_leagues('basketball')
+    print(f"Available leagues: {leagues}")
+
+    # assuming college basketball (m) is a valid league and has lines available
+    lines = dk.get_gamelines_for_league('college basketball (m)', filter_market='moneyline')
+    print(f"Gamelines for college basketball (m): {lines}")

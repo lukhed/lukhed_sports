@@ -172,5 +172,5 @@ cython_debug/
 
 quickTest.py
 lukhedConfig
-lukhed_sports/local_cache/*
 temp.json
+lukhed_sports_local_cache/*

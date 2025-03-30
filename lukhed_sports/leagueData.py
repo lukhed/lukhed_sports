@@ -31,8 +31,9 @@ class TeamConversion:
         self._supported_sports = ['nfl']
         self._check_sport_support()
         self.use_cache = use_cache
-        self._translations_dir = osC.create_file_path_string(["lukhed_sports", "local_cache", "translations"])
-        self.cache_dir = osC.create_file_path_string(["lukhed_sports", "local_cache", "translations", self.sport])
+        self._base_cache_dir = osC.create_file_path_string(["lukhed_sports_local_cache"])
+        self._translations_dir = osC.append_to_dir(self._base_cache_dir, "translations")
+        self.cache_dir = osC.append_to_dir(self._translations_dir, self.sport)
 
         # Cache logic
         if reset_cache:
@@ -103,6 +104,7 @@ class TeamConversion:
         return file_content
     
     def _check_create_dir_structure(self):
+        osC.check_create_dir_structure(self._base_cache_dir, full_path=True)
         osC.check_create_dir_structure(self._translations_dir, full_path=True)
         osC.check_create_dir_structure(self.cache_dir, full_path=True)
 

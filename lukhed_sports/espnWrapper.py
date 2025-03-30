@@ -15,7 +15,7 @@ class EspnNflStats():
     def __init__(self):
         self.team_stats_raw_data = None
         self.team_format = {"provider": 'espn', "teamType": 'cityShort'}
-        self.cache_dir = osC.create_file_path_string(['lukhed_sports', 'local_cache'])
+        self.cache_dir = osC.create_file_path_string(['lukhed_sports_local_cache'])
 
         self.team_conversion_object = None                 # type: Optional[TeamConversion]
 
