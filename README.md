@@ -189,7 +189,7 @@ Access detailed player statistics including career stats, game logs, and splits.
 
 ```python
 # Get overview stats
-player_overview = espn.get_player_stat_overview('Patrick Mahomes', team='Chiefs')
+player_overview = espn.get_player_stat_overview('Patrick Mahomes', team='KC')
 
 # Get player career bio information
 player_bio = espn.get_player_stat_bio('Patrick Mahomes')
