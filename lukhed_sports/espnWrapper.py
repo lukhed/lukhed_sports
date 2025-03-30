@@ -1217,19 +1217,30 @@ class EspnNflStats():
         elif pos in ["P", "H", "PR", "KR", "LS"]:
             pass
 
-
+        # Append the stat data and take care of two table option
         for stat_key in applicable_stat_keys:
             temp_stat_list = stat_legend[stat_key]
             for stat in temp_stat_list:
                 temp_index = _check_stat_applicability(stat)
                 if temp_index is not None:
                     game_results = []
+
+                    # Get the first table data
                     for x in self.raw_player_stats['groups'][0]['tbls'][0]['events']:
                         try:
                             result = float(x['stats'][temp_index])
                             game_results.append(result)
                         except ValueError:
                             game_results.append('n/a')
+
+                    # Second table data
+                    for x in self.raw_player_stats['groups'][1]['tbls'][0]['events']:
+                        try:
+                            result = float(x['stats'][temp_index])
+                            game_results.append(result)
+                        except ValueError:
+                            game_results.append('n/a')
+
                     self.player_stats[stat_key][stat.lower()] = game_results.copy()
 
 
