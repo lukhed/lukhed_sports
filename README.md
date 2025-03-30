@@ -9,6 +9,7 @@ pip install lukhed-sports
 ## Available Wrappers
 - [Sportspage Feeds Wrapper](#sportspage-feeds-wrapper) - For sports schedules and odds from [sportspagefeeds API](https://sportspagefeeds.com/documentation)
 - [Draftkings Sports Wrapper](#drafkings-sportsbook-wrapper) - For obtaining live data from [Draftkings sportsbook](https://sportsbook.draftkings.com/)
+- [ESPN NFL Stats Wrapper](#espn-nfl-stats-wrapper) - For retrieving NFL team and player statistics from [ESPN](https://www.espn.com/nfl/stats/)
 
 
 ## Drafkings Sportsbook Wrapper
@@ -142,6 +143,67 @@ td = api.get_basic_touchdown_scorer_props('college football', prop_type_filter='
     ...
 ```
 
+
+## ESPN NFL Stats Wrapper
+Access team and player statistics from ESPN for the NFL. This wrapper provides functionality to retrieve team 
+statistics, player rosters, player search, and detailed player statistics.
+
+Partial documentation below. See examples.py in the repo for more.
+
+### Table of Contents
+- [Instantiation](#instantiation)
+- [Team Statistics](#team-statistics)
+- [Player Search](#player-search)
+- [Player Statistics](#player-statistics)
+
+### Instantiation
+```python
+from lukhed_sports import EspnNflStats
+espn = EspnNflStats()
+```
+
+### Team Statistics
+Get comprehensive team statistics for the NFL.
+
+```python
+# Get all team stats for a specific season
+stats = espn.get_all_teams_stats(2023, regular_or_offseason='regular')
+
+# Get offensive stats summary for a team
+offense_summary = espn.team_stats_get_ypg_summary('DET', ball_side='offense')
+```
+
+### Player Search
+Search for players with various filtering options, including fuzzy name matching.
+
+```python
+# Basic search
+players = espn.player_search('Mahomes')
+
+# Advanced search with fuzzy matching
+players = espn.player_search('Mahomes', fuzzy_search=True, fuzzy_threshold=80)
+```
+
+### Player Statistics
+Access detailed player statistics including career stats, game logs, and splits.
+
+```python
+# Get overview stats
+player_overview = espn.get_player_stat_overview('Patrick Mahomes', team='Chiefs')
+
+# Get player career bio information
+player_bio = espn.get_player_stat_bio('Patrick Mahomes')
+
+# Get player game log for specific season
+game_log = espn.get_player_stat_gamelog('Patrick Mahomes', season='2023')
+
+# Get player statistical splits
+splits = espn.get_player_stat_splits('Patrick Mahomes')
+
+# Get college stats for a player
+college_stats = espn.get_player_stat_gamelog('jackson', last_name_search=True, team='bal', position='QB', 
+                                             league='college')
+```
 
 ## Sportspage Feeds Wrapper
 This class is a custom wrapper for the [sportspagefeeds API](https://sportspagefeeds.com/documentation). 
