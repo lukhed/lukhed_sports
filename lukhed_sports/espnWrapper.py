@@ -978,8 +978,26 @@ class EspnNflStats():
             return None
         
         self._scrape_player_data(url, 'bio', None, None)
+
+        self.player_stats = {
+            "college": self.raw_player_stats['col'],
+            "collegeLink": self.raw_player_stats['colLnk'],
+            "collegeUid": self.raw_player_stats['colUid'],
+            "birthdate": self.raw_player_stats['dobRaw'],
+            "age": int(self.raw_player_stats['dob'].split(" ")[1].replace("(", "").replace(")", "")),
+            "birthplace": self.raw_player_stats['brthpl'],
+            "position": self.raw_player_stats['pos'],
+            "status": self.raw_player_stats['sts'],
+            "team": self.raw_player_stats['tm'],
+            "teamLink": self.raw_player_stats['tmLnk'],
+            "teamUid": self.raw_player_stats['tmUid'],
+            "measurements": self.raw_player_stats['htwt'],
+            "experience": self.raw_player_stats['exp'],
+            "playerDetails": player
+        }
+
         self.raw_player_stats['playerDetails'] = player
-        return self.raw_player_stats
+        return self.player_stats
 
     def get_player_stat_splits(self,
                                player,
