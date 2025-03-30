@@ -774,7 +774,7 @@ class EspnNflStats():
                 "stats": player_json['page']['content']['player']['gmlg']['stats']
             }
 
-            self.player_stats = {"overall": player_overall_stats, "recentGames": player_recent_game_stats}
+            self.raw_player_stats = {"overall": player_overall_stats, "recentGames": player_recent_game_stats}
 
         def _bio_scrape():
             self.raw_player_stats = player_json['page']['content']['player']["bio"]
@@ -867,7 +867,8 @@ class EspnNflStats():
                                  inury=None, 
                                  provide_player_list=None):
         """
-        Gets data from ESPN's player overview section. This includes overall stats and recent game stats.
+        Gets data from ESPN's player overview section. This includes overall just overall stats portion, as recent 
+        games and stats portion link to separate pages and have their own methods.
         See example page: https://www.espn.com/nfl/player/_/id/4430807/bijan-robinson
 
         Parameters
@@ -916,6 +917,19 @@ class EspnNflStats():
         
         self._scrape_player_data(url, 'overview', None, None)
         self.raw_player_stats['playerDetails'] = player.copy()
+
+        stat_keys = [x['ttl'] for x in self.raw_player_stats['overall']['stats']['lbls']]
+        self.player_stats = {key: {} for key in stat_keys}
+
+        for stat_data in self.raw_player_stats['overall']['stats']['stats']:
+            stat_type = stat_data[0]
+            stat_values = stat_data[1:len(stat_data)]
+            for i, value in enumerate(stat_values):
+                temp_key = stat_keys[i]
+                self.player_stats[temp_key][stat_type] = value
+
+        self.player_stats['playerDetails'] = player.copy()
+                
         return self.player_stats
 
     def get_player_stat_bio(self,
@@ -978,8 +992,26 @@ class EspnNflStats():
             return None
         
         self._scrape_player_data(url, 'bio', None, None)
+
+        self.player_stats = {
+            "college": self.raw_player_stats['col'],
+            "collegeLink": self.raw_player_stats['colLnk'],
+            "collegeUid": self.raw_player_stats['colUid'],
+            "birthdate": self.raw_player_stats['dobRaw'],
+            "age": int(self.raw_player_stats['dob'].split(" ")[1].replace("(", "").replace(")", "")),
+            "birthplace": self.raw_player_stats['brthpl'],
+            "position": self.raw_player_stats['pos'],
+            "status": self.raw_player_stats['sts'],
+            "team": self.raw_player_stats['tm'],
+            "teamLink": self.raw_player_stats['tmLnk'],
+            "teamUid": self.raw_player_stats['tmUid'],
+            "measurements": self.raw_player_stats['htwt'],
+            "experience": self.raw_player_stats['exp'],
+            "playerDetails": player
+        }
+
         self.raw_player_stats['playerDetails'] = player
-        return self.raw_player_stats
+        return self.player_stats
 
     def get_player_stat_splits(self,
                                player,
@@ -1048,7 +1080,23 @@ class EspnNflStats():
         
         self._scrape_player_data(url, 'splits', season, league)
         self.raw_player_stats['playerDetails'] = player
-        return self.raw_player_stats
+
+        stat_keys = [x['ttl'] for x in self.raw_player_stats['hdrs']]
+        self.player_stats = {key: {} for key in stat_keys}
+        split_types = [x['dspNm'] for x in self.raw_player_stats['tbl']]
+        
+        for a, stat in enumerate(stat_keys):
+            for i, split in enumerate(split_types):
+                data = self.raw_player_stats['tbl'][i]['row']
+                sub_split_keys = [x[0] for x in data]
+                data_for_extraction = [x[1:len(x)] for x in data]
+                sub_split_values = [x[a] for x in data_for_extraction]
+                sub_split_dict = {key: sub_split_values[z] for z, key in enumerate(sub_split_keys)}
+                self.player_stats[stat][split] = sub_split_dict.copy()
+        
+        self.player_stats['playerDetails'] = player.copy()
+
+        return self.player_stats
 
     def get_player_stat_gamelog(self,
                                 player,
@@ -1217,19 +1265,30 @@ class EspnNflStats():
         elif pos in ["P", "H", "PR", "KR", "LS"]:
             pass
 
-
+        # Append the stat data and take care of two table option
         for stat_key in applicable_stat_keys:
             temp_stat_list = stat_legend[stat_key]
             for stat in temp_stat_list:
                 temp_index = _check_stat_applicability(stat)
                 if temp_index is not None:
                     game_results = []
+
+                    # Get the first table data
                     for x in self.raw_player_stats['groups'][0]['tbls'][0]['events']:
                         try:
                             result = float(x['stats'][temp_index])
                             game_results.append(result)
                         except ValueError:
                             game_results.append('n/a')
+
+                    # Second table data
+                    for x in self.raw_player_stats['groups'][1]['tbls'][0]['events']:
+                        try:
+                            result = float(x['stats'][temp_index])
+                            game_results.append(result)
+                        except ValueError:
+                            game_results.append('n/a')
+
                     self.player_stats[stat_key][stat.lower()] = game_results.copy()
 
 

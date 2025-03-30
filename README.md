@@ -9,7 +9,7 @@ pip install lukhed-sports
 ## Available Wrappers
 - [Sportspage Feeds Wrapper](#sportspage-feeds-wrapper) - For sports schedules and odds from [sportspagefeeds API](https://sportspagefeeds.com/documentation)
 - [Draftkings Sports Wrapper](#drafkings-sportsbook-wrapper) - For obtaining live data from [Draftkings sportsbook](https://sportsbook.draftkings.com/)
-- [ESPN NFL Stats Wrapper](#espn-nfl-stats-wrapper) - For retrieving NFL team and player statistics from [ESPN](https://www.espn.com/nfl/stats/)
+- [ESPN NFL Stats Wrapper](#espn-nfl-stats-wrapper) - For retrieving NFL team and player statistics from ESPN
 
 
 ## Drafkings Sportsbook Wrapper
@@ -188,19 +188,19 @@ players = espn.player_search('Mahomes', fuzzy_search=True, fuzzy_threshold=80)
 Access detailed player statistics including career stats, game logs, and splits.
 
 ```python
-# Get overview stats
-player_overview = espn.get_player_stat_overview('Patrick Mahomes', team='Chiefs')
+# Get overview stats (page: https://www.espn.com/nfl/player/_/id/3139477/patrick-mahomes)
+player_overview = espn.get_player_stat_overview('Patrick Mahomes', team='KC')
 
-# Get player career bio information
+# Get player career bio information (page: https://www.espn.com/nfl/player/bio/_/id/3139477/patrick-mahomes)
 player_bio = espn.get_player_stat_bio('Patrick Mahomes')
 
-# Get player game log for specific season
+# Get player game log for season (page: https://www.espn.com/nfl/player/gamelog/_/id/3139477/type/nfl/year/2023)
 game_log = espn.get_player_stat_gamelog('Patrick Mahomes', season='2023')
 
-# Get player statistical splits
+# Get player statistical splits (page: https://www.espn.com/nfl/player/splits/_/id/3139477/patrick-mahomes)
 splits = espn.get_player_stat_splits('Patrick Mahomes')
 
-# Get college stats for a player
+# Get college stats for a player (page: https://www.espn.com/nfl/player/gamelog/_/id/3916387/type/college-football)
 college_stats = espn.get_player_stat_gamelog('jackson', last_name_search=True, team='bal', position='QB', 
                                              league='college')
 ```
