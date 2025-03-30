@@ -67,4 +67,8 @@ def espn_nfl_stats_wrapper_get_player_stats():
     espn = EspnNflStats()
     # See example page: https://www.espn.com/nfl/player/gamelog/_/id/4430807/bijan-robinson
     game_log_stats = espn.get_player_stat_gamelog('roquan smith', team='bal')
+
+    prior_season_stats = espn.get_player_stat_gamelog('jackson', last_name_search=True, team='bal', season=2022, 
+                                                      position='QB')
+    stop = 1
     

@@ -749,7 +749,7 @@ class EspnNflStats():
 
     ################################
     # Player Stats
-    def _scrape_player_data(self, url, data_type):
+    def _scrape_player_data(self, url, data_type, season):
         """
 
         :param url:             Url is base url for player, for example:
@@ -782,13 +782,20 @@ class EspnNflStats():
         def _splits_scrape():
             self.raw_player_stats = player_json['page']['content']['player']["splt"]
 
-        def _gamelog_scrape():
+        def _gamelog_scrape(season='latest'):
             self.raw_player_stats = player_json['page']['content']['player']["gmlog"]
 
         if data_type != 'overview':
             url_parts = url.split("/")
             url_parts.insert(5, data_type)
             url = '/'.join(url_parts)
+        
+        if season is not None:
+            # add season to supporting urls
+            if (data_type == 'gamelog' or data_type == 'splits') and season != 'latest':
+                new_url_parts = url_parts[:9]
+                url = '/'.join(new_url_parts)
+                url = url + f'/type/nfl/year/{season}'
 
         soup = self._special_request_handling(url)
         player_json = self._get_json_from_script(soup)
@@ -801,7 +808,7 @@ class EspnNflStats():
         elif data_type == 'splits':
             _splits_scrape()
         elif data_type == 'gamelog':
-            _gamelog_scrape()
+            _gamelog_scrape(season)
 
         return self.raw_player_stats
     
@@ -891,7 +898,7 @@ class EspnNflStats():
             self.raw_player_stats = {}
             return None
         
-        self._scrape_player_data(url, 'overview')
+        self._scrape_player_data(url, 'overview', None)
         self.raw_player_stats['playerDetails'] = player.copy()
         return self.player_stats
 
@@ -954,12 +961,13 @@ class EspnNflStats():
             self.raw_player_stats = {}
             return None
         
-        self._scrape_player_data(url, 'bio')
+        self._scrape_player_data(url, 'bio', None)
         self.raw_player_stats['playerDetails'] = player
         return self.raw_player_stats
 
     def get_player_stat_splits(self,
                                player,
+                               season='latest',
                                id_provided=False, 
                                last_name_search=False, 
                                first_name_search=False, 
@@ -977,6 +985,8 @@ class EspnNflStats():
         ----------
         player : str or dict
             Player name to search for, or player dict if already retrieved from another method
+        season : str, optional
+            Season to retrieve stats for, by default 'latest'
         id_provided : bool, optional
             If True, treats the player parameter as an ESPN player ID, by default False
         last_name_search : bool, optional
@@ -1017,12 +1027,13 @@ class EspnNflStats():
             self.raw_player_stats = {}
             return None
         
-        self._scrape_player_data(url, 'splits')
+        self._scrape_player_data(url, 'splits', season)
         self.raw_player_stats['playerDetails'] = player
         return self.raw_player_stats
 
     def get_player_stat_gamelog(self,
                                 player,
+                                season='latest',
                                 id_provided=False, 
                                 last_name_search=False, 
                                 first_name_search=False, 
@@ -1040,6 +1051,8 @@ class EspnNflStats():
         ----------
         player : str or dict
             Player name to search for, or player dict if already retrieved from another method
+        season : str, optional
+            Season to retrieve stats for, by default 'latest'
         id_provided : bool, optional
             If True, treats the player parameter as an ESPN player ID, by default False
         last_name_search : bool, optional
@@ -1086,7 +1099,7 @@ class EspnNflStats():
             self.raw_player_stats = {}
             return None
         
-        self._scrape_player_data(url, 'gamelog')
+        self._scrape_player_data(url, 'gamelog', season)
 
         self.player_stats = {
             "passing": {},
