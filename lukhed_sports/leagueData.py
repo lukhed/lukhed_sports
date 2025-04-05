@@ -1,9 +1,6 @@
 from lukhed_basic_utils import fileCommon as fC
 from lukhed_basic_utils import osCommon as osC
-from lukhed_basic_utils import listWorkCommon as lC
-from lukhed_basic_utils import requestsCommon as rC
 from lukhed_basic_utils import githubCommon as gC
-from lukhed_basic_utils import stringCommon as sC
 from lukhed_basic_utils import timeCommon as tC
 from nameparser import HumanName
 from fuzzywuzzy import fuzz
@@ -469,5 +466,30 @@ def advanced_fuzzy_name_search(target_name, candidate_names):
     }
 
     return result_dict
+
+def download_nfl_logo_images(overwrite=False):
+    # First create the cache dir if it doesn't already exist
+    fp = osC.check_create_dir_structure(["lukhed_sports_local_cache", "nflLogos"], return_path=True)
+
+    # Create url list
+    base_url = "https://raw.githubusercontent.com/lukhed/lukhed_sports_league_data/main/images/nfl/logos"
+    logo_urls = []
+    for i in range(0, 32):
+        logo_urls.append(f"{base_url}/{i}.png")
+        logo_urls.append(f"{base_url}/{i}_small.png")
+
+    # download the images to the cache dir if they don't already exist
+    logo_paths = []
+    for url in logo_urls:
+        temp_fp = osC.create_file_path_string([fp, osC.extract_file_name_given_full_path(url)])
+        if osC.check_if_file_exists(temp_fp) and overwrite is False:
+            logo_paths.append(temp_fp)
+        else:
+            print("Downloading image from URL:", url)
+            gC.get_github_image(None, None, None, provide_full_url=url, save_path=temp_fp)
+            tC.sleep(.75)
+            logo_paths.append(temp_fp)
+
+    return logo_paths
 
 
