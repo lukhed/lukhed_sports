@@ -303,6 +303,7 @@ and game overviews.
 - [Instantiation](#ngs-instantiation)
 - [Basic Usage](#ngs-basic-usage)
 - [Game Data](#ngs-game-data)
+- [Team Information](#ngs-team-info)
 
 ### Instantiation
 ```python
@@ -333,6 +334,24 @@ game_data = ngs.get_game_data('DET', 1)
 
 # Get detailed game overview with stats given team and week input
 game_overview = ngs.get_game_overview_for_team('DET', 1)
+```
+
+### Team Information
+Get a list of all NFL teams with their nicknames and abbreviations:
+
+```python
+# Get all teams with their details
+teams = ngs.get_all_teams()
+
+# Example output
+[
+    {
+        "nickname": "Lions",
+        "abbreviation": "DET",
+        "displayName": "Detroit Lions"
+    },
+    ...
+]
 ```
 
 Note: Team abbreviations should match those used on the NGS game center page: https://nextgenstats.nfl.com/stats/game-center-index
