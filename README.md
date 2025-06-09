@@ -6,11 +6,11 @@ A collection of sports analysis utility functions and API wrappers
 pip install lukhed-sports
 ```
 
-## Available Wrappers
+## Available Wrappers and Classes
 - [Sportspage Feeds Wrapper](#sportspage-feeds-wrapper) - For sports schedules and odds from [sportspagefeeds API](https://sportspagefeeds.com/documentation)
 - [Draftkings Sports Wrapper](#drafkings-sportsbook-wrapper) - For obtaining live data from [Draftkings sportsbook](https://sportsbook.draftkings.com/)
 - [ESPN NFL Stats Wrapper](#espn-nfl-stats-wrapper) - For retrieving NFL team and player statistics from ESPN
-
+- [NFL Next Gen Stats Schedule](#nfl-next-gen-stats-schedule) - For accessing NFL schedule data from Next Gen Stats API
 
 ## Drafkings Sportsbook Wrapper
 Access live data from Draftkings Sportsbook via their API methods. Quick start information below. Full documentation coming. This class is still a work in progress.
@@ -294,4 +294,46 @@ Example responses
 - [get_conferences ncaab](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/ncaabConferences.json)
 - [get_game_by_id nfl game id](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/getGameId.json)
 - [get_odds error response for non paid](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/getOddsById.json)
+
+## NFL Next Gen Stats Schedule
+Access NFL schedule data from the Next Gen Stats API. This class provides methods to retrieve schedule information 
+and game overviews.
+
+### Table of Contents
+- [Instantiation](#ngs-instantiation)
+- [Basic Usage](#ngs-basic-usage)
+- [Game Data](#ngs-game-data)
+
+### Instantiation
+```python
+from lukhed_sports.nflSchedules import NextGenStatsSchedule
+ngs = NextGenStatsSchedule(season='current')  # or specific season like 2023
+```
+
+### Basic Usage
+Get schedule data and regular season games:
+
+```python
+# Get full schedule
+schedule = ngs.get_schedule()
+
+# Get regular season games for a specific team
+lions_games = ngs.get_regular_season_games('DET')
+
+# Change season
+ngs.change_season(2022)
+```
+
+### Game Data
+Access specific game data and overviews:
+
+```python
+# Get data for a specific game given team and week input
+game_data = ngs.get_game_data('DET', 1)
+
+# Get detailed game overview with stats given team and week input
+game_overview = ngs.get_game_overview_for_team('DET', 1)
+```
+
+Note: Team abbreviations should match those used on the NGS game center page: https://nextgenstats.nfl.com/stats/game-center-index
 

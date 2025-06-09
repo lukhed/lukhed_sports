@@ -24,7 +24,6 @@ class NextGenStatsSchedule:
 
         self._check_get_ngs_schedule_data()
 
-
     def _check_get_ngs_schedule_data(self, force_season_overwrite=None):
         """
         Gets the scheduled based on the current season. Param force_overwrite is used by change_season function.
@@ -101,7 +100,7 @@ class NextGenStatsSchedule:
         """
         self._check_get_ngs_schedule_data(force_overwrite=season)
 
-    def get_regular_season_games(self):
+    def get_regular_season_games(self, team=None):
         """
         Returns the regular season games from the Next Gen Stats schedule.
 
@@ -111,7 +110,12 @@ class NextGenStatsSchedule:
             A list of dictionaries containing the regular season games.
         """
         self._check_get_ngs_schedule_data()
-        return [x for x in self.ngs_schedule_data if x['seasonType'] == 'REG']
+        all_games = [x for x in self.ngs_schedule_data if x['seasonType'] == 'REG']
+        if team:
+            team = team.lower()
+            all_games = [x for x in all_games if
+                         (x['visitorTeamAbbr'].lower() == team or x['homeTeamAbbr'].lower() == team)]
+        return all_games
     
     def get_game_data(self, team, week):
         """
@@ -166,4 +170,45 @@ class NextGenStatsSchedule:
         """
         self._check_get_ngs_schedule_data(force_season_overwrite=force_season_overwrite)
         return self.ngs_schedule_data
+    
+    def get_all_teams(self):
+        """
+        Gets a list of all teams in the NFL schedule.
+
+        Returns
+        -------
+        list
+            A list of dicts containing team information, including nickname, abbreviation, and full name.
+        """
+        self._check_get_ngs_schedule_data()
+        teams = []
+        no_dupes = []
+
+        for game in self.ngs_schedule_data:
+            try:
+                ta = game['homeTeamAbbr']
+                if ta not in no_dupes:
+                    no_dupes.append(ta)
+                    teams.append({
+                        'nickname': game['homeNickname'], 
+                        'abbreviation': ta,
+                        'displayName': game['homeDisplayName']
+                    })
+            except KeyError:
+                pass
+            
+            try:
+                ta = game['visitorTeamAbbr']
+                if ta not in no_dupes:
+                    no_dupes.append(ta)
+                    teams.append({
+                        'nickname': game['visitorNickname'], 
+                        'abbreviation': ta,
+                        'displayName': game['visitorDisplayName']
+                    })
+
+            except KeyError:
+                pass
+                
+        return teams
      
