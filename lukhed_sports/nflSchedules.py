@@ -117,35 +117,43 @@ class NextGenStatsSchedule:
                          (x['visitorTeamAbbr'].lower() == team or x['homeTeamAbbr'].lower() == team)]
         return all_games
     
+    
     def get_game_data(self, team, week):
-        """
-        Gets the game data for a specific team and week from the Next Gen Stats schedule.
+            """
+            Gets the game data for a specific team and week from the Next Gen Stats schedule.
 
-        Parameters
-        ----------
-        team : str
-            The abbreviation of the team for which to retrieve the game data (e.g., 'DET' for Detroit Lions).
-            You can check the appropriate team abbreviations by visting NGS game center page:
-            https://nextgenstats.nfl.com/stats/game-center-index
+            Parameters
+            ----------
+            team : str
+                The abbreviation of the team for which to retrieve the game data (e.g., 'DET' for Detroit Lions).
+                You can check the appropriate team abbreviations by visting NGS game center page:
+                https://nextgenstats.nfl.com/stats/game-center-index
 
-        week : int or str:
-            For regular season, this should be an integer from 1 to 18.
-            For post-season, this can be 'WC' for wildcard, 'DIV' for division, 'CONF' for conference, or 'SB' 
-            for Super Bowl.
+            week : int::
+                For regular season, this should be an integer from 1 to 18.
+                For post-season, this can be 'WC' for wildcard, 'DIV' for division, 'CONF' for conference, or 'SB' 
+                for Super Bowl.
+                For pre-season, this should be 'P#' where # is the pre-season week number (1-4).
 
-        Returns
-        -------
-        dict
-            A dictionary containing the game data for the specified team and week. The dictionary includes various
-        """
-        self._check_get_ngs_schedule_data()
-        team = team.lower()
-        team_data = [x for x in self.ngs_schedule_data if
-                     (x['visitorTeamAbbr'].lower() == team or x['homeTeamAbbr'].lower() == team) and
-                     x['week'] == int(week)][0]
+            Returns
+            -------
+            dict
+                A dictionary containing the game data for the specified team and week. The dictionary includes various
+            """
+            self._check_get_ngs_schedule_data()
+            team = team.lower()
+            
+            if type(week) == int:
+                week = "week " + str(week)
+            else:
+                week = week.lower()
+
+            team_data = [x for x in self.ngs_schedule_data if
+                        (x['visitorTeamAbbr'].lower() == team or x['homeTeamAbbr'].lower() == team) and
+                        x['weekNameAbbr'].lower() == week][0]
 
 
-        return team_data
+            return team_data
 
     def get_game_overview_for_team(self, team, week):
         game_id = self._get_game_id(team, week)
