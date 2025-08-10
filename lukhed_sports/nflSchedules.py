@@ -1,7 +1,6 @@
-from typing import Optional
-from lukhed_basic_utils import osCommon as osC
 from lukhed_basic_utils import timeCommon as tC
 from lukhed_basic_utils import requestsCommon as rC
+from lukhed_basic_utils import listWorkCommon as lC
 
 
 class NextGenStatsSchedule:
@@ -117,7 +116,6 @@ class NextGenStatsSchedule:
                          (x['visitorTeamAbbr'].lower() == team or x['homeTeamAbbr'].lower() == team)]
         return all_games
     
-    
     def get_game_data(self, team, week):
             """
             Gets the game data for a specific team and week from the Next Gen Stats schedule.
@@ -219,4 +217,31 @@ class NextGenStatsSchedule:
                 pass
                 
         return teams
-     
+    
+    def get_current_week(self):
+        """
+        Gets the current week of the NFL season based on the schedule data.
+
+        Returns
+        -------
+        int
+            The current week number of the NFL season.
+        """
+        self._check_get_ngs_schedule_data()
+        date_today = tC.get_current_time().date()
+        reg_season_games = self.get_regular_season_games()
+
+        # calculate week ends based on Monday games
+        all_dates = [tC.convert_string_to_datetime(x['gameDate'], string_format='%m/%d/%Y') for x in 
+                     reg_season_games if x['gameDate'] is not None]  # Monday games
+        unique_dates = lC.return_unique_values(all_dates)
+        mondays = [x for x in unique_dates if x.weekday() == 0]  # Monday games
+        mondays.sort()
+
+        week = 1
+        for monday in mondays:
+            if date_today <= monday.date():
+                return week
+            week += 1
+
+        return week
