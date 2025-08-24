@@ -356,3 +356,33 @@ class NextGenStatsSchedule:
         self.team_format['teamType'] = to_team_type
 
         return no_errors
+    
+    def get_games_for_week(self, week='current'):
+        """
+        Gets the games scheduled for a specific week.
+
+        Parameters
+        ----------
+        week : str or int, optional
+            Can be 'current' or an integer from 1 to 18 for regular season,
+            OR "WC", "DIV", "CONF", "SB" for post-season, by default 'current'
+            OR "P1", "P2", "P3" for pre-season
+            OR "HOF" for Hall of Fame game
+
+        Returns
+        -------
+        list
+            A list of dictionaries containing the games scheduled for the specified week.
+        """
+        self._check_get_ngs_schedule_data()
+        if week == 'current':
+            week = self.get_current_week()
+
+        try:
+            week = int(week)
+            results = [x for x in self.ngs_schedule_data if x['week'] == week and x['seasonType'] == 'REG']
+        except ValueError:
+            week = week.lower()
+            results = [x for x in self.ngs_schedule_data if x['weekNameAbbr'].lower() == week]
+
+        return results
