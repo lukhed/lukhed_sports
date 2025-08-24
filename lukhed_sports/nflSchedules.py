@@ -1,6 +1,8 @@
 from lukhed_basic_utils import timeCommon as tC
 from lukhed_basic_utils import requestsCommon as rC
 from lukhed_basic_utils import listWorkCommon as lC
+from lukhed_sports.leagueData import TeamConversion
+from typing import Optional
 
 
 class NextGenStatsSchedule:
@@ -15,6 +17,9 @@ class NextGenStatsSchedule:
             In the post and off-season, the 'current' schedule may not be what you expect, and you may have to 
             input the season in the season parameter.
         """
+        self.team_converter: Optional[TeamConversion] = None
+        self.team_format = {"provider": "ngs", "teamType": "cityShort"}
+
         self.ngs_header = {'Referer': 'https://nextgenstats.nfl.com/stats/game-center/2023100200'}
 
         self.ngs_schedule_data = {}
@@ -49,6 +54,10 @@ class NextGenStatsSchedule:
                     self.ngs_schedule_data = self.ngs_schedule_data['games']
                 except KeyError:
                     pass
+
+    def _check_create_team_conversion_object(self):
+        if self.team_converter is None:
+            self.team_converter = TeamConversion('nfl', reset_cache=False)
 
     def _call_api(self, url):
         return rC.request_json(url, add_user_agent=True, headers=self.ngs_header)
@@ -245,3 +254,105 @@ class NextGenStatsSchedule:
             week += 1
 
         return week
+    
+    def get_week_date_bounds(self, week='current', date_format="%m/%d/%Y"):
+        """
+        NFL weeks start on Tuesday and end on Monday. This function returns the start and end dates of a given week.
+
+        Parameters
+        ----------
+        week : str, optional
+            The week number to retrieve the date bounds for, by default 'current'
+        date_format : str, optional
+            The format to return the dates in, by default "%m/%d/%Y"
+
+        Returns
+        -------
+        dict
+            A dictionary containing the start and end dates of the week, as well as their datetime objects.
+        """
+        
+        if week == 'current':
+            week = self.get_current_week()
+        else:
+            week = int(week)
+
+        self._check_get_ngs_schedule_data()
+        reg_season_games = self.get_regular_season_games()
+
+        # calculate week ends based on Monday games
+        all_dates = [tC.convert_string_to_datetime(x['gameDate'], string_format="%m/%d/%Y") for x in 
+                     reg_season_games if x['gameDate'] is not None] 
+        unique_dates = lC.return_unique_values(all_dates)
+        mondays = [x for x in unique_dates if x.weekday() == 0]
+        mondays.sort()
+
+        # -6 to get the start of the week (Tuesday)
+        tuesdays = [tC.add_days_to_date(
+            tC.convert_date_to_string(x, string_format=date_format),
+            -6,
+            input_format=date_format,
+            ouput_format=date_format) 
+            for x in mondays]
+        
+        mondays = [tC.convert_date_to_string(x, string_format=date_format) for x in mondays]
+        
+        start_date = tuesdays[week - 1]
+        end_date = mondays[week - 1]
+
+        return {
+            'start_date': start_date,
+            'end_date': end_date,
+            'start_datetime': tC.convert_string_to_datetime(start_date, string_format=date_format),
+            'end_datetime': tC.convert_string_to_datetime(end_date, string_format=date_format)
+        }
+    
+    def convert_team_names_to_specified_format(self, new_team_format='rapid', team_type='cityShort'):
+        """
+        Converts the team names in the schedule to a specified format using the TeamConversion utility.
+
+        Parameters
+        ----------
+        new_team_format : str, optional
+            The desired team name format (e.g., 'rapid', 'espn', 'nfl'), by default 'rapid'
+        team_type : str, optional
+            The type of team name to convert (e.g., 'cityShort', 'nickname'), by default 'cityShort'
+        """
+        self._check_create_team_conversion_object()
+        from_provider = self.team_format['provider']
+        from_team_type = self.team_format['teamType']
+        to_provider = new_team_format
+        to_team_type = team_type
+
+        no_errors = True
+        for game in self.ngs_schedule_data:
+            try:
+                self.team_converter.convert_team(game['homeTeamAbbr'], 
+                                                 from_provider=from_provider,
+                                                 to_provider=to_provider,
+                                                 from_team_type=from_team_type,
+                                                 to_team_type=to_team_type,
+                                                 from_season='latest',
+                                                 to_season='latest')
+            except:
+                print(f"Failed while converting team name {game['homeTeamAbbr']}.")
+                print("Check for new names or error in source data")
+                no_errors = False
+
+            try:
+                self.team_converter.convert_team(game['visitorTeamAbbr'], 
+                                                 from_provider=from_provider,
+                                                 to_provider=to_provider,
+                                                 from_team_type=from_team_type,
+                                                 to_team_type=to_team_type,
+                                                 from_season='latest',
+                                                 to_season='latest')
+            except:
+                print(f"Failed while converting team name {game['visitorTeamAbbr']}.")
+                print("Check for new names or error in source data")
+                no_errors = False
+
+        self.team_format['provider'] = to_provider
+        self.team_format['teamType'] = to_team_type
+
+        return no_errors
