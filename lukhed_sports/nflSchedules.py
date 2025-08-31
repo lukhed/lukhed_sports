@@ -386,3 +386,76 @@ class NextGenStatsSchedule:
             results = [x for x in self.ngs_schedule_data if x['weekNameAbbr'].lower() == week]
 
         return results
+    
+    def get_game_info_given_team(self, team, week='current'):
+        """
+        Gets the game information for a specified team in a given week.
+
+        Parameters
+        ----------
+        team : str
+            The abbreviation of the team to check. Make sure it matches the current team format in use.
+        week : str, optional
+            The week to check, by default 'current'
+
+        Returns
+        -------
+        dict
+            A dictionary containing the game information for the specified team and week.
+        """
+        games = self.get_games_for_week(week=week)
+        team = team.lower()
+        
+        for game in games:
+            if game['visitorTeamAbbr'].lower() == team or game['homeTeamAbbr'].lower() == team:
+                return game
+
+        return "No game for those teams. Make sure team format is correct."
+    
+    def get_opponent_given_team(self, team, week='current'):
+        """
+        Gets the opponent of a specified team in a given week.
+
+        Parameters
+        ----------
+        team : str
+            The abbreviation of the team to check.
+        week : str, optional
+            The week to check, by default 'current'
+
+        Returns
+        -------
+        str
+            The abbreviation of the opponent team.
+        """
+
+        match = self.get_game_info_given_team(team, week=week)
+        if match['visitorTeamAbbr'].lower() == team.lower():
+            return match['homeTeamAbbr']
+        else:
+            return match['visitorTeamAbbr']
+        
+    def get_playing_info_given_team(self, team, week='current'):
+        """
+        Determines if the specified team is playing at home or away in the given week.
+
+        Parameters
+        ----------
+        team : str
+            The abbreviation of the team to check.
+        week : str, optional
+            The week to check, by default 'current'
+
+        Returns
+        -------
+        str
+            "home" if the team is playing at home, "away" if playing away, "n/a" if not playing.
+        """
+
+        game_info = self.get_game_info_given_team(team, week=week)
+        if game_info["visitorTeamAbbr"] == team:
+            return "away"
+        if game_info["homeTeamAbbr"] == team:
+            return "home"
+        else:
+            return "n/a"
