@@ -539,7 +539,8 @@ class SportsPage(GithubHelper):
                                                    single_output_format="%Y%m%d%H%M%S") for x 
                                                    in use_schedule['results']]
 
-        differences = [tC.subtract_time_stamps(time_now, x, detailed=True) for x in game_times]
+        differences = [tC.subtract_time_stamps(x, time_now, time_format="%Y%m%d%H%M%S", detailed=True) 
+                       for x in game_times]
 
 
         games_meeting_criteria = []
