@@ -535,7 +535,7 @@ class SportsPage(GithubHelper):
             return None
 
         time_now = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
-        game_times = [tC.convert_non_python_format(x['schedule']['date'], time_zone="US/Eastern", 
+        game_times = [tC.convert_non_python_format(x['schedule']['date'], time_zone=self.timezone, 
                                                    single_output_format="%Y%m%d%H%M%S") for x 
                                                    in use_schedule['results']]
 
