@@ -37,9 +37,9 @@ class SportsPage(GithubHelper):
                 Defaults to None.
             config_file_preference (str): 'local' to store your api key in your working directory. 'github' to store 
                 your api key in a private github repository. Defaults to 'local'.
-            github_project (_type_, optional): The Github project you setup as a means to store your Github token. 
+            github_project (str, optional): The Github project you setup as a means to store your Github token. 
                 Defaults to None, in which case you will be prompted to setup a project.
-            github_config_dir (_type_, optional): Full path to a local directory that contains your local GithubHelper 
+            github_config_dir (str, optional): Full path to a local directory that contains your local GithubHelper 
                 config file (token file). Default is None and the GithubHelper class looks in your working directory 
                 for 'lukhedConfig' to get/store the GithubHelper config file.
             block_invalid_requests (bool): If True, input validation features of the class are turned on and the class 
