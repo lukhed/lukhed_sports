@@ -385,17 +385,19 @@ class SportsPage(GithubHelper):
 
     def get_rankings(self, league):
         """
-        _summary_
+        Wrapper for 'Rankings' endpoint. https://sportspagefeeds.com/documentation#rankings
+        
+        Gets rankings data for the specified league.
 
         Parameters
         ----------
-        league : _type_
-            _description_
+        league : str
+            The league code to get rankings for. Use info_get_valid_league_codes() to see valid options.
 
         Returns
         -------
-        _type_
-            _description_
+        dict
+            A dictionary containing the rankings data for the specified league, or error dict if invalid input.
         """
         
         # Input check
@@ -418,10 +420,32 @@ class SportsPage(GithubHelper):
             return result
 
     def get_teams(self, league, division=None, conference=None):
+        """
+        Wrapper for 'Teams' endpoint. https://sportspagefeeds.com/documentation#teams
+        
+        Gets team data for the specified league with optional division and conference filters.
+
+        Parameters
+        ----------
+        league : str
+            The league code to get teams for. Use info_get_valid_league_codes() to see valid options.
+        division : str, optional
+            Filter teams by division, by default None
+        conference : str, optional
+            Filter teams by conference, by default None
+
+        Returns
+        -------
+        dict
+            A dictionary containing the team data for the specified league, or error dict if invalid input.
+        """
+        
+        # Input check
         error_check = self._valid_request_check(league=league, conference=conference, division=division)
         if self.block_invalid_requests and not error_check['validInputs']:
             return error_check
         
+        # Build request
         endpoint_url = self.base_url + "teams"
         querystring = {"league": league, "division": division, "conference": conference}
 
@@ -436,6 +460,22 @@ class SportsPage(GithubHelper):
             return result
     
     def get_conferences(self, league):
+        """
+        Wrapper for 'Conferences' endpoint. https://sportspagefeeds.com/documentation#conferences
+        
+        Gets conference data for the specified league.
+
+        Parameters
+        ----------
+        league : str
+            The league code to get conferences for. Use info_get_valid_league_codes() to see valid options.
+
+        Returns
+        -------
+        dict
+            A dictionary containing the conference data for the specified league, or error dict if invalid input.
+        """
+        
         endpoint_url = self.base_url + "conferences"
 
         # Input check
@@ -456,6 +496,22 @@ class SportsPage(GithubHelper):
             return result
         
     def get_game_by_id(self, game_id):
+        """
+        Wrapper for 'Game by ID' endpoint. https://sportspagefeeds.com/documentation#game-by-id
+        
+        Gets detailed game data for a specific game ID.
+
+        Parameters
+        ----------
+        game_id : str or int
+            The unique game identifier to retrieve data for.
+
+        Returns
+        -------
+        dict
+            A dictionary containing detailed game data for the specified game ID.
+        """
+        
         endpoint_url = self.base_url + "gameById"
         querystring = {"gameId": game_id}
         if self._check_stop_calls_based_on_limit():
@@ -469,6 +525,24 @@ class SportsPage(GithubHelper):
             return result
     
     def get_odds(self, game_id, odds_type_filter=None):
+        """
+        Wrapper for 'Odds' endpoint. https://sportspagefeeds.com/documentation#odds
+        
+        Gets odds data for a specific game. Note: This endpoint requires a paid subscription.
+
+        Parameters
+        ----------
+        game_id : str or int
+            The unique game identifier to retrieve odds for.
+        odds_type_filter : str, optional
+            Filter for specific odds type, by default None
+
+        Returns
+        -------
+        dict
+            A dictionary containing odds data for the specified game, or error message for free tier users.
+        """
+        
         endpoint_url = self.base_url + "odds"
         querystring = {"gameId": game_id, "type": odds_type_filter}
 
@@ -487,10 +561,26 @@ class SportsPage(GithubHelper):
     # API Info
     #####################
     def info_get_valid_league_codes(self):
+        """
+        Display and return valid league codes that can be used with API endpoints.
+
+        Returns
+        -------
+        list
+            A list of valid league codes.
+        """
         print(f"Valid league codes are:\n{self.valid_leagues}")
         return self.valid_leagues
     
     def info_get_valid_status_filters(self):
+        """
+        Display and return valid game status filters that can be used with API endpoints.
+
+        Returns
+        -------
+        list
+            A list of valid game status filters.
+        """
         print(f"Valid status filters are:\n{self.valid_game_statuses}")
         return self.valid_game_statuses
 
@@ -500,17 +590,17 @@ class SportsPage(GithubHelper):
     #####################
     def is_schedule_valid(self, provide_schedule_json=None):
         """
-        _summary_
+        Check if the provided or working schedule data is valid based on API response status.
 
         Parameters
         ----------
-        provide_schedule_json : _type_, optional
-            _description_, by default None
+        provide_schedule_json : dict, optional
+            Schedule data to validate. If None, uses the class working schedule, by default None
 
         Returns
         -------
-        _type_
-            _description_
+        bool or None
+            True if schedule is valid (status 200), False if invalid, None if no schedule available.
         """        
         use_schedule = self._parse_provide_schedule_input(provide_schedule_json)
         if use_schedule is None:
@@ -557,17 +647,18 @@ class SportsPage(GithubHelper):
         return games_meeting_criteria
 
     def get_total_games_in_schedule(self, provide_schedule_json=None):
-        """_summary_
+        """
+        Get the total number of games in the provided or working schedule.
 
         Parameters
         ----------
-        provide_schedule_json : _type_, optional
-            _description_, by default None
+        provide_schedule_json : dict, optional
+            Schedule data to count games from. If None, uses the class working schedule, by default None
 
         Returns
         -------
-        _type_
-            _description_
+        int
+            The total number of games in the schedule, or 0 if no schedule available.
         """
         use_schedule = self._parse_provide_schedule_input(provide_schedule_json)
         if use_schedule is None:
@@ -577,17 +668,18 @@ class SportsPage(GithubHelper):
         return use_schedule['games']
 
     def get_games_list_from_schedule(self, provide_schedule_json=None):
-        """_summary_
+        """
+        Extract the games list from the provided or working schedule data.
 
         Parameters
         ----------
-        provide_schedule_json : _type_, optional
-            _description_, by default None
+        provide_schedule_json : dict, optional
+            Schedule data to extract games from. If None, uses the class working schedule, by default None
 
         Returns
         -------
-        _type_
-            _description_
+        list
+            A list of game dictionaries from the schedule, or empty list if no schedule available.
         """
         use_schedule = self._parse_provide_schedule_input(provide_schedule_json)
         if use_schedule is None:
@@ -595,6 +687,46 @@ class SportsPage(GithubHelper):
             return []
 
         return use_schedule['results']
+    
+    def get_times_until_game_starts(self, provide_schedule_json=None):
+        """
+        Goes through each game in the schedule and provides the amount of time until the game starts.
+
+        Parameters
+        ----------
+        provide_schedule_json : dict, optional
+            Provide the function the result of the get_games method to utilize the classes parsing functions 
+            without needing to call the API. For example: result = get_games() -> store result for later use, 
+            then pass the result dict to use this parsing. Defaults to None.
+
+        Returns
+        -------
+        dict
+            A dictionary containing the time until each game starts.
+        """
+        use_schedule = self._parse_provide_schedule_input(provide_schedule_json)
+        if use_schedule is None:
+            print("ERROR: No schedule to filter")
+            return None
+
+        time_now = tC.create_timestamp(output_format="%Y%m%d%H%M%S")
+        game_times = [tC.convert_non_python_format(x['schedule']['date'], time_zone=self.timezone, 
+                                                   single_output_format="%Y%m%d%H%M%S") for x 
+                                                   in use_schedule['results']]
+
+        differences = [tC.subtract_time_stamps(x, time_now, time_format="%Y%m%d%H%M%S", detailed=True) 
+                       for x in game_times]
+        
+        output = []
+        i = 0
+        while i < len(differences):
+            full_dict = differences[i].copy()
+            full_dict['game'] = use_schedule['results'][i]['summary']
+            full_dict['gameData'] = use_schedule['results'][i].copy()
+            output.append(full_dict)
+            i = i + 1
+
+        return output
 
     
     #####################
@@ -602,6 +734,16 @@ class SportsPage(GithubHelper):
     #####################
     
     def check_api_limit(self):
+        """
+        Check and display current API usage statistics including remaining calls, reset time, and limit.
+        
+        Only available when block_over_limit_calls is True during class instantiation.
+
+        Returns
+        -------
+        None
+            Prints API limit information to console.
+        """
         if self.limit_restrict:
             if self.tracker_dict == {}:
                 print("INFO: No api limit data available. Have you made a call to the api yet with this class?")
