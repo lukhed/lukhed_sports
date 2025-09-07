@@ -45,6 +45,9 @@ class SportsPage(GithubHelper):
             block_invalid_requests (bool): If True, input validation features of the class are turned on and the class 
                 will only attempt to call the API if you provide valid inputs. If you provide invalid inputs, you 
                 will get an error message. Defaults to True.
+            timezone (str): str, a valid timezone string. See Python's zoneinfo documentation for valid timezone 
+                identifiers: https://docs.python.org/3/library/zoneinfo.html Common examples: 'US/Eastern', 
+                'US/Pacific', 'UTC', 'Europe/London'
         """
         self.timezone = timezone
         self._config_dict = {}
@@ -593,6 +596,11 @@ class SportsPage(GithubHelper):
 
         return use_schedule['results']
 
+    
+    #####################
+    # API Settings
+    #####################
+    
     def check_api_limit(self):
         if self.limit_restrict:
             if self.tracker_dict == {}:
@@ -605,3 +613,14 @@ class SportsPage(GithubHelper):
             self.tracker_dict
         else:
             print("Feature only available if 'block_over_limit_calls' is set to True when instantiating the class")
+
+    def change_timezone(self, new_timezone):
+        """
+        Change the timezone used by the class for any functions that utilize timezone.
+
+        :param new_timezone:         str, a valid timezone string. See Python's zoneinfo documentation for valid 
+                                     timezone identifiers: https://docs.python.org/3/library/zoneinfo.html
+                                     Common examples: 'US/Eastern', 'US/Pacific', 'UTC', 'Europe/London'
+        :return:                     None
+        """
+        self.timezone = new_timezone
