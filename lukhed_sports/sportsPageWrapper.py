@@ -2,7 +2,9 @@ from lukhed_basic_utils import osCommon as osC
 from lukhed_basic_utils import fileCommon as fC
 from lukhed_basic_utils import timeCommon as tC
 from lukhed_basic_utils import requestsCommon as rC
+from lukhed_basic_utils import timeCommon as tC
 from lukhed_sports.calibrations import endpoint_valid_inputs
+from lukhed_sports import gameAnalysis
 from lukhed_basic_utils.githubCommon import GithubHelper
 import json
 
@@ -728,11 +730,222 @@ class SportsPage(GithubHelper):
 
         return output
 
+    #####################
+    # Game Dict Parsing
+    #####################
+    @staticmethod
+    def parse_matchup_details(game_dict):
+        """
+        Parses a single game's dictionary data to extract core matchup details including teams, odds, and timestamps.
+
+        Parameters
+        ----------
+        game_dict : dict
+            The dictionary containing game details.
+
+        Returns
+        -------
+        dict
+            A dictionary containing the parsed matchup details.
+        """
+        op_dict = dict()
+
+        teams_dict = game_dict['teams']
+        odds_dict = game_dict.get('odds', "N/A")
+
+        op_dict = dict()
+
+        teams_dict = game_dict['teams']
+        odds_dict = game_dict.get('odds', "N/A")
+
+        if odds_dict != "N/A":
+            odds_dict = game_dict['odds'][0]
+            spread_details = odds_dict.get('spread', "N/A")
+            moneyline_details = odds_dict.get('moneyline', "N/A")
+            total_details = odds_dict.get('total', "N/A")
+            open_date = odds_dict.get('openDate', "N/A")
+            last_updated = odds_dict.get('lastUpdated', "N/A")
+        else:
+            spread_details = {"open": {"away": "N/A", "home": "N/A", "awayOdds": "N/A", "homeOdds": "N/A"},
+                            "current": {"away": "N/A", "home": "N/A", "awayOdds": "N/A", "homeOdds": "N/A"}}
+            moneyline_details = {"open": {"awayOdds": "N/A", "homeOdds": "N/A"},
+                                "current": {"awayOdds": "N/A", "homeOdds": "N/A"}}
+            total_details = {"open": {"total": "N/A", "overOdds": "N/A", "underOdds": "N/A"},
+                            "current": {"total": "N/A", "overOdds": "N/A", "underOdds": "N/A"}}
+            open_date = "N/A"
+            last_updated = "N/A"
+
+        away_team_dict = teams_dict.get('away', "N/A")
+        home_team_dict = teams_dict.get('home', "N/A")
+
+        if open_date != "N/A":
+            open_date = tC.convert_non_python_format(open_date, time_zone="US/Eastern", single_output_format=None)
+
+        if last_updated != "N/A":
+            last_updated = tC.convert_non_python_format(last_updated, time_zone="US/Eastern", single_output_format=None)
+
+        if type(spread_details) == str:
+            spread_details = {"open": {"away": "N/A", "home": "N/A", "awayOdds": "N/A", "homeOdds": "N/A"},
+                            "current": {"away": "N/A", "home": "N/A", "awayOdds": "N/A", "homeOdds": "N/A"}}
+
+        if type(moneyline_details) == str:
+            moneyline_details = {"open": {"awayOdds": "N/A", "homeOdds": "N/A"},
+                                "current": {"awayOdds": "N/A", "homeOdds": "N/A"}}
+
+        if type(total_details) == str:
+            total_details = {"open": {"total": "N/A", "overOdds": "N/A", "underOdds": "N/A"},
+                            "current": {"total": "N/A", "overOdds": "N/A", "underOdds": "N/A"}}
+
+        op_dict = {
+            'awayTeam': away_team_dict,
+            'homeTeam': home_team_dict,
+            'spreadDetails': spread_details,
+            'moneylineDetails': moneyline_details,
+            'totalDetails': total_details,
+            'openTime': open_date['datetime_object'],
+            'lastUpdated': last_updated['datetime_object']
+        }
+
+        return op_dict
+
+    @staticmethod
+    def parse_result_details(game_dict):
+        op_dict = dict()
+
+        scoreboard_dict = game_dict.get('scoreboard', "N/A")
+
+        if scoreboard_dict != "N/A":
+            score_dict = scoreboard_dict.get('score', "N/A")
+            current_period = scoreboard_dict.get('currentPeriod', "N/A")
+            time_remaining = scoreboard_dict.get('periodTimeRemaining', "N/A")
+        else:
+            score_dict = "N/A"
+            current_period = "N/A"
+            time_remaining = "N/A"
+
+        op_dict = {
+            'score': score_dict,
+            'currentPeriod': current_period,
+            'periodTimeRemaining': time_remaining
+        }
+
+        return op_dict
+    
+    @staticmethod
+    def get_conference_given_game_dict(playing, game_dict):
+        """
+        Returns the conference of the away or home team specified in playing parameter.
+
+        Parameters
+        ----------
+        playing : str
+            "away" or "home" to specify which team's conference to return.
+        game_dict : dict
+            A single game's dictionary data from the schedule.
+
+        Returns
+        -------
+        str
+            The conference of the given team
+        """
+        playing = playing.lower()
+        try:
+            return game_dict['teams'][playing]['conference']
+        except KeyError:
+            return "N/A"
+
+    def get_final_result_basics_dict(self, game_dict):
+        """
+        Parses a single game's dictionary data to extract final result basics including scores, spreads, totals, 
+        and ATS analysis.
+
+        Parameters
+        ----------
+        game_dict : dict
+            A single game's dictionary data from the schedule.
+
+        Returns
+        -------
+        dict
+            A dictionary containing the final result basics.
+        """
+
+        game_details = self.parse_matchup_details(game_dict)
+        game_results = self.parse_result_details(game_dict)
+
+        if game_dict['status'] == "canceled":
+            away_score = "n/a"
+            home_score = "n/a"
+        else:
+            away_score = game_results["score"]["away"]
+            home_score = game_results["score"]["home"]
+        home_spread = game_details["spreadDetails"]["current"]["home"]
+        total = game_details["totalDetails"]["current"]["total"]
+
+        ats_analysis = gameAnalysis.calculate_ats_data_for_game(away_score, home_score, home_spread, total)
+
+        try:
+            score_diff = abs(away_score - home_score)
+        except TypeError:
+            score_diff = "n/a"
+
+        try:
+            cov_by_abs = abs(ats_analysis["awayCoverBy"])
+        except TypeError:
+            cov_by_abs = "n/a"
+
+        try:
+            tot_by_abs = abs(ats_analysis["underCoverBy"])
+        except TypeError:
+            tot_by_abs = "n/a"
+
+        try:
+            away_moneyline = game_details["moneylineDetails"]["current"]["awayOdds"]
+        except KeyError:
+            away_moneyline = "n/a"
+
+        try:
+            home_moneyline = game_details["moneylineDetails"]["current"]["homeOdds"]
+        except KeyError:
+            home_moneyline = "n/a"
+
+        op_game_dict = {
+            "awayTeam": game_details["awayTeam"]["abbreviation"],
+            "homeTeam": game_details["homeTeam"]["abbreviation"],
+            "awayTeamFull": game_dict['teams']['away']['team'],
+            "homeTeamFull": game_dict['teams']['home']['team'],
+            "awaySpread": game_details["spreadDetails"]["current"]["away"],
+            "awayOdds": game_details["spreadDetails"]["current"]["awayOdds"],
+            "homeSpread": home_spread,
+            "homeOdds": game_details["spreadDetails"]["current"]["homeOdds"],
+            "total": total,
+            "totalPointsScored": home_score + away_score,
+            "overOdds": game_details["totalDetails"]["current"]["overOdds"],
+            "underOdds": game_details["totalDetails"]["current"]["underOdds"],
+            "awayScore": away_score,
+            "homeScore": home_score,
+            "gameWinner": ats_analysis["winner"],
+            "atsWinner": ats_analysis["atsWinner"],
+            "awayAtsResult": ats_analysis["awayAtsGrade"],
+            "homeAtsResult": ats_analysis["homeAtsGrade"],
+            "awayTeamCoverBy": ats_analysis["awayCoverBy"],
+            "homeTeamCoverBy": ats_analysis["homeCoverBy"],
+            "totalWinner": ats_analysis["totalGrade"],
+            "underCoverBy": ats_analysis["underCoverBy"],
+            "overCoverBy": ats_analysis["overCoverBy"],
+            "scoreDifferenceAbsoluteValue": score_diff,
+            "atsCoverByAbsoluteValue": cov_by_abs,
+            "totalCoverByAbsoluteValue": tot_by_abs,
+            "awayMoneyline": away_moneyline,
+            "homeMoneyline": home_moneyline
+        }
+
+        return op_game_dict
+
     
     #####################
     # API Settings
     #####################
-    
     def check_api_limit(self):
         """
         Check and display current API usage statistics including remaining calls, reset time, and limit.

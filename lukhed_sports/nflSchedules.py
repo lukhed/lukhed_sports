@@ -7,15 +7,12 @@ from typing import Optional
 
 class NextGenStatsSchedule:
 
-    def __init__(self, season='current'):
+    def __init__(self, season):
         """
         This class utilizes Next Gen Stats public APIs to get the NFL schedule.
 
-        season: str, optional
-            The season for which to retrieve the schedule. By default, it is set to 'current'.
-
-            In the post and off-season, the 'current' schedule may not be what you expect, and you may have to 
-            input the season in the season parameter.
+        season: str, int
+            The season for which to retrieve the schedule.
         """
         self.team_converter: Optional[TeamConversion] = None
         self.team_format = {"provider": "ngs", "teamType": "cityShort"}
@@ -24,11 +21,11 @@ class NextGenStatsSchedule:
 
         self.ngs_schedule_data = {}
         self.ngs_game_ids = {}
-        self.season = "current" if type(season) == str and season.lower() == 'current' else int(season)
+        self.season = int(season)
 
         self._check_get_ngs_schedule_data()
 
-    def _check_get_ngs_schedule_data(self, force_season_overwrite=None):
+    def _check_get_ngs_schedule_data(self, force_season_overwrite=None, data_only=False):
         """
         Gets the scheduled based on the current season. Param force_overwrite is used by change_season function.
 
@@ -36,6 +33,20 @@ class NextGenStatsSchedule:
                                         season.
         :return:
         """
+
+        if data_only:
+            if force_season_overwrite is not None:
+                temp_season = force_season_overwrite
+            else:
+                temp_season = self.season
+
+            if temp_season == 'current':
+                url = 'https://nextgenstats.nfl.com/api/league/schedule/current'
+            else:
+                url = f'https://nextgenstats.nfl.com/api/league/schedule?season={self.season}'
+
+            return self._call_api(url)
+
 
         self.season = force_season_overwrite if force_season_overwrite is not None else self.season
 
@@ -119,6 +130,23 @@ class NextGenStatsSchedule:
         """
         self._check_get_ngs_schedule_data()
         all_games = [x for x in self.ngs_schedule_data if x['seasonType'] == 'REG']
+        if team:
+            team = team.lower()
+            all_games = [x for x in all_games if
+                         (x['visitorTeamAbbr'].lower() == team or x['homeTeamAbbr'].lower() == team)]
+        return all_games
+    
+    def get_all_games(self, team=None):
+        """
+        Returns all games from the Next Gen Stats schedule.
+
+        Returns
+        -------
+        list
+            A list of dictionaries containing the regular season games.
+        """
+        self._check_get_ngs_schedule_data()
+        all_games = [x for x in self.ngs_schedule_data]
         if team:
             team = team.lower()
             all_games = [x for x in all_games if
@@ -238,20 +266,9 @@ class NextGenStatsSchedule:
         """
         self._check_get_ngs_schedule_data()
         date_today = tC.get_current_time().date()
-        reg_season_games = self.get_regular_season_games()
 
-        # calculate week ends based on Monday games
-        all_dates = [tC.convert_string_to_datetime(x['gameDate'], string_format='%m/%d/%Y') for x in 
-                     reg_season_games if x['gameDate'] is not None]  # Monday games
-        unique_dates = lC.return_unique_values(all_dates)
-        mondays = [x for x in unique_dates if x.weekday() == 0]  # Monday games
-        mondays.sort()
-
-        week = 1
-        for monday in mondays:
-            if date_today <= monday.date():
-                return week
-            week += 1
+        week = self.get_week_given_date(tC.convert_date_to_string(date_today, string_format="%Y-%m-%d"), 
+                                        date_format="%Y-%m-%d")
 
         return week
     
@@ -306,6 +323,41 @@ class NextGenStatsSchedule:
             'start_datetime': tC.convert_string_to_datetime(start_date, string_format=date_format),
             'end_datetime': tC.convert_string_to_datetime(end_date, string_format=date_format)
         }
+
+    def get_week_given_date(self, str_date, date_format="%Y-%m-%d"):
+        """
+        Gets the NFL week number for a given date. Note: does not work for pre-season or post-season dates.
+
+        Parameters
+        ----------
+        str_date : str
+            The date to check, in the format specified by date_format. E.g., "2024-09-13" for September 13, 2024.
+        date_format : str, optional
+            The format of the input date string, by default "%Y-%m-%d"
+
+        Returns
+        -------
+        int
+            The NFL week number corresponding to the given date.
+        """
+        self._check_get_ngs_schedule_data()
+        games = self.get_regular_season_games()
+        check_date = tC.convert_string_to_datetime(str_date, string_format=date_format)
+
+        # calculate week ends based on Monday games
+        all_dates = [tC.convert_string_to_datetime(x['gameDate'], string_format='%m/%d/%Y') for x in 
+                     games if x['gameDate'] is not None]
+        unique_dates = lC.return_unique_values(all_dates)
+        mondays = [x for x in unique_dates if x.weekday() == 0]  # Monday games
+        mondays.sort()
+
+        week = 1
+        for monday in mondays:
+            if check_date.date() <= monday.date():
+                return week
+            week += 1
+
+        return week
     
     def convert_team_names_to_specified_format(self, new_team_format='rapid', team_type='cityShort'):
         """
