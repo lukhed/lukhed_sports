@@ -107,6 +107,11 @@ class NextGenStatsSchedule:
 
         return team_id
 
+    def _parse_game_times_in_week_data(self, week_data):
+        game_times = [tC.convert_non_python_format(x['gameTime'], time_zone="US/Eastern") for x in week_data]
+        game_days = [x['datetime_object'].weekday() for x in game_times]
+        return game_days, game_times
+    
     def change_season(self, season):
         """
         Changes the season for which the Next Gen Stats schedule is retrieved.
@@ -511,3 +516,151 @@ class NextGenStatsSchedule:
             return "home"
         else:
             return "n/a"
+        
+    def get_tnf_game(self, week='current'):
+        """
+        Gets the Thursday Night Football (TNF) game for a specified week. If multiple TNF games exist, 
+        returns all of them.
+
+        Parameters
+        ----------
+        week : str or int, optional
+            The week to check, by default 'current'
+
+        Returns
+        -------
+        dict
+            A dictionary containing the TNF game information for the specified week. If multiple TNF games exist, 
+            returns a list of dictionaries.
+        """
+        self._check_get_ngs_schedule_data()
+        games = self.get_games_for_week(week=week)  # Ensure data is loaded
+        game_days, game_times = self._parse_game_times_in_week_data(games)
+        
+        thursday_game_indices = [i for i, day in enumerate(game_days) if day == 3]  # 3 corresponds to Thursday
+        
+        tnf_games = [games[i] for i in thursday_game_indices]
+
+        if tnf_games:
+            if len(tnf_games) == 1:
+                return tnf_games[0]
+            else:
+                return tnf_games  # Return all TNF games if multiple
+        else:
+            print("No Thursday games found in the specified week.")
+            return None
+        
+    def get_mnf_game(self, week='current'):
+        """
+        Gets the Monday Night Football (MNF) game for a specified week. If multiple MNF games exist, 
+        returns all of them.
+
+        Parameters
+        ----------
+        week : str or int, optional
+            The week to check, by default 'current'
+
+        Returns
+        -------
+        dict
+            A dictionary containing the MNF game information for the specified week. If multiple MNF games exist, 
+            returns a list of dictionaries.
+        """
+        self._check_get_ngs_schedule_data()
+        games = self.get_games_for_week(week=week)  # Ensure data is loaded
+        game_days, game_times = self._parse_game_times_in_week_data(games)
+
+        monday_game_indices = [i for i, day in enumerate(game_days) if day == 0]  # 0 corresponds to Monday
+
+        mnf_games = [games[i] for i in monday_game_indices]
+
+        if mnf_games:
+            if len(mnf_games) == 1:
+                return mnf_games[0] 
+            else:
+                return mnf_games  # Return all MNF games if multiple
+        else:
+            print("No Monday games found in the specified week.")
+            return None
+        
+    def get_snf_game(self, week='current'):
+        """
+        Gets the Sunday Night Football (SNF) game for a specified week. If multiple SNF games exist, 
+        returns all of them.
+
+        Parameters
+        ----------
+        week : str or int, optional
+            The week to check, by default 'current'
+
+        Returns
+        -------
+        dict
+            A dictionary containing the SNF game information for the specified week. If multiple SNF games exist, 
+            returns a list of dictionaries.
+        """
+        self._check_get_ngs_schedule_data()
+        games = self.get_games_for_week(week=week)  # Ensure data is loaded
+        game_days, game_times = self._parse_game_times_in_week_data(games)
+
+        sunday_game_indices = [i for i, day in enumerate(game_days) if day == 6]  # 6 corresponds to Sunday
+
+        snf_games = [games[i] for i in sunday_game_indices if game_times[i]['hour'] >= 18]
+
+        if snf_games:
+            if len(snf_games) == 1:
+                return snf_games[0]
+            else:
+                return snf_games  # Return all SNF games if multiple
+        else:
+            print("No Sunday games found in the specified week.")
+            return None
+        
+    def get_early_sunday_game_slate(self, week='current'):
+        """
+        Gets the early Sunday game slate (games starting before 4 PM ET) for a specified week.
+
+        Parameters
+        ----------
+        week : str or int, optional
+            The week to check, by default 'current'
+
+        Returns
+        -------
+        list
+            A list of dictionaries containing the early Sunday game information for the specified week.
+        """
+        self._check_get_ngs_schedule_data()
+        games = self.get_games_for_week(week=week)  # Ensure data is loaded
+        game_days, game_times = self._parse_game_times_in_week_data(games)
+
+        sunday_game_indices = [i for i, day in enumerate(game_days) if day == 6]  # 6 corresponds to Sunday
+
+        early_sunday_games = [games[i] for i in sunday_game_indices if game_times[i]['hour'] < 16]
+
+        return early_sunday_games
+    
+    def get_mid_sunday_game_slate(self, week='current'):
+        """
+        Gets the mid Sunday game slate (games starting between 4 PM and 6 PM ET) for a specified week.
+
+        Parameters
+        ----------
+        week : str or int, optional
+            The week to check, by default 'current'
+
+        Returns
+        -------
+        list
+            A list of dictionaries containing the mid Sunday game information for the specified week.
+        """
+        self._check_get_ngs_schedule_data()
+        games = self.get_games_for_week(week=week)  # Ensure data is loaded
+        game_days, game_times = self._parse_game_times_in_week_data(games)
+
+        sunday_game_indices = [i for i, day in enumerate(game_days) if day == 6]  # 6 corresponds to Sunday
+
+        mid_sunday_games = [games[i] for i in sunday_game_indices if 16 <= game_times[i]['hour'] < 18]
+
+        return mid_sunday_games 
+
