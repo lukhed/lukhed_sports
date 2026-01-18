@@ -306,21 +306,26 @@ class NextGenStatsSchedule:
         all_dates = [tC.convert_string_to_datetime(x['gameDate'], string_format="%m/%d/%Y") for x in 
                      reg_season_games if x['gameDate'] is not None] 
         unique_dates = lC.return_unique_values(all_dates)
-        mondays = [x for x in unique_dates if x.weekday() == 0]
-        mondays.sort()
+        sundays = [x for x in unique_dates if x.weekday() == 6]
+        sundays.sort()
 
-        # -6 to get the start of the week (Tuesday)
+        # -5 to get the start of the week (Tuesday)
         tuesdays = [tC.add_days_to_date(
             tC.convert_date_to_string(x, string_format=date_format),
-            -6,
+            -5,
             input_format=date_format,
             ouput_format=date_format) 
-            for x in mondays]
+            for x in sundays]
         
-        mondays = [tC.convert_date_to_string(x, string_format=date_format) for x in mondays]
+        sundays = [tC.convert_date_to_string(x, string_format=date_format) for x in sundays]
         
         start_date = tuesdays[week - 1]
-        end_date = mondays[week - 1]
+        sunday_date = sundays[week - 1]
+        end_date = tC.add_days_to_date(
+            sunday_date,
+            1,
+            input_format=date_format,
+            ouput_format=date_format)
 
         return {
             'start_date': start_date,
