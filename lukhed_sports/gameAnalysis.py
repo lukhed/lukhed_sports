@@ -676,9 +676,9 @@ def convert_odds_format(odds, input_format, output_format):
     odds : str, int, float
         The odds value to convert
     input_format : str
-        The format of the input odds: 'american', 'decimal', or 'fractional'
+        The format of the input odds: 'american', 'decimal', 'fractional', or 'implied_probability'
     output_format : str
-        The desired output format: 'american', 'decimal', or 'fractional'
+        The desired output format: 'american', 'decimal', 'fractional', or 'implied_probability'
 
     Returns
     -------
@@ -711,6 +711,20 @@ def convert_odds_format(odds, input_format, output_format):
             decimal_odds = round(num / denom + 1, 6)
         else:
             return "Invalid fractional odds format"
+    
+    elif input_format == "implied probability":
+        try:
+            p = float(odds)
+        except ValueError:
+            print(f"Error: Invalid implied probability value '{odds}'. Must be a number between 0 and 1.")
+            return None
+        
+        if not (0 < p < 1):
+            print(f"Error: Implied probability value '{odds}' out of range. Must be between 0 and 1.")
+            return None
+        
+        decimal_odds = 1 / p
+        
     else:
         return "Invalid input format"
 
@@ -747,6 +761,10 @@ def convert_odds_format(odds, input_format, output_format):
         k = k // divisor
         
         return f"{h}/{k}"
+
+    elif output_format == "implied probability":
+        probability = 1 / decimal_odds
+        return round(probability, 4)
     
     else:
         return "Invalid output format"
