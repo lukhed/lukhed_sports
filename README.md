@@ -11,6 +11,7 @@ pip install lukhed-sports
 - [Draftkings Sports Wrapper](#drafkings-sportsbook-wrapper) - For obtaining live data from [Draftkings sportsbook](https://sportsbook.draftkings.com/)
 - [ESPN NFL Stats Wrapper](#espn-nfl-stats-wrapper) - For retrieving NFL team and player statistics from ESPN
 - [NFL Next Gen Stats Schedule](#nfl-next-gen-stats-schedule) - For accessing NFL schedule data from Next Gen Stats API
+- [OpenGolfAPI Wrapper](#opengolfapi-wrapper) - For golf course data, scorecards, weather, scoring, and more from [OpenGolfAPI](https://github.com/opengolfapi/api)
 
 ## Drafkings Sportsbook Wrapper
 Access live data from Draftkings Sportsbook via their API methods. Quick start information below. Full documentation coming. This class is still a work in progress.
@@ -355,4 +356,147 @@ teams = ngs.get_all_teams()
 ```
 
 Note: Team abbreviations should match those used on the NGS game center page: https://nextgenstats.nfl.com/stats/game-center-index
+
+## OpenGolfAPI Wrapper
+This class is a custom wrapper for [OpenGolfAPI](https://github.com/opengolfapi/api) - golf's open data standard: 
+course data for all 16,759 US courses, full scorecards, tee ratings and slopes, live weather, climate, spatial 
+features, a free scoring engine, competitions, and shot/moment contribution.
+
+It provides:
+- Free keyless access to all read endpoints (1,000 requests/day per IP) and gross scoring - no signup needed
+- Optional management of a free api key (only needed for write/contribution endpoints) -> You can store your 
+    api key locally or with a private github repo so you can use the api efficiently across different hardware
+- Methods for every endpoint in the API
+- Helpful errors when a keyed method is called without a key configured, so you don't waste calls
+
+### Table of Contents
+- [Instantiation](#og-instantiation)
+- [Course Search](#course-search)
+- [Scorecard Details](#scorecard-details)
+- [Course Geo Features](#course-geo-features)
+- [All Endpoints](#og-all-endpoints)
+
+### Instantiation
+Keyless (all read methods + gross scoring):
+```python
+from lukhed_sports import OpenGolfApi
+og = OpenGolfApi()
+```
+
+With a free api key (needed only for write/contribution methods, e.g. posting shots/moments). Upon first use, 
+the class will take you thru setup (copy and paste your [OpenGolfAPI key](https://opengolfapi.org/developer)):
+```python
+og = OpenGolfApi(key_management='local')    # store key on your local machine
+og = OpenGolfApi(key_management='github')   # store key in your private github repo
+```
+
+### Course Search
+Search courses by name, state, or location (e.g., supporting a user selecting the course they are playing).
+```python
+search = og.search_courses(q='whistling straits', limit=10)
+# search = og.search_courses(q='pebble', state='CA', limit=10)
+# search = og.search_courses(lat=43.85, lng=-87.73, radius_mi=25)     # "courses near me"
+
+for c in search['courses']:
+    print(f"{c['course_name']} ({c['city']}, {c['state']}) - {c['holes']} holes, par {c['par']}")
+```
+
+```json
+{
+    "courses": [
+        {
+            "id": "2d201c28-68ec-4897-b7b1-8f19c8984d26",
+            "course_name": "Whistling Straits",
+            "city": "Sheboygan",
+            "state": "WI",
+            "country_iso": "US",
+            "lat": 43.8498513,
+            "lng": -87.7346448,
+            "type": "Public",
+            "par": 72,
+            "holes": 18,
+            "completeness": 0
+        }
+    ],
+    "total": 1
+}
+```
+
+### Scorecard Details
+Get everything needed to display a scorecard: tee sets (rating/slope/total yardage) and per-hole par, 
+handicap index, and yardage by tee.
+```python
+course_id = search['courses'][0]['id']
+course = og.get_course(course_id)     # full detail: tees + holes_data + climate/pricing/insights
+tees = course['tees']                 # or og.get_course_tees(course_id)['tees']
+holes = course['holes_data']          # or og.get_course_holes(course_id)['holes']
+```
+
+Example tee entry:
+```json
+{
+    "tee_key": "black-male",
+    "tee_name": "Black",
+    "tee_color": "black",
+    "gender": "Male",
+    "course_rating": 75.6,
+    "slope": 146,
+    "par": 72,
+    "yardage": 7201
+}
+```
+
+Example hole entry:
+```json
+{
+    "number": 1,
+    "par": 4,
+    "handicap_index": 4,
+    "yardages": {
+        "red": 301,
+        "blue": 387,
+        "black": 400,
+        "green": 369,
+        "white": 359
+    },
+    "hazards": []
+}
+```
+
+### Course Geo Features
+Get geo locations for map display (greens, bunkers, water). The free layer is coarse OSM polygons; green 
+centers work well as pin locations.
+```python
+greens = og.get_course_features(course_id, feature_type='green')
+for green in greens['features']:
+    print(f"green {green['id'][0:8]}: center {green['center']}")   # 'geometry' key has the full polygon
+
+# bunkers/water for the same map
+bunkers = og.get_course_features(course_id, feature_type='bunker')
+
+# rangefinder-style: nearest greens to the user's GPS position
+nearest = og.get_nearest_features(user_lat, user_lng, feature_type='green')
+```
+
+Example feature entry:
+```json
+{
+    "id": "525c0df7-2bc5-46d5-91b2-340cdf173fef",
+    "tags": ["golf=green", "surface=grass"],
+    "center": {
+        "lat": 43.8477141917785,
+        "lng": -87.7348943509377
+    },
+    "source": "osm",
+    "license": "odbl",
+    "geometry": {"type": "MultiPolygon", "coordinates": ["..."]}
+}
+```
+
+### All Endpoints
+All OpenGolfAPI methods are implemented in this class, covering every endpoint in the spec: courses, spatial 
+features, scoring (OpenMatch), competitions, organizations, assets, sessions, events, players/awards, webhooks, 
+contribution (shots/moments/corrections/import), OpenGolf Chain, claims, identity/oauth, developer keys, and 
+meta/docs. See the [OpenGolfAPI documentation](https://github.com/opengolfapi/api) for details on each endpoint, 
+and the class docstrings in `openGolfWrapper.py` for the corresponding method parameters.
 
