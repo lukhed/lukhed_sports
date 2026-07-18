@@ -17,13 +17,25 @@ class OpenGolfApi(classCommon.LukhedAuth):
     all US courses, scorecards, tee ratings, live weather, climate, scoring engine, competitions,
     shot/moment contribution, and more.
 
-    Most of the API is free and keyless (courses, scoring, meta, chain, orgs). Contribution endpoints
-    (shots, moments, corrections, etc.) and some write endpoints require a free API key from
-    https://opengolfapi.org/developer.
+    Do I need an API key?
+    ---------------------
+    Probably not. Per the API docs: "Reads work without a key - 1,000 requests/day per IP, plus gross
+    scoring is keyless. No signup to try it." That means everything read-only in this class (courses,
+    weather, spatial features, orgs, chain, meta, etc.) AND the gross scoring engine
+    (compute_score/compute_plays_like) work with a plain ``OpenGolfApi()`` - no key, no signup.
+
+    A free dev key (https://opengolfapi.org/developer) is only needed for the write/contribution
+    surface: methods whose docstrings say "Requires API key" (posting shots/moments, corrections,
+    creating competitions/events, webhooks, minting assets, reading back your own contributed data,
+    etc.). Those methods raise a helpful ValueError if no key is set, so you won't waste a call.
+
+    Note per the API docs: if a key IS sent it must be valid and verified (there is no anonymous
+    fallback for a bad key). This class sends your key on all calls when one is configured, so only
+    configure a real, verified key.
 
     Usage
     -----
-    Keyless (free surface only)::
+    Keyless (all reads + gross scoring; 1,000 requests/day per IP)::
 
         golf = OpenGolfApi()
         courses = golf.search_courses(q="pebble beach")
@@ -47,13 +59,15 @@ class OpenGolfApi(classCommon.LukhedAuth):
         Parameters
         ----------
         api_delay : int or float, optional
-            Delay in seconds between API calls, by default 0 (the API is free and does not publish
-            strict rate limits).
+            Delay in seconds between API calls, by default 0. The published keyless limit is a daily
+            quota (1,000 requests/day per IP), not a per-second rate, so no delay is needed by default.
         key_management : str, optional
-            None (default) for keyless use of the free surface. 'local' to store your API key on your
-            local hardware. 'github' to store it in your private github repository (you will need a
-            github account and github token). When 'local' or 'github' is used and no key is stored yet,
-            you will be walked through setup via command prompts.
+            None (default) for keyless use - all read endpoints (1,000 requests/day per IP) and gross
+            scoring work without a key. Only set this if you need the write/contribution endpoints
+            (methods documented with "Requires API key"). 'local' to store your API key on your local
+            hardware. 'github' to store it in your private github repository (you will need a github
+            account and github token). When 'local' or 'github' is used and no key is stored yet, you
+            will be walked through setup via command prompts.
         auth_dict : dict, optional
             Provide your auth data directly to skip storage/setup, e.g. {'key': 'ogapi_...'}. Useful
             for server environments where interactive setup is not possible. If key_management is also
@@ -86,7 +100,9 @@ class OpenGolfApi(classCommon.LukhedAuth):
         """
         Set up OpenGolfAPI authentication (interactive).
         """
-        input("OpenGolfAPI contribution endpoints require a free API key (https://opengolfapi.org/developer). "
+        input("Note: OpenGolfAPI reads (1,000 requests/day per IP) and gross scoring are free WITHOUT a key - "
+              "you only need a key for write/contribution endpoints (posting shots/moments, corrections, "
+              "competitions, webhooks, etc.). If that's you, get a free key at https://opengolfapi.org/developer. "
               "You will be asked to paste your key in the next step. It will be stored for future use based on "
               "your instantiation parameters (stored on local machine or your private github). "
               "Press enter to start.")
