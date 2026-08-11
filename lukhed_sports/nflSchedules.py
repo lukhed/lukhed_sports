@@ -355,8 +355,14 @@ class NextGenStatsSchedule:
         check_date = tC.convert_string_to_datetime(str_date, string_format=date_format)
 
         # calculate week ends based on Monday games
-        all_dates = [tC.convert_string_to_datetime(x['gameDate'], string_format='%m/%d/%Y') for x in 
-                     games if x['gameDate'] is not None]
+        all_dates = []
+        for x in games:
+            try:
+                game_date = x['gameDate']
+                all_dates.append(tC.convert_string_to_datetime(x['gameDate'], string_format='%m/%d/%Y'))
+            except KeyError:
+                pass
+
         unique_dates = lC.return_unique_values(all_dates)
         mondays = [x for x in unique_dates if x.weekday() == 0]  # Monday games
         mondays.sort()
