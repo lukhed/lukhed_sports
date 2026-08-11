@@ -395,7 +395,7 @@ class NextGenStatsSchedule:
         no_errors = True
         for game in self.ngs_schedule_data:
             try:
-                self.team_converter.convert_team(game['homeTeamAbbr'], 
+                game['homeTeamAbbr'] = self.team_converter.convert_team(game['homeTeamAbbr'], 
                                                  from_provider=from_provider,
                                                  to_provider=to_provider,
                                                  from_team_type=from_team_type,
@@ -408,7 +408,7 @@ class NextGenStatsSchedule:
                 no_errors = False
 
             try:
-                self.team_converter.convert_team(game['visitorTeamAbbr'], 
+                game['visitorTeamAbbr'] = self.team_converter.convert_team(game['visitorTeamAbbr'], 
                                                  from_provider=from_provider,
                                                  to_provider=to_provider,
                                                  from_team_type=from_team_type,
