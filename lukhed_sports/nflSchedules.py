@@ -108,8 +108,20 @@ class NextGenStatsSchedule:
         return team_id
 
     def _parse_game_times_in_week_data(self, week_data):
-        game_times = [tC.convert_non_python_format(x['gameTime'], time_zone="US/Eastern") for x in week_data]
-        game_days = [x['datetime_object'].weekday() for x in game_times]
+        game_times = []
+        game_days = []
+        for x in week_data:
+            try:
+                parsed_time = tC.convert_non_python_format(x['gameTime'], time_zone="US/Eastern")
+            except KeyError:
+                # game time not yet finalized (e.g. a late-season week awaiting flex scheduling)
+                game_times.append(None)
+                game_days.append(None)
+                continue
+
+            game_times.append(parsed_time)
+            game_days.append(parsed_time['datetime_object'].weekday())
+
         return game_days, game_times
     
     def change_season(self, season):
@@ -303,8 +315,8 @@ class NextGenStatsSchedule:
         reg_season_games = self.get_regular_season_games()
 
         # calculate week ends based on Monday games
-        all_dates = [tC.convert_string_to_datetime(x['gameDate'], string_format="%m/%d/%Y") for x in 
-                     reg_season_games if x['gameDate'] is not None] 
+        all_dates = [tC.convert_string_to_datetime(x['gameDate'], string_format="%m/%d/%Y") for x in
+                     reg_season_games if x.get('gameDate') is not None]
         unique_dates = lC.return_unique_values(all_dates)
         sundays = [x for x in unique_dates if x.weekday() == 6]
         sundays.sort()
