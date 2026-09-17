@@ -303,8 +303,8 @@ class NextGenStatsSchedule:
         reg_season_games = self.get_regular_season_games()
 
         # calculate week ends based on Monday games
-        all_dates = [tC.convert_string_to_datetime(x['gameDate'], string_format="%m/%d/%Y") for x in 
-                     reg_season_games if x['gameDate'] is not None] 
+        all_dates = [tC.convert_string_to_datetime(x['gameDate'], string_format="%m/%d/%Y") for x in
+                     reg_season_games if x.get('gameDate') is not None]
         unique_dates = lC.return_unique_values(all_dates)
         sundays = [x for x in unique_dates if x.weekday() == 6]
         sundays.sort()
