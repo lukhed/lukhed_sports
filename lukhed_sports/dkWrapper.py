@@ -5,12 +5,14 @@ from lukhed_basic_utils import timeCommon as tC
 from lukhed_basic_utils import requestsCommon as rC
 from lukhed_basic_utils import fileCommon as fC
 from lukhed_basic_utils import listWorkCommon as lC
-from lukhed_sports.calibrations.dk import api_versions
-from lukhed_sports.calibrations.dk import known_ids
+from lukhed_sports.calibrations.dk import loader as dk_calibrations
+
+# url kind -> calibration key holding that endpoint family's api version
+_VERSION_KEYS = {'nav': 'navVersion', 'content': 'groupVersion', 'player': 'playerVersion'}
 
 class DkSportsbook():
     def __init__(self, api_delay=0.5, use_local_cache=True, reset_cache=False, retry_delay=5, timeout=10,
-                 response_cache_seconds=60, block_cooldown=300):
+                 response_cache_seconds=60, block_cooldown=300, calibration_source='github'):
         """
         A wrapper class for accessing DraftKings Sportsbook API data.
 
@@ -18,16 +20,15 @@ class DkSportsbook():
         from DraftKings Sportsbook. It supports major sports leagues including NFL, NBA, NHL, MLB,
         and NCAA sports, with functionality to get game lines, player props, and other betting markets.
 
-        DraftKings rate limits on the total number of calls made in a time window, so this class tries hard to
+        DraftKings can block clients (HTTP 403) that make too many calls, so this class tries hard to
         make as few calls as possible: known sport/league/category ids are built in, and responses are re-used
         for a short time within a session.
 
         Parameters
         ----------
         api_delay : float, optional
-            Minimum delay between consecutive API calls in seconds, by default 0.5. DraftKings rate limits (HTTP 403)
-            on the total number of calls in a time window, which the class keeps low (usually one call per
-            method), so this delay rarely comes into play.
+            Minimum delay between consecutive API calls in seconds, by default 0.5. Most methods make a single
+            call, so this delay rarely comes into play.
         use_local_cache : bool, optional
             Whether to cache reference API responses (sport list, league list, etc.) locally, by default True
             Note: use reset cache if the data is very stale (sports or leagues change over time)
@@ -44,6 +45,10 @@ class DkSportsbook():
         block_cooldown : float, optional
             After DraftKings blocks a call (HTTP 403/429), no further calls are made for this many seconds,
             by default 300. Calling into a block tends to extend it.
+        calibration_source : str, optional
+            Where DraftKings ids and api versions come from, by default 'github': the latest calibration file in
+            the lukhed_sports repo (one quick call to GitHub, not DraftKings), falling back to the copy bundled with
+            the package. Use 'local' to only use the bundled copy.
         """
         # Set API Information
         self.api_delay = api_delay
@@ -53,13 +58,19 @@ class DkSportsbook():
         self.block_cooldown = block_cooldown
         self.session = self._create_session()
         self._last_call_time = None
+        self._last_status = None
         self._blocked_until = None
+        self._version_probed = set()
 
         # Set cals
+        self.calibration_source = calibration_source
         self._api_versions = None
         self._base_url = None
         self._player_url = None
         self.sportsbook = None
+        self._sport_ids = None
+        self._league_ids = None
+        self._category_ids = None
         self._load_calibrations()
 
         # Available Sports (loaded lazily, see the available_sports property)
@@ -79,8 +90,11 @@ class DkSportsbook():
             self._reset_cache()
 
     def _load_calibrations(self):
-        # Load version cal
-        self._api_versions = api_versions.api_versions
+        cal = dk_calibrations.load_calibrations(self.calibration_source)
+        self._api_versions = cal['api']
+        self._sport_ids = cal['sportIds']
+        self._league_ids = cal['leagueIds']
+        self._category_ids = cal['categoryIds']
         self._base_url = self._api_versions['baseUrl']
         self._player_url = self._api_versions['playerUrl']
         self.sportsbook = self._api_versions['defaultSportsbook']
@@ -101,9 +115,7 @@ class DkSportsbook():
             sports = fC.load_json_from_file(self._sports_cache_file) or []
 
         if not sports:
-            api_version = self._api_versions['navVersion']
-            url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports?format=json"
-            sports = self._call_api(url, 'retrieve available sports').get('sports', [])
+            sports = self._get('nav', 'nav/sports?format=json', 'retrieve available sports').get('sports', [])
             if self.use_cache and sports:
                 fC.dump_json_to_file(self._sports_cache_file, sports)
 
@@ -129,6 +141,7 @@ class DkSportsbook():
             tC.sleep(self.api_delay - elapsed)
 
     def _call_api(self, endpoint, purpose, max_attempts=3):
+        self._last_status = None
         if self._blocked_until is not None:
             remaining = self._blocked_until - time.monotonic()
             if remaining > 0:
@@ -148,6 +161,8 @@ class DkSportsbook():
             finally:
                 self._last_call_time = time.monotonic()
 
+            self._last_status = None if response is None else response.status_code
+
             if response is not None:
                 if response.status_code in (403, 429):
                     # Blocked or rate limited. Retrying quickly only extends the block, so pause all calls.
@@ -157,9 +172,13 @@ class DkSportsbook():
                     return {}
                 if response.ok:
                     try:
-                        return response.json()
+                        return self._normalize_odds(response.json())
                     except ValueError:
                         print("ERROR: DraftKings response was not valid JSON")
+                elif response.status_code == 404:
+                    # Not retried: either the resource doesn't exist or the api version changed (see _get)
+                    print(f"ERROR: DraftKings returned HTTP 404 for {endpoint}")
+                    return {}
                 else:
                     print(f"ERROR: DraftKings returned HTTP {response.status_code}")
 
@@ -184,6 +203,96 @@ class DkSportsbook():
         if data:
             self._response_cache[endpoint] = (time.monotonic(), data)
         return data
+
+    def _build_url(self, kind, path, version=None):
+        version = version or self._api_versions[_VERSION_KEYS[kind]]
+        if kind == 'nav':
+            return f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{version}/{path}"
+        if kind == 'content':
+            return f"{self._base_url}/sportscontent/{self.sportsbook}/{version}/{path}"
+        return f"{self._player_url}/{version}/{path}"
+
+    @staticmethod
+    def _next_version(version):
+        try:
+            return f"v{int(version.lstrip('v')) + 1}"
+        except ValueError:
+            return None
+
+    def _get(self, kind, path, purpose):
+        """
+        Calls a DraftKings endpoint family ('nav', 'content' or 'player') at its calibrated api version.
+
+        DraftKings doesn't publish versions. If a call returns 404, the next version up is tried once per endpoint
+        family per session; if that works, it is used for the rest of the session and a message asks for the
+        calibration file to be updated.
+        """
+        data = self._call_api_cached(self._build_url(kind, path), purpose)
+        if data or self._last_status != 404 or kind in self._version_probed:
+            return data
+
+        self._version_probed.add(kind)
+        key = _VERSION_KEYS[kind]
+        current = self._api_versions[key]
+        candidate = self._next_version(current)
+        if candidate is None:
+            return data
+
+        data = self._call_api_cached(self._build_url(kind, path, candidate), f'{purpose} (trying api {candidate})')
+        if data:
+            self._api_versions[key] = candidate
+            print(f"WARNING: DraftKings '{kind}' api moved from {current} to {candidate}. Using {candidate} for this "
+                  f"session. Please update '{key}' in lukhed_sports/calibrations/dk/dk_calibrations.json "
+                  f"(or open an issue at https://github.com/lukhed/lukhed_sports/issues).")
+        return data
+
+    @staticmethod
+    def _normalize_odds(data):
+        """DK american odds use a unicode minus (U+2212). Replace it with '-' so the values can be parsed."""
+        if isinstance(data, dict):
+            for selection in data.get('selections') or []:
+                odds = selection.get('displayOdds')
+                if isinstance(odds, dict) and isinstance(odds.get('american'), str):
+                    odds['american'] = odds['american'].replace('\u2212', '-')
+        return data
+
+    @staticmethod
+    def parse_odds(selection):
+        """
+        Returns a selection's odds as numbers.
+
+        Parameters
+        ----------
+        selection : dict()
+            A selection returned by any method of this class, or an odds dict like the 'odds' value returned by
+            get_spread_for_team() and the player prop methods.
+
+        Returns
+        -------
+        dict()
+            {'american': int, 'decimal': float, 'implied_probability': float}. Values are None if not available.
+        """
+        display = selection.get('displayOdds', selection.get('odds', selection))
+        american = display.get('american') if isinstance(display, dict) else None
+        try:
+            american = int(str(american).replace('\u2212', '-').replace('+', ''))
+        except (TypeError, ValueError):
+            american = None
+
+        decimal = selection.get('trueOdds')
+        if decimal is None and isinstance(display, dict):
+            try:
+                decimal = float(display.get('decimal'))
+            except (TypeError, ValueError):
+                decimal = None
+        if decimal is None and american:
+            decimal = 1 + (american / 100 if american > 0 else 100 / abs(american))
+
+        return {
+            'american': american,
+            'decimal': decimal,
+            'implied_probability': round(1 / decimal, 4) if decimal else None,
+        }
 
     ############################
     # Class cache management
@@ -238,9 +347,7 @@ class DkSportsbook():
         if available_leagues is not None:
             return available_leagues
 
-        api_version = self._api_versions['navVersion']
-        url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports/{s_id}?format=json"
-        available_leagues = self._call_api(url, f'retrieve league data for id={s_id}')
+        available_leagues = self._get('nav', f'nav/sports/{s_id}?format=json', f'retrieve league data for id={s_id}')
         if 'leagues' not in available_leagues:
             return {'leagues': []}
 
@@ -259,9 +366,7 @@ class DkSportsbook():
         if league_id is None:
             return {}
 
-        api_version = self._api_versions['groupVersion']
-        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/leagues/{league_id}"
-        league_json = self._call_api_cached(url, f'retrieve league json for {league}')
+        league_json = self._get('content', f'leagues/{league_id}', f'retrieve league json for {league}')
         self._learn_from_response(league_id, league_json)
         return league_json
 
@@ -285,7 +390,7 @@ class DkSportsbook():
         for x in self._available_sports or []:
             if x['id'] == sport_id:
                 return x['name'].lower()
-        for name, s_id in known_ids.sport_ids.items():
+        for name, s_id in self._sport_ids.items():
             if s_id == sport_id:
                 return name
         return None
@@ -295,7 +400,7 @@ class DkSportsbook():
     ############################
     def _check_valid_sport(self, sport):
         sport = sport.lower()
-        if sport in known_ids.sport_ids or sport in self.available_sports:
+        if sport in self._sport_ids or sport in self.available_sports:
             return True
         else:
             print(f"ERROR: '{sport}' is not a valid sport. Check api.available_sports for valid input.")
@@ -321,8 +426,8 @@ class DkSportsbook():
             A sport ID which is used in API calls.
         """
         sport = sport.lower()
-        if sport in known_ids.sport_ids:
-            return known_ids.sport_ids[sport]
+        if sport in self._sport_ids:
+            return self._sport_ids[sport]
 
         if sport in self.available_sports:
             index = self.available_sports.index(sport)
@@ -350,7 +455,7 @@ class DkSportsbook():
         """
         sport = sport.lower()
         league = league.lower()
-        known = known_ids.league_ids.get((sport, league))
+        known = self._league_ids.get(sport, {}).get(league)
         if known is not None:
             return known
 
@@ -376,7 +481,7 @@ class DkSportsbook():
         if league_id is None:
             return None
 
-        for source in (known_ids.category_ids, self._discovered_category_ids):
+        for source in (self._category_ids, self._discovered_category_ids):
             cat_id = source.get(league_id, {}).get(category)
             if cat_id is not None:
                 return cat_id
@@ -408,7 +513,7 @@ class DkSportsbook():
             return {}
 
         known_before = (
-            known_ids.category_ids.get(league_id, {}).get(category) is not None
+            self._category_ids.get(league_id, {}).get(category) is not None
             or self._discovered_category_ids.get(league_id, {}).get(category) is not None
         )
         cat_id = self._get_category_id(sport, league, category)
@@ -421,9 +526,7 @@ class DkSportsbook():
             if self._response_is_category(league_json, cat_id):
                 return league_json
 
-        api_version = self._api_versions['groupVersion']
-        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/leagues/{league_id}/categories/{cat_id}"
-        data = self._call_api_cached(url, f'retrieve {league} {category}')
+        data = self._get('content', f'leagues/{league_id}/categories/{cat_id}', f'retrieve {league} {category}')
         self._learn_from_response(league_id, data)
         return data
 
@@ -579,9 +682,7 @@ class DkSportsbook():
     # Discovery Methods
     ############################
     def _get_event_market_data(self, event_id):
-        api_version = self._api_versions['groupVersion']
-        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/events/{event_id}/categories"
-        data = self._call_api_cached(url, f'get markets for {event_id}')
+        data = self._get('content', f'events/{event_id}/categories', f'get markets for {event_id}')
         return data
 
     def get_available_leagues(self, sport):
@@ -684,9 +785,7 @@ class DkSportsbook():
         return player_data
 
     def get_player_data_by_id(self, player_id):
-        api_version = self._api_versions['playerVersion']
-        url = f"{self._player_url}/{api_version}/players/{player_id}"
-        data = self._call_api_cached(url, f'get player odds {player_id}')
+        data = self._get('player', f'players/{player_id}', f'get player odds {player_id}')
         return data
 
 
@@ -716,11 +815,6 @@ class DkSportsbook():
             f"Supported leagues are: {list(self._get_major_league_support_dict().keys())}"
         )
         print(message)
-
-    def _build_sub_category_event_url(self, event_id, sub_cat):
-        api_version = self._api_versions['groupVersion']
-        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/events/{event_id}/categories/{sub_cat}"
-        return url
 
     def _get_lines_for_game(self, league, team, category, filter_market, filter_team):
         sport = self._major_league_to_sport_mapping(league)
@@ -903,8 +997,8 @@ class DkSportsbook():
         cat_id = self._get_category_id('football', league, 'td scorers')
         if cat_id is None:
             return []
-        url = self._build_sub_category_event_url(game[0]['id'], cat_id)
-        data = self._call_api_cached(url, f"getting td scorers for event: {game[0]['id']}")
+        data = self._get('content', f"events/{game[0]['id']}/categories/{cat_id}",
+                         f"getting td scorers for event: {game[0]['id']}")
 
         market_names = {x['id']: x['name'] for x in data.get('markets', [])}
 

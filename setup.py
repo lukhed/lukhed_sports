@@ -11,6 +11,7 @@ setup(
     url="https://github.com/lukhed/lukhed_sports",
     packages=find_packages(),
     include_package_data=True,  # Ensures MANIFEST.in is used
+    package_data={"lukhed_sports.calibrations.dk": ["*.json"]},
     python_requires=">=3.9",
     classifiers=[
         "Programming Language :: Python :: 3",

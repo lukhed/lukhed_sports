@@ -1,2 +1,4 @@
 # Exclude example files
 sports_utilities/example_responses*
+# DraftKings calibrations
+include lukhed_sports/calibrations/dk/*.json
