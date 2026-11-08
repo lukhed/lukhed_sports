@@ -25,6 +25,7 @@ ROUTES = {
     f"{CONTENT}/leagues/88808/categories/492": 'nfl_game_lines',
     f"{CONTENT}/leagues/88808/categories/1003": 'nfl_td_scorers',
     f"{CONTENT}/leagues/92483/categories/487": 'cbb_game_lines',
+    f"{CONTENT}/leagues/42133/categories/496": 'nhl_game_lines',
 }
 
 
@@ -75,6 +76,11 @@ class TestCallCounts(DkTestCase):
     def test_college_basketball_gamelines_is_one_call(self):
         lines = self.dk.get_gamelines_for_game('college basketball (m)', 'iona')
         self.assertEqual(self.calls, [f"{CONTENT}/leagues/92483/categories/487"])
+        self.assertEqual(len(lines), 6)
+
+    def test_nhl_gamelines_is_one_call(self):
+        lines = self.dk.get_gamelines_for_game('nhl', 'bruins')
+        self.assertEqual(self.calls, [f"{CONTENT}/leagues/42133/categories/496"])
         self.assertEqual(len(lines), 6)
 
     def test_every_supported_league_has_known_league_id(self):

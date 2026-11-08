@@ -5,7 +5,8 @@ DraftKings rate limits on the total number of calls. Ids not listed here are dis
 Keys are lowercase and stripped. Last verified 2026-11-08 (see reference/dk_api.md).
 
 Category ids appear to be shared within a sport (e.g. all basketball leagues use 487 for game lines), but only ids
-seen in a response are listed. NHL and MLB category ids are not captured yet and are discovered at runtime.
+seen in a response are listed; anything missing (e.g. MLB game lines, captured in the offseason) is discovered at
+runtime.
 """
 
 sport_ids = {
@@ -116,5 +117,31 @@ category_ids = {
     "94682": {
         "team futures": 519,
         "awards": 518,
+    },
+    # NHL
+    "42133": {
+        "game lines": 496,
+        "quick hits": 1259,
+        "goalscorer": 1190,
+        "shots on goal": 1189,
+        "points": 1675,
+        "assists": 1676,
+        "goalie props": 1064,
+        "game leaders": 1899,
+        "periods": 548,
+        "team totals": 1193,
+        "game props": 549,
+        "game props (60 min)": 547,
+        "game parlays": 554,
+        "team futures": 552,
+        "team points": 1857,
+        "stanley cup specials": 1965,
+        "conference specials": 1966,
+        "combined props": 1978,
+        "either props": 1979,
+    },
+    # MLB (offseason capture: champion only)
+    "84240": {
+        "champion": 1774,
     },
 }
