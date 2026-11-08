@@ -8,26 +8,47 @@ pip install lukhed-sports
 
 ## Available Wrappers and Classes
 - [Sportspage Feeds Wrapper](#sportspage-feeds-wrapper) - For sports schedules and odds from [sportspagefeeds API](https://sportspagefeeds.com/documentation)
-- [Draftkings Sports Wrapper](#drafkings-sportsbook-wrapper) - For obtaining live data from [Draftkings sportsbook](https://sportsbook.draftkings.com/)
+- [DraftKings Sportsbook Wrapper](#draftkings-sportsbook-wrapper) - For obtaining live data from [DraftKings sportsbook](https://sportsbook.draftkings.com/)
 - [ESPN NFL Stats Wrapper](#espn-nfl-stats-wrapper) - For retrieving NFL team and player statistics from ESPN
 - [NFL Next Gen Stats Schedule](#nfl-next-gen-stats-schedule) - For accessing NFL schedule data from Next Gen Stats API
 - [OpenGolfAPI Wrapper](#opengolfapi-wrapper) - For golf course data, scorecards, weather, scoring, and more from [OpenGolfAPI](https://github.com/opengolfapi/api)
 
-## Drafkings Sportsbook Wrapper
-Access live data from Draftkings Sportsbook via their API methods. Quick start information below. Full documentation coming. This class is still a work in progress.
+## DraftKings Sportsbook Wrapper
+Access live data from DraftKings Sportsbook via their (non-public) API. Quick start information below. This class is 
+still a work in progress.
+
+**Call efficiency:** DraftKings can block clients (HTTP 403) that make too many calls. The class keeps calls low: 
+known sport, league and category ids are built in, most methods make a single call, and responses are re-used for 
+60 seconds. After a 403 the class pauses all calls for 5 minutes instead of calling into the block.
 
 ### Table of Contents
 - [Instantiation](#instantiation)
 - [get_available_leagues(sport)](#get_available_leagues)
-- [get_spread_for_team(league, sport)](#get_spread_for_team)
-- [get_game_lines_for_league(league)](#get_gamelines_for_league)
+- [get_spread_for_team(league, team)](#get_spread_for_team)
+- [get_gamelines_for_league(league, filter_market=None)](#get_gamelines_for_league)
+- [get_gamelines_for_game(league, team, filter_market=None, filter_team=False)](#get_gamelines_for_game)
 - [get_basic_touchdown_scorer_props(league, prop_type_filter=None, game_filter=None)](#get_basic_touchdown_scorer_props)
+- [Player props](#player-props)
+- [parse_odds(selection)](#parse_odds)
 
 ### Instantiation
 ```python
 from lukhed_sports import DkSportsbook
 api = DkSportsbook()
 ```
+
+Optional parameters:
+
+| Parameter | Default | Description |
+|---|---|---|
+| `api_delay` | `0.5` | Minimum seconds between consecutive calls |
+| `response_cache_seconds` | `60` | How long a response is re-used within a session. `0` always calls DraftKings |
+| `block_cooldown` | `300` | Seconds to pause all calls after DraftKings blocks one (HTTP 403/429) |
+| `calibration_source` | `'github'` | DraftKings ids and api versions come from the latest calibration file in this repo, falling back to the copy bundled with the package. `'local'` uses only the bundled copy |
+| `use_local_cache` / `reset_cache` | `True` / `False` | Cache sport and league lists on disk across sessions |
+
+Supported leagues for the line and prop methods: `nfl`, `college football`, `nba`, `wnba`, `nhl`, `mlb`, 
+`college basketball (m)`, `college basketball (w)`. See `api.get_supported_major_sport_leagues()`.
 
 ### get_available_leagues
 Provides valid league inputs for various methods.
@@ -38,26 +59,19 @@ leagues = api.get_available_leagues('basketball')
 ```json
 [
     "argentina - liga nacional de basquetbol",
-    "australia - nbl",
-    "brazil - nbb",
-    "china - cba",
+    "australia - wnbl",
     "college basketball (m)",
     "college basketball (w)",
-    "croatia premier league",
-    "germany - bundesliga",
-    "greece - basket league",
-    "israel - super league (w)",
-    "italy - lega 1",
-    "korea - basketball league (w)",
     "nba",
-    "turkey - bsl",
-    "wnba"
+    "wnba",
+    ...
 ]
 ```
 
 
 ### get_spread_for_team
-Provides the current spread and spread odds for the given team.
+Provides the current spread and spread odds for the given team. If the team has more than one game listed, the 
+earliest game is used.
 ```python
 spread = api.get_spread_for_team('nfl', 'commanders')
 ```
@@ -68,21 +82,33 @@ spread = api.get_spread_for_team('nfl', 'commanders')
     "odds": {
         "american": "-108",
         "decimal": "1.92",
-        "fractional": "25/27"
+        "fractional": "25/27",
+        "percentage": "52%",
+        "multiplier": "1.92x"
     }
 }
 ```
 
 ### get_gamelines_for_league
-Provides all the gamelines available for a given league.
+Provides all the gamelines (spread, total, moneyline) available for a given league, grouped by game.
 ```python
 gamelines = api.get_gamelines_for_league('nfl')
+moneylines = api.get_gamelines_for_league('college basketball (m)', filter_market='moneyline')
 ```
 [Full example response](https://github.com/lukhed/lukhed_sports/blob/main/lukhed_sports/example_responses/gamelinesForLeague.json)
 
+### get_gamelines_for_game
+Provides the gamelines for one game. Use either team's name as shown on DraftKings (for pro teams the nickname works, 
+e.g. `'lions'`). `get_half_lines_for_game()` takes the same inputs for half lines.
+```python
+lines = api.get_gamelines_for_game('nfl', 'lions')
+lions_spread = api.get_gamelines_for_game('nfl', 'lions', filter_market='spread', filter_team=True)
+```
+
 
 ### get_basic_touchdown_scorer_props
-Provides all the basic td scoring props available, with various filter options.
+Provides all the basic td scoring props available (anytime, first, 2 or more), with various filter options. 
+`get_all_touchdown_props_for_game(league, team)` returns every td prop for a single game.
 ```python
 td = api.get_basic_touchdown_scorer_props('college football', prop_type_filter='anytime', game_filter='notre dame')
 ```
@@ -108,40 +134,41 @@ td = api.get_basic_touchdown_scorer_props('college football', prop_type_filter='
                 "seoIdentifier": "Jeremiah Smith"
             }
         ],
-        "sortOrder": 3001710,
-        "tags": [
-            "SGP",
-            "1stFavorite"
-        ],
-        "metadata": {}
-    },
-    {
-        "id": "0QA229129141#130806308_13L87637Q1709721529Q20",
-        "marketId": "229129141",
-        "label": "TreVeyon Henderson",
-        "displayOdds": {
-            "american": "-140",
-            "decimal": "1.71",
-            "fractional": "5/7"
-        },
-        "trueOdds": 1.71428572,
-        "outcomeType": "Anytime Scorer",
-        "participants": [
-            {
-                "id": "570977",
-                "name": "TreVeyon Henderson",
-                "type": "Player",
-                "seoIdentifier": "TreVeyon Henderson"
-            }
-        ],
-        "sortOrder": 3001710,
-        "tags": [
-            "SGP",
-            "2ndFavorite"
-        ],
-        "metadata": {}
+        ...
     },
     ...
+]
+```
+
+### Player props
+Basketball player props for `'nba'` or `'college basketball (m)'`, optionally filtered to one game.
+```python
+points = api.get_player_points_props('nba', game_filter='pistons')
+threes = api.get_player_three_props('college basketball (m)')
+# also: get_player_rebound_props(), get_player_assists_props()
+```
+
+Example shape (values illustrative):
+```json
+[
+    {
+        "player": "Cade Cunningham",
+        "line": "25+",
+        "odds": {"american": "-120", "decimal": "1.83", ...}
+    },
+    ...
+]
+```
+
+### parse_odds
+Converts a selection (or an `odds` dict from the methods above) to numbers.
+```python
+spread = api.get_spread_for_team('nfl', 'lions')
+DkSportsbook.parse_odds(spread['odds'])
+```
+
+```json
+{"american": -112, "decimal": 1.89, "implied_probability": 0.5291}
 ```
 
 
