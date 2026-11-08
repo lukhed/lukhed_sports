@@ -1,3 +1,5 @@
+import time
+import requests
 from lukhed_basic_utils import osCommon as osC
 from lukhed_basic_utils import timeCommon as tC
 from lukhed_basic_utils import requestsCommon as rC
@@ -7,7 +9,7 @@ from lukhed_basic_utils import listWorkCommon as lC
 from lukhed_sports.calibrations.dk import api_versions
 
 class DkSportsbook():
-    def __init__(self, api_delay=0.5, use_local_cache=True, reset_cache=False, retry_delay=1.5):
+    def __init__(self, api_delay=2, use_local_cache=True, reset_cache=False, retry_delay=5, timeout=10):
         """
         A wrapper class for accessing DraftKings Sportsbook API data.
 
@@ -18,18 +20,25 @@ class DkSportsbook():
         Parameters
         ----------
         api_delay : float, optional
-            Delay between API calls in seconds, by default 0.5
+            Minimum delay between API calls in seconds, by default 2. DraftKings rate limits (HTTP 403)
+            bursts of calls, so lowering this is not recommended.
         use_local_cache : bool, optional
             Whether to cache reference API responses (sport list, league list, etc.) locally, by default True
             Note: use reset cache if the data is very stale (sports or leagues change over time)
         reset_cache : bool, optional
             Whether to clear existing cache on initialization, by default False
         retry_delay : float, optional
-            Delay between retry attempts for failed API calls in seconds, by default 1.5
+            Delay between retry attempts for failed API calls in seconds, by default 5. Calls that are
+            blocked or rate limited (HTTP 403/429) are not retried.
+        timeout : float, optional
+            Seconds to wait for a DraftKings response before giving up, by default 10
         """
         # Set API Information
         self.api_delay = api_delay
         self.retry_delay = retry_delay
+        self.timeout = timeout
+        self.session = self._create_session()
+        self._last_call_time = None
 
         # Set cals
         self._api_versions = None
@@ -80,23 +89,53 @@ class DkSportsbook():
 
         self.available_sports = [x['name'].lower() for x in self._available_sports]
             
-    def _call_api(self, endpoint, purpose):
-        retry_count = 3
-        if self.api_delay is not None:
-            tC.sleep(self.api_delay)
+    def _create_session(self):
+        session = requests.Session()
+        session.headers.update({
+            "User-Agent": rC.get_random_user_agent(),
+            "Accept": "application/json",
+        })
+        return session
 
-        while retry_count > 0:
+    def _wait_for_api_delay(self):
+        # Enforce a minimum gap between consecutive calls (time spent parsing between calls counts toward it)
+        if self.api_delay is None or self._last_call_time is None:
+            return
+        elapsed = time.monotonic() - self._last_call_time
+        if elapsed < self.api_delay:
+            tC.sleep(self.api_delay - elapsed)
+
+    def _call_api(self, endpoint, purpose, max_attempts=3):
+        for attempt in range(1, max_attempts + 1):
+            self._wait_for_api_delay()
             print(f"called api: {endpoint}\npurpose: {purpose}\n")
-            response = rC.request_json(endpoint, add_user_agent=True, timeout=2)
-            if response == {}:
+            try:
+                response = self.session.get(endpoint, timeout=self.timeout)
+            except requests.RequestException as e:
+                print(f"ERROR: request failed: {e}")
+                response = None
+            finally:
+                self._last_call_time = time.monotonic()
+
+            if response is not None:
+                if response.status_code in (403, 429):
+                    # Blocked or rate limited. Retrying quickly only extends the block, so stop here.
+                    print(f"ERROR: DraftKings returned {response.status_code} (access denied / rate limited). "
+                          f"Slow down calls (increase api_delay) and try again later.")
+                    return {}
+                if response.ok:
+                    try:
+                        return response.json()
+                    except ValueError:
+                        print("ERROR: DraftKings response was not valid JSON")
+                else:
+                    print(f"ERROR: DraftKings returned HTTP {response.status_code}")
+
+            if attempt < max_attempts:
                 print("Sleeping then retrying api call\n")
                 tC.sleep(self.retry_delay)
-            else:
-                break
 
-            retry_count = retry_count - 1
-
-        return response
+        return {}
     
     ############################
     # Class cache management

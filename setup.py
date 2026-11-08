@@ -19,6 +19,7 @@ setup(
     ],
     install_requires=[
         "lukhed-basic-utils>=1.6.11",
+        "requests",
         "nameparser>=1.1.3",
         "fuzzywuzzy>=0.18.0",
         "Levenshtein>=0.27.1"
