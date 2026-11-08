@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="lukhed_sports",
-    version="0.10.7",
+    version="0.11.0",
     description="A collection of sports analysis utility functions and API wrappers",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -11,6 +11,7 @@ setup(
     url="https://github.com/lukhed/lukhed_sports",
     packages=find_packages(),
     include_package_data=True,  # Ensures MANIFEST.in is used
+    package_data={"lukhed_sports.calibrations.dk": ["*.json"]},
     python_requires=">=3.9",
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -19,6 +20,7 @@ setup(
     ],
     install_requires=[
         "lukhed-basic-utils>=1.6.11",
+        "requests",
         "nameparser>=1.1.3",
         "fuzzywuzzy>=0.18.0",
         "Levenshtein>=0.27.1"

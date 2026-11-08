@@ -1,0 +1,1669 @@
+{
+ "sports": [
+  {
+   "id": "8",
+   "seoIdentifier": "Hockey",
+   "name": "Hockey",
+   "sortOrder": 60
+  }
+ ],
+ "leagues": [
+  {
+   "id": "42133",
+   "name": "NHL",
+   "sportId": "8",
+   "sortOrder": 4850,
+   "tags": [
+    "FeaturedSubcategory",
+    "OSB",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible",
+    "Featured",
+    "FavoriteableFromPage"
+   ],
+   "regions": [
+    {
+     "id": "227",
+     "name": "United States"
+    }
+   ],
+   "isTeamSwap": true,
+   "featured": true
+  }
+ ],
+ "events": [
+  {
+   "id": "34958190",
+   "seoIdentifier": "FLA Panthers @ BOS Bruins",
+   "sportId": "8",
+   "leagueId": "42133",
+   "name": "FLA Panthers @ BOS Bruins",
+   "startEventDate": "2026-11-08T18:10:00.0000000Z",
+   "participants": [
+    {
+     "id": "35701",
+     "name": "BOS Bruins",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "431",
+      "rosettaTeamId": "35701",
+      "rosettaTeamName": "Bruins",
+      "shortName": "BOS",
+      "teamColor": "#FFB81C",
+      "teamColorSecondary": "#000000",
+      "teamColorTertiary": "#FFFFFF"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Bruins",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    },
+    {
+     "id": "35733",
+     "name": "FLA Panthers",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "430",
+      "rosettaTeamId": "35733",
+      "rosettaTeamName": "Panthers",
+      "shortName": "FLA",
+      "teamColor": "#041E42",
+      "teamColorSecondary": "#C8102E",
+      "teamColorTertiary": "#B9975B"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Panthers",
+     "isNationalTeam": false,
+     "countryCode": "ZZ"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "FeaturedSubcategory",
+    "OSB",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "459",
+    "numberOfParts": "3",
+    "secondsInOnePart": "1200"
+   },
+   "sortOrder": 170184190,
+   "subscriptionKey": "league-events-42133"
+  },
+  {
+   "id": "34958191",
+   "seoIdentifier": "VGK Golden Knights @ BUF Sabres",
+   "sportId": "8",
+   "leagueId": "42133",
+   "name": "VGK Golden Knights @ BUF Sabres",
+   "startEventDate": "2026-11-08T20:40:00.0000000Z",
+   "participants": [
+    {
+     "id": "35705",
+     "name": "BUF Sabres",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "423",
+      "rosettaTeamId": "35705",
+      "rosettaTeamName": "Sabres",
+      "shortName": "BUF",
+      "teamColor": "#003087",
+      "teamColorSecondary": "#FFB81C",
+      "teamColorTertiary": "#FFFFFF"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Sabres",
+     "isNationalTeam": false,
+     "countryCode": "ZZ"
+    },
+    {
+     "id": "35792",
+     "name": "VGK Golden Knights",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "422",
+      "rosettaTeamId": "35792",
+      "rosettaTeamName": "Golden Knights",
+      "shortName": "VGK",
+      "teamColor": "#B4975A",
+      "teamColorSecondary": "#333F42",
+      "teamColorTertiary": "#C8102E"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Golden Knights",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "FeaturedSubcategory",
+    "OSB",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "459",
+    "numberOfParts": "3",
+    "secondsInOnePart": "1200"
+   },
+   "sortOrder": 170194191,
+   "subscriptionKey": "league-events-42133"
+  }
+ ],
+ "markets": [
+  {
+   "id": "1_87095362",
+   "eventId": "34958190",
+   "sportId": "8",
+   "leagueId": "42133",
+   "name": "Moneyline",
+   "subcategoryId": 4525,
+   "marketType": {
+    "id": "1_1254",
+    "betOfferTypeId": 2,
+    "name": "Moneyline"
+   },
+   "subscriptionKey": "league-events-42133",
+   "sortOrder": 187095362,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "2_87095362",
+   "eventId": "34958190",
+   "sportId": "8",
+   "leagueId": "42133",
+   "name": "Puck Line",
+   "subcategoryId": 4525,
+   "marketType": {
+    "id": "2_1254",
+    "betOfferTypeId": 1,
+    "name": "Puck Line"
+   },
+   "subscriptionKey": "league-events-42133",
+   "sortOrder": 287095362,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "3_87095362",
+   "eventId": "34958190",
+   "sportId": "8",
+   "leagueId": "42133",
+   "name": "Total",
+   "subcategoryId": 4525,
+   "marketType": {
+    "id": "3_1254",
+    "betOfferTypeId": 6,
+    "name": "Total"
+   },
+   "subscriptionKey": "league-events-42133",
+   "sortOrder": 387095362,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "1_87095344",
+   "eventId": "34958191",
+   "sportId": "8",
+   "leagueId": "42133",
+   "name": "Moneyline",
+   "subcategoryId": 4525,
+   "marketType": {
+    "id": "1_1254",
+    "betOfferTypeId": 2,
+    "name": "Moneyline"
+   },
+   "subscriptionKey": "league-events-42133",
+   "sortOrder": 187095344,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "2_87095344",
+   "eventId": "34958191",
+   "sportId": "8",
+   "leagueId": "42133",
+   "name": "Puck Line",
+   "subcategoryId": 4525,
+   "marketType": {
+    "id": "2_1254",
+    "betOfferTypeId": 1,
+    "name": "Puck Line"
+   },
+   "subscriptionKey": "league-events-42133",
+   "sortOrder": 287095344,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "3_87095344",
+   "eventId": "34958191",
+   "sportId": "8",
+   "leagueId": "42133",
+   "name": "Total",
+   "subcategoryId": 4525,
+   "marketType": {
+    "id": "3_1254",
+    "betOfferTypeId": 6,
+    "name": "Total"
+   },
+   "subscriptionKey": "league-events-42133",
+   "sortOrder": 387095344,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  }
+ ],
+ "selections": [
+  {
+   "id": "0HC87095344N150_3",
+   "marketId": "2_87095344",
+   "label": "VGK Golden Knights",
+   "displayOdds": {
+    "american": "+230",
+    "decimal": "3.30",
+    "fractional": "23/10",
+    "percentage": "30%",
+    "multiplier": "3.30x"
+   },
+   "trueOdds": 3.3,
+   "points": -1.5,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "35792",
+     "name": "VGK Golden Knights",
+     "type": "Team",
+     "seoIdentifier": "Golden Knights",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "442787"
+     }
+    }
+   ],
+   "sortOrder": -1501,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC87095344P150_1",
+   "marketId": "2_87095344",
+   "label": "BUF Sabres",
+   "displayOdds": {
+    "american": "\u2212285",
+    "decimal": "1.35",
+    "fractional": "20/57",
+    "percentage": "74%",
+    "multiplier": "1.35x"
+   },
+   "trueOdds": 1.3508772,
+   "points": 1.5,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "35705",
+     "name": "BUF Sabres",
+     "type": "Team",
+     "seoIdentifier": "Sabres",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "ZZ",
+     "metadata": {
+      "sdid": "6937"
+     }
+    }
+   ],
+   "sortOrder": -1499,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC87095362P150_3",
+   "marketId": "2_87095362",
+   "label": "FLA Panthers",
+   "displayOdds": {
+    "american": "\u2212218",
+    "decimal": "1.45",
+    "fractional": "50/109",
+    "percentage": "68%",
+    "multiplier": "1.45x"
+   },
+   "trueOdds": 1.4587156,
+   "points": 1.5,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "35733",
+     "name": "FLA Panthers",
+     "type": "Team",
+     "seoIdentifier": "Panthers",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "ZZ",
+     "metadata": {
+      "sdid": "6943"
+     }
+    }
+   ],
+   "sortOrder": 1499,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC87095362N150_1",
+   "marketId": "2_87095362",
+   "label": "BOS Bruins",
+   "displayOdds": {
+    "american": "+180",
+    "decimal": "2.80",
+    "fractional": "9/5",
+    "percentage": "35%",
+    "multiplier": "2.80x"
+   },
+   "trueOdds": 2.8,
+   "points": -1.5,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "35701",
+     "name": "BOS Bruins",
+     "type": "Team",
+     "seoIdentifier": "Bruins",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "6941"
+     }
+    }
+   ],
+   "sortOrder": 1501,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU87095362O650_1",
+   "marketId": "3_87095362",
+   "label": "Over",
+   "displayOdds": {
+    "american": "+105",
+    "decimal": "2.05",
+    "fractional": "21/20",
+    "percentage": "48%",
+    "multiplier": "2.05x"
+   },
+   "trueOdds": 2.05,
+   "points": 6.5,
+   "outcomeType": "Over",
+   "sortOrder": 6500,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU87095344O650_1",
+   "marketId": "3_87095344",
+   "label": "Over",
+   "displayOdds": {
+    "american": "\u2212105",
+    "decimal": "1.95",
+    "fractional": "20/21",
+    "percentage": "51%",
+    "multiplier": "1.95x"
+   },
+   "trueOdds": 1.95238096,
+   "points": 6.5,
+   "outcomeType": "Over",
+   "sortOrder": 6500,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU87095362U650_3",
+   "marketId": "3_87095362",
+   "label": "Under",
+   "displayOdds": {
+    "american": "\u2212125",
+    "decimal": "1.80",
+    "fractional": "4/5",
+    "percentage": "55%",
+    "multiplier": "1.80x"
+   },
+   "trueOdds": 1.8,
+   "points": 6.5,
+   "outcomeType": "Under",
+   "sortOrder": 6502,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU87095344U650_3",
+   "marketId": "3_87095344",
+   "label": "Under",
+   "displayOdds": {
+    "american": "\u2212115",
+    "decimal": "1.86",
+    "fractional": "20/23",
+    "percentage": "53%",
+    "multiplier": "1.86x"
+   },
+   "trueOdds": 1.86956522,
+   "points": 6.5,
+   "outcomeType": "Under",
+   "sortOrder": 6502,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML87095344_3",
+   "marketId": "1_87095344",
+   "label": "VGK Golden Knights",
+   "displayOdds": {
+    "american": "\u2212112",
+    "decimal": "1.89",
+    "fractional": "25/28",
+    "percentage": "52%",
+    "multiplier": "1.89x"
+   },
+   "trueOdds": 1.89285715,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "35792",
+     "name": "VGK Golden Knights",
+     "type": "Team",
+     "seoIdentifier": "Golden Knights",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "442787"
+     }
+    }
+   ],
+   "sortOrder": 15517414,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML87095362_3",
+   "marketId": "1_87095362",
+   "label": "FLA Panthers",
+   "displayOdds": {
+    "american": "+120",
+    "decimal": "2.20",
+    "fractional": "6/5",
+    "percentage": "45%",
+    "multiplier": "2.20x"
+   },
+   "trueOdds": 2.2,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "35733",
+     "name": "FLA Panthers",
+     "type": "Team",
+     "seoIdentifier": "Panthers",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "ZZ",
+     "metadata": {
+      "sdid": "6943"
+     }
+    }
+   ],
+   "sortOrder": 15517568,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML87095344_1",
+   "marketId": "1_87095344",
+   "label": "BUF Sabres",
+   "displayOdds": {
+    "american": "\u2212108",
+    "decimal": "1.92",
+    "fractional": "25/27",
+    "percentage": "51%",
+    "multiplier": "1.92x"
+   },
+   "trueOdds": 1.92592593,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "35705",
+     "name": "BUF Sabres",
+     "type": "Team",
+     "seoIdentifier": "Sabres",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "ZZ",
+     "metadata": {
+      "sdid": "6937"
+     }
+    }
+   ],
+   "sortOrder": 35517412,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML87095362_1",
+   "marketId": "1_87095362",
+   "label": "BOS Bruins",
+   "displayOdds": {
+    "american": "\u2212142",
+    "decimal": "1.70",
+    "fractional": "50/71",
+    "percentage": "58%",
+    "multiplier": "1.70x"
+   },
+   "trueOdds": 1.70422536,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "35701",
+     "name": "BOS Bruins",
+     "type": "Team",
+     "seoIdentifier": "Bruins",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "6941"
+     }
+    }
+   ],
+   "sortOrder": 35517566,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  }
+ ],
+ "categories": [
+  {
+   "id": 496,
+   "name": "Game Lines",
+   "sortOrder": 496,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1259,
+   "name": "Quick Hits",
+   "sortOrder": 559,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1190,
+   "name": "Goalscorer",
+   "sortOrder": 566,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1189,
+   "name": "Shots on Goal",
+   "sortOrder": 592,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1675,
+   "name": "Points",
+   "sortOrder": 679,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1676,
+   "name": "Assists",
+   "sortOrder": 690,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1064,
+   "name": "Goalie Props",
+   "sortOrder": 898
+  },
+  {
+   "id": 1899,
+   "name": "Game Leaders",
+   "sortOrder": 1013
+  },
+  {
+   "id": 548,
+   "name": "Periods",
+   "sortOrder": 1018,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1193,
+   "name": "Team Totals",
+   "sortOrder": 1048,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 549,
+   "name": "Game Props",
+   "sortOrder": 1069,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 547,
+   "name": "Game Props (60 Min)",
+   "sortOrder": 1072,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 554,
+   "name": "Game Parlays",
+   "sortOrder": 1143
+  },
+  {
+   "id": 552,
+   "name": "Team Futures",
+   "sortOrder": 1455
+  },
+  {
+   "id": 1857,
+   "name": "Team Points",
+   "sortOrder": 1863
+  },
+  {
+   "id": 1965,
+   "name": "Stanley Cup Specials",
+   "sortOrder": 1946
+  },
+  {
+   "id": 1966,
+   "name": "Conference Specials",
+   "sortOrder": 1947
+  },
+  {
+   "id": 1978,
+   "name": "Combined Props",
+   "sortOrder": 1959,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1979,
+   "name": "Either Props",
+   "sortOrder": 1960,
+   "tags": [
+    "SGP"
+   ]
+  }
+ ],
+ "subcategories": [
+  {
+   "id": 10285,
+   "categoryId": 1064,
+   "name": "Shutout",
+   "componentId": 29,
+   "sortOrder": 12398,
+   "tags": []
+  },
+  {
+   "id": 11001,
+   "categoryId": 549,
+   "name": "Correct Score (Incl OT)",
+   "componentId": 202,
+   "sortOrder": 4831,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 11002,
+   "categoryId": 549,
+   "name": "Winning Margin (Incl OT)",
+   "componentId": 202,
+   "sortOrder": 11538,
+   "tags": []
+  },
+  {
+   "id": 11493,
+   "categoryId": 548,
+   "name": "Alt Total Goals - Listed Period",
+   "componentId": 29,
+   "sortOrder": 4778,
+   "tags": []
+  },
+  {
+   "id": 11567,
+   "categoryId": 547,
+   "name": "First/Last to Score",
+   "componentId": 30,
+   "sortOrder": 15225,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12040,
+   "categoryId": 1189,
+   "name": "Shots on Goal O/U",
+   "componentId": 8,
+   "sortOrder": 12142,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12057,
+   "categoryId": 1193,
+   "name": "Both Teams To Score",
+   "componentId": 29,
+   "sortOrder": 12021,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12059,
+   "categoryId": 1193,
+   "name": "Both Teams to Score 2+ Goals",
+   "componentId": 29,
+   "sortOrder": 13170,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12131,
+   "categoryId": 548,
+   "name": "Goal In First 10 - Listed Period",
+   "componentId": 29,
+   "sortOrder": 4862,
+   "tags": []
+  },
+  {
+   "id": 13031,
+   "categoryId": 1259,
+   "name": "Opening Faceoff Winner",
+   "componentId": 29,
+   "sortOrder": 12993,
+   "tags": []
+  },
+  {
+   "id": 13032,
+   "categoryId": 1259,
+   "name": "First to 5 Shots on Goal",
+   "componentId": 29,
+   "sortOrder": 12994,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 13033,
+   "categoryId": 1259,
+   "name": "First Shot on Goal",
+   "componentId": 29,
+   "sortOrder": 12995,
+   "tags": []
+  },
+  {
+   "id": 13034,
+   "categoryId": 1259,
+   "name": "First Power Play",
+   "componentId": 29,
+   "sortOrder": 13710,
+   "tags": []
+  },
+  {
+   "id": 13189,
+   "categoryId": 496,
+   "name": "Alternate Puck Line",
+   "componentId": 240,
+   "sortOrder": 5081,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13192,
+   "categoryId": 496,
+   "name": "Alternate Total",
+   "componentId": 240,
+   "sortOrder": 4994,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13748,
+   "categoryId": 1259,
+   "name": "Goal in First Five",
+   "componentId": 29,
+   "sortOrder": 12992,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13749,
+   "categoryId": 548,
+   "name": "Correct Score - Listed Period",
+   "componentId": 203,
+   "sortOrder": 14263,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13750,
+   "categoryId": 1259,
+   "name": "Goal in First Ten",
+   "componentId": 29,
+   "sortOrder": 12991,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 13810,
+   "categoryId": 548,
+   "name": "Odd/Even - Listed Period",
+   "componentId": 29,
+   "sortOrder": 14264,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13812,
+   "categoryId": 549,
+   "name": "Win From Behind",
+   "componentId": 29,
+   "sortOrder": 14500,
+   "tags": []
+  },
+  {
+   "id": 14495,
+   "categoryId": 1190,
+   "name": "Anytime Goalscorer",
+   "componentId": 18,
+   "sortOrder": 15319,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 14497,
+   "categoryId": 1190,
+   "name": "Last Goalscorer",
+   "componentId": 204,
+   "sortOrder": 16504,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15268,
+   "categoryId": 547,
+   "name": "Winning Margin (Excl OT)",
+   "componentId": 202,
+   "sortOrder": 16691,
+   "tags": []
+  },
+  {
+   "id": 16213,
+   "categoryId": 1675,
+   "name": "Points O/U",
+   "componentId": 8,
+   "sortOrder": 16170,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16215,
+   "categoryId": 1676,
+   "name": "Assists O/U",
+   "componentId": 8,
+   "sortOrder": 16172,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16544,
+   "categoryId": 1189,
+   "name": "Shots on Goal",
+   "componentId": 331,
+   "sortOrder": 12136,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16545,
+   "categoryId": 1675,
+   "name": "Points",
+   "componentId": 331,
+   "sortOrder": 16169,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16546,
+   "categoryId": 1676,
+   "name": "Assists",
+   "componentId": 331,
+   "sortOrder": 16171,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16547,
+   "categoryId": 1190,
+   "name": "Player Goal Milestones",
+   "componentId": 331,
+   "sortOrder": 15472,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16595,
+   "categoryId": 1259,
+   "name": "First Goal Strength",
+   "componentId": 29,
+   "sortOrder": 16553,
+   "tags": []
+  },
+  {
+   "id": 16597,
+   "categoryId": 1259,
+   "name": "First Team Goal Strength",
+   "componentId": 29,
+   "sortOrder": 16555,
+   "tags": []
+  },
+  {
+   "id": 16598,
+   "categoryId": 1259,
+   "name": "Team First Power Play",
+   "componentId": 29,
+   "sortOrder": 16556,
+   "tags": []
+  },
+  {
+   "id": 16599,
+   "categoryId": 1259,
+   "name": "Shots in 1st Two Minutes",
+   "componentId": 29,
+   "sortOrder": 16572,
+   "tags": []
+  },
+  {
+   "id": 16615,
+   "categoryId": 1259,
+   "name": "First Goal Exact",
+   "componentId": 204,
+   "sortOrder": 16631,
+   "tags": []
+  },
+  {
+   "id": 16716,
+   "categoryId": 1193,
+   "name": "Team Total Goals",
+   "componentId": 240,
+   "sortOrder": 12018,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 17236,
+   "categoryId": 547,
+   "name": "Race to X Goals",
+   "componentId": 30,
+   "sortOrder": 17193,
+   "tags": []
+  },
+  {
+   "id": 17559,
+   "categoryId": 549,
+   "name": "Exact Goals",
+   "componentId": 30,
+   "sortOrder": 6969,
+   "tags": []
+  },
+  {
+   "id": 17560,
+   "categoryId": 549,
+   "name": "Exact Team Goals",
+   "componentId": 203,
+   "sortOrder": 10967,
+   "tags": []
+  },
+  {
+   "id": 17740,
+   "categoryId": 1190,
+   "name": "Goalscorer - 1st Period",
+   "componentId": 204,
+   "sortOrder": 13043,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 17741,
+   "categoryId": 1190,
+   "name": "1st Goalscorer - Team",
+   "componentId": 204,
+   "sortOrder": 13768,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 18002,
+   "categoryId": 1189,
+   "name": "Shots on Goal - 1st Period",
+   "componentId": 331,
+   "sortOrder": 17960,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18005,
+   "categoryId": 1676,
+   "name": "Assists - 1st Period",
+   "componentId": 331,
+   "sortOrder": 17962,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18010,
+   "categoryId": 1675,
+   "name": "Points - 1st Period",
+   "componentId": 331,
+   "sortOrder": 17967,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18757,
+   "categoryId": 1899,
+   "name": "Points",
+   "componentId": 204,
+   "sortOrder": 18714,
+   "tags": []
+  },
+  {
+   "id": 18758,
+   "categoryId": 1899,
+   "name": "Goals",
+   "componentId": 204,
+   "sortOrder": 18715,
+   "tags": []
+  },
+  {
+   "id": 18764,
+   "categoryId": 1190,
+   "name": "Power Play Goals",
+   "componentId": 29,
+   "sortOrder": 18721,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18765,
+   "categoryId": 1190,
+   "name": "Shorthanded Goals",
+   "componentId": 29,
+   "sortOrder": 18722,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18777,
+   "categoryId": 1899,
+   "name": "Shots on Goal",
+   "componentId": 204,
+   "sortOrder": 18734,
+   "tags": []
+  },
+  {
+   "id": 19660,
+   "categoryId": 549,
+   "name": "Overtime",
+   "componentId": 29,
+   "sortOrder": 19617,
+   "tags": []
+  },
+  {
+   "id": 20385,
+   "categoryId": 1978,
+   "name": "Shots on Goal",
+   "componentId": 331,
+   "sortOrder": 20336,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20386,
+   "categoryId": 1978,
+   "name": "Points",
+   "componentId": 331,
+   "sortOrder": 20337,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20388,
+   "categoryId": 1979,
+   "name": "Shots on Goal",
+   "componentId": 331,
+   "sortOrder": 20339,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20389,
+   "categoryId": 1979,
+   "name": "Points",
+   "componentId": 331,
+   "sortOrder": 20340,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20390,
+   "categoryId": 1979,
+   "name": "First Goalscorer",
+   "componentId": 204,
+   "sortOrder": 20341,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20391,
+   "categoryId": 1979,
+   "name": "Goals",
+   "componentId": 331,
+   "sortOrder": 20342,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20398,
+   "categoryId": 1190,
+   "name": "Combined Goals",
+   "componentId": 331,
+   "sortOrder": 20349,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20417,
+   "categoryId": 1190,
+   "name": "3+ Goals",
+   "componentId": 204,
+   "sortOrder": 20368,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20444,
+   "categoryId": 1259,
+   "name": "First Shot on Goal",
+   "componentId": 204,
+   "sortOrder": 20395,
+   "tags": []
+  },
+  {
+   "id": 4525,
+   "categoryId": 496,
+   "name": "Game",
+   "componentId": 210,
+   "sortOrder": 4520,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 4741,
+   "categoryId": 547,
+   "name": "Correct Score (Excl OT)",
+   "componentId": 11,
+   "sortOrder": 4774,
+   "tags": [
+    "Featured"
+   ]
+  },
+  {
+   "id": 4761,
+   "categoryId": 548,
+   "name": "1st Period",
+   "componentId": 210,
+   "sortOrder": 4738,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 4783,
+   "categoryId": 548,
+   "name": "2nd Period",
+   "componentId": 210,
+   "sortOrder": 4867,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 4841,
+   "categoryId": 548,
+   "name": "3rd Period",
+   "componentId": 210,
+   "sortOrder": 5214,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 4999,
+   "categoryId": 496,
+   "name": "60 Min Line",
+   "componentId": 11,
+   "sortOrder": 4713,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 5719,
+   "categoryId": 554,
+   "name": "1st Period/End of Regulation",
+   "componentId": 204,
+   "sortOrder": 6171,
+   "tags": []
+  },
+  {
+   "id": 6270,
+   "categoryId": 548,
+   "name": "Team Totals - Listed Period",
+   "componentId": 29,
+   "sortOrder": 4739,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 6271,
+   "categoryId": 548,
+   "name": "Both Teams to Score - 1st Period",
+   "componentId": 29,
+   "sortOrder": 4779,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 6306,
+   "categoryId": 548,
+   "name": "Highest Scoring Period",
+   "componentId": 12,
+   "sortOrder": 5875,
+   "tags": []
+  },
+  {
+   "id": 6347,
+   "categoryId": 548,
+   "name": "First/Last to Score",
+   "componentId": 30,
+   "sortOrder": 5874,
+   "tags": []
+  },
+  {
+   "id": 6353,
+   "categoryId": 496,
+   "name": "Tie No Bet",
+   "componentId": 12,
+   "sortOrder": 4737,
+   "tags": []
+  },
+  {
+   "id": 6978,
+   "categoryId": 548,
+   "name": "Period Winner - 3 Way",
+   "componentId": 30,
+   "sortOrder": 5408,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 7021,
+   "categoryId": 548,
+   "name": "Period Winner - Tie No Bet",
+   "componentId": 29,
+   "sortOrder": 4863,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 7863,
+   "categoryId": 554,
+   "name": "Moneyline/Total Goals",
+   "componentId": 204,
+   "sortOrder": 4767,
+   "tags": []
+  },
+  {
+   "id": 7864,
+   "categoryId": 554,
+   "name": "Puck Line/Total Goals",
+   "componentId": 204,
+   "sortOrder": 5713,
+   "tags": []
+  },
+  {
+   "id": 18287,
+   "categoryId": 1857,
+   "name": "Regular Season Points O/U",
+   "componentId": 29,
+   "sortOrder": 18244,
+   "tags": []
+  },
+  {
+   "id": 13422,
+   "categoryId": 552,
+   "name": "Champion",
+   "componentId": 29,
+   "sortOrder": 4748,
+   "tags": []
+  },
+  {
+   "id": 9236,
+   "categoryId": 552,
+   "name": "Conference Winner",
+   "componentId": 29,
+   "sortOrder": 4981,
+   "tags": []
+  },
+  {
+   "id": 9034,
+   "categoryId": 552,
+   "name": "Division Winner",
+   "componentId": 29,
+   "sortOrder": 4982,
+   "tags": []
+  },
+  {
+   "id": 8807,
+   "categoryId": 552,
+   "name": "Presidents' Trophy Winner",
+   "componentId": 29,
+   "sortOrder": 10754,
+   "tags": []
+  },
+  {
+   "id": 9232,
+   "categoryId": 552,
+   "name": "To Make the Playoffs",
+   "componentId": 29,
+   "sortOrder": 9923,
+   "tags": []
+  },
+  {
+   "id": 20102,
+   "categoryId": 1965,
+   "name": "Winning Country",
+   "componentId": 29,
+   "sortOrder": 20053,
+   "tags": []
+  },
+  {
+   "id": 20103,
+   "categoryId": 1965,
+   "name": "Original Six Winner",
+   "componentId": 29,
+   "sortOrder": 20054,
+   "tags": []
+  },
+  {
+   "id": 20104,
+   "categoryId": 1965,
+   "name": "Winning State or Province",
+   "componentId": 29,
+   "sortOrder": 20055,
+   "tags": []
+  },
+  {
+   "id": 20105,
+   "categoryId": 1965,
+   "name": "Winning Conference",
+   "componentId": 29,
+   "sortOrder": 20056,
+   "tags": []
+  },
+  {
+   "id": 20106,
+   "categoryId": 1965,
+   "name": "Winning Division",
+   "componentId": 29,
+   "sortOrder": 20057,
+   "tags": []
+  },
+  {
+   "id": 20112,
+   "categoryId": 1966,
+   "name": "Conference Winning Division",
+   "componentId": 29,
+   "sortOrder": 20063,
+   "tags": []
+  },
+  {
+   "id": 20113,
+   "categoryId": 1966,
+   "name": "Winning State or Providence",
+   "componentId": 29,
+   "sortOrder": 20064,
+   "tags": []
+  },
+  {
+   "id": 20114,
+   "categoryId": 1966,
+   "name": "Winning Country",
+   "componentId": 29,
+   "sortOrder": 20065,
+   "tags": []
+  },
+  {
+   "id": 9033,
+   "categoryId": 552,
+   "name": "Winner Specials",
+   "componentId": 29,
+   "sortOrder": 13581,
+   "tags": []
+  },
+  {
+   "id": 20403,
+   "categoryId": 552,
+   "name": "Exact Result",
+   "componentId": 204,
+   "sortOrder": 20354,
+   "tags": []
+  }
+ ]
+}

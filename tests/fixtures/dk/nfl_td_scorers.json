@@ -1,0 +1,6476 @@
+{
+ "sports": [
+  {
+   "id": "3",
+   "seoIdentifier": "Football",
+   "name": "Football",
+   "sortOrder": 56
+  }
+ ],
+ "leagues": [
+  {
+   "id": "88808",
+   "name": "NFL",
+   "sportId": "3",
+   "sortOrder": 4847,
+   "tags": [
+    "OSB",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "PlayerStack",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible",
+    "Flashbet",
+    "LiveBoxScore",
+    "LivePrePack",
+    "Featured",
+    "HasLiveEvents",
+    "LiveFeaturedSubcategory",
+    "FavoriteableFromPage"
+   ],
+   "regions": [
+    {
+     "id": "227",
+     "name": "United States"
+    }
+   ],
+   "isTeamSwap": true,
+   "featured": true
+  }
+ ],
+ "events": [
+  {
+   "id": "34118008",
+   "seoIdentifier": "CLE Browns @ NO Saints",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "CLE Browns @ NO Saints",
+   "startEventDate": "2026-11-08T18:00:00.0000000Z",
+   "participants": [
+    {
+     "id": "18423",
+     "name": "NO Saints",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "125",
+      "rosettaTeamId": "18423",
+      "rosettaTeamName": "Saints",
+      "shortName": "NO",
+      "teamColor": "#D3BC8D",
+      "teamColorSecondary": "#000000",
+      "teamColorTertiary": "#FFFFFF"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Saints",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    },
+    {
+     "id": "18325",
+     "name": "CLE Browns",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "124",
+      "rosettaTeamId": "18325",
+      "rosettaTeamName": "Browns",
+      "shortName": "CLE",
+      "teamColor": "#FF3C00",
+      "teamColorSecondary": "#311D00",
+      "teamColorTertiary": "#FFFFFF"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Browns",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "OSB",
+    "PlayerStack",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "40",
+    "numberOfParts": "4",
+    "secondsInOnePart": "900"
+   },
+   "sortOrder": 170184008,
+   "subscriptionKey": "league-events-88808"
+  },
+  {
+   "id": "34118046",
+   "seoIdentifier": "DEN Broncos @ CAR Panthers",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "DEN Broncos @ CAR Panthers",
+   "startEventDate": "2026-11-08T18:00:00.0000000Z",
+   "participants": [
+    {
+     "id": "18484",
+     "name": "CAR Panthers",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "105",
+      "rosettaTeamId": "18484",
+      "rosettaTeamName": "Panthers",
+      "shortName": "CAR",
+      "teamColor": "#0085CF",
+      "teamColorSecondary": "#000000",
+      "teamColorTertiary": "#BFC0BF"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Panthers",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    },
+    {
+     "id": "18342",
+     "name": "DEN Broncos",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "104",
+      "rosettaTeamId": "18342",
+      "rosettaTeamName": "Broncos",
+      "shortName": "DEN",
+      "teamColor": "#0A2343",
+      "teamColorSecondary": "#FC4C02",
+      "teamColorTertiary": "#FFFFFF"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Broncos",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "OSB",
+    "PlayerStack",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "40",
+    "numberOfParts": "4",
+    "secondsInOnePart": "900"
+   },
+   "sortOrder": 170184046,
+   "subscriptionKey": "league-events-88808"
+  },
+  {
+   "id": "34118050",
+   "seoIdentifier": "LA Rams @ WAS Commanders",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "LA Rams @ WAS Commanders",
+   "startEventDate": "2026-11-08T18:00:00.0000000Z",
+   "participants": [
+    {
+     "id": "18480",
+     "name": "WAS Commanders",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "113",
+      "rosettaTeamId": "18480",
+      "rosettaTeamName": "Commanders",
+      "shortName": "WAS",
+      "teamColor": "#5A1414",
+      "teamColorSecondary": "#FFB612",
+      "teamColorTertiary": "#000000"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Commanders",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    },
+    {
+     "id": "18397",
+     "name": "LA Rams",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "112",
+      "rosettaTeamId": "18397",
+      "rosettaTeamName": "Rams",
+      "shortName": "LAR",
+      "teamColor": "#003594",
+      "teamColorSecondary": "#FFD100",
+      "teamColorTertiary": "#FF8200"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Rams",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "OSB",
+    "PlayerStack",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "40",
+    "numberOfParts": "4",
+    "secondsInOnePart": "900"
+   },
+   "sortOrder": 170184050,
+   "subscriptionKey": "league-events-88808"
+  }
+ ],
+ "markets": [
+  {
+   "id": "385025186",
+   "eventId": "34118008",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Anytime TD Scorer",
+   "subcategoryId": 12438,
+   "marketType": {
+    "id": "11019",
+    "betOfferTypeId": 0,
+    "name": "Anytime Touchdown Scorer"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 1186,
+   "tags": [
+    "SGP",
+    "PlayerStack",
+    "YourBetEligible",
+    "Cashout",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "IgnoreSortOrderOnPush",
+    "OSB",
+    "PlayerProps"
+   ],
+   "correlatedId": "34118008|11019",
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "357446981",
+   "eventId": "34118008",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "First TD Scorer",
+   "subcategoryId": 12438,
+   "marketType": {
+    "id": "11018",
+    "betOfferTypeId": 0,
+    "name": "1st Touchdown Scorer"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 2981,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "IgnoreSortOrderOnPush",
+    "OSB",
+    "PlayerProps"
+   ],
+   "correlatedId": "34118008|11018",
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "386072423",
+   "eventId": "34118008",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "2+ TDs",
+   "subcategoryId": 12438,
+   "marketType": {
+    "id": "11020",
+    "betOfferTypeId": 0,
+    "name": "Score 2 or More"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 3423,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "IgnoreSortOrderOnPush",
+    "OSB",
+    "PlayerProps"
+   ],
+   "correlatedId": "34118008|11020",
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "385032605",
+   "eventId": "34118046",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Anytime TD Scorer",
+   "subcategoryId": 12438,
+   "marketType": {
+    "id": "11019",
+    "betOfferTypeId": 0,
+    "name": "Anytime Touchdown Scorer"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 1605,
+   "tags": [
+    "SGP",
+    "PlayerStack",
+    "YourBetEligible",
+    "Cashout",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "IgnoreSortOrderOnPush",
+    "OSB",
+    "PlayerProps"
+   ],
+   "correlatedId": "34118046|11019",
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "357416666",
+   "eventId": "34118046",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "First TD Scorer",
+   "subcategoryId": 12438,
+   "marketType": {
+    "id": "11018",
+    "betOfferTypeId": 0,
+    "name": "1st Touchdown Scorer"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 2666,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "IgnoreSortOrderOnPush",
+    "OSB",
+    "PlayerProps"
+   ],
+   "correlatedId": "34118046|11018",
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "385568967",
+   "eventId": "34118046",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "2+ TDs",
+   "subcategoryId": 12438,
+   "marketType": {
+    "id": "11020",
+    "betOfferTypeId": 0,
+    "name": "Score 2 or More"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 3967,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "IgnoreSortOrderOnPush",
+    "OSB",
+    "PlayerProps"
+   ],
+   "correlatedId": "34118046|11020",
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "385047734",
+   "eventId": "34118050",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Anytime TD Scorer",
+   "subcategoryId": 12438,
+   "marketType": {
+    "id": "11019",
+    "betOfferTypeId": 0,
+    "name": "Anytime Touchdown Scorer"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 1734,
+   "tags": [
+    "SGP",
+    "PlayerStack",
+    "YourBetEligible",
+    "Cashout",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "IgnoreSortOrderOnPush",
+    "OSB",
+    "PlayerProps"
+   ],
+   "correlatedId": "34118050|11019",
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "357410546",
+   "eventId": "34118050",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "First TD Scorer",
+   "subcategoryId": 12438,
+   "marketType": {
+    "id": "11018",
+    "betOfferTypeId": 0,
+    "name": "1st Touchdown Scorer"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 2546,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "IgnoreSortOrderOnPush",
+    "OSB",
+    "PlayerProps"
+   ],
+   "correlatedId": "34118050|11018",
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "386127772",
+   "eventId": "34118050",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "2+ TDs",
+   "subcategoryId": 12438,
+   "marketType": {
+    "id": "11020",
+    "betOfferTypeId": 0,
+    "name": "Score 2 or More"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 3772,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "IgnoreSortOrderOnPush",
+    "OSB",
+    "PlayerProps"
+   ],
+   "correlatedId": "34118050|11020",
+   "dynamicMetadata": {}
+  }
+ ],
+ "selections": [
+  {
+   "id": "0QA386127772#2351099784_13L88808Q1-166127884Q20",
+   "marketId": "386127772",
+   "label": "Kyren Williams",
+   "displayOdds": {
+    "american": "+400",
+    "decimal": "5.00",
+    "fractional": "4/1",
+    "percentage": "20%",
+    "multiplier": "5.00x"
+   },
+   "trueOdds": 5,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "641057",
+     "name": "Kyren Williams",
+     "type": "Player",
+     "seoIdentifier": "Kyren Williams",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 7,
+      "stringValue": "7.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123967"
+     }
+    }
+   ],
+   "sortOrder": 50084,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385568967#2348975176_13L88808Q1-2084365438Q20",
+   "marketId": "385568967",
+   "label": "Chuba Hubbard",
+   "displayOdds": {
+    "american": "+475",
+    "decimal": "5.75",
+    "fractional": "19/4",
+    "percentage": "17%",
+    "multiplier": "5.75x"
+   },
+   "trueOdds": 5.75,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "560815",
+     "name": "Chuba Hubbard",
+     "type": "Player",
+     "seoIdentifier": "Chuba Hubbard",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 7,
+      "stringValue": "7.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "122775"
+     }
+    }
+   ],
+   "sortOrder": 57576,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386127772#2351099785_13L88808Q11214736899Q20",
+   "marketId": "386127772",
+   "label": "Puka Nacua",
+   "displayOdds": {
+    "american": "+475",
+    "decimal": "5.75",
+    "fractional": "19/4",
+    "percentage": "17%",
+    "multiplier": "5.75x"
+   },
+   "trueOdds": 5.75,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "706654",
+     "name": "Puka Nacua",
+     "type": "Player",
+     "seoIdentifier": "Puka Nacua",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 4,
+      "stringValue": "4.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "135356"
+     }
+    }
+   ],
+   "sortOrder": 57585,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385568967#2348975271_13L88808Q1872485381Q20",
+   "marketId": "385568967",
+   "label": "Jonah Coleman",
+   "displayOdds": {
+    "american": "+650",
+    "decimal": "7.50",
+    "fractional": "13/2",
+    "percentage": "13%",
+    "multiplier": "7.50x"
+   },
+   "trueOdds": 7.5,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "957895",
+     "name": "Jonah Coleman",
+     "type": "Player",
+     "seoIdentifier": "Jonah Coleman",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "167949"
+     }
+    }
+   ],
+   "sortOrder": 75071,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386072423#2350885045_13L88808Q1-681441441Q20",
+   "marketId": "386072423",
+   "label": "Quinshon Judkins",
+   "displayOdds": {
+    "american": "+750",
+    "decimal": "8.50",
+    "fractional": "15/2",
+    "percentage": "11%",
+    "multiplier": "8.50x"
+   },
+   "trueOdds": 8.5,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "886065",
+     "name": "Quinshon Judkins",
+     "type": "Player",
+     "seoIdentifier": "Quinshon Judkins",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "157651"
+     }
+    }
+   ],
+   "sortOrder": 85045,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386127772#2351099786_13L88808Q11181433178Q20",
+   "marketId": "386127772",
+   "label": "Blake Corum",
+   "displayOdds": {
+    "american": "+800",
+    "decimal": "9.00",
+    "fractional": "8/1",
+    "percentage": "11%",
+    "multiplier": "9.00x"
+   },
+   "trueOdds": 9,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "780212",
+     "name": "Blake Corum",
+     "type": "Player",
+     "seoIdentifier": "Blake Corum",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 4,
+      "stringValue": "4.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123706"
+     }
+    }
+   ],
+   "sortOrder": 90086,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386127772#2351099772_13L88808Q11184000100Q20",
+   "marketId": "386127772",
+   "label": "Rachaad White",
+   "displayOdds": {
+    "american": "+900",
+    "decimal": "10.00",
+    "fractional": "9/1",
+    "percentage": "10%",
+    "multiplier": "10.00x"
+   },
+   "trueOdds": 10,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "617543",
+     "name": "Rachaad White",
+     "type": "Player",
+     "seoIdentifier": "Rachaad White",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123832"
+     }
+    }
+   ],
+   "sortOrder": 100072,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386072423#2350885036_13L88808Q1839820985Q20",
+   "marketId": "386072423",
+   "label": "Alvin Kamara",
+   "displayOdds": {
+    "american": "+1000",
+    "decimal": "11.00",
+    "fractional": "10/1",
+    "percentage": "9.0%",
+    "multiplier": "11.00x"
+   },
+   "trueOdds": 11,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "18573",
+     "name": "Alvin Kamara",
+     "type": "Player",
+     "seoIdentifier": "Alvin Kamara",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "55015"
+     }
+    }
+   ],
+   "sortOrder": 110036,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385568967#2348975260_13L88808Q11934492119Q20",
+   "marketId": "385568967",
+   "label": "Tetairoa McMillan",
+   "displayOdds": {
+    "american": "+1200",
+    "decimal": "13.00",
+    "fractional": "12/1",
+    "percentage": "7.6%",
+    "multiplier": "13.00x"
+   },
+   "trueOdds": 13,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "886102",
+     "name": "Tetairoa McMillan",
+     "type": "Player",
+     "seoIdentifier": "Tetairoa McMillan",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "167862"
+     }
+    }
+   ],
+   "sortOrder": 130060,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386072423#2350885034_13L88808Q12022577872Q20",
+   "marketId": "386072423",
+   "label": "Chris Olave",
+   "displayOdds": {
+    "american": "+1500",
+    "decimal": "16.00",
+    "fractional": "15/1",
+    "percentage": "6.2%",
+    "multiplier": "16.00x"
+   },
+   "trueOdds": 16,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "640762",
+     "name": "Chris Olave",
+     "type": "Player",
+     "seoIdentifier": "Chris Olave",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123722"
+     }
+    }
+   ],
+   "sortOrder": 160034,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385568967#2348975273_13L88808Q11544867689Q20",
+   "marketId": "385568967",
+   "label": "Jaylen Waddle",
+   "displayOdds": {
+    "american": "+1600",
+    "decimal": "17.00",
+    "fractional": "16/1",
+    "percentage": "5.8%",
+    "multiplier": "17.00x"
+   },
+   "trueOdds": 17,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "558963",
+     "name": "Jaylen Waddle",
+     "type": "Player",
+     "seoIdentifier": "Jaylen Waddle",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "100876"
+     }
+    }
+   ],
+   "sortOrder": 170073,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386127772#2351099773_13L88808Q1-60147958Q20",
+   "marketId": "386127772",
+   "label": "Stefon Diggs",
+   "displayOdds": {
+    "american": "+1700",
+    "decimal": "18.00",
+    "fractional": "17/1",
+    "percentage": "5.5%",
+    "multiplier": "18.00x"
+   },
+   "trueOdds": 18,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "17102",
+     "name": "Stefon Diggs",
+     "type": "Player",
+     "seoIdentifier": "Stefon Diggs",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 5,
+      "stringValue": "5.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "55002"
+     }
+    }
+   ],
+   "sortOrder": 180073,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385568967#2348975261_13L88808Q1131228805Q20",
+   "marketId": "385568967",
+   "label": "Jalen Coker",
+   "displayOdds": {
+    "american": "+1800",
+    "decimal": "19.00",
+    "fractional": "18/1",
+    "percentage": "5.2%",
+    "multiplier": "19.00x"
+   },
+   "trueOdds": 19,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "788337",
+     "name": "Jalen Coker",
+     "type": "Player",
+     "seoIdentifier": "Jalen Coker",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "181404"
+     }
+    }
+   ],
+   "sortOrder": 190061,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385568967#2348975274_13L88808Q1630325894Q20",
+   "marketId": "385568967",
+   "label": "Courtland Sutton",
+   "displayOdds": {
+    "american": "+2000",
+    "decimal": "21.00",
+    "fractional": "20/1",
+    "percentage": "4.7%",
+    "multiplier": "21.00x"
+   },
+   "trueOdds": 21,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "19036",
+     "name": "Courtland Sutton",
+     "type": "Player",
+     "seoIdentifier": "Courtland Sutton",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "54926"
+     }
+    }
+   ],
+   "sortOrder": 210074,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386127772#2351099774_13L88808Q11175147349Q20",
+   "marketId": "386127772",
+   "label": "Jayden Daniels",
+   "displayOdds": {
+    "american": "+2000",
+    "decimal": "21.00",
+    "fractional": "20/1",
+    "percentage": "4.7%",
+    "multiplier": "21.00x"
+   },
+   "trueOdds": 21,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "779695",
+     "name": "Jayden Daniels",
+     "type": "Player",
+     "seoIdentifier": "Jayden Daniels",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123830"
+     }
+    }
+   ],
+   "sortOrder": 210074,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386072423#2350885048_13L88808Q1-862670716Q20",
+   "marketId": "386072423",
+   "label": "Harold Fannin Jr.",
+   "displayOdds": {
+    "american": "+2200",
+    "decimal": "23.00",
+    "fractional": "22/1",
+    "percentage": "4.3%",
+    "multiplier": "23.00x"
+   },
+   "trueOdds": 23,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "886166",
+     "name": "Harold Fannin Jr.",
+     "type": "Player",
+     "seoIdentifier": "Harold Fannin Jr.",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "165733"
+     }
+    }
+   ],
+   "sortOrder": 230048,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386127772#2351099775_13L88808Q18505281Q20",
+   "marketId": "386127772",
+   "label": "Antonio Williams",
+   "displayOdds": {
+    "american": "+2200",
+    "decimal": "23.00",
+    "fractional": "22/1",
+    "percentage": "4.3%",
+    "multiplier": "23.00x"
+   },
+   "trueOdds": 23,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "957800",
+     "name": "Antonio Williams",
+     "type": "Player",
+     "seoIdentifier": "Antonio Williams",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "157654"
+     }
+    }
+   ],
+   "sortOrder": 230075,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386127772#2351099787_13L88808Q11735898398Q20",
+   "marketId": "386127772",
+   "label": "Tyler Higbee",
+   "displayOdds": {
+    "american": "+2200",
+    "decimal": "23.00",
+    "fractional": "22/1",
+    "percentage": "4.3%",
+    "multiplier": "23.00x"
+   },
+   "trueOdds": 23,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "13758",
+     "name": "Tyler Higbee",
+     "type": "Player",
+     "seoIdentifier": "Tyler Higbee",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "54988"
+     }
+    }
+   ],
+   "sortOrder": 230087,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386072423#2350885038_13L88808Q1-1463828113Q20",
+   "marketId": "386072423",
+   "label": "Juwan Johnson",
+   "displayOdds": {
+    "american": "+2500",
+    "decimal": "26.00",
+    "fractional": "25/1",
+    "percentage": "3.8%",
+    "multiplier": "26.00x"
+   },
+   "trueOdds": 26,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "485734",
+     "name": "Juwan Johnson",
+     "type": "Player",
+     "seoIdentifier": "Juwan Johnson",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "100259"
+     }
+    }
+   ],
+   "sortOrder": 260038,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386072423#2350885046_13L88808Q1-540137833Q20",
+   "marketId": "386072423",
+   "label": "Denzel Boston",
+   "displayOdds": {
+    "american": "+2500",
+    "decimal": "26.00",
+    "fractional": "25/1",
+    "percentage": "3.8%",
+    "multiplier": "26.00x"
+   },
+   "trueOdds": 26,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "954152",
+     "name": "Denzel Boston",
+     "type": "Player",
+     "seoIdentifier": "Denzel Boston",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "166123"
+     }
+    }
+   ],
+   "sortOrder": 260046,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386072423#2350885047_13L88808Q1-403159756Q20",
+   "marketId": "386072423",
+   "label": "KC Concepcion",
+   "displayOdds": {
+    "american": "+2500",
+    "decimal": "26.00",
+    "fractional": "25/1",
+    "percentage": "3.8%",
+    "multiplier": "26.00x"
+   },
+   "trueOdds": 26,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "957938",
+     "name": "KC Concepcion",
+     "type": "Player",
+     "seoIdentifier": "KC Concepcion Jr.",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 0,
+      "stringValue": "0.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "165212"
+     }
+    }
+   ],
+   "sortOrder": 260047,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385568967#2348975272_13L88808Q1-1048311142Q20",
+   "marketId": "385568967",
+   "label": "J.K. Dobbins",
+   "displayOdds": {
+    "american": "+2500",
+    "decimal": "26.00",
+    "fractional": "25/1",
+    "percentage": "3.8%",
+    "multiplier": "26.00x"
+   },
+   "trueOdds": 26,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "476830",
+     "name": "J.K. Dobbins",
+     "type": "Player",
+     "seoIdentifier": "J.K. Dobbins",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "62349"
+     }
+    }
+   ],
+   "sortOrder": 260072,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA386072423#2352561691_13L88808Q11659488704Q20",
+   "marketId": "386072423",
+   "label": "Audric Estime",
+   "displayOdds": {
+    "american": "+2500",
+    "decimal": "26.00",
+    "fractional": "25/1",
+    "percentage": "3.8%",
+    "multiplier": "26.00x"
+   },
+   "trueOdds": 26,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "787910",
+     "name": "Audric Estime",
+     "type": "Player",
+     "seoIdentifier": "Audric Estime",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "140191"
+     }
+    }
+   ],
+   "sortOrder": 260091,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385568967#2352345639_13L88808Q1-833906303Q20",
+   "marketId": "385568967",
+   "label": "Pat Bryant",
+   "displayOdds": {
+    "american": "+3500",
+    "decimal": "36.00",
+    "fractional": "35/1",
+    "percentage": "2.7%",
+    "multiplier": "36.00x"
+   },
+   "trueOdds": 36,
+   "outcomeType": "To Score 2 Or More",
+   "participants": [
+    {
+     "id": "886117",
+     "name": "Pat Bryant",
+     "type": "Player",
+     "seoIdentifier": "Pat Bryant",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "145212"
+     }
+    }
+   ],
+   "sortOrder": 360039,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357410546#2346299129_13L88808Q1-76168403Q20",
+   "marketId": "357410546",
+   "label": "Kyren Williams",
+   "displayOdds": {
+    "american": "+475",
+    "decimal": "5.75",
+    "fractional": "19/4",
+    "percentage": "17%",
+    "multiplier": "5.75x"
+   },
+   "trueOdds": 5.75,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "641057",
+     "name": "Kyren Williams",
+     "type": "Player",
+     "seoIdentifier": "Kyren Williams",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 7,
+      "stringValue": "7.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123967"
+     }
+    }
+   ],
+   "sortOrder": 1005750,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357416666#2346223706_13L88808Q1-252729994Q20",
+   "marketId": "357416666",
+   "label": "Chuba Hubbard",
+   "displayOdds": {
+    "american": "+500",
+    "decimal": "6.00",
+    "fractional": "5/1",
+    "percentage": "16%",
+    "multiplier": "6.00x"
+   },
+   "trueOdds": 6,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "560815",
+     "name": "Chuba Hubbard",
+     "type": "Player",
+     "seoIdentifier": "Chuba Hubbard",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 7,
+      "stringValue": "7.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "122775"
+     }
+    }
+   ],
+   "sortOrder": 1006000,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357416666#2346223722_13L88808Q11162136431Q20",
+   "marketId": "357416666",
+   "label": "Jonah Coleman",
+   "displayOdds": {
+    "american": "+550",
+    "decimal": "6.50",
+    "fractional": "11/2",
+    "percentage": "15%",
+    "multiplier": "6.50x"
+   },
+   "trueOdds": 6.5,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "957895",
+     "name": "Jonah Coleman",
+     "type": "Player",
+     "seoIdentifier": "Jonah Coleman",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "167949"
+     }
+    }
+   ],
+   "sortOrder": 1006500,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357410546#2346299075_13L88808Q11034498997Q20",
+   "marketId": "357410546",
+   "label": "Puka Nacua",
+   "displayOdds": {
+    "american": "+550",
+    "decimal": "6.50",
+    "fractional": "11/2",
+    "percentage": "15%",
+    "multiplier": "6.50x"
+   },
+   "trueOdds": 6.5,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "706654",
+     "name": "Puka Nacua",
+     "type": "Player",
+     "seoIdentifier": "Puka Nacua",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 4,
+      "stringValue": "4.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "135356"
+     }
+    }
+   ],
+   "sortOrder": 1006500,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357446981#2346180397_13L88808Q1574465823Q20",
+   "marketId": "357446981",
+   "label": "Quinshon Judkins",
+   "displayOdds": {
+    "american": "+600",
+    "decimal": "7.00",
+    "fractional": "6/1",
+    "percentage": "14%",
+    "multiplier": "7.00x"
+   },
+   "trueOdds": 7,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "886065",
+     "name": "Quinshon Judkins",
+     "type": "Player",
+     "seoIdentifier": "Quinshon Judkins",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "157651"
+     }
+    }
+   ],
+   "sortOrder": 1007000,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357446981#2346179250_13L88808Q1-325599026Q20",
+   "marketId": "357446981",
+   "label": "Alvin Kamara",
+   "displayOdds": {
+    "american": "+700",
+    "decimal": "8.00",
+    "fractional": "7/1",
+    "percentage": "12%",
+    "multiplier": "8.00x"
+   },
+   "trueOdds": 8,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "18573",
+     "name": "Alvin Kamara",
+     "type": "Player",
+     "seoIdentifier": "Alvin Kamara",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "55015"
+     }
+    }
+   ],
+   "sortOrder": 1008000,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357410546#2346298230_13L88808Q12078460580Q20",
+   "marketId": "357410546",
+   "label": "Rachaad White",
+   "displayOdds": {
+    "american": "+800",
+    "decimal": "9.00",
+    "fractional": "8/1",
+    "percentage": "11%",
+    "multiplier": "9.00x"
+   },
+   "trueOdds": 9,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "617543",
+     "name": "Rachaad White",
+     "type": "Player",
+     "seoIdentifier": "Rachaad White",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123832"
+     }
+    }
+   ],
+   "sortOrder": 1009000,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357410546#2346299188_13L88808Q11209999570Q20",
+   "marketId": "357410546",
+   "label": "Blake Corum",
+   "displayOdds": {
+    "american": "+800",
+    "decimal": "9.00",
+    "fractional": "8/1",
+    "percentage": "11%",
+    "multiplier": "9.00x"
+   },
+   "trueOdds": 9,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "780212",
+     "name": "Blake Corum",
+     "type": "Player",
+     "seoIdentifier": "Blake Corum",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 4,
+      "stringValue": "4.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123706"
+     }
+    }
+   ],
+   "sortOrder": 1009000,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357446981#2346179412_13L88808Q1268307124Q20",
+   "marketId": "357446981",
+   "label": "Chris Olave",
+   "displayOdds": {
+    "american": "+1000",
+    "decimal": "11.00",
+    "fractional": "10/1",
+    "percentage": "9.0%",
+    "multiplier": "11.00x"
+   },
+   "trueOdds": 11,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "640762",
+     "name": "Chris Olave",
+     "type": "Player",
+     "seoIdentifier": "Chris Olave",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123722"
+     }
+    }
+   ],
+   "sortOrder": 1011000,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357416666#2346223708_13L88808Q1701504788Q20",
+   "marketId": "357416666",
+   "label": "Tetairoa McMillan",
+   "displayOdds": {
+    "american": "+1000",
+    "decimal": "11.00",
+    "fractional": "10/1",
+    "percentage": "9.0%",
+    "multiplier": "11.00x"
+   },
+   "trueOdds": 11,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "886102",
+     "name": "Tetairoa McMillan",
+     "type": "Player",
+     "seoIdentifier": "Tetairoa McMillan",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "167862"
+     }
+    }
+   ],
+   "sortOrder": 1011000,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357416666#2346223724_13L88808Q11818349118Q20",
+   "marketId": "357416666",
+   "label": "Jaylen Waddle",
+   "displayOdds": {
+    "american": "+1100",
+    "decimal": "12.00",
+    "fractional": "11/1",
+    "percentage": "8.3%",
+    "multiplier": "12.00x"
+   },
+   "trueOdds": 12,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "558963",
+     "name": "Jaylen Waddle",
+     "type": "Player",
+     "seoIdentifier": "Jaylen Waddle",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "100876"
+     }
+    }
+   ],
+   "sortOrder": 1012000,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357416666#2346223725_13L88808Q1-266455955Q20",
+   "marketId": "357416666",
+   "label": "Courtland Sutton",
+   "displayOdds": {
+    "american": "+1100",
+    "decimal": "12.00",
+    "fractional": "11/1",
+    "percentage": "8.3%",
+    "multiplier": "12.00x"
+   },
+   "trueOdds": 12,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "19036",
+     "name": "Courtland Sutton",
+     "type": "Player",
+     "seoIdentifier": "Courtland Sutton",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "54926"
+     }
+    }
+   ],
+   "sortOrder": 1012000,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357446981#2346180602_13L88808Q11474690321Q20",
+   "marketId": "357446981",
+   "label": "Harold Fannin Jr.",
+   "displayOdds": {
+    "american": "+1200",
+    "decimal": "13.00",
+    "fractional": "12/1",
+    "percentage": "7.6%",
+    "multiplier": "13.00x"
+   },
+   "trueOdds": 13,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "886166",
+     "name": "Harold Fannin Jr.",
+     "type": "Player",
+     "seoIdentifier": "Harold Fannin Jr.",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "165733"
+     }
+    }
+   ],
+   "sortOrder": 1013000,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357416666#2346223707_13L88808Q1-524867692Q20",
+   "marketId": "357416666",
+   "label": "Jalen Coker",
+   "displayOdds": {
+    "american": "+1200",
+    "decimal": "13.00",
+    "fractional": "12/1",
+    "percentage": "7.6%",
+    "multiplier": "13.00x"
+   },
+   "trueOdds": 13,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "788337",
+     "name": "Jalen Coker",
+     "type": "Player",
+     "seoIdentifier": "Jalen Coker",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "181404"
+     }
+    }
+   ],
+   "sortOrder": 1013000,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357446981#2346179719_13L88808Q11543263768Q20",
+   "marketId": "357446981",
+   "label": "Juwan Johnson",
+   "displayOdds": {
+    "american": "+1300",
+    "decimal": "14.00",
+    "fractional": "13/1",
+    "percentage": "7.1%",
+    "multiplier": "14.00x"
+   },
+   "trueOdds": 14,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "485734",
+     "name": "Juwan Johnson",
+     "type": "Player",
+     "seoIdentifier": "Juwan Johnson",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "100259"
+     }
+    }
+   ],
+   "sortOrder": 1014000,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357446981#2346180487_13L88808Q11965821720Q20",
+   "marketId": "357446981",
+   "label": "KC Concepcion",
+   "displayOdds": {
+    "american": "+1300",
+    "decimal": "14.00",
+    "fractional": "13/1",
+    "percentage": "7.1%",
+    "multiplier": "14.00x"
+   },
+   "trueOdds": 14,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "957938",
+     "name": "KC Concepcion",
+     "type": "Player",
+     "seoIdentifier": "KC Concepcion Jr.",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 0,
+      "stringValue": "0.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "165212"
+     }
+    }
+   ],
+   "sortOrder": 1014000,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357410546#2346298468_13L88808Q11470152022Q20",
+   "marketId": "357410546",
+   "label": "Stefon Diggs",
+   "displayOdds": {
+    "american": "+1300",
+    "decimal": "14.00",
+    "fractional": "13/1",
+    "percentage": "7.1%",
+    "multiplier": "14.00x"
+   },
+   "trueOdds": 14,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "17102",
+     "name": "Stefon Diggs",
+     "type": "Player",
+     "seoIdentifier": "Stefon Diggs",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 5,
+      "stringValue": "5.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "55002"
+     }
+    }
+   ],
+   "sortOrder": 1014000,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357446981#2346180556_13L88808Q1-1350600953Q20",
+   "marketId": "357446981",
+   "label": "Denzel Boston",
+   "displayOdds": {
+    "american": "+1400",
+    "decimal": "15.00",
+    "fractional": "14/1",
+    "percentage": "6.6%",
+    "multiplier": "15.00x"
+   },
+   "trueOdds": 15,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "954152",
+     "name": "Denzel Boston",
+     "type": "Player",
+     "seoIdentifier": "Denzel Boston",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "166123"
+     }
+    }
+   ],
+   "sortOrder": 1015000,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357410546#2346298343_13L88808Q1-1551550882Q20",
+   "marketId": "357410546",
+   "label": "Jayden Daniels",
+   "displayOdds": {
+    "american": "+1400",
+    "decimal": "15.00",
+    "fractional": "14/1",
+    "percentage": "6.6%",
+    "multiplier": "15.00x"
+   },
+   "trueOdds": 15,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "779695",
+     "name": "Jayden Daniels",
+     "type": "Player",
+     "seoIdentifier": "Jayden Daniels",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123830"
+     }
+    }
+   ],
+   "sortOrder": 1015000,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357410546#2346299234_13L88808Q12061836435Q20",
+   "marketId": "357410546",
+   "label": "Tyler Higbee",
+   "displayOdds": {
+    "american": "+1400",
+    "decimal": "15.00",
+    "fractional": "14/1",
+    "percentage": "6.6%",
+    "multiplier": "15.00x"
+   },
+   "trueOdds": 15,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "13758",
+     "name": "Tyler Higbee",
+     "type": "Player",
+     "seoIdentifier": "Tyler Higbee",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "54988"
+     }
+    }
+   ],
+   "sortOrder": 1015000,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357446981#2346179642_13L88808Q1-1921044867Q20",
+   "marketId": "357446981",
+   "label": "Devaughn Vele",
+   "displayOdds": {
+    "american": "+1500",
+    "decimal": "16.00",
+    "fractional": "15/1",
+    "percentage": "6.2%",
+    "multiplier": "16.00x"
+   },
+   "trueOdds": 16,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "788007",
+     "name": "Devaughn Vele",
+     "type": "Player",
+     "seoIdentifier": "Devaughn Vele",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "134417"
+     }
+    }
+   ],
+   "sortOrder": 1016000,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357416666#2346223723_13L88808Q11131449931Q20",
+   "marketId": "357416666",
+   "label": "J.K. Dobbins",
+   "displayOdds": {
+    "american": "+1500",
+    "decimal": "16.00",
+    "fractional": "15/1",
+    "percentage": "6.2%",
+    "multiplier": "16.00x"
+   },
+   "trueOdds": 16,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "476830",
+     "name": "J.K. Dobbins",
+     "type": "Player",
+     "seoIdentifier": "J.K. Dobbins",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "62349"
+     }
+    }
+   ],
+   "sortOrder": 1016000,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357410546#2346298427_13L88808Q1-152748776Q20",
+   "marketId": "357410546",
+   "label": "Chigoziem Okonkwo",
+   "displayOdds": {
+    "american": "+1600",
+    "decimal": "17.00",
+    "fractional": "16/1",
+    "percentage": "5.8%",
+    "multiplier": "17.00x"
+   },
+   "trueOdds": 17,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "641038",
+     "name": "Chigoziem Okonkwo",
+     "type": "Player",
+     "seoIdentifier": "Chig Okonkwo",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 0,
+      "stringValue": "0.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "144041"
+     }
+    }
+   ],
+   "sortOrder": 1017000,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA357416666#2352345574_13L88808Q11555734454Q20",
+   "marketId": "357416666",
+   "label": "Pat Bryant",
+   "displayOdds": {
+    "american": "+1800",
+    "decimal": "19.00",
+    "fractional": "18/1",
+    "percentage": "5.2%",
+    "multiplier": "19.00x"
+   },
+   "trueOdds": 19,
+   "outcomeType": "First Scorer",
+   "participants": [
+    {
+     "id": "886117",
+     "name": "Pat Bryant",
+     "type": "Player",
+     "seoIdentifier": "Pat Bryant",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "145212"
+     }
+    }
+   ],
+   "sortOrder": 1019000,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385047734#2346301478_13L88808Q12008738677Q20",
+   "marketId": "385047734",
+   "label": "Kyren Williams",
+   "displayOdds": {
+    "american": "\u2212145",
+    "decimal": "1.68",
+    "fractional": "20/29",
+    "percentage": "59%",
+    "multiplier": "1.68x"
+   },
+   "trueOdds": 1.68965518,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "641057",
+     "name": "Kyren Williams",
+     "type": "Player",
+     "seoIdentifier": "Kyren Williams",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 7,
+      "stringValue": "7.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123967"
+     }
+    }
+   ],
+   "sortOrder": 3001680,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385047734#2346301477_13L88808Q1-1261907500Q20",
+   "marketId": "385047734",
+   "label": "Puka Nacua",
+   "displayOdds": {
+    "american": "\u2212125",
+    "decimal": "1.80",
+    "fractional": "4/5",
+    "percentage": "55%",
+    "multiplier": "1.80x"
+   },
+   "trueOdds": 1.8,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "706654",
+     "name": "Puka Nacua",
+     "type": "Player",
+     "seoIdentifier": "Puka Nacua",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 4,
+      "stringValue": "4.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "135356"
+     }
+    }
+   ],
+   "sortOrder": 3001800,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385032605#2346227920_13L88808Q1850190615Q20",
+   "marketId": "385032605",
+   "label": "Chuba Hubbard",
+   "displayOdds": {
+    "american": "\u2212120",
+    "decimal": "1.83",
+    "fractional": "5/6",
+    "percentage": "54%",
+    "multiplier": "1.83x"
+   },
+   "trueOdds": 1.83333334,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "560815",
+     "name": "Chuba Hubbard",
+     "type": "Player",
+     "seoIdentifier": "Chuba Hubbard",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 7,
+      "stringValue": "7.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "122775"
+     }
+    }
+   ],
+   "sortOrder": 3001830,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385032605#2346227932_13L88808Q1-2126192684Q20",
+   "marketId": "385032605",
+   "label": "Jonah Coleman",
+   "displayOdds": {
+    "american": "+105",
+    "decimal": "2.05",
+    "fractional": "21/20",
+    "percentage": "48%",
+    "multiplier": "2.05x"
+   },
+   "trueOdds": 2.05,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "957895",
+     "name": "Jonah Coleman",
+     "type": "Player",
+     "seoIdentifier": "Jonah Coleman",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "167949"
+     }
+    }
+   ],
+   "sortOrder": 3002050,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385025186#2346191577_13L88808Q1-1895349765Q20",
+   "marketId": "385025186",
+   "label": "Quinshon Judkins",
+   "displayOdds": {
+    "american": "+120",
+    "decimal": "2.20",
+    "fractional": "6/5",
+    "percentage": "45%",
+    "multiplier": "2.20x"
+   },
+   "trueOdds": 2.2,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "886065",
+     "name": "Quinshon Judkins",
+     "type": "Player",
+     "seoIdentifier": "Quinshon Judkins",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "157651"
+     }
+    }
+   ],
+   "sortOrder": 3002200,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385047734#2346301479_13L88808Q11373713880Q20",
+   "marketId": "385047734",
+   "label": "Blake Corum",
+   "displayOdds": {
+    "american": "+120",
+    "decimal": "2.20",
+    "fractional": "6/5",
+    "percentage": "45%",
+    "multiplier": "2.20x"
+   },
+   "trueOdds": 2.2,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "780212",
+     "name": "Blake Corum",
+     "type": "Player",
+     "seoIdentifier": "Blake Corum",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 4,
+      "stringValue": "4.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123706"
+     }
+    }
+   ],
+   "sortOrder": 3002200,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385047734#2346301464_13L88808Q1968442089Q20",
+   "marketId": "385047734",
+   "label": "Rachaad White",
+   "displayOdds": {
+    "american": "+135",
+    "decimal": "2.35",
+    "fractional": "27/20",
+    "percentage": "42%",
+    "multiplier": "2.35x"
+   },
+   "trueOdds": 2.35,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "617543",
+     "name": "Rachaad White",
+     "type": "Player",
+     "seoIdentifier": "Rachaad White",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123832"
+     }
+    }
+   ],
+   "sortOrder": 3002350,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385025186#2346191563_13L88808Q11055160431Q20",
+   "marketId": "385025186",
+   "label": "Alvin Kamara",
+   "displayOdds": {
+    "american": "+140",
+    "decimal": "2.40",
+    "fractional": "7/5",
+    "percentage": "41%",
+    "multiplier": "2.40x"
+   },
+   "trueOdds": 2.4,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "18573",
+     "name": "Alvin Kamara",
+     "type": "Player",
+     "seoIdentifier": "Alvin Kamara",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "55015"
+     }
+    }
+   ],
+   "sortOrder": 3002400,
+   "tags": [
+    "SGP",
+    "1stFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385032605#2346227922_13L88808Q1-719490824Q20",
+   "marketId": "385032605",
+   "label": "Tetairoa McMillan",
+   "displayOdds": {
+    "american": "+165",
+    "decimal": "2.65",
+    "fractional": "33/20",
+    "percentage": "37%",
+    "multiplier": "2.65x"
+   },
+   "trueOdds": 2.65,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "886102",
+     "name": "Tetairoa McMillan",
+     "type": "Player",
+     "seoIdentifier": "Tetairoa McMillan",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "167862"
+     }
+    }
+   ],
+   "sortOrder": 3002650,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385025186#2346191564_13L88808Q1-1726186093Q20",
+   "marketId": "385025186",
+   "label": "Chris Olave",
+   "displayOdds": {
+    "american": "+195",
+    "decimal": "2.95",
+    "fractional": "39/20",
+    "percentage": "33%",
+    "multiplier": "2.95x"
+   },
+   "trueOdds": 2.95,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "640762",
+     "name": "Chris Olave",
+     "type": "Player",
+     "seoIdentifier": "Chris Olave",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123722"
+     }
+    }
+   ],
+   "sortOrder": 3002950,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385032605#2346227934_13L88808Q1-400886175Q20",
+   "marketId": "385032605",
+   "label": "Jaylen Waddle",
+   "displayOdds": {
+    "american": "+195",
+    "decimal": "2.95",
+    "fractional": "39/20",
+    "percentage": "33%",
+    "multiplier": "2.95x"
+   },
+   "trueOdds": 2.95,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "558963",
+     "name": "Jaylen Waddle",
+     "type": "Player",
+     "seoIdentifier": "Jaylen Waddle",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "100876"
+     }
+    }
+   ],
+   "sortOrder": 3002950,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385047734#2346301467_13L88808Q1622596392Q20",
+   "marketId": "385047734",
+   "label": "Stefon Diggs",
+   "displayOdds": {
+    "american": "+205",
+    "decimal": "3.05",
+    "fractional": "41/20",
+    "percentage": "32%",
+    "multiplier": "3.05x"
+   },
+   "trueOdds": 3.05,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "17102",
+     "name": "Stefon Diggs",
+     "type": "Player",
+     "seoIdentifier": "Stefon Diggs",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 5,
+      "stringValue": "5.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "55002"
+     }
+    }
+   ],
+   "sortOrder": 3003050,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385032605#2346227921_13L88808Q1-537154100Q20",
+   "marketId": "385032605",
+   "label": "Jalen Coker",
+   "displayOdds": {
+    "american": "+215",
+    "decimal": "3.15",
+    "fractional": "43/20",
+    "percentage": "31%",
+    "multiplier": "3.15x"
+   },
+   "trueOdds": 3.15,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "788337",
+     "name": "Jalen Coker",
+     "type": "Player",
+     "seoIdentifier": "Jalen Coker",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "181404"
+     }
+    }
+   ],
+   "sortOrder": 3003150,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385032605#2346227935_13L88808Q11208752225Q20",
+   "marketId": "385032605",
+   "label": "Courtland Sutton",
+   "displayOdds": {
+    "american": "+220",
+    "decimal": "3.20",
+    "fractional": "11/5",
+    "percentage": "31%",
+    "multiplier": "3.20x"
+   },
+   "trueOdds": 3.2,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "19036",
+     "name": "Courtland Sutton",
+     "type": "Player",
+     "seoIdentifier": "Courtland Sutton",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "54926"
+     }
+    }
+   ],
+   "sortOrder": 3003200,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385025186#2346191580_13L88808Q1466829631Q20",
+   "marketId": "385025186",
+   "label": "Harold Fannin Jr.",
+   "displayOdds": {
+    "american": "+230",
+    "decimal": "3.30",
+    "fractional": "23/10",
+    "percentage": "30%",
+    "multiplier": "3.30x"
+   },
+   "trueOdds": 3.3,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "886166",
+     "name": "Harold Fannin Jr.",
+     "type": "Player",
+     "seoIdentifier": "Harold Fannin Jr.",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "165733"
+     }
+    }
+   ],
+   "sortOrder": 3003300,
+   "tags": [
+    "SGP",
+    "2ndFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385047734#2346301465_13L88808Q1111756323Q20",
+   "marketId": "385047734",
+   "label": "Jayden Daniels",
+   "displayOdds": {
+    "american": "+230",
+    "decimal": "3.30",
+    "fractional": "23/10",
+    "percentage": "30%",
+    "multiplier": "3.30x"
+   },
+   "trueOdds": 3.3,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "779695",
+     "name": "Jayden Daniels",
+     "type": "Player",
+     "seoIdentifier": "Jayden Daniels",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 2,
+      "stringValue": "2.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "123830"
+     }
+    }
+   ],
+   "sortOrder": 3003300,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385047734#2346301468_13L88808Q1-908966819Q20",
+   "marketId": "385047734",
+   "label": "Antonio Williams",
+   "displayOdds": {
+    "american": "+255",
+    "decimal": "3.55",
+    "fractional": "51/20",
+    "percentage": "28%",
+    "multiplier": "3.55x"
+   },
+   "trueOdds": 3.55,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "957800",
+     "name": "Antonio Williams",
+     "type": "Player",
+     "seoIdentifier": "Antonio Williams",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "157654"
+     }
+    }
+   ],
+   "sortOrder": 3003550,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385025186#2346191579_13L88808Q1-1280421193Q20",
+   "marketId": "385025186",
+   "label": "Denzel Boston",
+   "displayOdds": {
+    "american": "+260",
+    "decimal": "3.60",
+    "fractional": "13/5",
+    "percentage": "27%",
+    "multiplier": "3.60x"
+   },
+   "trueOdds": 3.6,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "954152",
+     "name": "Denzel Boston",
+     "type": "Player",
+     "seoIdentifier": "Denzel Boston",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "166123"
+     }
+    }
+   ],
+   "sortOrder": 3003600,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385047734#2346301480_13L88808Q1244078380Q20",
+   "marketId": "385047734",
+   "label": "Tyler Higbee",
+   "displayOdds": {
+    "american": "+260",
+    "decimal": "3.60",
+    "fractional": "13/5",
+    "percentage": "27%",
+    "multiplier": "3.60x"
+   },
+   "trueOdds": 3.6,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "13758",
+     "name": "Tyler Higbee",
+     "type": "Player",
+     "seoIdentifier": "Tyler Higbee",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "54988"
+     }
+    }
+   ],
+   "sortOrder": 3003600,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385032605#2346227933_13L88808Q11696076099Q20",
+   "marketId": "385032605",
+   "label": "J.K. Dobbins",
+   "displayOdds": {
+    "american": "+275",
+    "decimal": "3.75",
+    "fractional": "11/4",
+    "percentage": "26%",
+    "multiplier": "3.75x"
+   },
+   "trueOdds": 3.75,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "476830",
+     "name": "J.K. Dobbins",
+     "type": "Player",
+     "seoIdentifier": "J.K. Dobbins",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "62349"
+     }
+    }
+   ],
+   "sortOrder": 3003750,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385025186#2346191568_13L88808Q1873985604Q20",
+   "marketId": "385025186",
+   "label": "Juwan Johnson",
+   "displayOdds": {
+    "american": "+280",
+    "decimal": "3.80",
+    "fractional": "14/5",
+    "percentage": "26%",
+    "multiplier": "3.80x"
+   },
+   "trueOdds": 3.8,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "485734",
+     "name": "Juwan Johnson",
+     "type": "Player",
+     "seoIdentifier": "Juwan Johnson",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 3,
+      "stringValue": "3.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "100259"
+     }
+    }
+   ],
+   "sortOrder": 3003800,
+   "tags": [
+    "SGP",
+    "3rdFavorite",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385025186#2346191578_13L88808Q1254821704Q20",
+   "marketId": "385025186",
+   "label": "KC Concepcion",
+   "displayOdds": {
+    "american": "+280",
+    "decimal": "3.80",
+    "fractional": "14/5",
+    "percentage": "26%",
+    "multiplier": "3.80x"
+   },
+   "trueOdds": 3.8,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "957938",
+     "name": "KC Concepcion",
+     "type": "Player",
+     "seoIdentifier": "KC Concepcion Jr.",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 0,
+      "stringValue": "0.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "165212"
+     }
+    }
+   ],
+   "sortOrder": 3003800,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385025186#2349572619_13L88808Q1214033643Q20",
+   "marketId": "385025186",
+   "label": "Audric Estime",
+   "displayOdds": {
+    "american": "+285",
+    "decimal": "3.85",
+    "fractional": "57/20",
+    "percentage": "25%",
+    "multiplier": "3.85x"
+   },
+   "trueOdds": 3.85,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "787910",
+     "name": "Audric Estime",
+     "type": "Player",
+     "seoIdentifier": "Audric Estime",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "HomePlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "140191"
+     }
+    }
+   ],
+   "sortOrder": 3003850,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  },
+  {
+   "id": "0QA385032605#2352345661_13L88808Q164075827Q20",
+   "marketId": "385032605",
+   "label": "Pat Bryant",
+   "displayOdds": {
+    "american": "+360",
+    "decimal": "4.60",
+    "fractional": "18/5",
+    "percentage": "21%",
+    "multiplier": "4.60x"
+   },
+   "trueOdds": 4.6,
+   "outcomeType": "Anytime Scorer",
+   "participants": [
+    {
+     "id": "886117",
+     "name": "Pat Bryant",
+     "type": "Player",
+     "seoIdentifier": "Pat Bryant",
+     "statistic": {
+      "prefix": "2026 TD",
+      "value": 1,
+      "stringValue": "1.000",
+      "showRecentStats": true
+     },
+     "venueRole": "AwayPlayer",
+     "isNationalTeam": false,
+     "metadata": {
+      "sdid": "145212"
+     }
+    }
+   ],
+   "sortOrder": 3004600,
+   "tags": [
+    "SGP",
+    "EarlyExitPlus",
+    "EarlyExit",
+    "OSB"
+   ],
+   "metadata": {}
+  }
+ ],
+ "categories": [
+  {
+   "id": 492,
+   "name": "Game Lines",
+   "sortOrder": 492,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 1054,
+   "name": "Live TD Scorers",
+   "sortOrder": 526,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 998,
+   "name": "Live Drive Props",
+   "sortOrder": 527,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 1680,
+   "name": "Live Play Props",
+   "sortOrder": 528,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 1003,
+   "name": "TD Scorers",
+   "sortOrder": 532,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1000,
+   "name": "Passing Props ",
+   "sortOrder": 550,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 1342,
+   "name": "Receiving Props",
+   "sortOrder": 634,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 1001,
+   "name": "Rushing Props",
+   "sortOrder": 638,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 1873,
+   "name": "Either Player Props",
+   "sortOrder": 644,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 1743,
+   "name": "Special Teams Props",
+   "sortOrder": 771,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 862,
+   "name": "Player Specials",
+   "sortOrder": 782
+  },
+  {
+   "id": 1644,
+   "name": "Game Specials",
+   "sortOrder": 785
+  },
+  {
+   "id": 1653,
+   "name": "Weekly Specials",
+   "sortOrder": 786
+  },
+  {
+   "id": 999,
+   "name": "DK Squares",
+   "sortOrder": 814
+  },
+  {
+   "id": 1303,
+   "name": "1st Drive",
+   "sortOrder": 856,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 1559,
+   "name": "1st of Game",
+   "sortOrder": 857,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 526,
+   "name": "Halves",
+   "sortOrder": 966,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 527,
+   "name": "Quarters",
+   "sortOrder": 967,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 528,
+   "name": "Game Props",
+   "sortOrder": 974,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 530,
+   "name": "Team Props",
+   "sortOrder": 976,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 529,
+   "name": "Futures",
+   "sortOrder": 985
+  },
+  {
+   "id": 787,
+   "name": "Awards",
+   "sortOrder": 986
+  },
+  {
+   "id": 1076,
+   "name": "Playoffs",
+   "sortOrder": 987
+  },
+  {
+   "id": 1286,
+   "name": "Wins",
+   "sortOrder": 999
+  },
+  {
+   "id": 1304,
+   "name": "Quick Hits",
+   "sortOrder": 1075,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 1185,
+   "name": "H2H Player Props",
+   "categoryType": "H2H",
+   "sortOrder": 1095,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1226,
+   "name": "Novelty Props",
+   "sortOrder": 1124
+  },
+  {
+   "id": 638,
+   "name": "Kicking Props",
+   "sortOrder": 1296
+  },
+  {
+   "id": 1744,
+   "name": "Defensive Props",
+   "sortOrder": 1730,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1972,
+   "name": "Drive Props",
+   "sortOrder": 1953,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 1984,
+   "name": "Draft",
+   "sortOrder": 1965
+  }
+ ],
+ "subcategories": [
+  {
+   "id": 4651,
+   "categoryId": 529,
+   "name": "Conference Winner",
+   "componentId": 12,
+   "sortOrder": 5623,
+   "tags": []
+  },
+  {
+   "id": 20165,
+   "categoryId": 1076,
+   "name": "To Make the Playoffs",
+   "componentId": 29,
+   "sortOrder": 20116,
+   "tags": []
+  },
+  {
+   "id": 20166,
+   "categoryId": 1076,
+   "name": "To Miss the Playoffs",
+   "componentId": 29,
+   "sortOrder": 20117,
+   "tags": []
+  },
+  {
+   "id": 10398,
+   "categoryId": 492,
+   "name": "Quarter / Full Time",
+   "componentId": 204,
+   "sortOrder": 10509,
+   "tags": []
+  },
+  {
+   "id": 10400,
+   "categoryId": 527,
+   "name": "Race to X Points",
+   "componentId": 30,
+   "sortOrder": 4668,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10404,
+   "categoryId": 527,
+   "name": "Winning Margin - 1st Quarter",
+   "componentId": 203,
+   "sortOrder": 4651,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10405,
+   "categoryId": 526,
+   "name": "Winning Margin - Listed Half",
+   "componentId": 203,
+   "sortOrder": 4733,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10445,
+   "categoryId": 526,
+   "name": "Shutout - Listed Half",
+   "componentId": 29,
+   "sortOrder": 9413,
+   "tags": []
+  },
+  {
+   "id": 10448,
+   "categoryId": 527,
+   "name": "Shutout - Listed Quarter",
+   "componentId": 29,
+   "sortOrder": 8472,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10508,
+   "categoryId": 530,
+   "name": "To Score 1st & Win/Lose",
+   "componentId": 29,
+   "sortOrder": 10479,
+   "tags": []
+  },
+  {
+   "id": 10509,
+   "categoryId": 530,
+   "name": "To Win With Shutout",
+   "componentId": 29,
+   "sortOrder": 10506,
+   "tags": []
+  },
+  {
+   "id": 10523,
+   "categoryId": 527,
+   "name": "Scoring Props",
+   "componentId": 29,
+   "sortOrder": 4669,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10554,
+   "categoryId": 530,
+   "name": "Team Odd/Even",
+   "componentId": 202,
+   "sortOrder": 10520,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 10623,
+   "categoryId": 527,
+   "name": "Quarter TDs - Total",
+   "componentId": 29,
+   "sortOrder": 4643,
+   "tags": []
+  },
+  {
+   "id": 10627,
+   "categoryId": 526,
+   "name": "Scoring Props - Listed Half",
+   "componentId": 29,
+   "sortOrder": 4667,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 11818,
+   "categoryId": 1003,
+   "name": "Last TD Scorer",
+   "componentId": 204,
+   "sortOrder": 10302,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 11924,
+   "categoryId": 530,
+   "name": "Team Totals (Bands)",
+   "componentId": 29,
+   "sortOrder": 5346,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 11938,
+   "categoryId": 1003,
+   "name": "TD Exactas",
+   "componentId": 204,
+   "sortOrder": 9658,
+   "tags": []
+  },
+  {
+   "id": 12352,
+   "categoryId": 1001,
+   "name": "Race to X Rush Yds",
+   "componentId": 204,
+   "sortOrder": 12314,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12422,
+   "categoryId": 1003,
+   "name": "3+ TDs",
+   "componentId": 204,
+   "sortOrder": 9539,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12424,
+   "categoryId": 1003,
+   "name": "Anytime TD - 1st Quarter",
+   "componentId": 204,
+   "sortOrder": 12386,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12425,
+   "categoryId": 1003,
+   "name": "First TD Scorer - 2nd Half",
+   "componentId": 204,
+   "sortOrder": 15916,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12438,
+   "categoryId": 1003,
+   "name": "TD Scorer",
+   "componentId": 18,
+   "sortOrder": 9512,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 12451,
+   "categoryId": 1003,
+   "name": "1st Team TD Scorer",
+   "componentId": 204,
+   "sortOrder": 9924,
+   "tags": []
+  },
+  {
+   "id": 12479,
+   "categoryId": 1185,
+   "name": "Rec Yds H2H",
+   "componentId": 310,
+   "sortOrder": 11948,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12625,
+   "categoryId": 526,
+   "name": "Halves Won",
+   "componentId": 29,
+   "sortOrder": 8476,
+   "tags": []
+  },
+  {
+   "id": 13195,
+   "categoryId": 492,
+   "name": "Alternate Spread",
+   "componentId": 240,
+   "sortOrder": 4645,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13196,
+   "categoryId": 492,
+   "name": "Alternate Total",
+   "componentId": 240,
+   "sortOrder": 4653,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13459,
+   "categoryId": 528,
+   "name": "Overtime",
+   "componentId": 12,
+   "sortOrder": 5080,
+   "tags": []
+  },
+  {
+   "id": 13525,
+   "categoryId": 527,
+   "name": "Alternate Spread - 1Q",
+   "componentId": 240,
+   "sortOrder": 4638,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13526,
+   "categoryId": 527,
+   "name": "Alternate Total - 1Q",
+   "componentId": 240,
+   "sortOrder": 4639,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13561,
+   "categoryId": 1303,
+   "name": "1st Drive Result",
+   "componentId": 29,
+   "sortOrder": 13521,
+   "tags": [
+    "Featured",
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13567,
+   "categoryId": 1303,
+   "name": "1st Drive - Conversions",
+   "componentId": 29,
+   "sortOrder": 13679,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13569,
+   "categoryId": 1303,
+   "name": "1st Drive - 1st Down",
+   "componentId": 29,
+   "sortOrder": 13532,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13570,
+   "categoryId": 1303,
+   "name": "1st Drive - Sack",
+   "componentId": 29,
+   "sortOrder": 13538,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13571,
+   "categoryId": 1303,
+   "name": "1st Drive - Distance",
+   "componentId": 29,
+   "sortOrder": 13548,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13572,
+   "categoryId": 1303,
+   "name": "1st Drive - Big Play",
+   "componentId": 29,
+   "sortOrder": 13549,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13574,
+   "categoryId": 1304,
+   "name": "1st Score Method - Team",
+   "componentId": 29,
+   "sortOrder": 14819,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13578,
+   "categoryId": 1303,
+   "name": "1st Drive FG",
+   "componentId": 29,
+   "sortOrder": 13550,
+   "tags": []
+  },
+  {
+   "id": 13582,
+   "categoryId": 526,
+   "name": "Alternate Spread - 1H",
+   "componentId": 240,
+   "sortOrder": 4629,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13583,
+   "categoryId": 526,
+   "name": "Alternate Spread - 2H",
+   "componentId": 240,
+   "sortOrder": 4634,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13584,
+   "categoryId": 526,
+   "name": "Alternate Total - 1H",
+   "componentId": 240,
+   "sortOrder": 4630,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13585,
+   "categoryId": 526,
+   "name": "Alternate Total - 2H",
+   "componentId": 240,
+   "sortOrder": 4636,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13588,
+   "categoryId": 1303,
+   "name": "Score on 1st Drive",
+   "componentId": 29,
+   "sortOrder": 13524,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13705,
+   "categoryId": 530,
+   "name": "Comeback",
+   "componentId": 29,
+   "sortOrder": 10511,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13720,
+   "categoryId": 1303,
+   "name": "Each Team 1st Drive",
+   "componentId": 204,
+   "sortOrder": 13529,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 14114,
+   "categoryId": 1342,
+   "name": "Rec Yards O/U",
+   "componentId": 8,
+   "sortOrder": 14085,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 14115,
+   "categoryId": 1342,
+   "name": "Receptions O/U",
+   "componentId": 8,
+   "sortOrder": 14182,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 14124,
+   "categoryId": 1342,
+   "name": "Most Receiving Yards",
+   "componentId": 204,
+   "sortOrder": 14931,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 14125,
+   "categoryId": 1342,
+   "name": "Most Receptions",
+   "componentId": 204,
+   "sortOrder": 14934,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 14126,
+   "categoryId": 1001,
+   "name": "Most Rushing Yards",
+   "componentId": 204,
+   "sortOrder": 14975,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 14489,
+   "categoryId": 528,
+   "name": "Last Scoring Play",
+   "componentId": 29,
+   "sortOrder": 5867,
+   "tags": []
+  },
+  {
+   "id": 14806,
+   "categoryId": 530,
+   "name": "Team Totals - TDs",
+   "componentId": 29,
+   "sortOrder": 5084,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15004,
+   "categoryId": 1000,
+   "name": "Pass Yards - 1Q O/U",
+   "componentId": 8,
+   "sortOrder": 12659,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15006,
+   "categoryId": 1342,
+   "name": "Rec Yards - 1Q O/U",
+   "componentId": 8,
+   "sortOrder": 14857,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15008,
+   "categoryId": 1001,
+   "name": "Rush Yards - 1Q O/U",
+   "componentId": 8,
+   "sortOrder": 10551,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15047,
+   "categoryId": 527,
+   "name": "Every Quarter",
+   "componentId": 29,
+   "sortOrder": 8352,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15049,
+   "categoryId": 1559,
+   "name": "1st First Down",
+   "componentId": 29,
+   "sortOrder": 15009,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 15052,
+   "categoryId": 1559,
+   "name": "1st Score",
+   "componentId": 29,
+   "sortOrder": 15013,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 15053,
+   "categoryId": 1559,
+   "name": "1st TD",
+   "componentId": 29,
+   "sortOrder": 15015,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 15059,
+   "categoryId": 1559,
+   "name": "1st Sack",
+   "componentId": 29,
+   "sortOrder": 15020,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 15060,
+   "categoryId": 1559,
+   "name": "1st Turnover",
+   "componentId": 29,
+   "sortOrder": 15017,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 15064,
+   "categoryId": 1559,
+   "name": "1st FG",
+   "componentId": 29,
+   "sortOrder": 15016,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 15937,
+   "categoryId": 1000,
+   "name": "Interceptions O/U",
+   "componentId": 8,
+   "sortOrder": 10648,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15948,
+   "categoryId": 1342,
+   "name": "Longest Reception O/U",
+   "componentId": 8,
+   "sortOrder": 16527,
+   "tags": []
+  },
+  {
+   "id": 15960,
+   "categoryId": 1003,
+   "name": "Player to Not Score",
+   "componentId": 29,
+   "sortOrder": 16928,
+   "tags": []
+  },
+  {
+   "id": 15968,
+   "categoryId": 1000,
+   "name": "Longest Completion O/U",
+   "componentId": 8,
+   "sortOrder": 12622,
+   "tags": []
+  },
+  {
+   "id": 16008,
+   "categoryId": 862,
+   "name": "QB Fantasy Points O/U",
+   "componentId": 8,
+   "sortOrder": 15967,
+   "tags": []
+  },
+  {
+   "id": 16009,
+   "categoryId": 862,
+   "name": "RB Fantasy Points O/U",
+   "componentId": 8,
+   "sortOrder": 15971,
+   "tags": []
+  },
+  {
+   "id": 16010,
+   "categoryId": 862,
+   "name": "WR/TE Fantasy Points O/U",
+   "componentId": 8,
+   "sortOrder": 15972,
+   "tags": []
+  },
+  {
+   "id": 16568,
+   "categoryId": 1000,
+   "name": "Pass TDs",
+   "componentId": 331,
+   "sortOrder": 9490,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16569,
+   "categoryId": 1000,
+   "name": "Pass Yards",
+   "componentId": 331,
+   "sortOrder": 9482,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16570,
+   "categoryId": 1342,
+   "name": "Receiving Yards",
+   "componentId": 331,
+   "sortOrder": 14074,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16571,
+   "categoryId": 1001,
+   "name": "Rush Yards",
+   "componentId": 331,
+   "sortOrder": 9479,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16572,
+   "categoryId": 1001,
+   "name": "Rush + Rec Yards",
+   "componentId": 331,
+   "sortOrder": 9480,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16573,
+   "categoryId": 1000,
+   "name": "Pass Yards - 1Q",
+   "componentId": 331,
+   "sortOrder": 9594,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16574,
+   "categoryId": 1342,
+   "name": "Rec Yards - 1Q",
+   "componentId": 331,
+   "sortOrder": 14077,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16575,
+   "categoryId": 1001,
+   "name": "Rush Yards - 1Q",
+   "componentId": 331,
+   "sortOrder": 9489,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16719,
+   "categoryId": 530,
+   "name": "Team Totals",
+   "componentId": 240,
+   "sortOrder": 4657,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16729,
+   "categoryId": 999,
+   "name": "DK Squares - Any Quarter",
+   "componentId": 250,
+   "sortOrder": 16686,
+   "tags": [
+    "Featured"
+   ]
+  },
+  {
+   "id": 16730,
+   "categoryId": 999,
+   "name": "DK Squares - Final Result",
+   "componentId": 250,
+   "sortOrder": 16687,
+   "tags": []
+  },
+  {
+   "id": 16731,
+   "categoryId": 528,
+   "name": "Correct Score",
+   "componentId": 255,
+   "sortOrder": 5594,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16819,
+   "categoryId": 1000,
+   "name": "Interceptions",
+   "componentId": 331,
+   "sortOrder": 9595,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16820,
+   "categoryId": 1001,
+   "name": "Rush Attempts",
+   "componentId": 331,
+   "sortOrder": 9485,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16821,
+   "categoryId": 1342,
+   "name": "Receptions",
+   "componentId": 331,
+   "sortOrder": 14075,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16837,
+   "categoryId": 527,
+   "name": "Correct Score - 1st Quarter",
+   "componentId": 255,
+   "sortOrder": 4644,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16838,
+   "categoryId": 526,
+   "name": "Correct Score - 1st Half",
+   "componentId": 255,
+   "sortOrder": 4712,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16888,
+   "categoryId": 1000,
+   "name": "Pass Attempts",
+   "componentId": 331,
+   "sortOrder": 9492,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16889,
+   "categoryId": 1000,
+   "name": "Completions",
+   "componentId": 331,
+   "sortOrder": 9498,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16896,
+   "categoryId": 1000,
+   "name": "Pass + Rush Yards",
+   "componentId": 331,
+   "sortOrder": 9572,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16923,
+   "categoryId": 1001,
+   "name": "Longest Rush",
+   "componentId": 331,
+   "sortOrder": 17177,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16924,
+   "categoryId": 1342,
+   "name": "Longest Reception",
+   "componentId": 331,
+   "sortOrder": 17101,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17055,
+   "categoryId": 1743,
+   "name": "FG Yards",
+   "componentId": 29,
+   "sortOrder": 17015,
+   "tags": []
+  },
+  {
+   "id": 17056,
+   "categoryId": 1743,
+   "name": "FG Total",
+   "componentId": 29,
+   "sortOrder": 17016,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17058,
+   "categoryId": 1743,
+   "name": "Punt Total",
+   "componentId": 29,
+   "sortOrder": 17018,
+   "tags": []
+  },
+  {
+   "id": 17060,
+   "categoryId": 1743,
+   "name": "PAT Made O/U",
+   "componentId": 8,
+   "sortOrder": 17090,
+   "tags": []
+  },
+  {
+   "id": 17061,
+   "categoryId": 1743,
+   "name": "FG Made O/U",
+   "componentId": 8,
+   "sortOrder": 17019,
+   "tags": []
+  },
+  {
+   "id": 17062,
+   "categoryId": 1743,
+   "name": "Kicking Pts O/U",
+   "componentId": 8,
+   "sortOrder": 17088,
+   "tags": []
+  },
+  {
+   "id": 17065,
+   "categoryId": 1744,
+   "name": "Sacks",
+   "componentId": 331,
+   "sortOrder": 17022,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17069,
+   "categoryId": 1744,
+   "name": "Safety",
+   "componentId": 29,
+   "sortOrder": 17027,
+   "tags": []
+  },
+  {
+   "id": 17072,
+   "categoryId": 1744,
+   "name": "Sacks O/U",
+   "componentId": 8,
+   "sortOrder": 17040,
+   "tags": []
+  },
+  {
+   "id": 17101,
+   "categoryId": 1342,
+   "name": "1st Reception",
+   "componentId": 29,
+   "sortOrder": 17169,
+   "tags": []
+  },
+  {
+   "id": 17131,
+   "categoryId": 1743,
+   "name": "FG Made",
+   "componentId": 331,
+   "sortOrder": 17009,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17132,
+   "categoryId": 1743,
+   "name": "Kicking Pts",
+   "componentId": 331,
+   "sortOrder": 17010,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17133,
+   "categoryId": 1743,
+   "name": "PAT Made",
+   "componentId": 331,
+   "sortOrder": 17011,
+   "tags": []
+  },
+  {
+   "id": 17146,
+   "categoryId": 528,
+   "name": "Octopus",
+   "componentId": 29,
+   "sortOrder": 4632,
+   "tags": []
+  },
+  {
+   "id": 18493,
+   "categoryId": 1000,
+   "name": "Pass Yards - 1H",
+   "componentId": 331,
+   "sortOrder": 18479,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18494,
+   "categoryId": 1001,
+   "name": "Rush Yards - 1H",
+   "componentId": 331,
+   "sortOrder": 18454,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18495,
+   "categoryId": 1342,
+   "name": "Rec Yards - 1H",
+   "componentId": 331,
+   "sortOrder": 18455,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18496,
+   "categoryId": 1000,
+   "name": "Combined Pass Yards",
+   "componentId": 331,
+   "sortOrder": 18480,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18497,
+   "categoryId": 1001,
+   "name": "Combined Rush Yards",
+   "componentId": 331,
+   "sortOrder": 18458,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18498,
+   "categoryId": 1342,
+   "name": "Combined Rec Yards",
+   "componentId": 331,
+   "sortOrder": 18459,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18500,
+   "categoryId": 1000,
+   "name": "Either Player Pass Yards",
+   "componentId": 331,
+   "sortOrder": 18501,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18501,
+   "categoryId": 1001,
+   "name": "Either Player Rush Yards",
+   "componentId": 331,
+   "sortOrder": 18481,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18502,
+   "categoryId": 1342,
+   "name": "Either Player Rec Yards",
+   "componentId": 331,
+   "sortOrder": 18477,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18514,
+   "categoryId": 1003,
+   "name": "Either Player 1st Touchdown",
+   "componentId": 29,
+   "sortOrder": 18471,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18522,
+   "categoryId": 1000,
+   "name": "Pass Attempts - 1Q",
+   "componentId": 331,
+   "sortOrder": 18505,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18523,
+   "categoryId": 1000,
+   "name": "Pass Completions - 1Q",
+   "componentId": 331,
+   "sortOrder": 18506,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18524,
+   "categoryId": 1001,
+   "name": "Rush Attempts - 1Q",
+   "componentId": 331,
+   "sortOrder": 18482,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18525,
+   "categoryId": 1001,
+   "name": "Rush + Rec Yards - 1Q",
+   "componentId": 331,
+   "sortOrder": 18500,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18526,
+   "categoryId": 1000,
+   "name": "Interceptions Thrown - 1Q",
+   "componentId": 331,
+   "sortOrder": 18508,
+   "tags": []
+  },
+  {
+   "id": 18527,
+   "categoryId": 1342,
+   "name": "Receptions - 1Q",
+   "componentId": 331,
+   "sortOrder": 18504,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18537,
+   "categoryId": 1744,
+   "name": "Tackles + Assists O/U",
+   "componentId": 8,
+   "sortOrder": 18494,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18538,
+   "categoryId": 1744,
+   "name": "Tackles + Ast",
+   "componentId": 331,
+   "sortOrder": 18495,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18539,
+   "categoryId": 1744,
+   "name": "Tackles O/U",
+   "componentId": 8,
+   "sortOrder": 18496,
+   "tags": []
+  },
+  {
+   "id": 18540,
+   "categoryId": 1744,
+   "name": "Tackles",
+   "componentId": 331,
+   "sortOrder": 18497,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18541,
+   "categoryId": 1744,
+   "name": "Assists O/U",
+   "componentId": 8,
+   "sortOrder": 18498,
+   "tags": []
+  },
+  {
+   "id": 18542,
+   "categoryId": 1744,
+   "name": "Assists",
+   "componentId": 331,
+   "sortOrder": 18499,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18554,
+   "categoryId": 1644,
+   "name": "Half Specials",
+   "componentId": 204,
+   "sortOrder": 18511,
+   "tags": []
+  },
+  {
+   "id": 18744,
+   "categoryId": 1003,
+   "name": "Either Anytime TD",
+   "componentId": 331,
+   "sortOrder": 18701,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18745,
+   "categoryId": 1003,
+   "name": "Combined TDs",
+   "componentId": 331,
+   "sortOrder": 18702,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18746,
+   "categoryId": 1185,
+   "name": "Rushing Yards",
+   "componentId": 310,
+   "sortOrder": 18703,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18778,
+   "categoryId": 1342,
+   "name": "Race to X Rec Yds",
+   "componentId": 204,
+   "sortOrder": 18735,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18876,
+   "categoryId": 1000,
+   "name": "Pass Yards - 1H O/U",
+   "componentId": 8,
+   "sortOrder": 18833,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18883,
+   "categoryId": 1001,
+   "name": "Rush Yards - 1H O/U",
+   "componentId": 8,
+   "sortOrder": 18840,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18884,
+   "categoryId": 1342,
+   "name": "Rec Yards - 1H O/U",
+   "componentId": 8,
+   "sortOrder": 18841,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18947,
+   "categoryId": 1000,
+   "name": "Longest Completion",
+   "componentId": 331,
+   "sortOrder": 18904,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18956,
+   "categoryId": 1342,
+   "name": "Race to X Receptions",
+   "componentId": 29,
+   "sortOrder": 18913,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 19080,
+   "categoryId": 1000,
+   "name": "Passing TDs - 1Q",
+   "componentId": 331,
+   "sortOrder": 19037,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 19085,
+   "categoryId": 530,
+   "name": "Team 1st Reception",
+   "componentId": 29,
+   "sortOrder": 19042,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20184,
+   "categoryId": 1972,
+   "name": "Drive Rushing Yards",
+   "componentId": 331,
+   "sortOrder": 20135,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 20185,
+   "categoryId": 1972,
+   "name": "Drive Receiving Yards",
+   "componentId": 331,
+   "sortOrder": 20136,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 20186,
+   "categoryId": 1972,
+   "name": "Drive Passing Yards",
+   "componentId": 331,
+   "sortOrder": 20137,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 20208,
+   "categoryId": 1972,
+   "name": "Drive Player Touchdown",
+   "componentId": 29,
+   "sortOrder": 20159,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 20209,
+   "categoryId": 1972,
+   "name": "Drive Player Receptions",
+   "componentId": 331,
+   "sortOrder": 20160,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 20257,
+   "categoryId": 1001,
+   "name": "Player Rushing Yds in Each Half",
+   "componentId": 331,
+   "sortOrder": 20208,
+   "tags": []
+  },
+  {
+   "id": 20258,
+   "categoryId": 1001,
+   "name": "Player Rush Yds in Each Quarter",
+   "componentId": 331,
+   "sortOrder": 20209,
+   "tags": []
+  },
+  {
+   "id": 20259,
+   "categoryId": 1342,
+   "name": "Player Rec Yds in Each Quarter",
+   "componentId": 331,
+   "sortOrder": 20210,
+   "tags": []
+  },
+  {
+   "id": 20260,
+   "categoryId": 1000,
+   "name": "Player Pass Yds in Each Quarter",
+   "componentId": 331,
+   "sortOrder": 20211,
+   "tags": []
+  },
+  {
+   "id": 20261,
+   "categoryId": 1342,
+   "name": "Player Rec Yds in Each Half",
+   "componentId": 331,
+   "sortOrder": 20212,
+   "tags": []
+  },
+  {
+   "id": 20262,
+   "categoryId": 1000,
+   "name": "Player Pass Yds in Each Half",
+   "componentId": 331,
+   "sortOrder": 20213,
+   "tags": []
+  },
+  {
+   "id": 20382,
+   "categoryId": 1003,
+   "name": "TD Scorer - Halves Grid",
+   "componentId": 18,
+   "sortOrder": 20333,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20426,
+   "categoryId": 1744,
+   "name": "Interceptions",
+   "componentId": 331,
+   "sortOrder": 20377,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 4518,
+   "categoryId": 492,
+   "name": "Game",
+   "componentId": 210,
+   "sortOrder": 4513,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4631,
+   "categoryId": 526,
+   "name": "1st Half",
+   "componentId": 210,
+   "sortOrder": 4626,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4632,
+   "categoryId": 527,
+   "name": "1st Quarter",
+   "componentId": 210,
+   "sortOrder": 4627,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4641,
+   "categoryId": 526,
+   "name": "2nd Half",
+   "componentId": 210,
+   "sortOrder": 4633,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4642,
+   "categoryId": 527,
+   "name": "2nd Quarter",
+   "componentId": 210,
+   "sortOrder": 4631,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4643,
+   "categoryId": 527,
+   "name": "3rd Quarter",
+   "componentId": 210,
+   "sortOrder": 4635,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4644,
+   "categoryId": 527,
+   "name": "4th Quarter",
+   "componentId": 210,
+   "sortOrder": 4637,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4659,
+   "categoryId": 528,
+   "name": "Odd/Even",
+   "componentId": 12,
+   "sortOrder": 16688,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4671,
+   "categoryId": 527,
+   "name": "1st Quarter - 3 Way",
+   "componentId": 11,
+   "sortOrder": 9276,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4738,
+   "categoryId": 526,
+   "name": "2nd Half - 3 Way",
+   "componentId": 11,
+   "sortOrder": 9410,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 5327,
+   "categoryId": 638,
+   "name": "Field Goal Props",
+   "componentId": 29,
+   "sortOrder": 5321,
+   "tags": []
+  },
+  {
+   "id": 5873,
+   "categoryId": 528,
+   "name": "Winning Margin",
+   "componentId": 202,
+   "sortOrder": 4654,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 8480,
+   "categoryId": 527,
+   "name": "Quarter Team Totals",
+   "componentId": 29,
+   "sortOrder": 4642,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9316,
+   "categoryId": 528,
+   "name": "Punt Props",
+   "componentId": 29,
+   "sortOrder": 9281,
+   "tags": []
+  },
+  {
+   "id": 9318,
+   "categoryId": 530,
+   "name": "Turnovers",
+   "componentId": 29,
+   "sortOrder": 10515,
+   "tags": []
+  },
+  {
+   "id": 9319,
+   "categoryId": 528,
+   "name": "TD Props",
+   "componentId": 29,
+   "sortOrder": 4640,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 9320,
+   "categoryId": 526,
+   "name": "TD Props",
+   "componentId": 29,
+   "sortOrder": 8473,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9323,
+   "categoryId": 528,
+   "name": "Largest Lead",
+   "componentId": 29,
+   "sortOrder": 5324,
+   "tags": []
+  },
+  {
+   "id": 9325,
+   "categoryId": 528,
+   "name": "Scoring Props",
+   "componentId": 29,
+   "sortOrder": 4628,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9326,
+   "categoryId": 528,
+   "name": "Both Teams to Score X",
+   "componentId": 29,
+   "sortOrder": 4660,
+   "tags": []
+  },
+  {
+   "id": 9449,
+   "categoryId": 526,
+   "name": "Team Odd/Even",
+   "componentId": 203,
+   "sortOrder": 9415,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9514,
+   "categoryId": 1001,
+   "name": "Rush Yards O/U",
+   "componentId": 8,
+   "sortOrder": 9493,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9517,
+   "categoryId": 1000,
+   "name": "Pass Attempts O/U",
+   "componentId": 8,
+   "sortOrder": 10649,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9518,
+   "categoryId": 1001,
+   "name": "Rush Attempts O/U",
+   "componentId": 8,
+   "sortOrder": 9591,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9522,
+   "categoryId": 1000,
+   "name": "Completions O/U",
+   "componentId": 8,
+   "sortOrder": 11931,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9523,
+   "categoryId": 1001,
+   "name": "Rush + Rec Yards O/U",
+   "componentId": 8,
+   "sortOrder": 9592,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9524,
+   "categoryId": 1000,
+   "name": "Pass Yards O/U",
+   "componentId": 8,
+   "sortOrder": 10550,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9525,
+   "categoryId": 1000,
+   "name": "Pass TDs O/U",
+   "componentId": 8,
+   "sortOrder": 10556,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9532,
+   "categoryId": 1000,
+   "name": "Pass + Rush Yards O/U",
+   "componentId": 8,
+   "sortOrder": 12055,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9533,
+   "categoryId": 1001,
+   "name": "Longest Rush O/U",
+   "componentId": 8,
+   "sortOrder": 12562,
+   "tags": []
+  },
+  {
+   "id": 9567,
+   "categoryId": 528,
+   "name": "Race to X Pts",
+   "componentId": 30,
+   "sortOrder": 4659,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9579,
+   "categoryId": 527,
+   "name": "Team Totals - Odd/Even",
+   "componentId": 203,
+   "sortOrder": 9295,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9583,
+   "categoryId": 526,
+   "name": "Team Totals - Listed Half",
+   "componentId": 29,
+   "sortOrder": 4655,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9584,
+   "categoryId": 526,
+   "name": "Race to X Points",
+   "componentId": 30,
+   "sortOrder": 9275,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9588,
+   "categoryId": 526,
+   "name": "Highest Scoring Half",
+   "componentId": 11,
+   "sortOrder": 9272,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9590,
+   "categoryId": 528,
+   "name": "2 Pt Conversion",
+   "componentId": 29,
+   "sortOrder": 5100,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9594,
+   "categoryId": 528,
+   "name": "Safety Props",
+   "componentId": 29,
+   "sortOrder": 9282,
+   "tags": []
+  },
+  {
+   "id": 9615,
+   "categoryId": 526,
+   "name": "1st Half - 3 Way ",
+   "componentId": 11,
+   "sortOrder": 9305,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9712,
+   "categoryId": 492,
+   "name": "Half Time / Full Time",
+   "componentId": 204,
+   "sortOrder": 10484,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 19060,
+   "categoryId": 1185,
+   "name": "Pass Yds H2H",
+   "componentId": 310,
+   "sortOrder": 19017,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20210,
+   "categoryId": 528,
+   "name": "Game Winning TD in OT",
+   "componentId": 29,
+   "sortOrder": 20161,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20263,
+   "categoryId": 1744,
+   "name": "Sacks in Each Half",
+   "componentId": 331,
+   "sortOrder": 20214,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20264,
+   "categoryId": 1000,
+   "name": "Each Player Pass Yds in Each Quarter",
+   "componentId": 331,
+   "sortOrder": 20215,
+   "tags": []
+  },
+  {
+   "id": 20266,
+   "categoryId": 1001,
+   "name": "Each Player Rush Yards in Each Quarter",
+   "componentId": 331,
+   "sortOrder": 20217,
+   "tags": []
+  },
+  {
+   "id": 20267,
+   "categoryId": 1000,
+   "name": "Each Player Pass Yds in Each Half",
+   "componentId": 331,
+   "sortOrder": 20218,
+   "tags": []
+  },
+  {
+   "id": 20268,
+   "categoryId": 1342,
+   "name": "Each Player Rec Yards in Each Half",
+   "componentId": 331,
+   "sortOrder": 20219,
+   "tags": []
+  },
+  {
+   "id": 20269,
+   "categoryId": 1001,
+   "name": "Each Player Rush Yds in Each Half",
+   "componentId": 331,
+   "sortOrder": 20220,
+   "tags": []
+  },
+  {
+   "id": 11792,
+   "categoryId": 998,
+   "name": "Sack This Drive",
+   "componentId": 29,
+   "sortOrder": 9615,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 11961,
+   "categoryId": 998,
+   "name": "New Downs",
+   "componentId": 29,
+   "sortOrder": 9650,
+   "tags": [
+    "Featured",
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 12726,
+   "categoryId": 1054,
+   "name": "3+ TDs",
+   "componentId": 204,
+   "sortOrder": 13598,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13633,
+   "categoryId": 998,
+   "name": "X Yard Play This Drive",
+   "componentId": 29,
+   "sortOrder": 9614,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 13636,
+   "categoryId": 998,
+   "name": "Conversion Props",
+   "componentId": 29,
+   "sortOrder": 9617,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 15706,
+   "categoryId": 527,
+   "name": "1st Quarter - Alt Total",
+   "componentId": 240,
+   "sortOrder": 9726,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 15707,
+   "categoryId": 527,
+   "name": "2nd Quarter - Alt Total",
+   "componentId": 240,
+   "sortOrder": 9728,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 15708,
+   "categoryId": 527,
+   "name": "3rd Quarter - Alt Total",
+   "componentId": 240,
+   "sortOrder": 10023,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16077,
+   "categoryId": 527,
+   "name": "1st Quarter - Alt Spread",
+   "componentId": 240,
+   "sortOrder": 9298,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16078,
+   "categoryId": 527,
+   "name": "2nd Quarter - Alt Spread",
+   "componentId": 240,
+   "sortOrder": 9414,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16079,
+   "categoryId": 527,
+   "name": "3rd Quarter - Alt Spread",
+   "componentId": 240,
+   "sortOrder": 9506,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16278,
+   "categoryId": 1680,
+   "name": "Next Attempt",
+   "componentId": 29,
+   "sortOrder": 16235,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16279,
+   "categoryId": 1680,
+   "name": "First Down Y/N - Exact Method",
+   "componentId": 29,
+   "sortOrder": 16236,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16280,
+   "categoryId": 1680,
+   "name": "Next Play TD",
+   "componentId": 29,
+   "sortOrder": 16237,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16281,
+   "categoryId": 1680,
+   "name": "Next Play 1st Down",
+   "componentId": 29,
+   "sortOrder": 16238,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16283,
+   "categoryId": 1680,
+   "name": "Next  Pass Attempt",
+   "componentId": 29,
+   "sortOrder": 16240,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16284,
+   "categoryId": 1680,
+   "name": "Next Carry",
+   "componentId": 29,
+   "sortOrder": 16241,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16285,
+   "categoryId": 1680,
+   "name": "Next Reception",
+   "componentId": 29,
+   "sortOrder": 16242,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 18479,
+   "categoryId": 1054,
+   "name": "4+ TDs",
+   "componentId": 204,
+   "sortOrder": 18436,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18480,
+   "categoryId": 1054,
+   "name": "5+ TDs",
+   "componentId": 204,
+   "sortOrder": 18437,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18483,
+   "categoryId": 1873,
+   "name": "Either Player Next Touchdown",
+   "componentId": 29,
+   "sortOrder": 18440,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 18503,
+   "categoryId": 1054,
+   "name": "TD Scorer - 1Q",
+   "componentId": 29,
+   "sortOrder": 18460,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18504,
+   "categoryId": 1054,
+   "name": "TD Scorer - 2Q",
+   "componentId": 29,
+   "sortOrder": 18461,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18505,
+   "categoryId": 1054,
+   "name": "TD Scorer - 3Q",
+   "componentId": 29,
+   "sortOrder": 18462,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18506,
+   "categoryId": 1054,
+   "name": "TD Scorer - 4Q",
+   "componentId": 29,
+   "sortOrder": 18463,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18507,
+   "categoryId": 1054,
+   "name": "TD Scorer - 1st Half",
+   "componentId": 29,
+   "sortOrder": 18464,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18508,
+   "categoryId": 1054,
+   "name": "TD Scorer - 2nd Half",
+   "componentId": 29,
+   "sortOrder": 18465,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18516,
+   "categoryId": 1054,
+   "name": "Either Player Touchdowns",
+   "componentId": 331,
+   "sortOrder": 18473,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 18946,
+   "categoryId": 1054,
+   "name": "Next Team TD Scorer",
+   "componentId": 29,
+   "sortOrder": 18903,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18957,
+   "categoryId": 638,
+   "name": "Kicking Points O/U",
+   "componentId": 29,
+   "sortOrder": 18914,
+   "tags": []
+  },
+  {
+   "id": 18958,
+   "categoryId": 1000,
+   "name": "Interceptions O/U",
+   "componentId": 29,
+   "sortOrder": 18915,
+   "tags": []
+  },
+  {
+   "id": 20083,
+   "categoryId": 1054,
+   "name": "Combined TDs",
+   "componentId": 331,
+   "sortOrder": 20034,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20203,
+   "categoryId": 998,
+   "name": "Drive Rushing Yards",
+   "componentId": 331,
+   "sortOrder": 20154,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20204,
+   "categoryId": 998,
+   "name": "Drive Receiving Yards",
+   "componentId": 331,
+   "sortOrder": 20155,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20205,
+   "categoryId": 998,
+   "name": "Drive Passing Yards",
+   "componentId": 331,
+   "sortOrder": 20156,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20207,
+   "categoryId": 998,
+   "name": "Drive Player Receptions",
+   "componentId": 331,
+   "sortOrder": 20158,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20354,
+   "categoryId": 1054,
+   "name": "TD Scorer Grid",
+   "componentId": 18,
+   "sortOrder": 20305,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20360,
+   "categoryId": 998,
+   "name": "Drive Player Touchdown",
+   "componentId": 204,
+   "sortOrder": 20311,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4653,
+   "categoryId": 530,
+   "name": "Team Totals",
+   "componentId": 29,
+   "sortOrder": 4648,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4660,
+   "categoryId": 526,
+   "name": "Odd/Even",
+   "componentId": 29,
+   "sortOrder": 13544,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4661,
+   "categoryId": 527,
+   "name": "Odd/Even",
+   "componentId": 29,
+   "sortOrder": 10489,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4673,
+   "categoryId": 527,
+   "name": "2nd Quarter (3 Way)",
+   "componentId": 11,
+   "sortOrder": 10412,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4674,
+   "categoryId": 527,
+   "name": "3rd Quarter (3 Way)",
+   "componentId": 11,
+   "sortOrder": 10414,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 5105,
+   "categoryId": 528,
+   "name": "Next Team to Score",
+   "componentId": 29,
+   "sortOrder": 9724,
+   "tags": []
+  },
+  {
+   "id": 9479,
+   "categoryId": 998,
+   "name": "Drive Result",
+   "componentId": 29,
+   "sortOrder": 9445,
+   "tags": [
+    "Featured",
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9480,
+   "categoryId": 998,
+   "name": "Drive Yardage",
+   "componentId": 29,
+   "sortOrder": 9446,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9159,
+   "categoryId": 529,
+   "name": "Stage of Elimination",
+   "componentId": 29,
+   "sortOrder": 11575,
+   "tags": []
+  },
+  {
+   "id": 10500,
+   "categoryId": 529,
+   "name": "Champion",
+   "componentId": 212,
+   "sortOrder": 4646,
+   "tags": []
+  },
+  {
+   "id": 10249,
+   "categoryId": 529,
+   "name": "Exact Result",
+   "componentId": 29,
+   "sortOrder": 11767,
+   "tags": []
+  },
+  {
+   "id": 7302,
+   "categoryId": 529,
+   "name": "Name the Finalists",
+   "componentId": 29,
+   "sortOrder": 7685,
+   "tags": []
+  },
+  {
+   "id": 7293,
+   "categoryId": 529,
+   "name": "Division Winner",
+   "componentId": 29,
+   "sortOrder": 7272,
+   "tags": []
+  },
+  {
+   "id": 15901,
+   "categoryId": 529,
+   "name": "Winning Conference",
+   "componentId": 29,
+   "sortOrder": 16579,
+   "tags": []
+  },
+  {
+   "id": 6447,
+   "categoryId": 529,
+   "name": "Champion Specials",
+   "componentId": 29,
+   "sortOrder": 15070,
+   "tags": []
+  },
+  {
+   "id": 18805,
+   "categoryId": 1286,
+   "name": "First Win",
+   "componentId": 204,
+   "sortOrder": 18762,
+   "tags": []
+  },
+  {
+   "id": 13339,
+   "categoryId": 787,
+   "name": "MVP",
+   "componentId": 29,
+   "sortOrder": 7205,
+   "tags": []
+  },
+  {
+   "id": 13340,
+   "categoryId": 787,
+   "name": "OPOY",
+   "componentId": 29,
+   "sortOrder": 7211,
+   "tags": []
+  },
+  {
+   "id": 13341,
+   "categoryId": 787,
+   "name": "DPOY",
+   "componentId": 29,
+   "sortOrder": 7212,
+   "tags": []
+  },
+  {
+   "id": 13344,
+   "categoryId": 787,
+   "name": "Coach",
+   "componentId": 29,
+   "sortOrder": 7213,
+   "tags": []
+  },
+  {
+   "id": 13342,
+   "categoryId": 787,
+   "name": "OROY",
+   "componentId": 29,
+   "sortOrder": 7206,
+   "tags": []
+  },
+  {
+   "id": 13343,
+   "categoryId": 787,
+   "name": "DROY",
+   "componentId": 29,
+   "sortOrder": 7210,
+   "tags": []
+  },
+  {
+   "id": 13345,
+   "categoryId": 787,
+   "name": "Comeback",
+   "componentId": 29,
+   "sortOrder": 8205,
+   "tags": []
+  },
+  {
+   "id": 18886,
+   "categoryId": 1653,
+   "name": "All Teams Specials",
+   "componentId": 204,
+   "sortOrder": 18843,
+   "tags": []
+  },
+  {
+   "id": 18518,
+   "categoryId": 1653,
+   "name": "Highest/Lowest Team",
+   "componentId": 29,
+   "sortOrder": 18475,
+   "tags": []
+  },
+  {
+   "id": 15962,
+   "categoryId": 1653,
+   "name": "Highest/Lowest Game",
+   "componentId": 204,
+   "sortOrder": 15975,
+   "tags": []
+  },
+  {
+   "id": 15982,
+   "categoryId": 1653,
+   "name": "Weekly Leaders",
+   "componentId": 29,
+   "sortOrder": 15918,
+   "tags": []
+  },
+  {
+   "id": 19218,
+   "categoryId": 1226,
+   "name": "Non-QB to Throw a Pass",
+   "componentId": 204,
+   "sortOrder": 19175,
+   "tags": []
+  },
+  {
+   "id": 16024,
+   "categoryId": 1653,
+   "name": "Weekly Totals",
+   "componentId": 29,
+   "sortOrder": 15977,
+   "tags": []
+  },
+  {
+   "id": 15858,
+   "categoryId": 1644,
+   "name": "Kickoff Specials",
+   "componentId": 29,
+   "sortOrder": 15816,
+   "tags": []
+  },
+  {
+   "id": 16020,
+   "categoryId": 1653,
+   "name": "QB Props",
+   "componentId": 29,
+   "sortOrder": 15939,
+   "tags": []
+  },
+  {
+   "id": 16021,
+   "categoryId": 1653,
+   "name": "1st Play Specials",
+   "componentId": 29,
+   "sortOrder": 15985,
+   "tags": []
+  },
+  {
+   "id": 18571,
+   "categoryId": 1653,
+   "name": "Weekly Specials",
+   "componentId": 29,
+   "sortOrder": 18528,
+   "tags": []
+  },
+  {
+   "id": 15079,
+   "categoryId": 862,
+   "name": "Player Specials",
+   "componentId": 204,
+   "sortOrder": 9774,
+   "tags": []
+  },
+  {
+   "id": 16053,
+   "categoryId": 1653,
+   "name": "Team Specials",
+   "componentId": 204,
+   "sortOrder": 16749,
+   "tags": []
+  },
+  {
+   "id": 15986,
+   "categoryId": 1653,
+   "name": "First TD Scorer - Sunday",
+   "componentId": 29,
+   "sortOrder": 15920,
+   "tags": []
+  },
+  {
+   "id": 13354,
+   "categoryId": 1286,
+   "name": "Regular Season Wins",
+   "componentId": 240,
+   "sortOrder": 13320,
+   "tags": []
+  },
+  {
+   "id": 20498,
+   "categoryId": 1984,
+   "name": "Pick Number",
+   "componentId": 29,
+   "sortOrder": 20449,
+   "tags": []
+  }
+ ]
+}

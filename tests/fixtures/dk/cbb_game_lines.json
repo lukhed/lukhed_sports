@@ -1,0 +1,1933 @@
+{
+ "sports": [
+  {
+   "id": "2",
+   "seoIdentifier": "Basketball",
+   "name": "Basketball",
+   "sortOrder": 59
+  }
+ ],
+ "leagues": [
+  {
+   "id": "92483",
+   "name": "College Basketball (M)",
+   "sportId": "2",
+   "sortOrder": 4875,
+   "tags": [
+    "OSB",
+    "FeaturedSubcategory",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible",
+    "PrePack",
+    "Featured",
+    "FavoriteableFromPage"
+   ],
+   "conferences": [
+    {
+     "id": "33",
+     "name": "Big 12"
+    },
+    {
+     "id": "38",
+     "name": "Big West"
+    },
+    {
+     "id": "39",
+     "name": "CAA"
+    },
+    {
+     "id": "43",
+     "name": "MAAC"
+    },
+    {
+     "id": "30",
+     "name": "A10"
+    },
+    {
+     "id": "51",
+     "name": "Patriot"
+    },
+    {
+     "id": "37",
+     "name": "Big Ten"
+    },
+    {
+     "id": "47",
+     "name": "MWC"
+    },
+    {
+     "id": "46",
+     "name": "MVC"
+    },
+    {
+     "id": "35",
+     "name": "Big Sky"
+    },
+    {
+     "id": "52",
+     "name": "SEC"
+    },
+    {
+     "id": "44",
+     "name": "MAC"
+    },
+    {
+     "id": "42",
+     "name": "Ivy League"
+    },
+    {
+     "id": "28",
+     "name": "America East"
+    },
+    {
+     "id": "34",
+     "name": "Big East"
+    },
+    {
+     "id": "48",
+     "name": "NEC"
+    },
+    {
+     "id": "56",
+     "name": "Sun Belt"
+    },
+    {
+     "id": "49",
+     "name": "OVC"
+    },
+    {
+     "id": "57",
+     "name": "Summit League"
+    },
+    {
+     "id": "40",
+     "name": "C-USA"
+    },
+    {
+     "id": "58",
+     "name": "WCC"
+    },
+    {
+     "id": "55",
+     "name": "SWAC"
+    },
+    {
+     "id": "54",
+     "name": "Southland"
+    },
+    {
+     "id": "32",
+     "name": "ASUN"
+    },
+    {
+     "id": "36",
+     "name": "Big South"
+    },
+    {
+     "id": "31",
+     "name": "ACC"
+    },
+    {
+     "id": "41",
+     "name": "Horizon"
+    },
+    {
+     "id": "53",
+     "name": "SoCon"
+    },
+    {
+     "id": "59",
+     "name": "UAC"
+    },
+    {
+     "id": "29",
+     "name": "AAC"
+    },
+    {
+     "id": "45",
+     "name": "MEAC"
+    }
+   ],
+   "regions": [
+    {
+     "id": "227",
+     "name": "United States"
+    }
+   ],
+   "rankings": [
+    {
+     "id": "25",
+     "name": "Top 25"
+    }
+   ],
+   "isTeamSwap": true,
+   "featured": true
+  }
+ ],
+ "events": [
+  {
+   "id": "34982137",
+   "seoIdentifier": "Iona @ St. Johns",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Iona @ St. Johns",
+   "startEventDate": "2026-11-08T17:00:00.0000000Z",
+   "participants": [
+    {
+     "id": "41392",
+     "name": "St. Johns",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "conferenceId": "34",
+      "conferenceName": "Big East Conference",
+      "conferenceShortName": "Big East",
+      "displayRankSeed": "13",
+      "ranking": "13",
+      "retailRotNumber": "887",
+      "rosettaTeamId": "41392",
+      "rosettaTeamName": "Red Storm",
+      "shortName": "SJU",
+      "teamColor": "#BA0C2F",
+      "teamColorSecondary": "#041C2C",
+      "teamColorTertiary": "#A7A8AA"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Red Storm",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    },
+    {
+     "id": "42451",
+     "name": "Iona",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "conferenceId": "43",
+      "conferenceName": "Metro Atlantic Athletic Conference",
+      "conferenceShortName": "MAAC",
+      "retailRotNumber": "886",
+      "rosettaTeamId": "42451",
+      "rosettaTeamName": "Gaels",
+      "shortName": "IONA",
+      "teamColor": "#6F2C3F",
+      "teamColorSecondary": "#F2A900",
+      "teamColorTertiary": "#FFFFFF"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Gaels",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "FeaturedSubcategory",
+    "OSB",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "45",
+    "numberOfParts": "2",
+    "secondsInOnePart": "1200"
+   },
+   "sortOrder": 170180137,
+   "subscriptionKey": "league-events-92483"
+  },
+  {
+   "id": "34982138",
+   "seoIdentifier": "Fairfield @ Bryant",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Fairfield @ Bryant",
+   "startEventDate": "2026-11-08T18:00:00.0000000Z",
+   "participants": [
+    {
+     "id": "42187",
+     "name": "Bryant",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "conferenceId": "28",
+      "conferenceName": "America East Conference",
+      "conferenceShortName": "America East",
+      "retailRotNumber": "695",
+      "rosettaTeamId": "42187",
+      "rosettaTeamName": "Bulldogs",
+      "shortName": "BRYANT",
+      "teamColor": "#B4975B",
+      "teamColorSecondary": "#C9BB8C",
+      "teamColorTertiary": "#818286"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Bulldogs",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    },
+    {
+     "id": "42135",
+     "name": "Fairfield",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "conferenceId": "43",
+      "conferenceName": "Metro Atlantic Athletic Conference",
+      "conferenceShortName": "MAAC",
+      "retailRotNumber": "694",
+      "rosettaTeamId": "42135",
+      "rosettaTeamName": "Stags",
+      "shortName": "FAIR",
+      "teamColor": "#C8102E",
+      "teamColorSecondary": "#A2AAAD",
+      "teamColorTertiary": "#000000"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Stags",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "FeaturedSubcategory",
+    "OSB",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "45",
+    "numberOfParts": "2",
+    "secondsInOnePart": "1200"
+   },
+   "sortOrder": 170184138,
+   "subscriptionKey": "league-events-92483"
+  },
+  {
+   "id": "34982139",
+   "seoIdentifier": "Manhattan @ Maine",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Manhattan @ Maine",
+   "startEventDate": "2026-11-08T18:00:00.0000000Z",
+   "participants": [
+    {
+     "id": "44004",
+     "name": "Maine",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "conferenceId": "28",
+      "conferenceName": "America East Conference",
+      "conferenceShortName": "America East",
+      "retailRotNumber": "717",
+      "rosettaTeamId": "44004",
+      "rosettaTeamName": "Black Bears",
+      "shortName": "MAINE",
+      "teamColor": "#003263",
+      "teamColorSecondary": "#B0D7FF",
+      "teamColorTertiary": "#AB0634"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Black Bears",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    },
+    {
+     "id": "43928",
+     "name": "Manhattan",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "conferenceId": "43",
+      "conferenceName": "Metro Atlantic Athletic Conference",
+      "conferenceShortName": "MAAC",
+      "retailRotNumber": "716",
+      "rosettaTeamId": "43928",
+      "rosettaTeamName": "Jaspers",
+      "shortName": "MANH",
+      "teamColor": "#00703C",
+      "teamColorSecondary": "#FFFFFF",
+      "teamColorTertiary": "#000000"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Jaspers",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "FeaturedSubcategory",
+    "OSB",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "45",
+    "numberOfParts": "2",
+    "secondsInOnePart": "1200"
+   },
+   "sortOrder": 170184139,
+   "subscriptionKey": "league-events-92483"
+  }
+ ],
+ "markets": [
+  {
+   "id": "1_87146577",
+   "eventId": "34982137",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Moneyline",
+   "subcategoryId": 4511,
+   "marketType": {
+    "id": "1_0",
+    "betOfferTypeId": 2,
+    "name": "Moneyline"
+   },
+   "subscriptionKey": "league-events-92483",
+   "sortOrder": 187146577,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "2_87146577",
+   "eventId": "34982137",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Spread",
+   "subcategoryId": 4511,
+   "marketType": {
+    "id": "2_0",
+    "betOfferTypeId": 1,
+    "name": "Spread"
+   },
+   "subscriptionKey": "league-events-92483",
+   "sortOrder": 287146577,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "3_87146577",
+   "eventId": "34982137",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Total",
+   "subcategoryId": 4511,
+   "marketType": {
+    "id": "3_0",
+    "betOfferTypeId": 6,
+    "name": "Total"
+   },
+   "subscriptionKey": "league-events-92483",
+   "sortOrder": 387146577,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "1_87146578",
+   "eventId": "34982138",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Moneyline",
+   "subcategoryId": 4511,
+   "marketType": {
+    "id": "1_0",
+    "betOfferTypeId": 2,
+    "name": "Moneyline"
+   },
+   "subscriptionKey": "league-events-92483",
+   "sortOrder": 187146578,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "2_87146578",
+   "eventId": "34982138",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Spread",
+   "subcategoryId": 4511,
+   "marketType": {
+    "id": "2_0",
+    "betOfferTypeId": 1,
+    "name": "Spread"
+   },
+   "subscriptionKey": "league-events-92483",
+   "sortOrder": 287146578,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "3_87146578",
+   "eventId": "34982138",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Total",
+   "subcategoryId": 4511,
+   "marketType": {
+    "id": "3_0",
+    "betOfferTypeId": 6,
+    "name": "Total"
+   },
+   "subscriptionKey": "league-events-92483",
+   "sortOrder": 387146578,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "1_87146579",
+   "eventId": "34982139",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Moneyline",
+   "subcategoryId": 4511,
+   "marketType": {
+    "id": "1_0",
+    "betOfferTypeId": 2,
+    "name": "Moneyline"
+   },
+   "subscriptionKey": "league-events-92483",
+   "sortOrder": 187146579,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "2_87146579",
+   "eventId": "34982139",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Spread",
+   "subcategoryId": 4511,
+   "marketType": {
+    "id": "2_0",
+    "betOfferTypeId": 1,
+    "name": "Spread"
+   },
+   "subscriptionKey": "league-events-92483",
+   "sortOrder": 287146579,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "3_87146579",
+   "eventId": "34982139",
+   "sportId": "2",
+   "leagueId": "92483",
+   "name": "Total",
+   "subcategoryId": 4511,
+   "marketType": {
+    "id": "3_0",
+    "betOfferTypeId": 6,
+    "name": "Total"
+   },
+   "subscriptionKey": "league-events-92483",
+   "sortOrder": 387146579,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  }
+ ],
+ "selections": [
+  {
+   "id": "0HC87146578N150_3",
+   "marketId": "2_87146578",
+   "label": "Fairfield",
+   "displayOdds": {
+    "american": "\u2212108",
+    "decimal": "1.92",
+    "fractional": "25/27",
+    "percentage": "51%",
+    "multiplier": "1.92x"
+   },
+   "trueOdds": 1.92592593,
+   "points": -1.5,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "42135",
+     "name": "Fairfield",
+     "type": "Team",
+     "seoIdentifier": "Stags",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "60313"
+     }
+    }
+   ],
+   "sortOrder": -1501,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC87146578P150_1",
+   "marketId": "2_87146578",
+   "label": "Bryant",
+   "displayOdds": {
+    "american": "\u2212112",
+    "decimal": "1.89",
+    "fractional": "25/28",
+    "percentage": "52%",
+    "multiplier": "1.89x"
+   },
+   "trueOdds": 1.89285715,
+   "points": 1.5,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "42187",
+     "name": "Bryant",
+     "type": "Team",
+     "seoIdentifier": "Bulldogs",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "119464"
+     }
+    }
+   ],
+   "sortOrder": -1499,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC87146579P350_3",
+   "marketId": "2_87146579",
+   "label": "Manhattan",
+   "displayOdds": {
+    "american": "\u2212112",
+    "decimal": "1.89",
+    "fractional": "25/28",
+    "percentage": "52%",
+    "multiplier": "1.89x"
+   },
+   "trueOdds": 1.89285715,
+   "points": 3.5,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "43928",
+     "name": "Manhattan",
+     "type": "Team",
+     "seoIdentifier": "Jaspers",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "1010"
+     }
+    }
+   ],
+   "sortOrder": 3499,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC87146579N350_1",
+   "marketId": "2_87146579",
+   "label": "Maine",
+   "displayOdds": {
+    "american": "\u2212108",
+    "decimal": "1.92",
+    "fractional": "25/27",
+    "percentage": "51%",
+    "multiplier": "1.92x"
+   },
+   "trueOdds": 1.92592593,
+   "points": -3.5,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "44004",
+     "name": "Maine",
+     "type": "Team",
+     "seoIdentifier": "Black Bears",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "21111"
+     }
+    }
+   ],
+   "sortOrder": 3501,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC87146577P2850_3",
+   "marketId": "2_87146577",
+   "label": "Iona",
+   "displayOdds": {
+    "american": "\u2212110",
+    "decimal": "1.90",
+    "fractional": "10/11",
+    "percentage": "52%",
+    "multiplier": "1.90x"
+   },
+   "trueOdds": 1.90909091,
+   "points": 28.5,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "42451",
+     "name": "Iona",
+     "type": "Team",
+     "seoIdentifier": "Gaels",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "846"
+     }
+    }
+   ],
+   "sortOrder": 28499,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC87146577N2850_1",
+   "marketId": "2_87146577",
+   "label": "St. Johns",
+   "displayOdds": {
+    "american": "\u2212110",
+    "decimal": "1.90",
+    "fractional": "10/11",
+    "percentage": "52%",
+    "multiplier": "1.90x"
+   },
+   "trueOdds": 1.90909091,
+   "points": -28.5,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "41392",
+     "name": "St. Johns",
+     "type": "Team",
+     "seoIdentifier": "Red Storm",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "555994"
+     }
+    }
+   ],
+   "sortOrder": 28501,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU87146579O14050_1",
+   "marketId": "3_87146579",
+   "label": "Over",
+   "displayOdds": {
+    "american": "\u2212105",
+    "decimal": "1.95",
+    "fractional": "20/21",
+    "percentage": "51%",
+    "multiplier": "1.95x"
+   },
+   "trueOdds": 1.95238096,
+   "points": 140.5,
+   "outcomeType": "Over",
+   "sortOrder": 140500,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU87146579U14050_3",
+   "marketId": "3_87146579",
+   "label": "Under",
+   "displayOdds": {
+    "american": "\u2212115",
+    "decimal": "1.86",
+    "fractional": "20/23",
+    "percentage": "53%",
+    "multiplier": "1.86x"
+   },
+   "trueOdds": 1.86956522,
+   "points": 140.5,
+   "outcomeType": "Under",
+   "sortOrder": 140502,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU87146578O14650_1",
+   "marketId": "3_87146578",
+   "label": "Over",
+   "displayOdds": {
+    "american": "\u2212105",
+    "decimal": "1.95",
+    "fractional": "20/21",
+    "percentage": "51%",
+    "multiplier": "1.95x"
+   },
+   "trueOdds": 1.95238096,
+   "points": 146.5,
+   "outcomeType": "Over",
+   "sortOrder": 146500,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU87146578U14650_3",
+   "marketId": "3_87146578",
+   "label": "Under",
+   "displayOdds": {
+    "american": "\u2212115",
+    "decimal": "1.86",
+    "fractional": "20/23",
+    "percentage": "53%",
+    "multiplier": "1.86x"
+   },
+   "trueOdds": 1.86956522,
+   "points": 146.5,
+   "outcomeType": "Under",
+   "sortOrder": 146502,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU87146577O15050_1",
+   "marketId": "3_87146577",
+   "label": "Over",
+   "displayOdds": {
+    "american": "\u2212112",
+    "decimal": "1.89",
+    "fractional": "25/28",
+    "percentage": "52%",
+    "multiplier": "1.89x"
+   },
+   "trueOdds": 1.89285715,
+   "points": 150.5,
+   "outcomeType": "Over",
+   "sortOrder": 150500,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU87146577U15050_3",
+   "marketId": "3_87146577",
+   "label": "Under",
+   "displayOdds": {
+    "american": "\u2212108",
+    "decimal": "1.92",
+    "fractional": "25/27",
+    "percentage": "51%",
+    "multiplier": "1.92x"
+   },
+   "trueOdds": 1.92592593,
+   "points": 150.5,
+   "outcomeType": "Under",
+   "sortOrder": 150502,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML87146577_3",
+   "marketId": "1_87146577",
+   "label": "Iona",
+   "displayOdds": {
+    "american": "+4000",
+    "decimal": "41.00",
+    "fractional": "40/1",
+    "percentage": "2.4%",
+    "multiplier": "41.00x"
+   },
+   "trueOdds": 41,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "42451",
+     "name": "Iona",
+     "type": "Team",
+     "seoIdentifier": "Gaels",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "846"
+     }
+    }
+   ],
+   "sortOrder": 16702383,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML87146578_3",
+   "marketId": "1_87146578",
+   "label": "Fairfield",
+   "displayOdds": {
+    "american": "\u2212122",
+    "decimal": "1.81",
+    "fractional": "50/61",
+    "percentage": "54%",
+    "multiplier": "1.81x"
+   },
+   "trueOdds": 1.81967214,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "42135",
+     "name": "Fairfield",
+     "type": "Team",
+     "seoIdentifier": "Stags",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "60313"
+     }
+    }
+   ],
+   "sortOrder": 16702390,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML87146579_3",
+   "marketId": "1_87146579",
+   "label": "Manhattan",
+   "displayOdds": {
+    "american": "+136",
+    "decimal": "2.36",
+    "fractional": "34/25",
+    "percentage": "42%",
+    "multiplier": "2.36x"
+   },
+   "trueOdds": 2.36,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "43928",
+     "name": "Manhattan",
+     "type": "Team",
+     "seoIdentifier": "Jaspers",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "1010"
+     }
+    }
+   ],
+   "sortOrder": 16702397,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML87146577_1",
+   "marketId": "1_87146577",
+   "label": "St. Johns",
+   "displayOdds": {
+    "american": "\u221250000",
+    "decimal": "1.002",
+    "fractional": "1/500",
+    "percentage": "99.8%",
+    "multiplier": "1.002x"
+   },
+   "trueOdds": 1.002,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "41392",
+     "name": "St. Johns",
+     "type": "Team",
+     "seoIdentifier": "Red Storm",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "555994"
+     }
+    }
+   ],
+   "sortOrder": 36702379,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML87146578_1",
+   "marketId": "1_87146578",
+   "label": "Bryant",
+   "displayOdds": {
+    "american": "+102",
+    "decimal": "2.02",
+    "fractional": "51/50",
+    "percentage": "49%",
+    "multiplier": "2.02x"
+   },
+   "trueOdds": 2.02,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "42187",
+     "name": "Bryant",
+     "type": "Team",
+     "seoIdentifier": "Bulldogs",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "119464"
+     }
+    }
+   ],
+   "sortOrder": 36702386,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML87146579_1",
+   "marketId": "1_87146579",
+   "label": "Maine",
+   "displayOdds": {
+    "american": "\u2212162",
+    "decimal": "1.61",
+    "fractional": "50/81",
+    "percentage": "61%",
+    "multiplier": "1.61x"
+   },
+   "trueOdds": 1.61728396,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "44004",
+     "name": "Maine",
+     "type": "Team",
+     "seoIdentifier": "Black Bears",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "21111"
+     }
+    }
+   ],
+   "sortOrder": 36702393,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  }
+ ],
+ "categories": [
+  {
+   "id": 487,
+   "name": "Game Lines",
+   "sortOrder": 487,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1157,
+   "name": "Quick Hits",
+   "sortOrder": 521,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1215,
+   "name": "Player Points",
+   "sortOrder": 523,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1218,
+   "name": "Player Threes",
+   "sortOrder": 583,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1216,
+   "name": "Player Rebounds",
+   "sortOrder": 584,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1217,
+   "name": "Player Assists",
+   "sortOrder": 593,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 583,
+   "name": "Player Combos",
+   "sortOrder": 675,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 520,
+   "name": "Halves",
+   "sortOrder": 998,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 521,
+   "name": "Game Props",
+   "sortOrder": 1002,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 523,
+   "name": "Team Props",
+   "sortOrder": 1003,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 519,
+   "name": "Team Futures",
+   "sortOrder": 1027
+  },
+  {
+   "id": 1178,
+   "name": "Team Specials",
+   "sortOrder": 1093,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 518,
+   "name": "Awards",
+   "sortOrder": 1120
+  },
+  {
+   "id": 1987,
+   "name": "Both Players",
+   "sortOrder": 1968,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1988,
+   "name": "Either Player",
+   "sortOrder": 1969,
+   "tags": [
+    "SGP"
+   ]
+  }
+ ],
+ "subcategories": [
+  {
+   "id": 20495,
+   "categoryId": 519,
+   "name": "Power 5",
+   "componentId": 29,
+   "sortOrder": 20446,
+   "tags": []
+  },
+  {
+   "id": 20497,
+   "categoryId": 519,
+   "name": "Low Major",
+   "componentId": 29,
+   "sortOrder": 20448,
+   "tags": []
+  },
+  {
+   "id": 20496,
+   "categoryId": 519,
+   "name": "Mid Major",
+   "componentId": 29,
+   "sortOrder": 20447,
+   "tags": []
+  },
+  {
+   "id": 12262,
+   "categoryId": 519,
+   "name": "Final Four",
+   "componentId": 29,
+   "sortOrder": 7357,
+   "tags": []
+  },
+  {
+   "id": 10061,
+   "categoryId": 519,
+   "name": "To Make Final Four",
+   "componentId": 29,
+   "sortOrder": 10812,
+   "tags": []
+  },
+  {
+   "id": 4511,
+   "categoryId": 487,
+   "name": "Game",
+   "componentId": 210,
+   "sortOrder": 4506,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 10002,
+   "categoryId": 487,
+   "name": "Spread / Total",
+   "componentId": 204,
+   "sortOrder": 8652,
+   "tags": []
+  },
+  {
+   "id": 10004,
+   "categoryId": 487,
+   "name": "Moneyline / Total",
+   "componentId": 204,
+   "sortOrder": 9970,
+   "tags": []
+  },
+  {
+   "id": 10932,
+   "categoryId": 520,
+   "name": "Winning Margin - Listed Half",
+   "componentId": 203,
+   "sortOrder": 12229,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12188,
+   "categoryId": 487,
+   "name": "Halftime/Fulltime",
+   "componentId": 204,
+   "sortOrder": 10284,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12411,
+   "categoryId": 1157,
+   "name": "1st Possession",
+   "componentId": 29,
+   "sortOrder": 14238,
+   "tags": []
+  },
+  {
+   "id": 13201,
+   "categoryId": 487,
+   "name": "Alternate Total",
+   "componentId": 240,
+   "sortOrder": 4603,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13202,
+   "categoryId": 487,
+   "name": "Alternate Spread",
+   "componentId": 240,
+   "sortOrder": 4601,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15417,
+   "categoryId": 1157,
+   "name": "1st Minute",
+   "componentId": 29,
+   "sortOrder": 12374,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16305,
+   "categoryId": 1157,
+   "name": "1st Point",
+   "componentId": 204,
+   "sortOrder": 11444,
+   "tags": [
+    "Featured"
+   ]
+  },
+  {
+   "id": 16477,
+   "categoryId": 1215,
+   "name": "Points",
+   "componentId": 331,
+   "sortOrder": 12450,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16478,
+   "categoryId": 1217,
+   "name": "Assists",
+   "componentId": 331,
+   "sortOrder": 12457,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16479,
+   "categoryId": 1216,
+   "name": "Rebounds",
+   "componentId": 331,
+   "sortOrder": 12454,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16480,
+   "categoryId": 1218,
+   "name": "Threes",
+   "componentId": 331,
+   "sortOrder": 12459,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16481,
+   "categoryId": 583,
+   "name": "Pts + Ast",
+   "componentId": 331,
+   "sortOrder": 5007,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16482,
+   "categoryId": 583,
+   "name": "Pts + Reb",
+   "componentId": 331,
+   "sortOrder": 4995,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16483,
+   "categoryId": 583,
+   "name": "Pts + Reb + Ast",
+   "componentId": 331,
+   "sortOrder": 4927,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16732,
+   "categoryId": 521,
+   "name": "Correct Score",
+   "componentId": 255,
+   "sortOrder": 5862,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 17428,
+   "categoryId": 1157,
+   "name": "1st Team FG - Type",
+   "componentId": 29,
+   "sortOrder": 11448,
+   "tags": []
+  },
+  {
+   "id": 17429,
+   "categoryId": 1157,
+   "name": "1st Team FG - Attempt",
+   "componentId": 29,
+   "sortOrder": 11449,
+   "tags": []
+  },
+  {
+   "id": 17430,
+   "categoryId": 1157,
+   "name": "1st Team FG - Exact",
+   "componentId": 29,
+   "sortOrder": 11450,
+   "tags": []
+  },
+  {
+   "id": 17554,
+   "categoryId": 1157,
+   "name": "Race to X",
+   "componentId": 29,
+   "sortOrder": 18085,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18032,
+   "categoryId": 521,
+   "name": "To Go to Overtime",
+   "componentId": 29,
+   "sortOrder": 17989,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18785,
+   "categoryId": 521,
+   "name": "To Win in X Minutes",
+   "componentId": 29,
+   "sortOrder": 18742,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18786,
+   "categoryId": 521,
+   "name": "Spread in X Minutes",
+   "componentId": 29,
+   "sortOrder": 18743,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18788,
+   "categoryId": 521,
+   "name": "Total Points in X Minutes",
+   "componentId": 29,
+   "sortOrder": 18745,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18789,
+   "categoryId": 520,
+   "name": "Highest Scoring Half",
+   "componentId": 30,
+   "sortOrder": 11429,
+   "tags": []
+  },
+  {
+   "id": 20460,
+   "categoryId": 1178,
+   "name": "Team 3-2-1 Race",
+   "componentId": 29,
+   "sortOrder": 20411,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20521,
+   "categoryId": 1987,
+   "name": "Points",
+   "componentId": 331,
+   "sortOrder": 20472,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20522,
+   "categoryId": 1987,
+   "name": "Rebounds",
+   "componentId": 331,
+   "sortOrder": 20473,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20523,
+   "categoryId": 1987,
+   "name": "Assists",
+   "componentId": 331,
+   "sortOrder": 20474,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20527,
+   "categoryId": 1988,
+   "name": "Points",
+   "componentId": 331,
+   "sortOrder": 20478,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20528,
+   "categoryId": 1988,
+   "name": "Rebounds",
+   "componentId": 331,
+   "sortOrder": 20479,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20529,
+   "categoryId": 1988,
+   "name": "Assists",
+   "componentId": 331,
+   "sortOrder": 20480,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 4598,
+   "categoryId": 520,
+   "name": "1st Half",
+   "componentId": 210,
+   "sortOrder": 4592,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 4609,
+   "categoryId": 523,
+   "name": "Team Totals",
+   "componentId": 29,
+   "sortOrder": 4604,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 4611,
+   "categoryId": 521,
+   "name": "Total Odd/Even",
+   "componentId": 12,
+   "sortOrder": 15536,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 4612,
+   "categoryId": 520,
+   "name": "Odd/Even - Listed Half",
+   "componentId": 29,
+   "sortOrder": 13159,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 4616,
+   "categoryId": 521,
+   "name": "Winning Margin - 7 Way",
+   "componentId": 12,
+   "sortOrder": 5718,
+   "tags": []
+  },
+  {
+   "id": 5723,
+   "categoryId": 521,
+   "name": "Winning Margin",
+   "componentId": 202,
+   "sortOrder": 4929,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 5724,
+   "categoryId": 521,
+   "name": "Winning Margin - 12 Way",
+   "componentId": 202,
+   "sortOrder": 5795,
+   "tags": []
+  },
+  {
+   "id": 5725,
+   "categoryId": 523,
+   "name": "Team Total Odd/Even",
+   "componentId": 202,
+   "sortOrder": 14142,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 5868,
+   "categoryId": 521,
+   "name": "Winning Margin - 3 Way",
+   "componentId": 202,
+   "sortOrder": 5717,
+   "tags": []
+  },
+  {
+   "id": 6230,
+   "categoryId": 520,
+   "name": "Team Totals - Listed Half",
+   "componentId": 29,
+   "sortOrder": 4594,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 8139,
+   "categoryId": 520,
+   "name": "Moneyline (3-Way) - Listed Half",
+   "componentId": 30,
+   "sortOrder": 12197,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15608,
+   "categoryId": 520,
+   "name": "Spread - Both Halves",
+   "componentId": 29,
+   "sortOrder": 12196,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15609,
+   "categoryId": 520,
+   "name": "Team Totals Odd/Even - Both Halves",
+   "componentId": 29,
+   "sortOrder": 13157,
+   "tags": []
+  },
+  {
+   "id": 16555,
+   "categoryId": 520,
+   "name": "Team to Win Both Halves",
+   "componentId": 29,
+   "sortOrder": 10033,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16561,
+   "categoryId": 520,
+   "name": "Both Teams Total Points - Both Halves",
+   "componentId": 29,
+   "sortOrder": 18747,
+   "tags": []
+  },
+  {
+   "id": 16721,
+   "categoryId": 520,
+   "name": "Both Teams Total Points - 1st Half",
+   "componentId": 240,
+   "sortOrder": 16677,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16722,
+   "categoryId": 520,
+   "name": "Both Teams Total Points - 2nd Half",
+   "componentId": 240,
+   "sortOrder": 16679,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16723,
+   "categoryId": 520,
+   "name": "Team Totals - Both Halves",
+   "componentId": 240,
+   "sortOrder": 17251,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17294,
+   "categoryId": 520,
+   "name": "1st to Score",
+   "componentId": 29,
+   "sortOrder": 18786,
+   "tags": []
+  },
+  {
+   "id": 18790,
+   "categoryId": 520,
+   "name": "Last Team to Score - Both Halves",
+   "componentId": 29,
+   "sortOrder": 12204,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18834,
+   "categoryId": 520,
+   "name": "Winning Margin - Both Halves",
+   "componentId": 202,
+   "sortOrder": 12234,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10700,
+   "categoryId": 519,
+   "name": "Champion",
+   "componentId": 29,
+   "sortOrder": 4591,
+   "tags": []
+  },
+  {
+   "id": 8600,
+   "categoryId": 519,
+   "name": "Winner",
+   "componentId": 29,
+   "sortOrder": 4730,
+   "tags": []
+  },
+  {
+   "id": 10144,
+   "categoryId": 519,
+   "name": "Championship Winner",
+   "componentId": 29,
+   "sortOrder": 10813,
+   "tags": []
+  },
+  {
+   "id": 14508,
+   "categoryId": 519,
+   "name": "Tournament Winner",
+   "componentId": 29,
+   "sortOrder": 14482,
+   "tags": []
+  },
+  {
+   "id": 10163,
+   "categoryId": 518,
+   "name": "Wooden Award",
+   "componentId": 29,
+   "sortOrder": 10142,
+   "tags": []
+  }
+ ]
+}
