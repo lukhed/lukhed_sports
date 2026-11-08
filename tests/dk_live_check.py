@@ -1,13 +1,14 @@
 """
 Live check of DkSportsbook against the real DraftKings API.
 
-Run this from your own terminal, not from a sandboxed tool (Claude Code's sandbox goes through a proxy that DraftKings
-blocks, so results there aren't representative):
+Run this from your own terminal:
 
     python tests/dk_live_check.py
     python tests/dk_live_check.py --save-responses     # also save raw responses for new test fixtures
 
 It runs each main method once, counts the DraftKings calls each one makes, and checks the result looks right.
+DraftKings blocks scripted clients (HTTP 403) from time to time, especially after bursts of calls. If a call is
+blocked, the remaining checks are skipped; wait a while before running again.
 About 12 DraftKings calls in total, spaced out by --pause seconds. A summary is printed and the full report is written
 to reference/dk_live_check.json (gitignored) so it can be reviewed later.
 
@@ -30,6 +31,10 @@ from lukhed_sports import DkSportsbook  # noqa: E402
 
 REPORT_FILE = os.path.join(REPO_ROOT, 'reference', 'dk_live_check.json')
 RESPONSES_DIR = os.path.join(REPO_ROOT, 'reference', 'dk responses', 'live_check')
+
+
+class Skip(Exception):
+    """Raised by a check that can't run (e.g. an earlier check it depends on didn't get data)."""
 
 
 class CallRecorder:
@@ -77,19 +82,33 @@ def main():
 
     def check(name, expected_calls, fn):
         """expected_calls: int, or (min, max). fn returns (ok, summary)."""
+        lo, hi = expected_calls if isinstance(expected_calls, tuple) else (expected_calls, expected_calls)
+        if dk._blocked_until is not None and time.monotonic() < dk._blocked_until:
+            results.append({'check': name, 'status': 'SKIPPED', 'summary': 'DraftKings blocked an earlier call',
+                            'expected_calls': [lo, hi]})
+            print(f"[SKIPPED] {name:55} (DraftKings blocked an earlier call)")
+            return
+
         before = len(recorder.calls)
         log = io.StringIO()
+        skipped = None
         try:
             with contextlib.redirect_stdout(log):  # keep the wrapper's own prints out of the summary
                 ok, summary = fn()
             error = None
+        except Skip as e:
+            ok, summary, error, skipped = False, None, None, str(e)
         except Exception:
             ok, summary, error = False, None, traceback.format_exc()
         calls = recorder.calls[before:]
-        lo, hi = expected_calls if isinstance(expected_calls, tuple) else (expected_calls, expected_calls)
+        if skipped:
+            results.append({'check': name, 'status': 'SKIPPED', 'summary': skipped, 'expected_calls': [lo, hi]})
+            print(f"[SKIPPED] {name:55} ({skipped})")
+            return
         calls_ok = lo <= len(calls) <= hi
         blocked = any(c['status'] in (403, 429) for c in calls)
-        status = 'BLOCKED' if blocked else ('PASS' if ok and calls_ok else 'FAIL')
+        http_ok = all(c['status'] == 200 for c in calls)
+        status = 'BLOCKED' if blocked else ('PASS' if ok and calls_ok and http_ok else 'FAIL')
         results.append({'check': name, 'status': status, 'result_ok': ok, 'calls': len(calls),
                         'expected_calls': [lo, hi], 'summary': summary, 'error': error, 'requests': calls,
                         'log': log.getvalue().strip().splitlines()})
@@ -116,7 +135,12 @@ def main():
         return bool(lines) and american_ok(selections), f"{len(lines)} games"
     check('nfl get_gamelines_for_league', 1, nfl_lines)
 
+    def need_nfl_games():
+        if not state.get('nfl_events'):
+            raise Skip('no NFL games from the first check')
+
     def nfl_spread():
+        need_nfl_games()
         team = first_team(state['nfl_events'][0])
         spread = dk.get_spread_for_team('nfl', team)
         state['nfl_team'] = team
@@ -124,21 +148,25 @@ def main():
     check('nfl get_spread_for_team (re-uses league response)', 0, nfl_spread)
 
     def nfl_game():
+        need_nfl_games()
         lines = dk.get_gamelines_for_game('nfl', state['nfl_team'], filter_market='moneyline', filter_team=True)
         return len(lines) == 1, [x['label'] for x in lines]
     check('nfl get_gamelines_for_game (re-uses league response)', 0, nfl_game)
 
     def nfl_halves():
+        need_nfl_games()
         lines = dk.get_half_lines_for_game('nfl', state['nfl_team'])
         return True, f"{len(lines)} selections (0 is ok if DK has no half lines yet)"
     check('nfl get_half_lines_for_game', 1, nfl_halves)
 
     def nfl_td():
+        need_nfl_games()
         props = dk.get_basic_touchdown_scorer_props('nfl', prop_type_filter='anytime', game_filter=state['nfl_team'])
         return True, f"{len(props)} anytime td props (0 is ok if the game has started or props aren't posted)"
     check('nfl get_basic_touchdown_scorer_props (game filter)', 1, nfl_td)
 
     def nfl_all_td():
+        need_nfl_games()
         props = dk.get_all_touchdown_props_for_game('nfl', state['nfl_team'])
         return True, f"{len(props)} td props"
     check('nfl get_all_touchdown_props_for_game', 1, nfl_all_td)
@@ -159,7 +187,7 @@ def main():
     check('nba get_player_points_props', 1, nba_points)
 
     # --- Report ---
-    counts = {s: sum(1 for r in results if r['status'] == s) for s in ('PASS', 'FAIL', 'BLOCKED')}
+    counts = {s: sum(1 for r in results if r['status'] == s) for s in ('PASS', 'FAIL', 'BLOCKED', 'SKIPPED')}
     report = {
         'run_at': datetime.datetime.now().isoformat(timespec='seconds'),
         'api_versions': dk._api_versions,
@@ -172,9 +200,13 @@ def main():
     with open(REPORT_FILE, 'w', encoding='utf-8') as f:
         json.dump(report, f, indent=2)
 
-    print(f"\n{counts['PASS']} passed, {counts['FAIL']} failed, {counts['BLOCKED']} blocked. "
+    print(f"\n{counts['PASS']} passed, {counts['FAIL']} failed, {counts['BLOCKED']} blocked, "
+          f"{counts['SKIPPED']} skipped. "
           f"{len(recorder.calls)} DraftKings calls total.")
     print(f"Report: {os.path.relpath(REPORT_FILE, REPO_ROOT)}")
+    if counts['BLOCKED']:
+        print("DraftKings blocked this client (HTTP 403). Wait a while (at least an hour) before running again; "
+              "re-running sooner tends to extend the block.")
     return 0 if counts['FAIL'] == 0 and counts['BLOCKED'] == 0 else 1
 
 
