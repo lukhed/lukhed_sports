@@ -1,0 +1,4019 @@
+{
+ "sports": [
+  {
+   "id": "3",
+   "seoIdentifier": "Football",
+   "name": "Football",
+   "sortOrder": 56
+  }
+ ],
+ "leagues": [
+  {
+   "id": "88808",
+   "name": "NFL",
+   "sportId": "3",
+   "sortOrder": 4847,
+   "tags": [
+    "OSB",
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "PlayerStack",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible",
+    "Flashbet",
+    "LiveBoxScore",
+    "LivePrePack",
+    "Featured",
+    "HasLiveEvents",
+    "LiveFeaturedSubcategory",
+    "FavoriteableFromPage"
+   ],
+   "regions": [
+    {
+     "id": "227",
+     "name": "United States"
+    }
+   ],
+   "isTeamSwap": true,
+   "featured": true
+  }
+ ],
+ "events": [
+  {
+   "id": "34118008",
+   "seoIdentifier": "CLE Browns @ NO Saints",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "CLE Browns @ NO Saints",
+   "startEventDate": "2026-11-08T18:00:00.0000000Z",
+   "participants": [
+    {
+     "id": "18423",
+     "name": "NO Saints",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "125",
+      "rosettaTeamId": "18423",
+      "rosettaTeamName": "Saints",
+      "shortName": "NO",
+      "teamColor": "#D3BC8D",
+      "teamColorSecondary": "#000000",
+      "teamColorTertiary": "#FFFFFF"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Saints",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    },
+    {
+     "id": "18325",
+     "name": "CLE Browns",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "124",
+      "rosettaTeamId": "18325",
+      "rosettaTeamName": "Browns",
+      "shortName": "CLE",
+      "teamColor": "#FF3C00",
+      "teamColorSecondary": "#311D00",
+      "teamColorTertiary": "#FFFFFF"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Browns",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "OSB",
+    "PlayerStack",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "40",
+    "numberOfParts": "4",
+    "secondsInOnePart": "900"
+   },
+   "sortOrder": 170184008,
+   "subscriptionKey": "league-events-88808"
+  },
+  {
+   "id": "34118046",
+   "seoIdentifier": "DEN Broncos @ CAR Panthers",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "DEN Broncos @ CAR Panthers",
+   "startEventDate": "2026-11-08T18:00:00.0000000Z",
+   "participants": [
+    {
+     "id": "18484",
+     "name": "CAR Panthers",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "105",
+      "rosettaTeamId": "18484",
+      "rosettaTeamName": "Panthers",
+      "shortName": "CAR",
+      "teamColor": "#0085CF",
+      "teamColorSecondary": "#000000",
+      "teamColorTertiary": "#BFC0BF"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Panthers",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    },
+    {
+     "id": "18342",
+     "name": "DEN Broncos",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "104",
+      "rosettaTeamId": "18342",
+      "rosettaTeamName": "Broncos",
+      "shortName": "DEN",
+      "teamColor": "#0A2343",
+      "teamColorSecondary": "#FC4C02",
+      "teamColorTertiary": "#FFFFFF"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Broncos",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "OSB",
+    "PlayerStack",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "40",
+    "numberOfParts": "4",
+    "secondsInOnePart": "900"
+   },
+   "sortOrder": 170184046,
+   "subscriptionKey": "league-events-88808"
+  },
+  {
+   "id": "34118050",
+   "seoIdentifier": "LA Rams @ WAS Commanders",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "LA Rams @ WAS Commanders",
+   "startEventDate": "2026-11-08T18:00:00.0000000Z",
+   "participants": [
+    {
+     "id": "18480",
+     "name": "WAS Commanders",
+     "venueRole": "Home",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "113",
+      "rosettaTeamId": "18480",
+      "rosettaTeamName": "Commanders",
+      "shortName": "WAS",
+      "teamColor": "#5A1414",
+      "teamColorSecondary": "#FFB612",
+      "teamColorTertiary": "#000000"
+     },
+     "sortOrder": 2,
+     "seoIdentifier": "Commanders",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    },
+    {
+     "id": "18397",
+     "name": "LA Rams",
+     "venueRole": "Away",
+     "type": "Team",
+     "metadata": {
+      "retailRotNumber": "112",
+      "rosettaTeamId": "18397",
+      "rosettaTeamName": "Rams",
+      "shortName": "LAR",
+      "teamColor": "#003594",
+      "teamColorSecondary": "#FFD100",
+      "teamColorTertiary": "#FF8200"
+     },
+     "sortOrder": 1,
+     "seoIdentifier": "Rams",
+     "isNationalTeam": false,
+     "countryCode": "US"
+    }
+   ],
+   "eventParticipantType": "TwoTeam",
+   "status": "NOT_STARTED",
+   "eventScorecard": {
+    "scorecardComponentId": 1
+   },
+   "tags": [
+    "EarlyExit",
+    "EarlyExitPlus",
+    "FeaturedSubcategory",
+    "OSB",
+    "PlayerStack",
+    "PrePack",
+    "SGP",
+    "SgpDynamicOdds",
+    "YourBetEligible"
+   ],
+   "metadata": {
+    "masterLeagueId": "40",
+    "numberOfParts": "4",
+    "secondsInOnePart": "900"
+   },
+   "sortOrder": 170184050,
+   "subscriptionKey": "league-events-88808"
+  }
+ ],
+ "markets": [
+  {
+   "id": "1_84695441",
+   "eventId": "34118008",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Moneyline",
+   "subcategoryId": 4518,
+   "marketType": {
+    "id": "1_0",
+    "betOfferTypeId": 2,
+    "name": "Moneyline"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 184695441,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "2_84695441",
+   "eventId": "34118008",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Spread",
+   "subcategoryId": 4518,
+   "marketType": {
+    "id": "2_0",
+    "betOfferTypeId": 1,
+    "name": "Spread"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 284695441,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "3_84695441",
+   "eventId": "34118008",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Total",
+   "subcategoryId": 4518,
+   "marketType": {
+    "id": "3_0",
+    "betOfferTypeId": 6,
+    "name": "Total"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 384695441,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "1_84695479",
+   "eventId": "34118046",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Moneyline",
+   "subcategoryId": 4518,
+   "marketType": {
+    "id": "1_0",
+    "betOfferTypeId": 2,
+    "name": "Moneyline"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 184695479,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "2_84695479",
+   "eventId": "34118046",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Spread",
+   "subcategoryId": 4518,
+   "marketType": {
+    "id": "2_0",
+    "betOfferTypeId": 1,
+    "name": "Spread"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 284695479,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "3_84695479",
+   "eventId": "34118046",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Total",
+   "subcategoryId": 4518,
+   "marketType": {
+    "id": "3_0",
+    "betOfferTypeId": 6,
+    "name": "Total"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 384695479,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "1_84695483",
+   "eventId": "34118050",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Moneyline",
+   "subcategoryId": 4518,
+   "marketType": {
+    "id": "1_0",
+    "betOfferTypeId": 2,
+    "name": "Moneyline"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 184695483,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "2_84695483",
+   "eventId": "34118050",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Spread",
+   "subcategoryId": 4518,
+   "marketType": {
+    "id": "2_0",
+    "betOfferTypeId": 1,
+    "name": "Spread"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 284695483,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  },
+  {
+   "id": "3_84695483",
+   "eventId": "34118050",
+   "sportId": "3",
+   "leagueId": "88808",
+   "name": "Total",
+   "subcategoryId": 4518,
+   "marketType": {
+    "id": "3_0",
+    "betOfferTypeId": 6,
+    "name": "Total"
+   },
+   "subscriptionKey": "league-events-88808",
+   "sortOrder": 384695483,
+   "tags": [
+    "SGP",
+    "YourBetEligible",
+    "Cashout",
+    "FeaturedSubcategory",
+    "OSB",
+    "Default",
+    "PrimaryMarket"
+   ],
+   "main": true,
+   "dynamicMetadata": {}
+  }
+ ],
+ "selections": [
+  {
+   "id": "0HC84695483N450_3",
+   "marketId": "2_84695483",
+   "label": "LA Rams",
+   "displayOdds": {
+    "american": "\u2212120",
+    "decimal": "1.83",
+    "fractional": "5/6",
+    "percentage": "54%",
+    "multiplier": "1.83x"
+   },
+   "trueOdds": 1.83333334,
+   "points": -4.5,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "18397",
+     "name": "LA Rams",
+     "type": "Team",
+     "seoIdentifier": "Rams",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "323028"
+     }
+    }
+   ],
+   "sortOrder": -4501,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC84695483P450_1",
+   "marketId": "2_84695483",
+   "label": "WAS Commanders",
+   "displayOdds": {
+    "american": "+100",
+    "decimal": "2.00",
+    "fractional": "1/1",
+    "percentage": "50%",
+    "multiplier": "2.00x"
+   },
+   "trueOdds": 2,
+   "points": 4.5,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "18480",
+     "name": "WAS Commanders",
+     "type": "Team",
+     "seoIdentifier": "Commanders",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "929653"
+     }
+    }
+   ],
+   "sortOrder": -4499,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC84695479N250_3",
+   "marketId": "2_84695479",
+   "label": "DEN Broncos",
+   "displayOdds": {
+    "american": "\u2212120",
+    "decimal": "1.83",
+    "fractional": "5/6",
+    "percentage": "54%",
+    "multiplier": "1.83x"
+   },
+   "trueOdds": 1.83333334,
+   "points": -2.5,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "18342",
+     "name": "DEN Broncos",
+     "type": "Team",
+     "seoIdentifier": "Broncos",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "466"
+     }
+    }
+   ],
+   "sortOrder": -2501,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC84695479P250_1",
+   "marketId": "2_84695479",
+   "label": "CAR Panthers",
+   "displayOdds": {
+    "american": "+100",
+    "decimal": "2.00",
+    "fractional": "1/1",
+    "percentage": "50%",
+    "multiplier": "2.00x"
+   },
+   "trueOdds": 2,
+   "points": 2.5,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "18484",
+     "name": "CAR Panthers",
+     "type": "Team",
+     "seoIdentifier": "Panthers",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "480"
+     }
+    }
+   ],
+   "sortOrder": -2499,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC84695441P300_3",
+   "marketId": "2_84695441",
+   "label": "CLE Browns",
+   "displayOdds": {
+    "american": "+100",
+    "decimal": "2.00",
+    "fractional": "1/1",
+    "percentage": "50%",
+    "multiplier": "2.00x"
+   },
+   "trueOdds": 2,
+   "points": 3,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "18325",
+     "name": "CLE Browns",
+     "type": "Team",
+     "seoIdentifier": "Browns",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "836"
+     }
+    }
+   ],
+   "sortOrder": 2999,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0HC84695441N300_1",
+   "marketId": "2_84695441",
+   "label": "NO Saints",
+   "displayOdds": {
+    "american": "\u2212120",
+    "decimal": "1.83",
+    "fractional": "5/6",
+    "percentage": "54%",
+    "multiplier": "1.83x"
+   },
+   "trueOdds": 1.83333334,
+   "points": -3,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "18423",
+     "name": "NO Saints",
+     "type": "Team",
+     "seoIdentifier": "Saints",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "42936"
+     }
+    }
+   ],
+   "sortOrder": 3001,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU84695441O4250_1",
+   "marketId": "3_84695441",
+   "label": "Over",
+   "displayOdds": {
+    "american": "\u2212108",
+    "decimal": "1.92",
+    "fractional": "25/27",
+    "percentage": "51%",
+    "multiplier": "1.92x"
+   },
+   "trueOdds": 1.92592593,
+   "points": 42.5,
+   "outcomeType": "Over",
+   "sortOrder": 42500,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU84695441U4250_3",
+   "marketId": "3_84695441",
+   "label": "Under",
+   "displayOdds": {
+    "american": "\u2212112",
+    "decimal": "1.89",
+    "fractional": "25/28",
+    "percentage": "52%",
+    "multiplier": "1.89x"
+   },
+   "trueOdds": 1.89285715,
+   "points": 42.5,
+   "outcomeType": "Under",
+   "sortOrder": 42502,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU84695479O4450_1",
+   "marketId": "3_84695479",
+   "label": "Over",
+   "displayOdds": {
+    "american": "\u2212108",
+    "decimal": "1.92",
+    "fractional": "25/27",
+    "percentage": "51%",
+    "multiplier": "1.92x"
+   },
+   "trueOdds": 1.92592593,
+   "points": 44.5,
+   "outcomeType": "Over",
+   "sortOrder": 44500,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU84695479U4450_3",
+   "marketId": "3_84695479",
+   "label": "Under",
+   "displayOdds": {
+    "american": "\u2212112",
+    "decimal": "1.89",
+    "fractional": "25/28",
+    "percentage": "52%",
+    "multiplier": "1.89x"
+   },
+   "trueOdds": 1.89285715,
+   "points": 44.5,
+   "outcomeType": "Under",
+   "sortOrder": 44502,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU84695483O4750_1",
+   "marketId": "3_84695483",
+   "label": "Over",
+   "displayOdds": {
+    "american": "\u2212112",
+    "decimal": "1.89",
+    "fractional": "25/28",
+    "percentage": "52%",
+    "multiplier": "1.89x"
+   },
+   "trueOdds": 1.89285715,
+   "points": 47.5,
+   "outcomeType": "Over",
+   "sortOrder": 47500,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0OU84695483U4750_3",
+   "marketId": "3_84695483",
+   "label": "Under",
+   "displayOdds": {
+    "american": "\u2212108",
+    "decimal": "1.92",
+    "fractional": "25/27",
+    "percentage": "51%",
+    "multiplier": "1.92x"
+   },
+   "trueOdds": 1.92592593,
+   "points": 47.5,
+   "outcomeType": "Under",
+   "sortOrder": 47502,
+   "tags": [
+    "MainPointLine",
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML84695441_3",
+   "marketId": "1_84695441",
+   "label": "CLE Browns",
+   "displayOdds": {
+    "american": "+142",
+    "decimal": "2.42",
+    "fractional": "71/50",
+    "percentage": "41%",
+    "multiplier": "2.42x"
+   },
+   "trueOdds": 2.42,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "18325",
+     "name": "CLE Browns",
+     "type": "Team",
+     "seoIdentifier": "Browns",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "836"
+     }
+    }
+   ],
+   "sortOrder": 14983520,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML84695479_3",
+   "marketId": "1_84695479",
+   "label": "DEN Broncos",
+   "displayOdds": {
+    "american": "\u2212142",
+    "decimal": "1.70",
+    "fractional": "50/71",
+    "percentage": "58%",
+    "multiplier": "1.70x"
+   },
+   "trueOdds": 1.70422536,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "18342",
+     "name": "DEN Broncos",
+     "type": "Team",
+     "seoIdentifier": "Broncos",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "466"
+     }
+    }
+   ],
+   "sortOrder": 14983786,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML84695483_3",
+   "marketId": "1_84695483",
+   "label": "LA Rams",
+   "displayOdds": {
+    "american": "\u2212238",
+    "decimal": "1.42",
+    "fractional": "50/119",
+    "percentage": "70%",
+    "multiplier": "1.42x"
+   },
+   "trueOdds": 1.42016807,
+   "outcomeType": "Away",
+   "participants": [
+    {
+     "id": "18397",
+     "name": "LA Rams",
+     "type": "Team",
+     "seoIdentifier": "Rams",
+     "venueRole": "Away",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "323028"
+     }
+    }
+   ],
+   "sortOrder": 14983814,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML84695441_1",
+   "marketId": "1_84695441",
+   "label": "NO Saints",
+   "displayOdds": {
+    "american": "\u2212170",
+    "decimal": "1.58",
+    "fractional": "10/17",
+    "percentage": "62%",
+    "multiplier": "1.58x"
+   },
+   "trueOdds": 1.5882353,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "18423",
+     "name": "NO Saints",
+     "type": "Team",
+     "seoIdentifier": "Saints",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "42936"
+     }
+    }
+   ],
+   "sortOrder": 34983516,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML84695479_1",
+   "marketId": "1_84695479",
+   "label": "CAR Panthers",
+   "displayOdds": {
+    "american": "+120",
+    "decimal": "2.20",
+    "fractional": "6/5",
+    "percentage": "45%",
+    "multiplier": "2.20x"
+   },
+   "trueOdds": 2.2,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "18484",
+     "name": "CAR Panthers",
+     "type": "Team",
+     "seoIdentifier": "Panthers",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "480"
+     }
+    }
+   ],
+   "sortOrder": 34983782,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  },
+  {
+   "id": "0ML84695483_1",
+   "marketId": "1_84695483",
+   "label": "WAS Commanders",
+   "displayOdds": {
+    "american": "+195",
+    "decimal": "2.95",
+    "fractional": "39/20",
+    "percentage": "33%",
+    "multiplier": "2.95x"
+   },
+   "trueOdds": 2.95,
+   "outcomeType": "Home",
+   "participants": [
+    {
+     "id": "18480",
+     "name": "WAS Commanders",
+     "type": "Team",
+     "seoIdentifier": "Commanders",
+     "venueRole": "Home",
+     "isNationalTeam": false,
+     "countryCode": "US",
+     "metadata": {
+      "sdid": "929653"
+     }
+    }
+   ],
+   "sortOrder": 34983810,
+   "tags": [
+    "SGP",
+    "OSB"
+   ],
+   "main": true,
+   "metadata": {}
+  }
+ ],
+ "categories": [
+  {
+   "id": 492,
+   "name": "Game Lines",
+   "sortOrder": 492,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 1054,
+   "name": "Live TD Scorers",
+   "sortOrder": 526,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 998,
+   "name": "Live Drive Props",
+   "sortOrder": 527,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 1680,
+   "name": "Live Play Props",
+   "sortOrder": 528,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 1003,
+   "name": "TD Scorers",
+   "sortOrder": 532,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1000,
+   "name": "Passing Props ",
+   "sortOrder": 550,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 1342,
+   "name": "Receiving Props",
+   "sortOrder": 634,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 1001,
+   "name": "Rushing Props",
+   "sortOrder": 638,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 1873,
+   "name": "Either Player Props",
+   "sortOrder": 644,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 1743,
+   "name": "Special Teams Props",
+   "sortOrder": 771,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 862,
+   "name": "Player Specials",
+   "sortOrder": 782
+  },
+  {
+   "id": 1644,
+   "name": "Game Specials",
+   "sortOrder": 785
+  },
+  {
+   "id": 1653,
+   "name": "Weekly Specials",
+   "sortOrder": 786
+  },
+  {
+   "id": 999,
+   "name": "DK Squares",
+   "sortOrder": 814
+  },
+  {
+   "id": 1303,
+   "name": "1st Drive",
+   "sortOrder": 856,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 1559,
+   "name": "1st of Game",
+   "sortOrder": 857,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 526,
+   "name": "Halves",
+   "sortOrder": 966,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 527,
+   "name": "Quarters",
+   "sortOrder": 967,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 528,
+   "name": "Game Props",
+   "sortOrder": 974,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 530,
+   "name": "Team Props",
+   "sortOrder": 976,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 529,
+   "name": "Futures",
+   "sortOrder": 985
+  },
+  {
+   "id": 787,
+   "name": "Awards",
+   "sortOrder": 986
+  },
+  {
+   "id": 1076,
+   "name": "Playoffs",
+   "sortOrder": 987
+  },
+  {
+   "id": 1286,
+   "name": "Wins",
+   "sortOrder": 999
+  },
+  {
+   "id": 1304,
+   "name": "Quick Hits",
+   "sortOrder": 1075,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 1185,
+   "name": "H2H Player Props",
+   "categoryType": "H2H",
+   "sortOrder": 1095,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1226,
+   "name": "Novelty Props",
+   "sortOrder": 1124
+  },
+  {
+   "id": 638,
+   "name": "Kicking Props",
+   "sortOrder": 1296
+  },
+  {
+   "id": 1744,
+   "name": "Defensive Props",
+   "sortOrder": 1730,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 1972,
+   "name": "Drive Props",
+   "sortOrder": 1953,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 1984,
+   "name": "Draft",
+   "sortOrder": 1965
+  }
+ ],
+ "subcategories": [
+  {
+   "id": 4651,
+   "categoryId": 529,
+   "name": "Conference Winner",
+   "componentId": 12,
+   "sortOrder": 5623,
+   "tags": []
+  },
+  {
+   "id": 20165,
+   "categoryId": 1076,
+   "name": "To Make the Playoffs",
+   "componentId": 29,
+   "sortOrder": 20116,
+   "tags": []
+  },
+  {
+   "id": 20166,
+   "categoryId": 1076,
+   "name": "To Miss the Playoffs",
+   "componentId": 29,
+   "sortOrder": 20117,
+   "tags": []
+  },
+  {
+   "id": 10398,
+   "categoryId": 492,
+   "name": "Quarter / Full Time",
+   "componentId": 204,
+   "sortOrder": 10509,
+   "tags": []
+  },
+  {
+   "id": 10400,
+   "categoryId": 527,
+   "name": "Race to X Points",
+   "componentId": 30,
+   "sortOrder": 4668,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10404,
+   "categoryId": 527,
+   "name": "Winning Margin - 1st Quarter",
+   "componentId": 203,
+   "sortOrder": 4651,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10405,
+   "categoryId": 526,
+   "name": "Winning Margin - Listed Half",
+   "componentId": 203,
+   "sortOrder": 4733,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10445,
+   "categoryId": 526,
+   "name": "Shutout - Listed Half",
+   "componentId": 29,
+   "sortOrder": 9413,
+   "tags": []
+  },
+  {
+   "id": 10448,
+   "categoryId": 527,
+   "name": "Shutout - Listed Quarter",
+   "componentId": 29,
+   "sortOrder": 8472,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10508,
+   "categoryId": 530,
+   "name": "To Score 1st & Win/Lose",
+   "componentId": 29,
+   "sortOrder": 10479,
+   "tags": []
+  },
+  {
+   "id": 10509,
+   "categoryId": 530,
+   "name": "To Win With Shutout",
+   "componentId": 29,
+   "sortOrder": 10506,
+   "tags": []
+  },
+  {
+   "id": 10523,
+   "categoryId": 527,
+   "name": "Scoring Props",
+   "componentId": 29,
+   "sortOrder": 4669,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 10554,
+   "categoryId": 530,
+   "name": "Team Odd/Even",
+   "componentId": 202,
+   "sortOrder": 10520,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 10623,
+   "categoryId": 527,
+   "name": "Quarter TDs - Total",
+   "componentId": 29,
+   "sortOrder": 4643,
+   "tags": []
+  },
+  {
+   "id": 10627,
+   "categoryId": 526,
+   "name": "Scoring Props - Listed Half",
+   "componentId": 29,
+   "sortOrder": 4667,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 11818,
+   "categoryId": 1003,
+   "name": "Last TD Scorer",
+   "componentId": 204,
+   "sortOrder": 10302,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 11924,
+   "categoryId": 530,
+   "name": "Team Totals (Bands)",
+   "componentId": 29,
+   "sortOrder": 5346,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 11938,
+   "categoryId": 1003,
+   "name": "TD Exactas",
+   "componentId": 204,
+   "sortOrder": 9658,
+   "tags": []
+  },
+  {
+   "id": 12352,
+   "categoryId": 1001,
+   "name": "Race to X Rush Yds",
+   "componentId": 204,
+   "sortOrder": 12314,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12422,
+   "categoryId": 1003,
+   "name": "3+ TDs",
+   "componentId": 204,
+   "sortOrder": 9539,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12424,
+   "categoryId": 1003,
+   "name": "Anytime TD - 1st Quarter",
+   "componentId": 204,
+   "sortOrder": 12386,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12425,
+   "categoryId": 1003,
+   "name": "First TD Scorer - 2nd Half",
+   "componentId": 204,
+   "sortOrder": 15916,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12438,
+   "categoryId": 1003,
+   "name": "TD Scorer",
+   "componentId": 18,
+   "sortOrder": 9512,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 12451,
+   "categoryId": 1003,
+   "name": "1st Team TD Scorer",
+   "componentId": 204,
+   "sortOrder": 9924,
+   "tags": []
+  },
+  {
+   "id": 12479,
+   "categoryId": 1185,
+   "name": "Rec Yds H2H",
+   "componentId": 310,
+   "sortOrder": 11948,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 12625,
+   "categoryId": 526,
+   "name": "Halves Won",
+   "componentId": 29,
+   "sortOrder": 8476,
+   "tags": []
+  },
+  {
+   "id": 13195,
+   "categoryId": 492,
+   "name": "Alternate Spread",
+   "componentId": 240,
+   "sortOrder": 4645,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13196,
+   "categoryId": 492,
+   "name": "Alternate Total",
+   "componentId": 240,
+   "sortOrder": 4653,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13459,
+   "categoryId": 528,
+   "name": "Overtime",
+   "componentId": 12,
+   "sortOrder": 5080,
+   "tags": []
+  },
+  {
+   "id": 13525,
+   "categoryId": 527,
+   "name": "Alternate Spread - 1Q",
+   "componentId": 240,
+   "sortOrder": 4638,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13526,
+   "categoryId": 527,
+   "name": "Alternate Total - 1Q",
+   "componentId": 240,
+   "sortOrder": 4639,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13561,
+   "categoryId": 1303,
+   "name": "1st Drive Result",
+   "componentId": 29,
+   "sortOrder": 13521,
+   "tags": [
+    "Featured",
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13567,
+   "categoryId": 1303,
+   "name": "1st Drive - Conversions",
+   "componentId": 29,
+   "sortOrder": 13679,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13569,
+   "categoryId": 1303,
+   "name": "1st Drive - 1st Down",
+   "componentId": 29,
+   "sortOrder": 13532,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13570,
+   "categoryId": 1303,
+   "name": "1st Drive - Sack",
+   "componentId": 29,
+   "sortOrder": 13538,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13571,
+   "categoryId": 1303,
+   "name": "1st Drive - Distance",
+   "componentId": 29,
+   "sortOrder": 13548,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13572,
+   "categoryId": 1303,
+   "name": "1st Drive - Big Play",
+   "componentId": 29,
+   "sortOrder": 13549,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13574,
+   "categoryId": 1304,
+   "name": "1st Score Method - Team",
+   "componentId": 29,
+   "sortOrder": 14819,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13578,
+   "categoryId": 1303,
+   "name": "1st Drive FG",
+   "componentId": 29,
+   "sortOrder": 13550,
+   "tags": []
+  },
+  {
+   "id": 13582,
+   "categoryId": 526,
+   "name": "Alternate Spread - 1H",
+   "componentId": 240,
+   "sortOrder": 4629,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13583,
+   "categoryId": 526,
+   "name": "Alternate Spread - 2H",
+   "componentId": 240,
+   "sortOrder": 4634,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13584,
+   "categoryId": 526,
+   "name": "Alternate Total - 1H",
+   "componentId": 240,
+   "sortOrder": 4630,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13585,
+   "categoryId": 526,
+   "name": "Alternate Total - 2H",
+   "componentId": 240,
+   "sortOrder": 4636,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13588,
+   "categoryId": 1303,
+   "name": "Score on 1st Drive",
+   "componentId": 29,
+   "sortOrder": 13524,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 13705,
+   "categoryId": 530,
+   "name": "Comeback",
+   "componentId": 29,
+   "sortOrder": 10511,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 13720,
+   "categoryId": 1303,
+   "name": "Each Team 1st Drive",
+   "componentId": 204,
+   "sortOrder": 13529,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 14114,
+   "categoryId": 1342,
+   "name": "Rec Yards O/U",
+   "componentId": 8,
+   "sortOrder": 14085,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 14115,
+   "categoryId": 1342,
+   "name": "Receptions O/U",
+   "componentId": 8,
+   "sortOrder": 14182,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 14124,
+   "categoryId": 1342,
+   "name": "Most Receiving Yards",
+   "componentId": 204,
+   "sortOrder": 14931,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 14125,
+   "categoryId": 1342,
+   "name": "Most Receptions",
+   "componentId": 204,
+   "sortOrder": 14934,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 14126,
+   "categoryId": 1001,
+   "name": "Most Rushing Yards",
+   "componentId": 204,
+   "sortOrder": 14975,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 14489,
+   "categoryId": 528,
+   "name": "Last Scoring Play",
+   "componentId": 29,
+   "sortOrder": 5867,
+   "tags": []
+  },
+  {
+   "id": 14806,
+   "categoryId": 530,
+   "name": "Team Totals - TDs",
+   "componentId": 29,
+   "sortOrder": 5084,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15004,
+   "categoryId": 1000,
+   "name": "Pass Yards - 1Q O/U",
+   "componentId": 8,
+   "sortOrder": 12659,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15006,
+   "categoryId": 1342,
+   "name": "Rec Yards - 1Q O/U",
+   "componentId": 8,
+   "sortOrder": 14857,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15008,
+   "categoryId": 1001,
+   "name": "Rush Yards - 1Q O/U",
+   "componentId": 8,
+   "sortOrder": 10551,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15047,
+   "categoryId": 527,
+   "name": "Every Quarter",
+   "componentId": 29,
+   "sortOrder": 8352,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15049,
+   "categoryId": 1559,
+   "name": "1st First Down",
+   "componentId": 29,
+   "sortOrder": 15009,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 15052,
+   "categoryId": 1559,
+   "name": "1st Score",
+   "componentId": 29,
+   "sortOrder": 15013,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 15053,
+   "categoryId": 1559,
+   "name": "1st TD",
+   "componentId": 29,
+   "sortOrder": 15015,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 15059,
+   "categoryId": 1559,
+   "name": "1st Sack",
+   "componentId": 29,
+   "sortOrder": 15020,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 15060,
+   "categoryId": 1559,
+   "name": "1st Turnover",
+   "componentId": 29,
+   "sortOrder": 15017,
+   "tags": [
+    "MicroMarket"
+   ]
+  },
+  {
+   "id": 15064,
+   "categoryId": 1559,
+   "name": "1st FG",
+   "componentId": 29,
+   "sortOrder": 15016,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 15937,
+   "categoryId": 1000,
+   "name": "Interceptions O/U",
+   "componentId": 8,
+   "sortOrder": 10648,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 15948,
+   "categoryId": 1342,
+   "name": "Longest Reception O/U",
+   "componentId": 8,
+   "sortOrder": 16527,
+   "tags": []
+  },
+  {
+   "id": 15960,
+   "categoryId": 1003,
+   "name": "Player to Not Score",
+   "componentId": 29,
+   "sortOrder": 16928,
+   "tags": []
+  },
+  {
+   "id": 15968,
+   "categoryId": 1000,
+   "name": "Longest Completion O/U",
+   "componentId": 8,
+   "sortOrder": 12622,
+   "tags": []
+  },
+  {
+   "id": 16008,
+   "categoryId": 862,
+   "name": "QB Fantasy Points O/U",
+   "componentId": 8,
+   "sortOrder": 15967,
+   "tags": []
+  },
+  {
+   "id": 16009,
+   "categoryId": 862,
+   "name": "RB Fantasy Points O/U",
+   "componentId": 8,
+   "sortOrder": 15971,
+   "tags": []
+  },
+  {
+   "id": 16010,
+   "categoryId": 862,
+   "name": "WR/TE Fantasy Points O/U",
+   "componentId": 8,
+   "sortOrder": 15972,
+   "tags": []
+  },
+  {
+   "id": 16568,
+   "categoryId": 1000,
+   "name": "Pass TDs",
+   "componentId": 331,
+   "sortOrder": 9490,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16569,
+   "categoryId": 1000,
+   "name": "Pass Yards",
+   "componentId": 331,
+   "sortOrder": 9482,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16570,
+   "categoryId": 1342,
+   "name": "Receiving Yards",
+   "componentId": 331,
+   "sortOrder": 14074,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16571,
+   "categoryId": 1001,
+   "name": "Rush Yards",
+   "componentId": 331,
+   "sortOrder": 9479,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16572,
+   "categoryId": 1001,
+   "name": "Rush + Rec Yards",
+   "componentId": 331,
+   "sortOrder": 9480,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16573,
+   "categoryId": 1000,
+   "name": "Pass Yards - 1Q",
+   "componentId": 331,
+   "sortOrder": 9594,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16574,
+   "categoryId": 1342,
+   "name": "Rec Yards - 1Q",
+   "componentId": 331,
+   "sortOrder": 14077,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16575,
+   "categoryId": 1001,
+   "name": "Rush Yards - 1Q",
+   "componentId": 331,
+   "sortOrder": 9489,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16719,
+   "categoryId": 530,
+   "name": "Team Totals",
+   "componentId": 240,
+   "sortOrder": 4657,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 16729,
+   "categoryId": 999,
+   "name": "DK Squares - Any Quarter",
+   "componentId": 250,
+   "sortOrder": 16686,
+   "tags": [
+    "Featured"
+   ]
+  },
+  {
+   "id": 16730,
+   "categoryId": 999,
+   "name": "DK Squares - Final Result",
+   "componentId": 250,
+   "sortOrder": 16687,
+   "tags": []
+  },
+  {
+   "id": 16731,
+   "categoryId": 528,
+   "name": "Correct Score",
+   "componentId": 255,
+   "sortOrder": 5594,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16819,
+   "categoryId": 1000,
+   "name": "Interceptions",
+   "componentId": 331,
+   "sortOrder": 9595,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16820,
+   "categoryId": 1001,
+   "name": "Rush Attempts",
+   "componentId": 331,
+   "sortOrder": 9485,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16821,
+   "categoryId": 1342,
+   "name": "Receptions",
+   "componentId": 331,
+   "sortOrder": 14075,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16837,
+   "categoryId": 527,
+   "name": "Correct Score - 1st Quarter",
+   "componentId": 255,
+   "sortOrder": 4644,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16838,
+   "categoryId": 526,
+   "name": "Correct Score - 1st Half",
+   "componentId": 255,
+   "sortOrder": 4712,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16888,
+   "categoryId": 1000,
+   "name": "Pass Attempts",
+   "componentId": 331,
+   "sortOrder": 9492,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16889,
+   "categoryId": 1000,
+   "name": "Completions",
+   "componentId": 331,
+   "sortOrder": 9498,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16896,
+   "categoryId": 1000,
+   "name": "Pass + Rush Yards",
+   "componentId": 331,
+   "sortOrder": 9572,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16923,
+   "categoryId": 1001,
+   "name": "Longest Rush",
+   "componentId": 331,
+   "sortOrder": 17177,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 16924,
+   "categoryId": 1342,
+   "name": "Longest Reception",
+   "componentId": 331,
+   "sortOrder": 17101,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17055,
+   "categoryId": 1743,
+   "name": "FG Yards",
+   "componentId": 29,
+   "sortOrder": 17015,
+   "tags": []
+  },
+  {
+   "id": 17056,
+   "categoryId": 1743,
+   "name": "FG Total",
+   "componentId": 29,
+   "sortOrder": 17016,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17058,
+   "categoryId": 1743,
+   "name": "Punt Total",
+   "componentId": 29,
+   "sortOrder": 17018,
+   "tags": []
+  },
+  {
+   "id": 17060,
+   "categoryId": 1743,
+   "name": "PAT Made O/U",
+   "componentId": 8,
+   "sortOrder": 17090,
+   "tags": []
+  },
+  {
+   "id": 17061,
+   "categoryId": 1743,
+   "name": "FG Made O/U",
+   "componentId": 8,
+   "sortOrder": 17019,
+   "tags": []
+  },
+  {
+   "id": 17062,
+   "categoryId": 1743,
+   "name": "Kicking Pts O/U",
+   "componentId": 8,
+   "sortOrder": 17088,
+   "tags": []
+  },
+  {
+   "id": 17065,
+   "categoryId": 1744,
+   "name": "Sacks",
+   "componentId": 331,
+   "sortOrder": 17022,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17069,
+   "categoryId": 1744,
+   "name": "Safety",
+   "componentId": 29,
+   "sortOrder": 17027,
+   "tags": []
+  },
+  {
+   "id": 17072,
+   "categoryId": 1744,
+   "name": "Sacks O/U",
+   "componentId": 8,
+   "sortOrder": 17040,
+   "tags": []
+  },
+  {
+   "id": 17101,
+   "categoryId": 1342,
+   "name": "1st Reception",
+   "componentId": 29,
+   "sortOrder": 17169,
+   "tags": []
+  },
+  {
+   "id": 17131,
+   "categoryId": 1743,
+   "name": "FG Made",
+   "componentId": 331,
+   "sortOrder": 17009,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17132,
+   "categoryId": 1743,
+   "name": "Kicking Pts",
+   "componentId": 331,
+   "sortOrder": 17010,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 17133,
+   "categoryId": 1743,
+   "name": "PAT Made",
+   "componentId": 331,
+   "sortOrder": 17011,
+   "tags": []
+  },
+  {
+   "id": 17146,
+   "categoryId": 528,
+   "name": "Octopus",
+   "componentId": 29,
+   "sortOrder": 4632,
+   "tags": []
+  },
+  {
+   "id": 18493,
+   "categoryId": 1000,
+   "name": "Pass Yards - 1H",
+   "componentId": 331,
+   "sortOrder": 18479,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18494,
+   "categoryId": 1001,
+   "name": "Rush Yards - 1H",
+   "componentId": 331,
+   "sortOrder": 18454,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18495,
+   "categoryId": 1342,
+   "name": "Rec Yards - 1H",
+   "componentId": 331,
+   "sortOrder": 18455,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18496,
+   "categoryId": 1000,
+   "name": "Combined Pass Yards",
+   "componentId": 331,
+   "sortOrder": 18480,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18497,
+   "categoryId": 1001,
+   "name": "Combined Rush Yards",
+   "componentId": 331,
+   "sortOrder": 18458,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18498,
+   "categoryId": 1342,
+   "name": "Combined Rec Yards",
+   "componentId": 331,
+   "sortOrder": 18459,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18500,
+   "categoryId": 1000,
+   "name": "Either Player Pass Yards",
+   "componentId": 331,
+   "sortOrder": 18501,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18501,
+   "categoryId": 1001,
+   "name": "Either Player Rush Yards",
+   "componentId": 331,
+   "sortOrder": 18481,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18502,
+   "categoryId": 1342,
+   "name": "Either Player Rec Yards",
+   "componentId": 331,
+   "sortOrder": 18477,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18514,
+   "categoryId": 1003,
+   "name": "Either Player 1st Touchdown",
+   "componentId": 29,
+   "sortOrder": 18471,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18522,
+   "categoryId": 1000,
+   "name": "Pass Attempts - 1Q",
+   "componentId": 331,
+   "sortOrder": 18505,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18523,
+   "categoryId": 1000,
+   "name": "Pass Completions - 1Q",
+   "componentId": 331,
+   "sortOrder": 18506,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18524,
+   "categoryId": 1001,
+   "name": "Rush Attempts - 1Q",
+   "componentId": 331,
+   "sortOrder": 18482,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18525,
+   "categoryId": 1001,
+   "name": "Rush + Rec Yards - 1Q",
+   "componentId": 331,
+   "sortOrder": 18500,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18526,
+   "categoryId": 1000,
+   "name": "Interceptions Thrown - 1Q",
+   "componentId": 331,
+   "sortOrder": 18508,
+   "tags": []
+  },
+  {
+   "id": 18527,
+   "categoryId": 1342,
+   "name": "Receptions - 1Q",
+   "componentId": 331,
+   "sortOrder": 18504,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18537,
+   "categoryId": 1744,
+   "name": "Tackles + Assists O/U",
+   "componentId": 8,
+   "sortOrder": 18494,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18538,
+   "categoryId": 1744,
+   "name": "Tackles + Ast",
+   "componentId": 331,
+   "sortOrder": 18495,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18539,
+   "categoryId": 1744,
+   "name": "Tackles O/U",
+   "componentId": 8,
+   "sortOrder": 18496,
+   "tags": []
+  },
+  {
+   "id": 18540,
+   "categoryId": 1744,
+   "name": "Tackles",
+   "componentId": 331,
+   "sortOrder": 18497,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18541,
+   "categoryId": 1744,
+   "name": "Assists O/U",
+   "componentId": 8,
+   "sortOrder": 18498,
+   "tags": []
+  },
+  {
+   "id": 18542,
+   "categoryId": 1744,
+   "name": "Assists",
+   "componentId": 331,
+   "sortOrder": 18499,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18554,
+   "categoryId": 1644,
+   "name": "Half Specials",
+   "componentId": 204,
+   "sortOrder": 18511,
+   "tags": []
+  },
+  {
+   "id": 18744,
+   "categoryId": 1003,
+   "name": "Either Anytime TD",
+   "componentId": 331,
+   "sortOrder": 18701,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18745,
+   "categoryId": 1003,
+   "name": "Combined TDs",
+   "componentId": 331,
+   "sortOrder": 18702,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18746,
+   "categoryId": 1185,
+   "name": "Rushing Yards",
+   "componentId": 310,
+   "sortOrder": 18703,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18778,
+   "categoryId": 1342,
+   "name": "Race to X Rec Yds",
+   "componentId": 204,
+   "sortOrder": 18735,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18876,
+   "categoryId": 1000,
+   "name": "Pass Yards - 1H O/U",
+   "componentId": 8,
+   "sortOrder": 18833,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18883,
+   "categoryId": 1001,
+   "name": "Rush Yards - 1H O/U",
+   "componentId": 8,
+   "sortOrder": 18840,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18884,
+   "categoryId": 1342,
+   "name": "Rec Yards - 1H O/U",
+   "componentId": 8,
+   "sortOrder": 18841,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18947,
+   "categoryId": 1000,
+   "name": "Longest Completion",
+   "componentId": 331,
+   "sortOrder": 18904,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 18956,
+   "categoryId": 1342,
+   "name": "Race to X Receptions",
+   "componentId": 29,
+   "sortOrder": 18913,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 19080,
+   "categoryId": 1000,
+   "name": "Passing TDs - 1Q",
+   "componentId": 331,
+   "sortOrder": 19037,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 19085,
+   "categoryId": 530,
+   "name": "Team 1st Reception",
+   "componentId": 29,
+   "sortOrder": 19042,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20184,
+   "categoryId": 1972,
+   "name": "Drive Rushing Yards",
+   "componentId": 331,
+   "sortOrder": 20135,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 20185,
+   "categoryId": 1972,
+   "name": "Drive Receiving Yards",
+   "componentId": 331,
+   "sortOrder": 20136,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 20186,
+   "categoryId": 1972,
+   "name": "Drive Passing Yards",
+   "componentId": 331,
+   "sortOrder": 20137,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 20208,
+   "categoryId": 1972,
+   "name": "Drive Player Touchdown",
+   "componentId": 29,
+   "sortOrder": 20159,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 20209,
+   "categoryId": 1972,
+   "name": "Drive Player Receptions",
+   "componentId": 331,
+   "sortOrder": 20160,
+   "tags": [
+    "MicroMarket",
+    "SGP"
+   ]
+  },
+  {
+   "id": 20257,
+   "categoryId": 1001,
+   "name": "Player Rushing Yds in Each Half",
+   "componentId": 331,
+   "sortOrder": 20208,
+   "tags": []
+  },
+  {
+   "id": 20258,
+   "categoryId": 1001,
+   "name": "Player Rush Yds in Each Quarter",
+   "componentId": 331,
+   "sortOrder": 20209,
+   "tags": []
+  },
+  {
+   "id": 20259,
+   "categoryId": 1342,
+   "name": "Player Rec Yds in Each Quarter",
+   "componentId": 331,
+   "sortOrder": 20210,
+   "tags": []
+  },
+  {
+   "id": 20260,
+   "categoryId": 1000,
+   "name": "Player Pass Yds in Each Quarter",
+   "componentId": 331,
+   "sortOrder": 20211,
+   "tags": []
+  },
+  {
+   "id": 20261,
+   "categoryId": 1342,
+   "name": "Player Rec Yds in Each Half",
+   "componentId": 331,
+   "sortOrder": 20212,
+   "tags": []
+  },
+  {
+   "id": 20262,
+   "categoryId": 1000,
+   "name": "Player Pass Yds in Each Half",
+   "componentId": 331,
+   "sortOrder": 20213,
+   "tags": []
+  },
+  {
+   "id": 20382,
+   "categoryId": 1003,
+   "name": "TD Scorer - Halves Grid",
+   "componentId": 18,
+   "sortOrder": 20333,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20426,
+   "categoryId": 1744,
+   "name": "Interceptions",
+   "componentId": 331,
+   "sortOrder": 20377,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 4518,
+   "categoryId": 492,
+   "name": "Game",
+   "componentId": 210,
+   "sortOrder": 4513,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4631,
+   "categoryId": 526,
+   "name": "1st Half",
+   "componentId": 210,
+   "sortOrder": 4626,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4632,
+   "categoryId": 527,
+   "name": "1st Quarter",
+   "componentId": 210,
+   "sortOrder": 4627,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4641,
+   "categoryId": 526,
+   "name": "2nd Half",
+   "componentId": 210,
+   "sortOrder": 4633,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4642,
+   "categoryId": 527,
+   "name": "2nd Quarter",
+   "componentId": 210,
+   "sortOrder": 4631,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4643,
+   "categoryId": 527,
+   "name": "3rd Quarter",
+   "componentId": 210,
+   "sortOrder": 4635,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4644,
+   "categoryId": 527,
+   "name": "4th Quarter",
+   "componentId": 210,
+   "sortOrder": 4637,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4659,
+   "categoryId": 528,
+   "name": "Odd/Even",
+   "componentId": 12,
+   "sortOrder": 16688,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4671,
+   "categoryId": 527,
+   "name": "1st Quarter - 3 Way",
+   "componentId": 11,
+   "sortOrder": 9276,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4738,
+   "categoryId": 526,
+   "name": "2nd Half - 3 Way",
+   "componentId": 11,
+   "sortOrder": 9410,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 5327,
+   "categoryId": 638,
+   "name": "Field Goal Props",
+   "componentId": 29,
+   "sortOrder": 5321,
+   "tags": []
+  },
+  {
+   "id": 5873,
+   "categoryId": 528,
+   "name": "Winning Margin",
+   "componentId": 202,
+   "sortOrder": 4654,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 8480,
+   "categoryId": 527,
+   "name": "Quarter Team Totals",
+   "componentId": 29,
+   "sortOrder": 4642,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9316,
+   "categoryId": 528,
+   "name": "Punt Props",
+   "componentId": 29,
+   "sortOrder": 9281,
+   "tags": []
+  },
+  {
+   "id": 9318,
+   "categoryId": 530,
+   "name": "Turnovers",
+   "componentId": 29,
+   "sortOrder": 10515,
+   "tags": []
+  },
+  {
+   "id": 9319,
+   "categoryId": 528,
+   "name": "TD Props",
+   "componentId": 29,
+   "sortOrder": 4640,
+   "tags": [
+    "Featured",
+    "SGP"
+   ]
+  },
+  {
+   "id": 9320,
+   "categoryId": 526,
+   "name": "TD Props",
+   "componentId": 29,
+   "sortOrder": 8473,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9323,
+   "categoryId": 528,
+   "name": "Largest Lead",
+   "componentId": 29,
+   "sortOrder": 5324,
+   "tags": []
+  },
+  {
+   "id": 9325,
+   "categoryId": 528,
+   "name": "Scoring Props",
+   "componentId": 29,
+   "sortOrder": 4628,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9326,
+   "categoryId": 528,
+   "name": "Both Teams to Score X",
+   "componentId": 29,
+   "sortOrder": 4660,
+   "tags": []
+  },
+  {
+   "id": 9449,
+   "categoryId": 526,
+   "name": "Team Odd/Even",
+   "componentId": 203,
+   "sortOrder": 9415,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9514,
+   "categoryId": 1001,
+   "name": "Rush Yards O/U",
+   "componentId": 8,
+   "sortOrder": 9493,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9517,
+   "categoryId": 1000,
+   "name": "Pass Attempts O/U",
+   "componentId": 8,
+   "sortOrder": 10649,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9518,
+   "categoryId": 1001,
+   "name": "Rush Attempts O/U",
+   "componentId": 8,
+   "sortOrder": 9591,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9522,
+   "categoryId": 1000,
+   "name": "Completions O/U",
+   "componentId": 8,
+   "sortOrder": 11931,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9523,
+   "categoryId": 1001,
+   "name": "Rush + Rec Yards O/U",
+   "componentId": 8,
+   "sortOrder": 9592,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9524,
+   "categoryId": 1000,
+   "name": "Pass Yards O/U",
+   "componentId": 8,
+   "sortOrder": 10550,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9525,
+   "categoryId": 1000,
+   "name": "Pass TDs O/U",
+   "componentId": 8,
+   "sortOrder": 10556,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9532,
+   "categoryId": 1000,
+   "name": "Pass + Rush Yards O/U",
+   "componentId": 8,
+   "sortOrder": 12055,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9533,
+   "categoryId": 1001,
+   "name": "Longest Rush O/U",
+   "componentId": 8,
+   "sortOrder": 12562,
+   "tags": []
+  },
+  {
+   "id": 9567,
+   "categoryId": 528,
+   "name": "Race to X Pts",
+   "componentId": 30,
+   "sortOrder": 4659,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9579,
+   "categoryId": 527,
+   "name": "Team Totals - Odd/Even",
+   "componentId": 203,
+   "sortOrder": 9295,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9583,
+   "categoryId": 526,
+   "name": "Team Totals - Listed Half",
+   "componentId": 29,
+   "sortOrder": 4655,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9584,
+   "categoryId": 526,
+   "name": "Race to X Points",
+   "componentId": 30,
+   "sortOrder": 9275,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9588,
+   "categoryId": 526,
+   "name": "Highest Scoring Half",
+   "componentId": 11,
+   "sortOrder": 9272,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9590,
+   "categoryId": 528,
+   "name": "2 Pt Conversion",
+   "componentId": 29,
+   "sortOrder": 5100,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 9594,
+   "categoryId": 528,
+   "name": "Safety Props",
+   "componentId": 29,
+   "sortOrder": 9282,
+   "tags": []
+  },
+  {
+   "id": 9615,
+   "categoryId": 526,
+   "name": "1st Half - 3 Way ",
+   "componentId": 11,
+   "sortOrder": 9305,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9712,
+   "categoryId": 492,
+   "name": "Half Time / Full Time",
+   "componentId": 204,
+   "sortOrder": 10484,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 19060,
+   "categoryId": 1185,
+   "name": "Pass Yds H2H",
+   "componentId": 310,
+   "sortOrder": 19017,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20210,
+   "categoryId": 528,
+   "name": "Game Winning TD in OT",
+   "componentId": 29,
+   "sortOrder": 20161,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20263,
+   "categoryId": 1744,
+   "name": "Sacks in Each Half",
+   "componentId": 331,
+   "sortOrder": 20214,
+   "tags": [
+    "SGP"
+   ]
+  },
+  {
+   "id": 20264,
+   "categoryId": 1000,
+   "name": "Each Player Pass Yds in Each Quarter",
+   "componentId": 331,
+   "sortOrder": 20215,
+   "tags": []
+  },
+  {
+   "id": 20266,
+   "categoryId": 1001,
+   "name": "Each Player Rush Yards in Each Quarter",
+   "componentId": 331,
+   "sortOrder": 20217,
+   "tags": []
+  },
+  {
+   "id": 20267,
+   "categoryId": 1000,
+   "name": "Each Player Pass Yds in Each Half",
+   "componentId": 331,
+   "sortOrder": 20218,
+   "tags": []
+  },
+  {
+   "id": 20268,
+   "categoryId": 1342,
+   "name": "Each Player Rec Yards in Each Half",
+   "componentId": 331,
+   "sortOrder": 20219,
+   "tags": []
+  },
+  {
+   "id": 20269,
+   "categoryId": 1001,
+   "name": "Each Player Rush Yds in Each Half",
+   "componentId": 331,
+   "sortOrder": 20220,
+   "tags": []
+  },
+  {
+   "id": 11792,
+   "categoryId": 998,
+   "name": "Sack This Drive",
+   "componentId": 29,
+   "sortOrder": 9615,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 11961,
+   "categoryId": 998,
+   "name": "New Downs",
+   "componentId": 29,
+   "sortOrder": 9650,
+   "tags": [
+    "Featured",
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 12726,
+   "categoryId": 1054,
+   "name": "3+ TDs",
+   "componentId": 204,
+   "sortOrder": 13598,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 13633,
+   "categoryId": 998,
+   "name": "X Yard Play This Drive",
+   "componentId": 29,
+   "sortOrder": 9614,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 13636,
+   "categoryId": 998,
+   "name": "Conversion Props",
+   "componentId": 29,
+   "sortOrder": 9617,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 15706,
+   "categoryId": 527,
+   "name": "1st Quarter - Alt Total",
+   "componentId": 240,
+   "sortOrder": 9726,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 15707,
+   "categoryId": 527,
+   "name": "2nd Quarter - Alt Total",
+   "componentId": 240,
+   "sortOrder": 9728,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 15708,
+   "categoryId": 527,
+   "name": "3rd Quarter - Alt Total",
+   "componentId": 240,
+   "sortOrder": 10023,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16077,
+   "categoryId": 527,
+   "name": "1st Quarter - Alt Spread",
+   "componentId": 240,
+   "sortOrder": 9298,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16078,
+   "categoryId": 527,
+   "name": "2nd Quarter - Alt Spread",
+   "componentId": 240,
+   "sortOrder": 9414,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16079,
+   "categoryId": 527,
+   "name": "3rd Quarter - Alt Spread",
+   "componentId": 240,
+   "sortOrder": 9506,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 16278,
+   "categoryId": 1680,
+   "name": "Next Attempt",
+   "componentId": 29,
+   "sortOrder": 16235,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16279,
+   "categoryId": 1680,
+   "name": "First Down Y/N - Exact Method",
+   "componentId": 29,
+   "sortOrder": 16236,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16280,
+   "categoryId": 1680,
+   "name": "Next Play TD",
+   "componentId": 29,
+   "sortOrder": 16237,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16281,
+   "categoryId": 1680,
+   "name": "Next Play 1st Down",
+   "componentId": 29,
+   "sortOrder": 16238,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16283,
+   "categoryId": 1680,
+   "name": "Next  Pass Attempt",
+   "componentId": 29,
+   "sortOrder": 16240,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16284,
+   "categoryId": 1680,
+   "name": "Next Carry",
+   "componentId": 29,
+   "sortOrder": 16241,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 16285,
+   "categoryId": 1680,
+   "name": "Next Reception",
+   "componentId": 29,
+   "sortOrder": 16242,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 18479,
+   "categoryId": 1054,
+   "name": "4+ TDs",
+   "componentId": 204,
+   "sortOrder": 18436,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18480,
+   "categoryId": 1054,
+   "name": "5+ TDs",
+   "componentId": 204,
+   "sortOrder": 18437,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18483,
+   "categoryId": 1873,
+   "name": "Either Player Next Touchdown",
+   "componentId": 29,
+   "sortOrder": 18440,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 18503,
+   "categoryId": 1054,
+   "name": "TD Scorer - 1Q",
+   "componentId": 29,
+   "sortOrder": 18460,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18504,
+   "categoryId": 1054,
+   "name": "TD Scorer - 2Q",
+   "componentId": 29,
+   "sortOrder": 18461,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18505,
+   "categoryId": 1054,
+   "name": "TD Scorer - 3Q",
+   "componentId": 29,
+   "sortOrder": 18462,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18506,
+   "categoryId": 1054,
+   "name": "TD Scorer - 4Q",
+   "componentId": 29,
+   "sortOrder": 18463,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18507,
+   "categoryId": 1054,
+   "name": "TD Scorer - 1st Half",
+   "componentId": 29,
+   "sortOrder": 18464,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18508,
+   "categoryId": 1054,
+   "name": "TD Scorer - 2nd Half",
+   "componentId": 29,
+   "sortOrder": 18465,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18516,
+   "categoryId": 1054,
+   "name": "Either Player Touchdowns",
+   "componentId": 331,
+   "sortOrder": 18473,
+   "tags": [
+    "MicroMarket",
+    "Live"
+   ]
+  },
+  {
+   "id": 18946,
+   "categoryId": 1054,
+   "name": "Next Team TD Scorer",
+   "componentId": 29,
+   "sortOrder": 18903,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 18957,
+   "categoryId": 638,
+   "name": "Kicking Points O/U",
+   "componentId": 29,
+   "sortOrder": 18914,
+   "tags": []
+  },
+  {
+   "id": 18958,
+   "categoryId": 1000,
+   "name": "Interceptions O/U",
+   "componentId": 29,
+   "sortOrder": 18915,
+   "tags": []
+  },
+  {
+   "id": 20083,
+   "categoryId": 1054,
+   "name": "Combined TDs",
+   "componentId": 331,
+   "sortOrder": 20034,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20203,
+   "categoryId": 998,
+   "name": "Drive Rushing Yards",
+   "componentId": 331,
+   "sortOrder": 20154,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20204,
+   "categoryId": 998,
+   "name": "Drive Receiving Yards",
+   "componentId": 331,
+   "sortOrder": 20155,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20205,
+   "categoryId": 998,
+   "name": "Drive Passing Yards",
+   "componentId": 331,
+   "sortOrder": 20156,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20207,
+   "categoryId": 998,
+   "name": "Drive Player Receptions",
+   "componentId": 331,
+   "sortOrder": 20158,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20354,
+   "categoryId": 1054,
+   "name": "TD Scorer Grid",
+   "componentId": 18,
+   "sortOrder": 20305,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 20360,
+   "categoryId": 998,
+   "name": "Drive Player Touchdown",
+   "componentId": 204,
+   "sortOrder": 20311,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4653,
+   "categoryId": 530,
+   "name": "Team Totals",
+   "componentId": 29,
+   "sortOrder": 4648,
+   "tags": [
+    "Featured",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4660,
+   "categoryId": 526,
+   "name": "Odd/Even",
+   "componentId": 29,
+   "sortOrder": 13544,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4661,
+   "categoryId": 527,
+   "name": "Odd/Even",
+   "componentId": 29,
+   "sortOrder": 10489,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4673,
+   "categoryId": 527,
+   "name": "2nd Quarter (3 Way)",
+   "componentId": 11,
+   "sortOrder": 10412,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 4674,
+   "categoryId": 527,
+   "name": "3rd Quarter (3 Way)",
+   "componentId": 11,
+   "sortOrder": 10414,
+   "tags": [
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 5105,
+   "categoryId": 528,
+   "name": "Next Team to Score",
+   "componentId": 29,
+   "sortOrder": 9724,
+   "tags": []
+  },
+  {
+   "id": 9479,
+   "categoryId": 998,
+   "name": "Drive Result",
+   "componentId": 29,
+   "sortOrder": 9445,
+   "tags": [
+    "Featured",
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9480,
+   "categoryId": 998,
+   "name": "Drive Yardage",
+   "componentId": 29,
+   "sortOrder": 9446,
+   "tags": [
+    "MicroMarket",
+    "SGP",
+    "Live"
+   ]
+  },
+  {
+   "id": 9159,
+   "categoryId": 529,
+   "name": "Stage of Elimination",
+   "componentId": 29,
+   "sortOrder": 11575,
+   "tags": []
+  },
+  {
+   "id": 10500,
+   "categoryId": 529,
+   "name": "Champion",
+   "componentId": 212,
+   "sortOrder": 4646,
+   "tags": []
+  },
+  {
+   "id": 10249,
+   "categoryId": 529,
+   "name": "Exact Result",
+   "componentId": 29,
+   "sortOrder": 11767,
+   "tags": []
+  },
+  {
+   "id": 7302,
+   "categoryId": 529,
+   "name": "Name the Finalists",
+   "componentId": 29,
+   "sortOrder": 7685,
+   "tags": []
+  },
+  {
+   "id": 7293,
+   "categoryId": 529,
+   "name": "Division Winner",
+   "componentId": 29,
+   "sortOrder": 7272,
+   "tags": []
+  },
+  {
+   "id": 15901,
+   "categoryId": 529,
+   "name": "Winning Conference",
+   "componentId": 29,
+   "sortOrder": 16579,
+   "tags": []
+  },
+  {
+   "id": 6447,
+   "categoryId": 529,
+   "name": "Champion Specials",
+   "componentId": 29,
+   "sortOrder": 15070,
+   "tags": []
+  },
+  {
+   "id": 18805,
+   "categoryId": 1286,
+   "name": "First Win",
+   "componentId": 204,
+   "sortOrder": 18762,
+   "tags": []
+  },
+  {
+   "id": 13339,
+   "categoryId": 787,
+   "name": "MVP",
+   "componentId": 29,
+   "sortOrder": 7205,
+   "tags": []
+  },
+  {
+   "id": 13340,
+   "categoryId": 787,
+   "name": "OPOY",
+   "componentId": 29,
+   "sortOrder": 7211,
+   "tags": []
+  },
+  {
+   "id": 13341,
+   "categoryId": 787,
+   "name": "DPOY",
+   "componentId": 29,
+   "sortOrder": 7212,
+   "tags": []
+  },
+  {
+   "id": 13344,
+   "categoryId": 787,
+   "name": "Coach",
+   "componentId": 29,
+   "sortOrder": 7213,
+   "tags": []
+  },
+  {
+   "id": 13342,
+   "categoryId": 787,
+   "name": "OROY",
+   "componentId": 29,
+   "sortOrder": 7206,
+   "tags": []
+  },
+  {
+   "id": 13343,
+   "categoryId": 787,
+   "name": "DROY",
+   "componentId": 29,
+   "sortOrder": 7210,
+   "tags": []
+  },
+  {
+   "id": 13345,
+   "categoryId": 787,
+   "name": "Comeback",
+   "componentId": 29,
+   "sortOrder": 8205,
+   "tags": []
+  },
+  {
+   "id": 18886,
+   "categoryId": 1653,
+   "name": "All Teams Specials",
+   "componentId": 204,
+   "sortOrder": 18843,
+   "tags": []
+  },
+  {
+   "id": 18518,
+   "categoryId": 1653,
+   "name": "Highest/Lowest Team",
+   "componentId": 29,
+   "sortOrder": 18475,
+   "tags": []
+  },
+  {
+   "id": 15962,
+   "categoryId": 1653,
+   "name": "Highest/Lowest Game",
+   "componentId": 204,
+   "sortOrder": 15975,
+   "tags": []
+  },
+  {
+   "id": 15982,
+   "categoryId": 1653,
+   "name": "Weekly Leaders",
+   "componentId": 29,
+   "sortOrder": 15918,
+   "tags": []
+  },
+  {
+   "id": 19218,
+   "categoryId": 1226,
+   "name": "Non-QB to Throw a Pass",
+   "componentId": 204,
+   "sortOrder": 19175,
+   "tags": []
+  },
+  {
+   "id": 16024,
+   "categoryId": 1653,
+   "name": "Weekly Totals",
+   "componentId": 29,
+   "sortOrder": 15977,
+   "tags": []
+  },
+  {
+   "id": 15858,
+   "categoryId": 1644,
+   "name": "Kickoff Specials",
+   "componentId": 29,
+   "sortOrder": 15816,
+   "tags": []
+  },
+  {
+   "id": 16020,
+   "categoryId": 1653,
+   "name": "QB Props",
+   "componentId": 29,
+   "sortOrder": 15939,
+   "tags": []
+  },
+  {
+   "id": 16021,
+   "categoryId": 1653,
+   "name": "1st Play Specials",
+   "componentId": 29,
+   "sortOrder": 15985,
+   "tags": []
+  },
+  {
+   "id": 18571,
+   "categoryId": 1653,
+   "name": "Weekly Specials",
+   "componentId": 29,
+   "sortOrder": 18528,
+   "tags": []
+  },
+  {
+   "id": 15079,
+   "categoryId": 862,
+   "name": "Player Specials",
+   "componentId": 204,
+   "sortOrder": 9774,
+   "tags": []
+  },
+  {
+   "id": 16053,
+   "categoryId": 1653,
+   "name": "Team Specials",
+   "componentId": 204,
+   "sortOrder": 16749,
+   "tags": []
+  },
+  {
+   "id": 15986,
+   "categoryId": 1653,
+   "name": "First TD Scorer - Sunday",
+   "componentId": 29,
+   "sortOrder": 15920,
+   "tags": []
+  },
+  {
+   "id": 13354,
+   "categoryId": 1286,
+   "name": "Regular Season Wins",
+   "componentId": 240,
+   "sortOrder": 13320,
+   "tags": []
+  },
+  {
+   "id": 20498,
+   "categoryId": 1984,
+   "name": "Pick Number",
+   "componentId": 29,
+   "sortOrder": 20449,
+   "tags": []
+  }
+ ]
+}

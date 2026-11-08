@@ -4,18 +4,23 @@ from lukhed_basic_utils import osCommon as osC
 from lukhed_basic_utils import timeCommon as tC
 from lukhed_basic_utils import requestsCommon as rC
 from lukhed_basic_utils import fileCommon as fC
-from lukhed_basic_utils import stringCommon as sC
 from lukhed_basic_utils import listWorkCommon as lC
 from lukhed_sports.calibrations.dk import api_versions
+from lukhed_sports.calibrations.dk import known_ids
 
 class DkSportsbook():
-    def __init__(self, api_delay=2, use_local_cache=True, reset_cache=False, retry_delay=5, timeout=10):
+    def __init__(self, api_delay=2, use_local_cache=True, reset_cache=False, retry_delay=5, timeout=10,
+                 response_cache_seconds=60, block_cooldown=300):
         """
         A wrapper class for accessing DraftKings Sportsbook API data.
 
         This class provides methods to retrieve betting lines, odds, and other sports betting data
         from DraftKings Sportsbook. It supports major sports leagues including NFL, NBA, NHL, MLB,
         and NCAA sports, with functionality to get game lines, player props, and other betting markets.
+
+        DraftKings rate limits on the total number of calls made in a time window, so this class tries hard to
+        make as few calls as possible: known sport/league/category ids are built in, and responses are re-used
+        for a short time within a session.
 
         Parameters
         ----------
@@ -32,13 +37,22 @@ class DkSportsbook():
             blocked or rate limited (HTTP 403/429) are not retried.
         timeout : float, optional
             Seconds to wait for a DraftKings response before giving up, by default 10
+        response_cache_seconds : float, optional
+            How long a DraftKings response is re-used within this session before calling again, by default 60.
+            Set to 0 to always call the api.
+        block_cooldown : float, optional
+            After DraftKings blocks a call (HTTP 403/429), no further calls are made for this many seconds,
+            by default 300. Calling into a block tends to extend it.
         """
         # Set API Information
         self.api_delay = api_delay
         self.retry_delay = retry_delay
         self.timeout = timeout
+        self.response_cache_seconds = response_cache_seconds
+        self.block_cooldown = block_cooldown
         self.session = self._create_session()
         self._last_call_time = None
+        self._blocked_until = None
 
         # Set cals
         self._api_versions = None
@@ -46,24 +60,22 @@ class DkSportsbook():
         self._player_url = None
         self.sportsbook = None
         self._load_calibrations()
-        
-        # Available Sports
-        self.available_sports = None
+
+        # Available Sports (loaded lazily, see the available_sports property)
         self._available_sports = None
-        
+
         # Cache
         self.use_cache = use_local_cache
         self._local_cache_dir = osC.check_create_dir_structure(['lukhed_sports_local_cache'], return_path=True)
-        self. _sports_cache_file = osC.append_to_dir(self._local_cache_dir, 'dk_sports_cache.json')
+        self._sports_cache_file = osC.append_to_dir(self._local_cache_dir, 'dk_sports_cache.json')
         self._cached_available_leagues_json = {}
         self._leagues_cache_file = osC.append_to_dir(self._local_cache_dir, 'dk_available_leagues_cache.json')
-        self._cached_league_json = {}
-        self._cached_category = None
+        self._response_cache = {}           # url -> (time fetched, response)
+        self._discovered_category_ids = {}  # league id -> {category name: id}, learned from responses
+        self._discovered_events = {}        # league id -> events list, learned from responses
 
         if self.use_cache and reset_cache:
             self._reset_cache()
-
-        self._set_available_sports()
 
     def _load_calibrations(self):
         # Load version cal
@@ -71,24 +83,34 @@ class DkSportsbook():
         self._base_url = self._api_versions['baseUrl']
         self._player_url = self._api_versions['playerUrl']
         self.sportsbook = self._api_versions['defaultSportsbook']
-        
-    def _set_available_sports(self):
-        if self.use_cache:
-            if osC.check_if_file_exists(self._sports_cache_file):
-                self._available_sports = fC.load_json_from_file(self._sports_cache_file)
-            else:
-                self._available_sports = {}
 
-        if self._available_sports == {}:
-            # Call the api
+    @property
+    def available_sports(self):
+        """
+        List of sports available at DraftKings. Retrieved on first use (one api call, then cached locally if
+        use_local_cache is True).
+        """
+        if self._available_sports is None:
+            self._set_available_sports()
+        return [x['name'].lower() for x in self._available_sports]
+
+    def _set_available_sports(self):
+        sports = []
+        if self.use_cache and osC.check_if_file_exists(self._sports_cache_file):
+            sports = fC.load_json_from_file(self._sports_cache_file) or []
+
+        if not sports:
             api_version = self._api_versions['navVersion']
             url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports?format=json"
-            self._available_sports = self._call_api(url, 'retrieve available sports')['sports']
-            if self.use_cache:
-                fC.dump_json_to_file(self._sports_cache_file, self._available_sports)
+            sports = self._call_api(url, 'retrieve available sports').get('sports', [])
+            if self.use_cache and sports:
+                fC.dump_json_to_file(self._sports_cache_file, sports)
 
-        self.available_sports = [x['name'].lower() for x in self._available_sports]
-            
+        self._available_sports = sports
+
+    ############################
+    # API calls
+    ############################
     def _create_session(self):
         session = requests.Session()
         session.headers.update({
@@ -106,6 +128,14 @@ class DkSportsbook():
             tC.sleep(self.api_delay - elapsed)
 
     def _call_api(self, endpoint, purpose, max_attempts=3):
+        if self._blocked_until is not None:
+            remaining = self._blocked_until - time.monotonic()
+            if remaining > 0:
+                print(f"ERROR: Skipping call to DraftKings ({purpose}). Calls are paused for another "
+                      f"{remaining:.0f}s after being blocked.")
+                return {}
+            self._blocked_until = None
+
         for attempt in range(1, max_attempts + 1):
             self._wait_for_api_delay()
             print(f"called api: {endpoint}\npurpose: {purpose}\n")
@@ -119,9 +149,10 @@ class DkSportsbook():
 
             if response is not None:
                 if response.status_code in (403, 429):
-                    # Blocked or rate limited. Retrying quickly only extends the block, so stop here.
+                    # Blocked or rate limited. Retrying quickly only extends the block, so pause all calls.
+                    self._blocked_until = time.monotonic() + self.block_cooldown
                     print(f"ERROR: DraftKings returned {response.status_code} (access denied / rate limited). "
-                          f"Slow down calls (increase api_delay) and try again later.")
+                          f"Pausing calls for {self.block_cooldown}s. Increase api_delay or make fewer calls.")
                     return {}
                 if response.ok:
                     try:
@@ -136,14 +167,33 @@ class DkSportsbook():
                 tC.sleep(self.retry_delay)
 
         return {}
-    
+
+    def _call_api_cached(self, endpoint, purpose):
+        """
+        Same as _call_api, but re-uses a successful response for self.response_cache_seconds. Failed (empty)
+        responses are never cached.
+        """
+        cached = self._response_cache.get(endpoint)
+        if cached is not None:
+            fetched_time, data = cached
+            if time.monotonic() - fetched_time < self.response_cache_seconds:
+                return data
+
+        data = self._call_api(endpoint, purpose)
+        if data:
+            self._response_cache[endpoint] = (time.monotonic(), data)
+        return data
+
     ############################
     # Class cache management
     ############################
     def _reset_cache(self):
-        fC.dump_json_to_file(self._sports_cache_file, {})
+        fC.dump_json_to_file(self._sports_cache_file, [])
         fC.dump_json_to_file(self._leagues_cache_file, {})
-    
+        self._available_sports = None
+        self._cached_available_leagues_json = {}
+        self._response_cache = {}
+
     def _check_available_league_cache(self, sport_id):
         """
         Checks available league cache on local file system.
@@ -151,125 +201,100 @@ class DkSportsbook():
         Parameters
         ----------
         sport_id : str()
-            League being requested
+            Sport being requested
 
         Returns
         -------
-        dict()
-            Output from self._get_json_for_league() or blank dict {} if no cache
+        dict() or None
+            Cached nav response for the sport, or None if not cached
         """
         if self._cached_available_leagues_json == {} and self.use_cache:
             # Try to load available leagues cache from file
             if osC.check_if_file_exists(self._leagues_cache_file):
-                self._cached_available_leagues_json = fC.load_json_from_file(self._leagues_cache_file)
-        
-        # See if leagues available for sport are in cache
-        try:
-            available_leagues_json = self._cached_available_leagues_json[sport_id]
-        except KeyError:
-            available_leagues_json = None
-        
-        return available_leagues_json
-    
+                self._cached_available_leagues_json = fC.load_json_from_file(self._leagues_cache_file) or {}
+
+        cached = self._cached_available_leagues_json.get(sport_id)
+        if not cached or 'leagues' not in cached:
+            return None
+        return cached
+
     def _get_league_data_for_sport(self, s_id):
         """
-        This function tries to utilize saved available leagues for a sport. Useful for users doing multiple 
-        queries against the same sport so as to save api calls.
-
-        There are two types of cache for available leagues: local file storage and RAM (local class variable).
-
-        The RAM cache is on by default, as the leagues associated with a sport should not change during an 
-        active session.
-
-        The local file storage option is linked to user instantiation method (use_local_cache). 
+        Returns the leagues DraftKings has for a sport. Uses the local file cache (if use_local_cache) or the
+        session cache before calling the api.
 
         Parameters
         ----------
         s_id : str()
-            _description_
-
-        Returns
-        -------
-        _type_
-            _description_
-        """
-        # check cache for id, get from dk if not in cache
-        available_leagues_cache = self._check_available_league_cache(s_id)
-        if available_leagues_cache is not None:
-            # cache is available
-            available_leagues = available_leagues_cache
-        else:
-            # obtain league json from dk and add to cache
-            api_version = self._api_versions['navVersion']
-            url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports/{s_id}?format=json"
-            available_leagues = self._call_api(url, 'retrieve league data for id={s_id}')
-            self._cached_available_leagues_json[s_id] = available_leagues
-            if self.use_cache:
-                fC.dump_json_to_file(self._leagues_cache_file, self._cached_available_leagues_json)
-
-        return available_leagues
-    
-    def _check_league_json_cache(self, league_id):
-        """
-        This function tries to utilize saved league json if available. Useful for users doing multiple queries against 
-        the same leagues so as to save api calls.
-
-        When a user makes a call for data from dk with a league input parameter, the self._get_json_for_league() 
-        function checks the cache and sets the cache when applicable.
-
-        Parameters
-        ----------
-        league_json : str()
-            League being requested
+            DraftKings sport id
 
         Returns
         -------
         dict()
-            Output from self._get_league_data_for_sport() or blank dict {} if no cache
+            DraftKings nav response with a 'leagues' key, or {'leagues': []} if unavailable.
         """
+        available_leagues = self._check_available_league_cache(s_id)
+        if available_leagues is not None:
+            return available_leagues
 
-        try:
-            league_json = self._cached_league_json[league_id]
-        except KeyError:
-            league_json = None
-        
-        return league_json
-    
+        api_version = self._api_versions['navVersion']
+        url = f"{self._base_url}/sportscontent/navigation/{self.sportsbook}/{api_version}/nav/sports/{s_id}?format=json"
+        available_leagues = self._call_api(url, f'retrieve league data for id={s_id}')
+        if 'leagues' not in available_leagues:
+            return {'leagues': []}
+
+        self._cached_available_leagues_json[s_id] = available_leagues
+        if self.use_cache:
+            fC.dump_json_to_file(self._leagues_cache_file, self._cached_available_leagues_json)
+
+        return available_leagues
+
     def _get_json_for_league(self, sport, league):
-        sport = sport.lower()
-        league = league.lower()
-        'https://sportsbook-nash.draftkings.com/api/sportscontent/dkusmi/v1/leagues/88808'
-
+        """
+        Returns the league 'home page' json (events, categories, subcategories, and the default category's
+        markets/selections). Returns {} if the league is not found or the call fails.
+        """
         league_id = self._get_league_id(sport, league)
+        if league_id is None:
+            return {}
 
-        # check cache for id, get from dk if not in cache
-        league_json_cache = self._check_league_json_cache(league_id)
-        if league_json_cache is not None:
-            # cache is available
-            return league_json_cache
-        else:
-            # obtain league json from dk and add to cache
-            api_version = self._api_versions['groupVersion']
-            url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/leagues/{league_id}"
-            league_json = self._call_api(url, f'retrieve league json for {league}')
-            self._cached_league_json[league_id] = league_json
-
+        api_version = self._api_versions['groupVersion']
+        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/leagues/{league_id}"
+        league_json = self._call_api_cached(url, f'retrieve league json for {league}')
+        self._learn_from_response(league_id, league_json)
         return league_json
-    
-    def _check_category_cache(league):
-        stop = 1
-    
+
+    def _learn_from_response(self, league_id, data):
+        """
+        Every league/category response contains the league's category list and the events it covers. Save them
+        so later lookups don't need an extra call.
+        """
+        if not data:
+            return
+        if data.get('categories'):
+            self._discovered_category_ids[league_id] = {
+                x['name'].strip().lower(): x['id'] for x in data['categories']
+            }
+        if data.get('events'):
+            known = {x['id']: x for x in self._discovered_events.get(league_id, [])}
+            known.update({x['id']: x for x in data['events']})
+            self._discovered_events[league_id] = list(known.values())
+
     def _get_sport_from_id(self, sport_id):
-        sport_ids = [x['id'] for x in self._available_sports]
-        sport = self.available_sports[sport_ids.index(sport_id)]
-        return sport
-    
+        for x in self._available_sports or []:
+            if x['id'] == sport_id:
+                return x['name'].lower()
+        for name, s_id in known_ids.sport_ids.items():
+            if s_id == sport_id:
+                return name
+        return None
+
     ############################
     # Input Checks
     ############################
     def _check_valid_sport(self, sport):
         sport = sport.lower()
-        if sport in self.available_sports:
+        if sport in known_ids.sport_ids or sport in self.available_sports:
             return True
         else:
             print(f"ERROR: '{sport}' is not a valid sport. Check api.available_sports for valid input.")
@@ -278,34 +303,37 @@ class DkSportsbook():
     ############################
     # Level 2 Parsing Functions
     # Functions that are used by multiple internal class functins
-    ############################   
+    ############################
     def _get_sport_id(self, sport):
         """
-        This function parses available sports for sport id. Available sports are made available upon class 
-        instantiation and cached across sessions if use_cache = True.
+        Returns the DraftKings sport id. Known ids are used without an api call; otherwise available sports are
+        looked up (cached across sessions if use_cache = True).
 
         Parameters
         ----------
-        league : str()
+        sport : str()
             A sport string available from dk
 
         Returns
         -------
-        str()
+        str() or None
             A sport ID which is used in API calls.
         """
         sport = sport.lower()
+        if sport in known_ids.sport_ids:
+            return known_ids.sport_ids[sport]
+
         if sport in self.available_sports:
             index = self.available_sports.index(sport)
             return self._available_sports[index]['id']
-        else:
-            print(f"ERROR: Could not find {sport} in valid sports. Check api.available_sports for valid input.")
-            return None
-        
+
+        print(f"ERROR: Could not find {sport} in valid sports. Check api.available_sports for valid input.")
+        return None
+
     def _get_league_id(self, sport, league):
         """
-        This function parses the available league data for a given sport for the league id. Available leagues 
-        for a sport are only made available once a user needs data for a sport then are cached across sessions. 
+        Returns the DraftKings league id. Known ids are used without an api call; otherwise the leagues for the
+        sport are looked up (cached across sessions if use_cache = True).
 
         Parameters
         ----------
@@ -316,28 +344,113 @@ class DkSportsbook():
 
         Returns
         -------
-        str()
+        str() or None
             League ID for a given league.
         """
-
+        sport = sport.lower()
+        league = league.lower()
+        known = known_ids.league_ids.get((sport, league))
+        if known is not None:
+            return known
 
         sport_id = self._get_sport_id(sport)
-        available_leagues = self._get_league_data_for_sport(sport_id)
-        league = league.lower()
+        if sport_id is None:
+            return None
 
+        available_leagues = self._get_league_data_for_sport(sport_id)
         for available_league in available_leagues['leagues']:
-            league_name = available_league['name'].lower()
-            if league_name == league:
+            if available_league['name'].lower() == league:
                 return available_league['id']
-            
+
         print(f"ERROR: '{league}' was not found for '{sport}'. Use api.get_available_leagues() to check valid input")
         return None
-    
+
+    def _get_category_id(self, sport, league, category):
+        """
+        Returns the category id for a named category (e.g. 'game lines', 'td scorers'). Checks, in order: known
+        ids, ids learned from earlier responses this session, then the league json (one api call).
+        """
+        category = category.strip().lower()
+        league_id = self._get_league_id(sport, league)
+        if league_id is None:
+            return None
+
+        for source in (known_ids.category_ids, self._discovered_category_ids):
+            cat_id = source.get(league_id, {}).get(category)
+            if cat_id is not None:
+                return cat_id
+
+        self._get_json_for_league(sport, league)
+        cat_id = self._discovered_category_ids.get(league_id, {}).get(category)
+        if cat_id is None:
+            print(f"ERROR: No '{category}' for {league} found at DK. Try api.get_available_betting_categories() "
+                  f"to see what is available on dk for {league}")
+        return cat_id
+
+    def _get_category_data(self, sport, league, category):
+        """
+        Returns the DraftKings response for a league category: events, markets and selections for the category
+        (plus the league's categories/subcategories). This is normally a single api call.
+
+        If the category id is not known, the league json is fetched to find it. When the league json already
+        holds that category's markets (DK's default category, usually game lines), it is returned directly
+        instead of making a second call.
+
+        Returns
+        -------
+        dict()
+            DraftKings category response, or {} if unavailable.
+        """
+        category = category.strip().lower()
+        league_id = self._get_league_id(sport, league)
+        if league_id is None:
+            return {}
+
+        known_before = (
+            known_ids.category_ids.get(league_id, {}).get(category) is not None
+            or self._discovered_category_ids.get(league_id, {}).get(category) is not None
+        )
+        cat_id = self._get_category_id(sport, league, category)
+        if cat_id is None:
+            return {}
+
+        if not known_before:
+            # The league json was just fetched to find the category id. Re-use it if it already is the category.
+            league_json = self._get_json_for_league(sport, league)
+            if self._response_is_category(league_json, cat_id):
+                return league_json
+
+        api_version = self._api_versions['groupVersion']
+        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/leagues/{league_id}/categories/{cat_id}"
+        data = self._call_api_cached(url, f'retrieve {league} {category}')
+        self._learn_from_response(league_id, data)
+        return data
+
+    @staticmethod
+    def _response_is_category(data, cat_id):
+        """True if every market in a league response belongs to the given category."""
+        markets = data.get('markets') or []
+        if not markets:
+            return False
+        subcat_to_cat = {x['id']: x['categoryId'] for x in data.get('subcategories', [])}
+        return all(subcat_to_cat.get(int(m.get('subcategoryId', -1))) == cat_id for m in markets)
+
+    def _get_events_for_league(self, sport, league):
+        """
+        Events for a league. Uses events learned from earlier responses this session when available, otherwise
+        fetches the league json (one api call).
+        """
+        league_id = self._get_league_id(sport, league)
+        if league_id is None:
+            return []
+        if not self._discovered_events.get(league_id):
+            self._get_json_for_league(sport, league)
+        return self._discovered_events.get(league_id, [])
+
     def _get_data_from_league_json(self, sport, league, key, return_full=False):
         """
-        This function is used to parse a league json file. A league json file is cached within a session and stored in 
-        self._cached_league_json. Each league has a default json file if queried with data such as 'events' and 
-        'markets'.
+        This function is used to parse a league json file. Each league has a default json file with data such
+        as 'events' and 'markets'.
 
         sport -> leagues -> each league has json file
 
@@ -348,7 +461,7 @@ class DkSportsbook():
         key : str()
             Each league json file has keys: 'events', 'markets', 'selections', 'categories', 'subcategories'
         return_full : bool, optional
-            If true, all the data in the requested key is returned unmodified, by default False. When false, 
+            If true, all the data in the requested key is returned unmodified, by default False. When false,
             the category is parsed for user friendly output.
 
         Returns
@@ -361,130 +474,105 @@ class DkSportsbook():
         key = key.lower()
 
         league_json = self._get_json_for_league(sport, league)
+        raw = league_json.get(key, [])
+        if return_full:
+            return raw
 
-        # test the key availability
-        try:
-            league_json[key]
-            if not return_full:
-                data = [x['name'].lower() for x in league_json[key]]
-            else:
-                return league_json[key]
-        except KeyError:
-            data = []
-            
+        data = [x['name'].strip().lower() for x in raw]
         if len(data) == 0:
             print(f"INFO: There are no '{key}' for {sport} - {league}.")
 
         return data
-    
-    def _find_game_by_team_from_events(self, sport, league, team):
-        events = self._get_data_from_league_json(sport, league, 'events', return_full=True)
-        found_game = [x for x in events if team.lower() in x['name'].lower()]
+
+    @staticmethod
+    def _find_game_by_team(events, league, team):
+        # DK lists more than one week of games, so a team can match several events. Earliest game first.
+        found_game = sorted([x for x in events if team.lower() in x['name'].lower()],
+                            key=lambda x: x.get('startEventDate', ''))
 
         if len(found_game) < 1:
-            print(f"""ERROR: Could not find '{team}' in available {league} events. Try api.get_available_betting_events() 
-                      to get valid input""")
+            print(f"ERROR: Could not find '{team}' in available {league} events. Try "
+                  f"api.get_available_betting_events() to get valid input")
             return None
-        
+
+        if len(found_game) > 1:
+            print(f"WARNING: '{team}' matched multiple {league} events: {[x['name'] for x in found_game]}. "
+                  f"Using '{found_game[0]['name']}'.")
+
         return found_game
-    
-    def _get_category_id_for_named_category(self, sport, league, named_category):
-        categories = self._get_data_from_league_json(sport, league, 'categories', return_full=True)
-        cat_id = self._get_category_id(categories, named_category)
-        if cat_id is None:
-            print(f"""ERROR: No {named_category} for {league} found at DK. Try api.get_available_betting_categories() 
-                  to see what is available on dk for {league}""")
-            return None
-        
-        return cat_id
-    
-    def _parse_gameline_selections_given_filters(self, event_id, markets, selections, team, filter_market, filter_team):
+
+    def _find_game_by_team_from_events(self, sport, league, team):
+        events = self._get_events_for_league(sport, league)
+        return self._find_game_by_team(events, league, team)
+
+    @staticmethod
+    def _filter_selections_to_event(data, event_id):
+        """Selections in a league/category response that belong to one event (no api call needed)."""
+        market_ids = {x['id'] for x in data.get('markets', []) if x['eventId'] == event_id}
+        return [x for x in data.get('selections', []) if x['marketId'] in market_ids]
+
+    @staticmethod
+    def _parse_gameline_selections_given_filters(event_id, markets, selections, team, filter_market, filter_team):
         """
-        Selections retrieved when searching by game lines are categorized by a market id which may 
-        not give enough information by itself (for example, for totals). Market id needs to be traced back to 
+        Selections retrieved when searching by game lines are categorized by a market id which may
+        not give enough information by itself (for example, for totals). Market id needs to be traced back to
         available markets in an event. This function takes care of this while also giving the option to filter by team.
 
         Parameters
         ----------
-        event_id : _type_
+        event_id : str()
             Provide the event id you are looking for within the selections data
-        markets : _type_
+        markets : list()
             The markets available in the dk data (returned in a dk call)
-        selections : _type_
+        selections : list()
             selections available in the dk data (returned in a dk call)
-        team : _type_
+        team : str()
             Provide a team name in conjunction with filter_team to filter by team
-        filter_market : _type_
+        filter_market : str()
             Provide a market type to filter by. If None, market is ignored
         filter_team : bool()
             Instruction to filter team or not
         """
+        market_names = {x['id']: x['name'] for x in markets if x['eventId'] == event_id}
         filtered_data = []
-        applicable_market_ids = [x['id'] for x in markets if x['eventId'] == event_id]
-        applicable_market_types = [x['name'] for x in markets if x['eventId'] == event_id]
         for selection in selections:
-            if selection['marketId'] in applicable_market_ids:
-                selection['marketType'] = applicable_market_types[applicable_market_ids.index(selection['marketId'])]
-                if filter_market is not None:
-                    if selection['marketType'].lower() == filter_market.lower():
-                        filtered_data.append(selection.copy())
-                else:
-                    filtered_data.append(selection.copy())
+            market_name = market_names.get(selection['marketId'])
+            if market_name is None:
+                continue
+            if filter_market is not None and market_name.lower() != filter_market.lower():
+                continue
+            selection = selection.copy()
+            selection['marketType'] = market_name
+            filtered_data.append(selection)
 
         if filter_team:
             filtered_data = [x for x in filtered_data if team.lower() in x['label'].lower()]
 
         return filtered_data
-    
-    def _parse_league_prop_selections_given_filters(self, league, category, prop_type_filter=None, game_filter=None):
-        selections = self.get_betting_selections_by_category('basketball', league, category)
 
-        game_filtered_selections = []
+    def _parse_league_prop_selections_given_filters(self, league, category, prop_type_filter=None, game_filter=None):
+        sport = self._major_league_to_sport_mapping(league)
+        if sport is None:
+            self._print_major_league_not_supported_message(league)
+            return []
+
+        data = self._get_category_data(sport, league, category)
+        if not data:
+            return []
+
         if game_filter is not None:
-            game = self._find_game_by_team_from_events('basketball', league, game_filter)
+            game = self._find_game_by_team(data.get('events', []), league, game_filter)
             if game is None:
                 return []
-            
-            event_name = game[0]['name']
-            players = self.get_player_data_by_event('basketball', league, event_name)
-            player_ids = [x['id'] for x in players]
-            for selection in selections:
-                try:
-                    test_id = selection['participants'][0]['id']
-                    if test_id in player_ids:
-                        game_filtered_selections.append(selection.copy())
-                        
-                except KeyError:
-                    pass
+            selections = self._filter_selections_to_event(data, game[0]['id'])
         else:
-            game_filtered_selections = selections
+            selections = data.get('selections', [])
 
         if prop_type_filter is not None:
             prop_type_filter = prop_type_filter.lower()
-            final_selections = [x for x in game_filtered_selections if prop_type_filter.lower() in 
-                                x['outcomeType'].lower()]
-        else:
-            final_selections = game_filtered_selections
-            
-        return final_selections
-    
-    def _build_league_url_for_category(self, sport, league, category_string):
-        # stuff for url
-        cat_id = self._get_category_id_for_named_category(sport, league, category_string)
-        league_id = self._get_league_id(sport, league)
+            selections = [x for x in selections if prop_type_filter in x.get('outcomeType', '').lower()]
 
-        # call the api
-        api_version = self._api_versions['groupVersion']
-        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/leagues/{league_id}/categories/{cat_id}"
-        
-        return url
-    
-    @staticmethod
-    def _get_category_id(categories_json, category):
-        try:
-            return [x['id'] for x in categories_json if category.lower() == x['name'].lower()][0]
-        except IndexError:
-            return None
+        return selections
 
     ############################
     # Discovery Methods
@@ -492,17 +580,19 @@ class DkSportsbook():
     def _get_event_market_data(self, event_id):
         api_version = self._api_versions['groupVersion']
         url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/events/{event_id}/categories"
-        data = self._call_api(url, f'get markets for {event_id}')
+        data = self._call_api_cached(url, f'get markets for {event_id}')
         return data
-    
+
     def get_available_leagues(self, sport):
         sport_id = self._get_sport_id(sport)
+        if sport_id is None:
+            return []
         league_data = self._get_league_data_for_sport(sport_id)
         return [x['name'].lower() for x in league_data['leagues']]
-    
+
     def get_supported_major_sport_leagues(self):
         """
-        This method returns a list of the leagues that are considered 'major sport leagues'. Many methods only 
+        This method returns a list of the leagues that are considered 'major sport leagues'. Many methods only
         work with these leagues.
 
         Returns
@@ -518,14 +608,14 @@ class DkSportsbook():
 
         categories = self._get_data_from_league_json(sport, league, 'categories')
         return categories
-    
+
     def get_available_betting_events(self, sport, league):
         if not self._check_valid_sport(sport):
             return []
-        
+
         events = self._get_data_from_league_json(sport, league, 'events')
         return events
-    
+
     def get_available_betting_markets(self, sport, league):
         if not self._check_valid_sport(sport):
             return []
@@ -533,80 +623,61 @@ class DkSportsbook():
         return lC.return_unique_values(markets)
 
     def get_betting_selections_by_category(self, sport, league, category):
-        category = category.lower()
-        league_json = self._get_json_for_league(sport, league)
-        available = self.get_available_betting_categories(sport, league)
-        if category not in available:
-            print(f"""ERROR: '{category}' is not available for '{league}'. Use function 
-                  get_available_betting_categories() to get valid input.""")
-            return []
-        
-        market_index = available.index(category)
-        league_id = self._get_league_id(sport, league)
-        cat_id = league_json['categories'][market_index]['id']
-        api_version = self._api_versions['groupVersion']
-        url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/leagues/{league_id}/categories/{cat_id}"
-        selections = self._call_api(url, f'retrieve selections for {league} {category}')['selections']
-        
-        return selections
-    
+        data = self._get_category_data(sport, league, category)
+        return data.get('selections', [])
+
     def get_event_data(self, sport, league, event):
         event = event.lower()
-        league_json = self._get_json_for_league(sport, league)
-        events = league_json['events']
-        for available in events:
+        for available in self._get_events_for_league(sport, league):
             if available['name'].lower() == event:
                 return available
 
-        print(f"""ERROR: '{event}' is not available for '{league}'. Use function 
-                  get_available_betting_events() to get valid input.""")
+        print(f"ERROR: '{event}' is not available for '{league}'. Use function "
+              f"get_available_betting_events() to get valid input.")
         return {}
-    
+
     def get_available_markets_by_event(self, sport, league, event):
         event_data = self.get_event_data(sport, league, event)
         if event_data == {}:
-            return {}
-        
-        event_id = event_data['id']
-        data = self._get_event_market_data(event_id)
-        return [x['name'] for x in data['markets']]
-    
+            return []
+
+        data = self._get_event_market_data(event_data['id'])
+        return [x['name'] for x in data.get('markets', [])]
+
     def get_betting_selections_by_event_market(self, sport, league, event, event_market):
         event_data = self.get_event_data(sport, league, event)
         if event_data == {}:
-            return {}
-        
-        event_id = event_data['id']
-        data = self._get_event_market_data(event_id)
-        matching_markets = [x['id'] for x in data['markets'] if x['name'].lower() == event_market]
+            return []
+
+        data = self._get_event_market_data(event_data['id'])
+        event_market = event_market.lower()
+        matching_markets = [x['id'] for x in data.get('markets', []) if x['name'].lower() == event_market]
 
         if len(matching_markets) < 1:
-            print(f"""ERROR: '{event_market}' is not available for '{event}'. Use function 
-                  get_available_markets_by_event() to get valid input.""")
-        
-        market_id = matching_markets[0]
+            print(f"ERROR: '{event_market}' is not available for '{event}'. Use function "
+                  f"get_available_markets_by_event() to get valid input.")
+            return []
 
-        selections = [x for x in data['selections'] if x['marketId'] == market_id]
-        return selections
-    
+        market_id = matching_markets[0]
+        return [x for x in data.get('selections', []) if x['marketId'] == market_id]
+
     def get_player_data_by_event(self, sport, league, event):
         event_data = self.get_event_data(sport, league, event)
         if event_data == {}:
-            return {}
-        
-        event_id = event_data['id']
-        data = self._get_event_market_data(event_id)
+            return []
+
+        data = self._get_event_market_data(event_data['id'])
 
         player_names = []
         player_data = []
-        for selection in data['selections']:
+        for selection in data.get('selections', []):
             try:
                 potential_player = selection['participants'][0]
                 if potential_player['type'] == 'Player':
                     if potential_player['name'] not in player_names:
                         player_names.append(potential_player['name'])
                         player_data.append({'name': potential_player['name'], 'id': potential_player['id']})
-            except KeyError:
+            except (KeyError, IndexError):
                 pass
 
         return player_data
@@ -614,21 +685,17 @@ class DkSportsbook():
     def get_player_data_by_id(self, player_id):
         api_version = self._api_versions['playerVersion']
         url = f"{self._player_url}/{api_version}/players/{player_id}"
-        data = self._call_api(url, f'get player odds {player_id}')
+        data = self._call_api_cached(url, f'get player odds {player_id}')
         return data
-    
+
 
     ############################
     # Core Betting Data Methods
     ############################
     def _major_league_to_sport_mapping(self, league):
         mapping = self._get_major_league_support_dict()
-        league = league.lower()
-        try:
-            return mapping[league]
-        except KeyError:
-            return None
-    
+        return mapping.get(league.lower())
+
     @staticmethod
     def _get_major_league_support_dict():
         return {
@@ -641,31 +708,48 @@ class DkSportsbook():
             "college basketball (w)": "basketball",
             "wnba": "basketball"
         }
-    
+
     def _print_major_league_not_supported_message(self, league):
         message = (
             f"ERROR: '{league}' is not supported by this method. "
             f"Supported leagues are: {list(self._get_major_league_support_dict().keys())}"
         )
         print(message)
-        
+
     def _build_sub_category_event_url(self, event_id, sub_cat):
         api_version = self._api_versions['groupVersion']
         url = f"{self._base_url}/sportscontent/{self.sportsbook}/{api_version}/events/{event_id}/categories/{sub_cat}"
         return url
-        
+
+    def _get_lines_for_game(self, league, team, category, filter_market, filter_team):
+        sport = self._major_league_to_sport_mapping(league)
+        if sport is None:
+            self._print_major_league_not_supported_message(league)
+            return []
+
+        data = self._get_category_data(sport, league, category)
+        if not data:
+            return []
+
+        found_game = self._find_game_by_team(data.get('events', []), league, team)
+        if found_game is None:
+            return []
+
+        return self._parse_gameline_selections_given_filters(found_game[0]['id'], data['markets'],
+                                                             data['selections'], team, filter_market, filter_team)
+
     def get_gamelines_for_league(self, league, filter_market=None):
         """
-        Use this method to retrieve all gamelines (spread, total, and moneyline) for every game in the specified 
-        league. This method works for all major sport leagues 
+        Use this method to retrieve all gamelines (spread, total, and moneyline) for every game in the specified
+        league. This method works for all major sport leagues
 
         Parameters
         ----------
         league : str()
-            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.). 
+            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.).
             Use api.get_supported_major_sport_leagues() for a complete list.
         filter_market : str(), optional
-            Use this parameter to return only certain gamelines, by default None. Valid options are: 'spread', 
+            Use this parameter to return only certain gamelines, by default None. Valid options are: 'spread',
             'total', and 'moneyline'.
 
         Returns
@@ -677,28 +761,24 @@ class DkSportsbook():
         if sport is None:
             self._print_major_league_not_supported_message(league)
             return []
-        
-        url = self._build_league_url_for_category(sport, league, 'game lines')
-        data = self._call_api(url, f'get game lines for {league}')
 
-        event_data = self._get_data_from_league_json(sport, league, 'events', return_full=True)
-        event_names = [x['name'] for x in event_data]
-        event_ids = [x['id'] for x in event_data]
+        data = self._get_category_data(sport, league, 'game lines')
+        if not data:
+            return []
 
         gamelines = []
-        for index, event_id in enumerate(event_ids):
-            event_name = event_names[index]
+        for event in data.get('events', []):
             applicable_selections = self._parse_gameline_selections_given_filters(
-                event_id, data['markets'], data['selections'], None, filter_market, None)
+                event['id'], data['markets'], data['selections'], None, filter_market, False)
             gamelines.append(
                 {
-                    "event": event_name,
+                    "event": event['name'],
                     "selections": applicable_selections
                 }
             )
-        
+
         return gamelines
-    
+
     def get_gamelines_for_game(self, league, team, filter_market=None, filter_team=False):
         """
         Use this method to retrieve all gamelines (spread, total, and moneylines) for a given game.
@@ -706,18 +786,18 @@ class DkSportsbook():
         Parameters
         ----------
         league : str()
-            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.). 
+            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.).
             Use api.get_supported_major_sport_leagues() for a complete list.
 
         team : str()
-            Use one team name playing in the game. For pro teams, you can use the nickname like "lions" for 
-            the detroit lions. For college teams, use the team name as displayed on draftkings. For example: 
+            Use one team name playing in the game. For pro teams, you can use the nickname like "lions" for
+            the detroit lions. For college teams, use the team name as displayed on draftkings. For example:
             'notre dame'.
         filter_market : str(), optional
-            Use this parameter to return only certain gamelines, by default None. Valid options are: 'spread', 
+            Use this parameter to return only certain gamelines, by default None. Valid options are: 'spread',
             'total', and 'moneyline'.
         filter_team : bool, optional
-            If True, the selections will only be applicable to the team provided, by default False and both team 
+            If True, the selections will only be applicable to the team provided, by default False and both team
             spreads and moneylines are returned in the list.
 
         Returns
@@ -725,30 +805,8 @@ class DkSportsbook():
         list()
             Gamelines for the specified game in list format.
         """
-        team = team.lower()
-        
-        sport = self._major_league_to_sport_mapping(league)
-        if sport is None:
-            self._print_major_league_not_supported_message(league)
-            return []
-        
-        # parse team
-        found_game = self._find_game_by_team_from_events(sport, league, team)
-        if found_game is None:
-            return []
+        return self._get_lines_for_game(league, team, 'game lines', filter_market, filter_team)
 
-        # call the api
-        url = self._build_league_url_for_category(sport, league, 'game lines')
-        game_lines = self._call_api(url, f'retrieve {league} game lines')
-
-        # parse the result
-        event_id = found_game[0]['id']
-        gameline_data = self._parse_gameline_selections_given_filters(event_id, game_lines['markets'], 
-                                                                      game_lines['selections'], 
-                                                                      team, filter_market, filter_team)
-
-        return gameline_data
-    
     def get_half_lines_for_game(self, league, team, filter_market=None, filter_team=False):
         """
         Use this method to retrieve all gamelines for halves (spread, total, and moneylines) for a given game.
@@ -756,17 +814,17 @@ class DkSportsbook():
         Parameters
         ----------
         league : str()
-            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.). 
+            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.).
             Use api.get_supported_major_sport_leagues() for a complete list.
         team : str()
-            Use one team name playing in the game. For pro teams, you can use the nickname like "lions" for 
-            the detroit lions. For college teams, use the team name as displayed on draftkings. For example: 
+            Use one team name playing in the game. For pro teams, you can use the nickname like "lions" for
+            the detroit lions. For college teams, use the team name as displayed on draftkings. For example:
             'notre dame'.
         filter_market : str(), optional
-            Use this parameter to return only certain gamelines, by default None. Valid options are: 'spread', 
+            Use this parameter to return only certain gamelines, by default None. Valid options are: 'spread',
             'total', and 'moneyline'.
         filter_team : bool, optional
-            If True, the selections will only be applicable to the team provided, by default False and both team 
+            If True, the selections will only be applicable to the team provided, by default False and both team
             spreads and moneylines are returned in the list.
 
         Returns
@@ -774,28 +832,7 @@ class DkSportsbook():
         list()
             Gamelines for halves for the specified game in list format.
         """
-
-        sport = self._major_league_to_sport_mapping(league)
-        if sport is None:
-            self._print_major_league_not_supported_message(league)
-            return []
-        
-        # parse team
-        found_game = self._find_game_by_team_from_events(sport, league, team)
-        if found_game is None:
-            return []
-        
-        # call the api
-        url = self._build_league_url_for_category(sport, league, 'halves')
-        half_lines = self._call_api(url, f'retrieve {league} half lines')
-        
-        # parse the result
-        event_id = found_game[0]['id']
-        half_line_data = self._parse_gameline_selections_given_filters(event_id, half_lines['markets'], 
-                                                                       half_lines['selections'], 
-                                                                       team, filter_market, filter_team)
-
-        return half_line_data
+        return self._get_lines_for_game(league, team, 'halves', filter_market, filter_team)
 
     def get_basic_touchdown_scorer_props(self, league, prop_type_filter=None, game_filter=None):
         """
@@ -807,10 +844,10 @@ class DkSportsbook():
         league : str()
             'nfl' or 'college football'
         prop_type_filter : str(), optional
-            Use this filter to return only the type of touchdown prop you want, by default None and all available 
+            Use this filter to return only the type of touchdown prop you want, by default None and all available
             selections are returned. Options are '2 or more', 'first', 'anytime'.
         game_filter : str(), optional
-            Use this filter to return only touchdown props for a given game, by default None and all available 
+            Use this filter to return only touchdown props for a given game, by default None and all available
             selections are returned. Input is one team name, for example: 'redskins'
 
         Returns
@@ -823,46 +860,21 @@ class DkSportsbook():
         if league != 'nfl' and league != 'college football':
             print("ERROR: league parameter must be 'college football' or 'nfl'")
             return []
-        
+
         if prop_type_filter is not None:
             prop_type_filter = prop_type_filter.lower()
-            if prop_type_filter != '2 or more' and prop_type_filter != 'first' and prop_type_filter != 'anytime':
+            if prop_type_filter not in ('2 or more', 'first', 'anytime'):
                 print(f"ERROR: {prop_type_filter} is not a valid input. Must be '2 or more', 'first', or 'anytime'")
                 return []
-        
-        selections = self.get_betting_selections_by_category('football', league, 'td scorers')
 
-        game_filtered_selections = []
-        if game_filter is not None:
-            game = self._find_game_by_team_from_events('football', league, game_filter)
-            if game is None:
-                return []
-            event_name = game[0]['name']
-            players = self.get_player_data_by_event('football', league, event_name)
-            player_ids = [x['id'] for x in players]
-            
-            for selection in selections:
-                try:
-                    test_id = selection['participants'][0]['id']
-                    if test_id in player_ids:
-                        game_filtered_selections.append(selection.copy())
-                except KeyError:
-                    pass
-        else:
-            game_filtered_selections = selections
-        
-        if prop_type_filter is not None:
-            final_selections = [x for x in game_filtered_selections if prop_type_filter.lower() in 
-                                x['outcomeType'].lower()]
-        else:
-            final_selections = game_filtered_selections
-        
-        return final_selections
-    
+        return self._parse_league_prop_selections_given_filters(league, 'td scorers',
+                                                                prop_type_filter=prop_type_filter,
+                                                                game_filter=game_filter)
+
     def get_all_touchdown_props_for_game(self, league, team):
         """
-        Use this method to get every prop listed under td scorers at draftkings. This includes all of the simple 
-        selections retrieved by api.get_basic_touchdown_scorer_props() + any additional bets draftking supports. 
+        Use this method to get every prop listed under td scorers at draftkings. This includes all of the simple
+        selections retrieved by api.get_basic_touchdown_scorer_props() + any additional bets draftking supports.
         Examples are: 'either player to score', 'either player first td', 'player 1 & player 2 4tds', 'either/or', etc.
 
         Parameters
@@ -870,8 +882,8 @@ class DkSportsbook():
         league : str()
             'nfl' or 'college football'
         team : str()
-            Use one team name playing in the game. For pro teams, you can use the nickname like "lions" for 
-            the detroit lions. For college teams, use the team name as displayed on draftkings. For example: 
+            Use one team name playing in the game. For pro teams, you can use the nickname like "lions" for
+            the detroit lions. For college teams, use the team name as displayed on draftkings. For example:
             'notre dame'.
 
         Returns
@@ -883,28 +895,27 @@ class DkSportsbook():
         if league != 'nfl' and league != 'college football':
             print("ERROR: league parameter must be 'college football' or 'nfl'")
             return []
-        
+
         game = self._find_game_by_team_from_events('football', league, team)
         if game is None:
             return []
-        cat_id = self._get_category_id_for_named_category('football', league, 'td scorers')
+        cat_id = self._get_category_id('football', league, 'td scorers')
+        if cat_id is None:
+            return []
         url = self._build_sub_category_event_url(game[0]['id'], cat_id)
-        data = self._call_api(url, f"getting td scorers for event: {game[0]['id']}")
+        data = self._call_api_cached(url, f"getting td scorers for event: {game[0]['id']}")
 
-        market_ids = [x['id'] for x in data['markets']]
-        market_names = [x['name'] for x in data['markets']]
-        
+        market_names = {x['id']: x['name'] for x in data.get('markets', [])}
+
         props = []
-        for selection in data['selections']:
-            market_index = market_ids.index(selection['marketId'])
-            market_name = market_names[market_index]
+        for selection in data.get('selections', []):
             props.append({
-                "name": market_name,
+                "name": market_names.get(selection['marketId']),
                 "selection": selection.copy()
             })
-        
+
         return props
-    
+
     def get_spread_for_team(self, league, team):
         """
         Use this method to return a simple dict containing the spread and the spread odds.
@@ -912,11 +923,11 @@ class DkSportsbook():
         Parameters
         ----------
         league : str()
-            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.). 
+            The major sports league you want lines for. ('nfl', 'college football', 'college basketball (m), etc.).
             Use api.get_supported_major_sport_leagues() for a complete list.
         team : str()
-            Use the team you want the spread for. For pro teams, you can use the nickname like "lions" for 
-            the detroit lions. For college teams, use the team name as displayed on draftkings. For example: 
+            Use the team you want the spread for. For pro teams, you can use the nickname like "lions" for
+            the detroit lions. For college teams, use the team name as displayed on draftkings. For example:
             'notre dame'.
 
         Returns
@@ -924,114 +935,44 @@ class DkSportsbook():
         dict()
             Dict with keys 'spread' and 'odds' for the specied team.
         """
-        sport = self._major_league_to_sport_mapping(league)
-        if sport is None:
-            self._print_major_league_not_supported_message(league)
-            return []
-        
-        result = self.get_gamelines_for_game(league, team, filter_market='spread', filter_team=team)
+        result = self.get_gamelines_for_game(league, team, filter_market='spread', filter_team=True)
         if len(result) > 0:
-            spread = result[0]['points']
-            odds = result[0]['displayOdds']
             return {
-                'spread': spread,
-                'odds': odds
+                'spread': result[0]['points'],
+                'odds': result[0]['displayOdds']
             }
         else:
             return {}
 
-    def get_player_three_props(self, league='college basketball (m)', game_filter=None):
-        if league.lower() != 'college basketball (m)' and league != "nba":
-            print("ERROR: league parameter must be 'college basketball (m)', NBA not supported yet")
+    def _get_basketball_player_props(self, league, category, game_filter):
+        if league.lower() not in ('college basketball (m)', 'nba'):
+            print("ERROR: league parameter must be 'college basketball (m)' or 'nba'")
             return []
-        
-        filtered_selections = self._parse_league_prop_selections_given_filters(league, 
-                                                                               'player threes', 
-                                                                               prop_type_filter=None, 
+
+        filtered_selections = self._parse_league_prop_selections_given_filters(league,
+                                                                               category,
+                                                                               prop_type_filter=None,
                                                                                game_filter=game_filter)
         final_selections = []
         for prop in filtered_selections:
-            player = prop['participants'][0]['name']
-            threes = prop['label']
-            odds = prop['displayOdds'].copy()
             final_selections.append(
                 {
-                    "player": player,
-                    "line": threes,
-                    "odds": odds
+                    "player": prop['participants'][0]['name'],
+                    "line": prop['label'],
+                    "odds": prop['displayOdds'].copy()
                 }
             )
-        
-        return final_selections
-    
-    def get_player_points_props(self, league='college basketball (m)', game_filter=None):
-        if league.lower() != 'college basketball (m)' and league != "nba":
-            print("ERROR: league parameter must be 'college basketball (m)', NBA not supported yet")
-            return []
-        
-        filtered_selections = self._parse_league_prop_selections_given_filters(league, 
-                                                                               'player points', 
-                                                                               prop_type_filter=None, 
-                                                                               game_filter=game_filter)
-        final_selections = []
-        for prop in filtered_selections:
-            player = prop['participants'][0]['name']
-            threes = prop['label']
-            odds = prop['displayOdds'].copy()
-            final_selections.append(
-                {
-                    "player": player,
-                    "line": threes,
-                    "odds": odds
-                }
-            )
-        
+
         return final_selections
 
+    def get_player_three_props(self, league='college basketball (m)', game_filter=None):
+        return self._get_basketball_player_props(league, 'player threes', game_filter)
+
+    def get_player_points_props(self, league='college basketball (m)', game_filter=None):
+        return self._get_basketball_player_props(league, 'player points', game_filter)
+
     def get_player_assists_props(self, league='college basketball (m)', game_filter=None):
-        if league.lower() != 'college basketball (m)' and league != "nba":
-            print("ERROR: league parameter must be 'college basketball (m)', NBA not supported yet")
-            return []
-        
-        filtered_selections = self._parse_league_prop_selections_given_filters(league, 
-                                                                               'player assists', 
-                                                                               prop_type_filter=None, 
-                                                                               game_filter=game_filter)
-        final_selections = []
-        for prop in filtered_selections:
-            player = prop['participants'][0]['name']
-            threes = prop['label']
-            odds = prop['displayOdds'].copy()
-            final_selections.append(
-                {
-                    "player": player,
-                    "line": threes,
-                    "odds": odds
-                }
-            )
-        
-        return final_selections
-    
+        return self._get_basketball_player_props(league, 'player assists', game_filter)
+
     def get_player_rebound_props(self, league='college basketball (m)', game_filter=None):
-        if league.lower() != 'college basketball (m)' and league != "nba":
-            print("ERROR: league parameter must be 'college basketball (m)', NBA not supported yet")
-            return []
-        
-        filtered_selections = self._parse_league_prop_selections_given_filters(league, 
-                                                                               'player rebounds', 
-                                                                               prop_type_filter=None, 
-                                                                               game_filter=game_filter)
-        final_selections = []
-        for prop in filtered_selections:
-            player = prop['participants'][0]['name']
-            threes = prop['label']
-            odds = prop['displayOdds'].copy()
-            final_selections.append(
-                {
-                    "player": player,
-                    "line": threes,
-                    "odds": odds
-                }
-            )
-        
-        return final_selections
+        return self._get_basketball_player_props(league, 'player rebounds', game_filter)
