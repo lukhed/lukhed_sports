@@ -44,7 +44,7 @@ class DkSportsbook():
             Set to 0 to always call the api.
         block_cooldown : float, optional
             After DraftKings blocks a call (HTTP 403/429), no further calls are made for this many seconds,
-            by default 300. Calling into a block tends to extend it.
+            by default 300. Calling into a block is unlikely to help and may prolong it.
         calibration_source : str, optional
             Where DraftKings ids and api versions come from, by default 'github': the latest calibration file in
             the lukhed_sports repo (one quick call to GitHub, not DraftKings), falling back to the copy bundled with
@@ -165,7 +165,7 @@ class DkSportsbook():
 
             if response is not None:
                 if response.status_code in (403, 429):
-                    # Blocked or rate limited. Retrying quickly only extends the block, so pause all calls.
+                    # Blocked or rate limited. Retrying quickly is unlikely to help and may prolong it, so pause all calls.
                     self._blocked_until = time.monotonic() + self.block_cooldown
                     print(f"ERROR: DraftKings returned {response.status_code} (access denied / rate limited). "
                           f"Pausing calls for {self.block_cooldown}s. Increase api_delay or make fewer calls.")

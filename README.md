@@ -17,9 +17,10 @@ pip install lukhed-sports
 Access live data from DraftKings Sportsbook via their (non-public) API. Quick start information below. This class is 
 still a work in progress.
 
-**Call efficiency:** DraftKings can block clients (HTTP 403) that make too many calls. The class keeps calls low: 
-known sport, league and category ids are built in, most methods make a single call, and responses are re-used for 
-60 seconds. After a 403 the class pauses all calls for 5 minutes instead of calling into the block.
+**Rate limiting:** DraftKings doesn't publish its limits, and it sometimes blocks scripted clients with HTTP 403, 
+most often after bursts of calls. The class keeps calls low: known sport, league and category ids are built in, most 
+methods make a single call, and responses are re-used for 60 seconds. After a 403 the class pauses all calls for 
+5 minutes (`block_cooldown`) instead of calling into the block. If you're blocked, waiting a while usually clears it.
 
 ### Table of Contents
 - [Instantiation](#instantiation)
