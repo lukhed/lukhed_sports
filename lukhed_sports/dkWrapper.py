@@ -9,7 +9,7 @@ from lukhed_sports.calibrations.dk import api_versions
 from lukhed_sports.calibrations.dk import known_ids
 
 class DkSportsbook():
-    def __init__(self, api_delay=2, use_local_cache=True, reset_cache=False, retry_delay=5, timeout=10,
+    def __init__(self, api_delay=0.5, use_local_cache=True, reset_cache=False, retry_delay=5, timeout=10,
                  response_cache_seconds=60, block_cooldown=300):
         """
         A wrapper class for accessing DraftKings Sportsbook API data.
@@ -25,8 +25,9 @@ class DkSportsbook():
         Parameters
         ----------
         api_delay : float, optional
-            Minimum delay between API calls in seconds, by default 2. DraftKings rate limits (HTTP 403)
-            bursts of calls, so lowering this is not recommended.
+            Minimum delay between consecutive API calls in seconds, by default 0.5. DraftKings rate limits (HTTP 403)
+            on the total number of calls in a time window, which the class keeps low (usually one call per
+            method), so this delay rarely comes into play.
         use_local_cache : bool, optional
             Whether to cache reference API responses (sport list, league list, etc.) locally, by default True
             Note: use reset cache if the data is very stale (sports or leagues change over time)
