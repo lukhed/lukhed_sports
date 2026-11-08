@@ -24,6 +24,7 @@ ROUTES = {
     f"{CONTENT}/leagues/88808": 'nfl_league',
     f"{CONTENT}/leagues/88808/categories/492": 'nfl_game_lines',
     f"{CONTENT}/leagues/88808/categories/1003": 'nfl_td_scorers',
+    f"{CONTENT}/leagues/92483/categories/487": 'cbb_game_lines',
 }
 
 
@@ -70,6 +71,15 @@ class TestCallCounts(DkTestCase):
         lines = self.dk.get_gamelines_for_game('nfl', 'saints')
         self.assertEqual(len(self.calls), 1)
         self.assertEqual(len(lines), 6)  # 2 moneyline + 2 spread + 2 total
+
+    def test_college_basketball_gamelines_is_one_call(self):
+        lines = self.dk.get_gamelines_for_game('college basketball (m)', 'iona')
+        self.assertEqual(self.calls, [f"{CONTENT}/leagues/92483/categories/487"])
+        self.assertEqual(len(lines), 6)
+
+    def test_every_supported_league_has_known_league_id(self):
+        for league, sport in self.dk._get_major_league_support_dict().items():
+            self.assertIn((sport, league), known_ids.league_ids, league)
 
     def test_repeated_calls_reuse_response(self):
         self.dk.get_spread_for_team('nfl', 'saints')
